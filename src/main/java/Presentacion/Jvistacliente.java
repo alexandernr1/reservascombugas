@@ -185,14 +185,17 @@ public final class Jvistacliente extends javax.swing.JFrame {
             String cod;
             String valor;
             String telefono;
+            String docu;
 
             cod = tablalistado.getValueAt(fila, 0).toString();
             valor = tablalistado.getValueAt(fila, 1).toString() + " " + tablalistado.getValueAt(fila, 2).toString();
             telefono = tablalistado.getValueAt(fila, 6).toString();
-
+            docu = tablalistado.getValueAt(fila, 4).toString();
+            
             Jingreso.txtidcliente.setText(cod);
             Jingreso.txtcliente.setText(valor);
             Jingreso.txttelefono.setText(telefono);
+            Jingreso.txtnumdocumento.setText(docu);
 
             this.dispose();
 

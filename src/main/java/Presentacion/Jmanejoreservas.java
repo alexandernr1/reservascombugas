@@ -865,8 +865,8 @@ public final class Jmanejoreservas extends javax.swing.JFrame {
         Freserva func = new Freserva();
 
         dts.setIdhabitacion(Integer.parseInt(txtidhabitacion.getText()));
-       dts.setIdcliente(Integer.parseInt(txtidcliente.getText()));
-        dts.setIdempleado(idusuario);
+        dts.setIdcliente(Integer.parseInt(txtidcliente.getText()));
+        dts.setIdempleado(Integer.parseInt(txtidempleado.getText()));
 
         int seleccionado = comtiporeserva.getSelectedIndex();
         dts.setTiporeserva((String) comtiporeserva.getItemAt(seleccionado));
@@ -976,7 +976,7 @@ public final class Jmanejoreservas extends javax.swing.JFrame {
     private void tablalistadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablalistadoMouseClicked
 
         btnguardar.setText("Editar");
-        habilitar();
+//        habilitar();
         btneliminar.setEnabled(true);
         accion = "editar";
 

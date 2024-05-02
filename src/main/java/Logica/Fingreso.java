@@ -56,6 +56,7 @@ public class Fingreso {
                 registro[10] = rs.getString("costoalojamiento");
                 registro[11] = rs.getString("motivo_viaje");
                 registro[12] = rs.getString("estado");
+               
 
                 totalregistros = totalregistros + 1;
                 modelo.addRow(registro);
@@ -72,16 +73,17 @@ public class Fingreso {
 
     public boolean insertar(Dingreso dts) {
         sSQL = "INSERT INTO ingreso (idhabitacion, idcliente, fecha_hora_ingreso, num_personas, tipo_cliente, costoalojamiento, motivo_viaje,estado)"
-                + " VALUES (?, ?, ?, ?, ?, ?, ?,?)";
+                + " VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try ( PreparedStatement pst = cn.prepareStatement(sSQL)) {
             pst.setInt(1, dts.getIdhabitacion());
             pst.setInt(2, dts.getIdcliente());
-            pst.setDate(3, dts.getFecha_hora_ingreso());
+            pst.setString(3, dts.getFecha_hora_ingreso());
             pst.setInt(4, dts.getNum_personas());
             pst.setString(5, dts.getTipo_cliente());
             pst.setDouble(6, dts.getCostoalojamiento());
             pst.setString(7, dts.getMotivo_viaje());
             pst.setString(8, dts.getEstado());
+            
 
             int n = pst.executeUpdate();
             // JOptionPane.showMessageDialog(null, "DATOS ALMACENADOS CORRECTAMENTE");
@@ -119,14 +121,15 @@ public class Fingreso {
             PreparedStatement pst = cn.prepareStatement(sSQL);
             pst.setInt(1, dts.getIdhabitacion());
             pst.setInt(2, dts.getIdcliente());
-            pst.setDate(3, dts.getFecha_hora_ingreso());
+            pst.setString(3, dts.getFecha_hora_ingreso());
             pst.setInt(4, dts.getNum_personas());
             pst.setString(5, dts.getTipo_cliente());
             pst.setDouble(6, dts.getCostoalojamiento());
             pst.setString(7, dts.getMotivo_viaje());
             pst.setString(8, dts.getEstado());
+           
 
-            pst.setInt(9, dts.getIdingreso());
+            pst.setInt(10, dts.getIdingreso());
 
             int n = pst.executeUpdate();
 
@@ -138,20 +141,5 @@ public class Fingreso {
         }
     }
 
-    public boolean pagar(Dingreso dts) {
-        sSQL = "update ingreso set estado = 'pagada'" + "where idingreso=?";
-
-        try {
-            PreparedStatement pst = cn.prepareStatement(sSQL);
-            pst.setInt(1, dts.getIdingreso());
-
-            int n = pst.executeUpdate();
-
-            return n != 0;
-        } catch (SQLException e) {
-            JOptionPane.showConfirmDialog(null, e);
-        }
-        return false;
-
-    }
+   
 }

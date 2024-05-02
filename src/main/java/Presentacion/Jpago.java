@@ -576,7 +576,7 @@ public final class Jpago extends javax.swing.JFrame {
         Dpago dts = new Dpago();
         Fpago func = new Fpago();
 
-        dts.setIdingreso(Integer.parseInt(txtidingreso.getText()));
+//        dts.setIdingreso(Integer.parseInt(txtidingreso.getText()));
 
         int seleccionado = cbotipocomprobante.getSelectedIndex();
         dts.setTipocomprobante((String) cbotipocomprobante.getItemAt(seleccionado));

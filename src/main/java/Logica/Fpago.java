@@ -15,21 +15,21 @@ public class Fpago {
     private final Cconexion mysql = new Cconexion();
     private final Connection cn = mysql.establecerConexion();
     private String sSQL = "";
-    private final String sSQL2 = "";
+//    private final String sSQL2 = "";
     
     public Integer totalregistros;
 
     public DefaultTableModel mostrar(String buscar) {
         DefaultTableModel modelo;
 
-        String[] titulos = {"ID", "Idingreso", "tipoComprobante", "Númerocomprobante", "Totalpago", "FechaEmisión", "FechaPago", "formapago"};
+        String[] titulos = {"ID", "Idsalida", "tipoComprobante", "Númerocomprobante", "Totalpago", "FechaEmisión", "FechaPago", "formapago"};
 
         String[] registro = new String[8];
 
         totalregistros = 0;
         modelo = new DefaultTableModel(null, titulos);
 
-        sSQL = "SELECT * from pago where idingreso=" + buscar + " order by idpago desc";
+        sSQL = "SELECT * from pago where idsalida=" + buscar + " order by idpago desc";
 
         try {
             Statement st = cn.createStatement();
@@ -37,7 +37,7 @@ public class Fpago {
 
             while (rs.next()) {
                 registro[0] = rs.getString("idpago");
-                registro[1] = rs.getString("idingreso");
+                registro[1] = rs.getString("idsalida");
                 registro[2] = rs.getString("tipocomprobante");
                 registro[3] = rs.getString("numcomprobante");
                 registro[4] = rs.getString("totalpago");
@@ -59,12 +59,12 @@ public class Fpago {
     }
 
     public boolean insertar(Dpago dts) {
-        sSQL = "INSERT INTO pago (idingreso,tipocomprobante,numcomprobante,totalpago,fechaemision,fechapago,formapago)"
+        sSQL = "INSERT INTO pago (idsalida,tipocomprobante,numcomprobante,totalpago,fechaemision,fechapago,formapago)"
                 + "values (?,?,?,?,?,?,?)";
         try {
 
             PreparedStatement pst = cn.prepareStatement(sSQL);
-            pst.setInt(1, dts.getIdingreso());
+            pst.setInt(1, dts.getIdsalida());
             pst.setString(2, dts.getTipocomprobante());
             pst.setString(3, dts.getNumcomprobante());
             pst.setDouble(4, dts.getTotalpago());
@@ -83,12 +83,12 @@ public class Fpago {
     }
 
     public boolean editar(Dpago dts) {
-        sSQL = "UPDATE pago set idingreso=?,tipocomprobante=?,numcomprobante=?,totalpago=?,fechaemision=?,fechapago=?,formapago=0"
+        sSQL = "UPDATE pago set idsalida=?,tipocomprobante=?,numcomprobante=?,totalpago=?,fechaemision=?,fechapago=?,formapago=0"
                 + " where idpago=?";
 
         try {
             PreparedStatement pst = cn.prepareStatement(sSQL);
-            pst.setInt(1, dts.getIdingreso());
+            pst.setInt(1, dts.getIdsalida());
             pst.setString(2, dts.getTipocomprobante());
             pst.setString(3, dts.getNumcomprobante());
             pst.setDouble(4, dts.getTotalpago());
@@ -142,6 +142,22 @@ public class Fpago {
 
     return ultimoNumeroComprobante;
 }
+     public boolean pagar(Dpago dts) {
+        sSQL = "update ingreso set estado = 'pagada'" + "where idingreso=?";
+
+        try {
+            PreparedStatement pst = cn.prepareStatement(sSQL);
+            pst.setInt(1, dts.getIdpago());
+
+            int n = pst.executeUpdate();
+
+            return n != 0;
+        } catch (SQLException e) {
+            JOptionPane.showConfirmDialog(null, e);
+        }
+        return false;
+
+    }
 
 
 }

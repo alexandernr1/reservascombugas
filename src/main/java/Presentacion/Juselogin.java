@@ -11,34 +11,41 @@ import javax.swing.table.DefaultTableModel;
 
 public class Juselogin extends javax.swing.JFrame {
 
-     Tiempopro time = new Tiempopro();
+    Tiempopro time = new Tiempopro();
 
     public Juselogin() {
         initComponents();
         setLocationRelativeTo(null);
         this.setTitle("ACCESO AL SISTEMA");
         this.setLocationRelativeTo(null);
-         mostrarTiempo();
+        mostrarTiempo();
         fechacbo();
-        
-    }
- public void fechacbo() {
-     
-      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        String fechaActual = LocalDate.now().format(formatter);
-     cboturnos.addItem("Turno 1"+" "+ fechaActual);
-     cboturnos.addItem("Turno 2"+" "+ fechaActual);
-     cboturnos.addItem("Turno 3"+" "+ fechaActual);
- 
-    }
-   private void mostrarTiempo() {
 
-        txtfechahorainicio.setText(time.fechacomp +" "+time.horacomp);
-   }
- public  String obtenerTextoFechahorainicio(String txtfechahorainicio) {
-    return txtfechahorainicio;
-}
- 
+    }
+
+    private void fechacbo() {
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String fechaActual = LocalDate.now().format(formatter);
+        cboturnos.addItem("Turno 1" + " " + fechaActual);
+        cboturnos.addItem("Turno 2" + " " + fechaActual);
+        cboturnos.addItem("Turno 3" + " " + fechaActual);
+
+    }
+
+    private void mostrarTiempo() {
+
+        txtfechahorainicio.setText(time.fechacomp + " " + time.horacomp);
+    }
+//    public void finalizarTurno() {
+//        this.setVisible(false); // Oculta el formulario
+//        this.dispose(); // Libera los recursos
+//    }
+
+    public String obtenerTextoFechahorainicio(String txtfechahorainicio) {
+        return txtfechahorainicio;
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

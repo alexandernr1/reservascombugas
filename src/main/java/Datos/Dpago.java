@@ -5,7 +5,7 @@ import java.sql.Date;
 public class Dpago {
 
     private int idpago;
-    private int idingreso;
+    private int idsalida;
     private String tipocomprobante;
     private String numcomprobante;
     private Double totalpago;
@@ -16,9 +16,9 @@ public class Dpago {
     public Dpago() {
     }
 
-    public Dpago(int idpago, int idingreso, String tipocomprobante, String numcomprobante, Double totalpago, Date fechaemision, Date fechapago, String formapago) {
+    public Dpago(int idpago, int idsalida, String tipocomprobante, String numcomprobante, Double totalpago, Date fechaemision, Date fechapago, String formapago) {
         this.idpago = idpago;
-        this.idingreso = idingreso;
+        this.idsalida = idsalida;
         this.tipocomprobante = tipocomprobante;
         this.numcomprobante = numcomprobante;
         this.totalpago = totalpago;
@@ -35,12 +35,12 @@ public class Dpago {
         this.idpago = idpago;
     }
 
-    public int getIdingreso() {
-        return idingreso;
+    public int getIdsalida() {
+        return idsalida;
     }
 
-    public void setIdingreso(int idingreso) {
-        this.idingreso = idingreso;
+    public void setIdsalida(int idsalida) {
+        this.idsalida = idsalida;
     }
 
     public String getTipocomprobante() {

@@ -32,7 +32,7 @@ public class Fhabitacion {
        totalregistros=0;
        modelo = new DefaultTableModel(null,titulos);
        
-       sSQL="select * from habitacion where piso like '%"+ buscar + "%' order by idhabitacion";
+       sSQL="select * from habitacion where numero like '%"+ buscar + "%' order by idhabitacion";
        
        try {
            Statement st= cn.createStatement();

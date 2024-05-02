@@ -11,17 +11,18 @@ public class Dingreso {
     public int idingreso;
     public int idhabitacion;
     public int idcliente;
-    public Date fecha_hora_ingreso;
+    public String fecha_hora_ingreso;
     public int num_personas;
     public String tipo_cliente;
     public Double costoalojamiento;
     public String motivo_viaje;
     public String estado;
+//    public int numnoches;
 
     public Dingreso() {
     }
 
-    public Dingreso(int idingreso, int idhabitacion, int idcliente, Date fecha_hora_ingreso, int num_personas, String tipo_cliente, Double costoalojamiento, String motivo_viaje, String estado) {
+    public Dingreso(int idingreso, int idhabitacion, int idcliente, String fecha_hora_ingreso, int num_personas, String tipo_cliente, Double costoalojamiento, String motivo_viaje, String estado) {
         this.idingreso = idingreso;
         this.idhabitacion = idhabitacion;
         this.idcliente = idcliente;
@@ -31,7 +32,7 @@ public class Dingreso {
         this.costoalojamiento = costoalojamiento;
         this.motivo_viaje = motivo_viaje;
         this.estado = estado;
-        
+//        this.numnoches = numnoches;
     }
 
     public int getIdingreso() {
@@ -58,11 +59,11 @@ public class Dingreso {
         this.idcliente = idcliente;
     }
 
-    public Date getFecha_hora_ingreso() {
+    public String getFecha_hora_ingreso() {
         return fecha_hora_ingreso;
     }
 
-    public void setFecha_hora_ingreso(Date fecha_hora_ingreso) {
+    public void setFecha_hora_ingreso(String fecha_hora_ingreso) {
         this.fecha_hora_ingreso = fecha_hora_ingreso;
     }
 
@@ -105,6 +106,14 @@ public class Dingreso {
     public void setEstado(String estado) {
         this.estado = estado;
     }
+
+//    public int getNumnoches() {
+//        return numnoches;
+//    }
+//
+//    public void setNumnoches(int numnoches) {
+//        this.numnoches = numnoches;
+//    }
 
     
 

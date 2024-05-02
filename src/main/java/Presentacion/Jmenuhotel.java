@@ -8,6 +8,9 @@ public final class Jmenuhotel extends javax.swing.JFrame {
     private String nombres;
     private String apellidos;
     private String acceso;
+    private Boolean sesionIniciada = false;
+    private Juselogin Jturnos = null;
+    private LoguinDeAdmin Javanzado;
 
     public Jmenuhotel(String idpersona, String nombres, String apellidos, String acceso) {
 
@@ -30,10 +33,16 @@ public final class Jmenuhotel extends javax.swing.JFrame {
 
     static void inhabilitar() {
         lblidpersona.setVisible(false);
-        lblacceso.setVisible(false); 
-        
+        lblacceso.setVisible(false);
+
     }
 
+//    public void cerrarTurno() {
+//        if (Jturnos != null) {
+//            Jturnos.finalizarTurno();
+//            sesionIniciada = false; // Reinicia la variable de control
+//        }
+//    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -278,7 +287,9 @@ public final class Jmenuhotel extends javax.swing.JFrame {
     private void btnsalidahuespedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsalidahuespedActionPerformed
 
         new Jsalidahuesped().setVisible(true);
-
+        Jsalidahuesped.txtidempleado.setText(lblidpersona.getText());
+        Jsalidahuesped.txtempleado.setText(lblnombres.getText() + " " + lblapellidos.getText());
+        Jsalidahuesped.idusuario = Integer.parseInt(lblidpersona.getText());
     }//GEN-LAST:event_btnsalidahuespedActionPerformed
 
     private void btnregistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregistroActionPerformed
@@ -319,8 +330,14 @@ public final class Jmenuhotel extends javax.swing.JFrame {
     }//GEN-LAST:event_btnpagosActionPerformed
 
     private void btnavanzadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnavanzadoActionPerformed
+        
+            Javanzado = new LoguinDeAdmin();
+            Javanzado.toFront();
+            Javanzado.setVisible(true);
 
-        new Javanzado().setVisible(true);
+            sesionIniciada = true;
+         
+//        new Javanzado().setVisible(true);
     }//GEN-LAST:event_btnavanzadoActionPerformed
 
     private void btnlistaesperaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlistaesperaActionPerformed
@@ -328,20 +345,17 @@ public final class Jmenuhotel extends javax.swing.JFrame {
     }//GEN-LAST:event_btnlistaesperaActionPerformed
 
     private void btncambioturnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncambioturnoActionPerformed
-        // new Jturnos().setVisible(true);
-        Boolean sesionIniciada = false;
-        if (!sesionIniciada) {
-            Juselogin jturnos = new Juselogin();
 
-//        Jturnos form = new Jturnos();
-            jturnos.toFront();
-            jturnos.setVisible(true);
-//            Jturnos.txtidempleado.setText(lblidpersona.getText());
-//            Jturnos.txtempleado.setText(lblnombres.getText() + " " + lblapellidos.getText());
-//            Jturnos.idusuario = Integer.parseInt(lblidpersona.getText());
+        if (!sesionIniciada) {
+            Jturnos = new Juselogin();
+            Jturnos.toFront();
+            Jturnos.setVisible(true);
 
             sesionIniciada = true;
-        }
+        } 
+        
+
+//        cerrarTurno();
 
     }//GEN-LAST:event_btncambioturnoActionPerformed
 
