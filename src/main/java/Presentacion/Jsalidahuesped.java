@@ -11,7 +11,12 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
+import java.util.Locale;
+import java.util.concurrent.atomic.AtomicInteger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -26,30 +31,38 @@ public class Jsalidahuesped extends javax.swing.JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mostrarTiempo();
         inhabilitar();
+        GeneradorComprobante generador = new GeneradorComprobante();
+
+        // Generar el número de comprobante y establecerlo en el campo de texto
+        String numeroComprobante = generador.generarNumeroComprobante();
+        txtnum_comprobante.setText(numeroComprobante);
     }
     public static int idusuario;
-     private String accion = "guardar";
+    private String accion = "guardar";
 
     private void mostrarTiempo() {
 
-        txtfecha_hora_salida.setText(time.fechacomp + "  " + time.horacomp);
+        txtfecha_hora_salida.setText(time.getFechacomp() + " " + time.getHoracomp());
     }
 
-    public void NuevoCostoAlojamiento() {
-        int numNoches = Integer.parseInt(txtnumnoches.getText());
-// Obtener el número de noches desde algún componente de tu interfaz
-        double costoAlojamiento = Double.parseDouble(txtcostoalojamiento.getText());
-// Obtener el costo del alojamiento desde algún componente de tu interfaz
+    public class GeneradorComprobante {
 
-        double nuevoCostoAlojamiento = costoAlojamiento * numNoches;
-// Actualizar el valor del costo del alojamiento en algún componente de tu interfaz
-        txtvalor_noches.setText(String.valueOf(nuevoCostoAlojamiento));
+        private static final AtomicInteger contador = new AtomicInteger(1);
+
+        public String generarNumeroComprobante() {
+            int numeroComprobante = contador.getAndIncrement();
+            return String.format("COMP-%04d", numeroComprobante); // Formato COMP-0001, COMP-0002, etc.
+        }
+
     }
 
     void inhabilitar() {
-//        txtidingreso.setVisible(false);
-//        txtidabono.setVisible(false);
-//        txtidsalida.setVisible(false);
+        txtidingreso.setVisible(false);
+        txtidabono.setVisible(false);
+        txtidsalida.setVisible(false);
+        txtidempleado.setVisible(false);
+        txtidhabitacion.setVisible(false);
+        txtidcliente.setVisible(false);
 
     }
 
@@ -155,7 +168,7 @@ public class Jsalidahuesped extends javax.swing.JFrame {
         });
 
         jLabel9.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
-        jLabel9.setText("Cobro extra");
+        jLabel9.setText("Cobro extra:");
 
         txtdescuentos.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
 
@@ -167,7 +180,7 @@ public class Jsalidahuesped extends javax.swing.JFrame {
         jLabel16.setText("Otros cobros:");
 
         jLabel17.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
-        jLabel17.setText("Forma de pago ");
+        jLabel17.setText("Forma de pago:");
 
         cboformapago.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         cboformapago.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Efectivo", "Tarjeta debito/credito", "Transferencia ", " ", " " }));
@@ -425,6 +438,7 @@ public class Jsalidahuesped extends javax.swing.JFrame {
             }
         });
 
+        jButton6.setBackground(new java.awt.Color(153, 153, 153));
         jButton6.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         jButton6.setText("SALIDA");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -488,7 +502,9 @@ public class Jsalidahuesped extends javax.swing.JFrame {
             }
         });
 
-        btnrealizarpagos.setText("Realizar Pagos");
+        btnrealizarpagos.setBackground(new java.awt.Color(153, 153, 153));
+        btnrealizarpagos.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        btnrealizarpagos.setText("REALIZAR PAGOS");
         btnrealizarpagos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnrealizarpagosActionPerformed(evt);
@@ -615,11 +631,11 @@ public class Jsalidahuesped extends javax.swing.JFrame {
                     .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(buscar)
                         .addComponent(Cajabuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel22))
+                        .addComponent(jLabel22)
+                        .addComponent(txtnumnoches, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jLayeredPane1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtnumnoches, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtidempleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtidabono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(12, 12, 12)
@@ -703,35 +719,18 @@ public class Jsalidahuesped extends javax.swing.JFrame {
     }//GEN-LAST:event_txtfecha_hora_ingresoActionPerformed
 
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
-        Cconexion conexion = new Cconexion();
 
         try {
-            Connection conectar = conexion.establecerConexion();
-
-            // Preparar la consulta SQL con un JOIN y subconsultas para obtener información del cliente
-            String consultaSQL
-                    = "SELECT i.idingreso, i.idhabitacion, h.numero, i.idcliente, "
-                    + "(SELECT nombres FROM cliente WHERE idcliente = i.idcliente) AS clienten, "
-                    + "(SELECT apellidos FROM cliente WHERE idcliente = i.idcliente) AS clienteap, "
-                    + "(SELECT numdocumento FROM cliente WHERE idcliente = i.idcliente)AS clientenu,"
-                    + "(SELECT telefono FROM cliente WHERE idcliente = i.idcliente) AS clientete, "
-                    + "(SELECT totalabonos FROM abono WHERE idabono = a.idabono)AS totalabonos,"
-                    + "a.idabono, a.descuentos, a.totalabonos,"
-                    + "i.fecha_hora_ingreso, i.num_personas, i.tipo_cliente, i.motivo_viaje, i.estado,"
-                    + "i.costoalojamiento "
-                    + "FROM ingreso i INNER JOIN habitacion h ON i.idhabitacion = h.idhabitacion "
-                    + "LEFT JOIN abono a ON i.idingreso = a.idingreso "
-                    + "WHERE h.numero = ?";
-
-            PreparedStatement pst = conectar.prepareStatement(consultaSQL);
-            pst.setString(1, Cajabuscar.getSelectedItem().toString());
-
-            ResultSet rs = pst.executeQuery();
-
+            ResultSet rs = new Fsalida().realizarConsulta(Cajabuscar.getSelectedItem().toString());
             if (rs.next()) {
                 txtidingreso.setText(String.valueOf(rs.getInt("idingreso")));
                 txtidcliente.setText(String.valueOf(rs.getInt("idcliente")));
                 txtidabono.setText(String.valueOf(rs.getInt("idabono")));
+                
+//                txtvalor_total.setText(String.valueOf(rs.getDouble("abonohabitacion")));
+                int valorTotal = (int) Math.round(rs.getDouble("abonohabitacion"));
+                txtvalor_total.setText(String.valueOf(valorTotal));
+
                 txtidhabitacion.setText(String.valueOf(rs.getInt("idhabitacion")));
                 txtcliente.setText(rs.getString("clienten") + " " + rs.getString("clienteap"));
                 telefono.setText(rs.getString("clientete"));
@@ -739,17 +738,47 @@ public class Jsalidahuesped extends javax.swing.JFrame {
                 txtnumero.setText(String.valueOf(rs.getInt("numero")));
                 txtnumdocumento.setText(String.valueOf(rs.getString("clientenu")));
                 txtfecha_hora_ingreso.setText(String.valueOf(rs.getString("fecha_hora_ingreso")));
-//                txtnumnoches.setText(rs.getString("numnoches"));
+
+                String fechaHoraIngreso = rs.getString("fecha_hora_ingreso").trim();
+                fechaHoraIngreso = fechaHoraIngreso.replace("p. m.", "pm").replace("a. m.", "am");
+
+                LocalDateTime fechaIngreso = LocalDateTime.parse(fechaHoraIngreso, DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm a", Locale.ENGLISH));
+
+// Obtener la fecha y hora actual
+                LocalDateTime fechaHoraActual = LocalDateTime.now();
+
+// Formatear la fecha y hora actual en el formato correcto
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm a", Locale.ENGLISH);
+                String fechaHoraActualFormateada = fechaHoraActual.format(formatter);
+
+// Establecer el texto en txtfecha_hora_salida
+                txtfecha_hora_salida.setText(fechaHoraActualFormateada);
+
+// Calcular la diferencia en días entre la fecha de ingreso y la fecha actual
+                long numNoches = ChronoUnit.DAYS.between(fechaIngreso.toLocalDate(), fechaHoraActual.toLocalDate());
+
+// Mostrar la diferencia en días en txtnumnoches
+                txtnumnoches.setText(String.valueOf(numNoches));
+
+                int numeroNoches = Integer.parseInt(txtnumnoches.getText());
+// Obtener el número de noches desde algún componente de tu interfaz
+                double costoAlojamiento = Double.parseDouble(txtcostoalojamiento.getText());
+// Obtener el costo del alojamiento desde algún componente de tu interfaz
+
+                double nuevoCostoAlojamiento = costoAlojamiento * numeroNoches;
+// Actualizar el valor del costo del alojamiento en algún componente de tu interfaz
+                int nuevoCostoEntero = (int) nuevoCostoAlojamiento;
+                txtvalor_noches.setText(String.valueOf(nuevoCostoEntero));
 
                 txtabonos.setText(rs.getString("totalabonos"));
                 txtdescuentos.setText(rs.getString("descuentos"));
             } else {
                 JOptionPane.showMessageDialog(null, "No se encontró el CLIENTE solicitado");
             }
-
         } catch (HeadlessException | SQLException ex) {
             System.err.println("Error: " + ex.getMessage());
         }
+
     }//GEN-LAST:event_buscarActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -767,42 +796,6 @@ public class Jsalidahuesped extends javax.swing.JFrame {
 
     private void txtnum_comprobanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnum_comprobanteActionPerformed
 
-        Cconexion conexion = new Cconexion();
-
-        int j;
-        String num = "";
-        String c = "";
-        try {
-            Connection conectar = conexion.establecerConexion();
-
-            // Preparar la consulta SQL con un JOIN y subconsultas para obtener información del cliente
-            String consultaSQL = "select max(numero) from salida";
-            PreparedStatement pst = conectar.prepareStatement(consultaSQL);
-
-            ResultSet rs = pst.executeQuery();
-            if (rs.next()) {
-                c = rs.getString(1);
-            }
-
-            if (c == null) {
-                txtnum_comprobante.setText("CD0001");
-            } else {
-                char r1 = c.charAt(2);
-                char r2 = c.charAt(3);
-                char r3 = c.charAt(4);
-                char r4 = c.charAt(5);
-                String r = "";
-                r = "" + r1 + r2 + r3 + r4;
-
-                j = Integer.parseInt(r);
-                GenerarCodigo gen = new GenerarCodigo();
-                gen.generar(j);
-                txtnum_comprobante.setText("CD" + gen.serie());
-
-            }
-
-        } catch (NumberFormatException | SQLException e) {
-        }
 
     }//GEN-LAST:event_txtnum_comprobanteActionPerformed
 
@@ -811,12 +804,13 @@ public class Jsalidahuesped extends javax.swing.JFrame {
     }//GEN-LAST:event_cbotipocomprobanteActionPerformed
 
     private void txtnumnochesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnumnochesActionPerformed
+//        mostradias();
 
     }//GEN-LAST:event_txtnumnochesActionPerformed
 
     private void txtvalor_nochesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtvalor_nochesActionPerformed
 
-        NuevoCostoAlojamiento();
+
     }//GEN-LAST:event_txtvalor_nochesActionPerformed
 
     private void btnrealizarpagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnrealizarpagosActionPerformed
@@ -845,7 +839,7 @@ public class Jsalidahuesped extends javax.swing.JFrame {
 
         Dsalida dts = new Dsalida();
         Fsalida func = new Fsalida();
-         dts.setIdingreso(Integer.parseInt(txtidingreso.getText()));
+        dts.setIdingreso(Integer.parseInt(txtidingreso.getText()));
         dts.setIdcliente(Integer.parseInt(txtidcliente.getText()));
         dts.setIdhabitacion(Integer.parseInt(txtidhabitacion.getText()));
         dts.setIdabono(Integer.parseInt(txtidabono.getText()));
@@ -880,7 +874,7 @@ public class Jsalidahuesped extends javax.swing.JFrame {
         dts.setDescuentos(Integer.parseInt(txtdescuentos.getText()));
         dts.setCobros_extra(Integer.parseInt(txtcobros_extra.getText()));
         dts.setOtros_cobros(Integer.parseInt(txtotros_cobros.getText()));
-         dts.setTotalpago(Double.valueOf(txttotalpago.getText()));
+        dts.setTotalpago(Double.valueOf(txttotalpago.getText()));
 
         if (accion.equals("guardar")) {
             if (func.insertar(dts)) {

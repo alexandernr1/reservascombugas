@@ -1,6 +1,9 @@
 package Presentacion;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public final class Jmenuhotel extends javax.swing.JFrame {
 
@@ -15,6 +18,9 @@ public final class Jmenuhotel extends javax.swing.JFrame {
     public Jmenuhotel(String idpersona, String nombres, String apellidos, String acceso) {
 
         initComponents();
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        setSize(screenSize.width, screenSize.height);
+        setResizable(false);
         setTitle("MENU HOTEL");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -48,7 +54,17 @@ public final class Jmenuhotel extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
+        escritorio = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        lblidpersona = new javax.swing.JLabel();
+        lblnombres = new javax.swing.JLabel();
+        lblapellidos = new javax.swing.JLabel();
+        lblacceso = new javax.swing.JLabel();
+        cboinformes = new javax.swing.JComboBox<>();
+        btnconsultas = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jpsemaforo = new javax.swing.JPanel();
+        jpmenu = new javax.swing.JPanel();
         btncambioturno = new javax.swing.JButton();
         btnlistaespera = new javax.swing.JButton();
         btnlimpieza = new javax.swing.JButton();
@@ -59,21 +75,68 @@ public final class Jmenuhotel extends javax.swing.JFrame {
         btnavanzado = new javax.swing.JButton();
         btnreservas = new javax.swing.JButton();
         btnpagos = new javax.swing.JButton();
-        escritorio = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        lblidpersona = new javax.swing.JLabel();
-        lblnombres = new javax.swing.JLabel();
-        lblapellidos = new javax.swing.JLabel();
-        lblacceso = new javax.swing.JLabel();
+        jpinformes = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel2.setLayout(new java.awt.BorderLayout());
 
-        jPanel3.setBackground(new java.awt.Color(204, 255, 153));
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "MENÚ HOTEL", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Black", 0, 24))); // NOI18N
+        escritorio.setBackground(new java.awt.Color(255, 255, 102));
+        escritorio.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\HotelC\\src\\main\\java\\File\\logo combugas.png")); // NOI18N
+        escritorio.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 0, -1, -1));
+
+        lblidpersona.setFont(new java.awt.Font("Segoe UI Historic", 1, 14)); // NOI18N
+        lblidpersona.setText("jLabel3");
+        escritorio.add(lblidpersona, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 80, -1));
+
+        lblnombres.setFont(new java.awt.Font("Segoe UI Historic", 1, 14)); // NOI18N
+        lblnombres.setText("jLabel4");
+        escritorio.add(lblnombres, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 80, -1));
+
+        lblapellidos.setFont(new java.awt.Font("Segoe UI Historic", 1, 14)); // NOI18N
+        lblapellidos.setText("jLabel5");
+        escritorio.add(lblapellidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, 150, -1));
+
+        lblacceso.setFont(new java.awt.Font("Segoe UI Historic", 1, 14)); // NOI18N
+        lblacceso.setText("jLabel6");
+        escritorio.add(lblacceso, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 150, -1));
+
+        cboinformes.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        cboinformes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ingresos", "Reservas", "Salidas", "Abonos", " ", " ", " " }));
+        cboinformes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cboinformesMouseClicked(evt);
+            }
+        });
+        cboinformes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboinformesActionPerformed(evt);
+            }
+        });
+        escritorio.add(cboinformes, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 60, 143, -1));
+
+        btnconsultas.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        btnconsultas.setText("CONSULTAR");
+        btnconsultas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnconsultasActionPerformed(evt);
+            }
+        });
+        escritorio.add(btnconsultas, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 60, -1, -1));
+
+        jLabel2.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        jLabel2.setText("Consutas de informes:");
+        escritorio.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 50, -1, 40));
+
+        jPanel2.add(escritorio, java.awt.BorderLayout.PAGE_START);
+
+        jpmenu.setBackground(new java.awt.Color(204, 255, 153));
+        jpmenu.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "MENÚ HOTEL", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Black", 0, 24))); // NOI18N
+        jpmenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btncambioturno.setBackground(new java.awt.Color(204, 255, 153));
         btncambioturno.setFont(new java.awt.Font("Source Sans Pro Black", 0, 14)); // NOI18N
@@ -85,6 +148,7 @@ public final class Jmenuhotel extends javax.swing.JFrame {
                 btncambioturnoActionPerformed(evt);
             }
         });
+        jpmenu.add(btncambioturno, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 210, 198, 34));
 
         btnlistaespera.setBackground(new java.awt.Color(204, 255, 153));
         btnlistaespera.setFont(new java.awt.Font("Source Sans Pro Black", 0, 14)); // NOI18N
@@ -96,6 +160,7 @@ public final class Jmenuhotel extends javax.swing.JFrame {
                 btnlistaesperaActionPerformed(evt);
             }
         });
+        jpmenu.add(btnlistaespera, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 256, 198, 36));
 
         btnlimpieza.setBackground(new java.awt.Color(204, 255, 153));
         btnlimpieza.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
@@ -107,6 +172,7 @@ public final class Jmenuhotel extends javax.swing.JFrame {
                 btnlimpiezaActionPerformed(evt);
             }
         });
+        jpmenu.add(btnlimpieza, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 339, 198, 35));
 
         btnconfiguracion.setBackground(new java.awt.Color(204, 255, 153));
         btnconfiguracion.setFont(new java.awt.Font("Source Sans Pro Black", 0, 14)); // NOI18N
@@ -118,6 +184,7 @@ public final class Jmenuhotel extends javax.swing.JFrame {
                 btnconfiguracionActionPerformed(evt);
             }
         });
+        jpmenu.add(btnconfiguracion, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 421, 198, -1));
 
         btnsalidahuesped.setBackground(new java.awt.Color(204, 255, 153));
         btnsalidahuesped.setFont(new java.awt.Font("Source Sans Pro Black", 0, 14)); // NOI18N
@@ -129,6 +196,7 @@ public final class Jmenuhotel extends javax.swing.JFrame {
                 btnsalidahuespedActionPerformed(evt);
             }
         });
+        jpmenu.add(btnsalidahuesped, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 167, 198, 31));
 
         btningresohuesped.setBackground(new java.awt.Color(204, 255, 153));
         btningresohuesped.setFont(new java.awt.Font("Source Sans Pro Black", 0, 14)); // NOI18N
@@ -140,6 +208,7 @@ public final class Jmenuhotel extends javax.swing.JFrame {
                 btningresohuespedActionPerformed(evt);
             }
         });
+        jpmenu.add(btningresohuesped, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 123, 198, 32));
 
         btnregistro.setBackground(new java.awt.Color(204, 255, 153));
         btnregistro.setFont(new java.awt.Font("Source Sans Pro Black", 0, 14)); // NOI18N
@@ -153,6 +222,7 @@ public final class Jmenuhotel extends javax.swing.JFrame {
                 btnregistroActionPerformed(evt);
             }
         });
+        jpmenu.add(btnregistro, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 198, 40));
 
         btnavanzado.setBackground(new java.awt.Color(204, 255, 153));
         btnavanzado.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
@@ -164,6 +234,7 @@ public final class Jmenuhotel extends javax.swing.JFrame {
                 btnavanzadoActionPerformed(evt);
             }
         });
+        jpmenu.add(btnavanzado, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 380, 192, 35));
 
         btnreservas.setBackground(new java.awt.Color(204, 255, 153));
         btnreservas.setFont(new java.awt.Font("Source Sans Pro Black", 0, 14)); // NOI18N
@@ -175,111 +246,53 @@ public final class Jmenuhotel extends javax.swing.JFrame {
                 btnreservasActionPerformed(evt);
             }
         });
+        jpmenu.add(btnreservas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 198, -1));
 
         btnpagos.setBackground(new java.awt.Color(204, 255, 153));
         btnpagos.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
         btnpagos.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\HotelC\\src\\main\\java\\File\\metodo-de-pago.png")); // NOI18N
-        btnpagos.setText("PAGOS");
+        btnpagos.setText("PAGOS Y ABONOS");
         btnpagos.setBorder(null);
         btnpagos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnpagosActionPerformed(evt);
             }
         });
+        jpmenu.add(btnpagos, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 298, 210, 35));
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnsalidahuesped, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
-                    .addComponent(btnconfiguracion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnlimpieza, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnregistro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnreservas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btningresohuesped, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
-                    .addComponent(btncambioturno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnlistaespera, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(btnavanzado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addComponent(btnpagos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        javax.swing.GroupLayout jpinformesLayout = new javax.swing.GroupLayout(jpinformes);
+        jpinformes.setLayout(jpinformesLayout);
+        jpinformesLayout.setHorizontalGroup(
+            jpinformesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnregistro, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnreservas, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btningresohuesped, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnsalidahuesped, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btncambioturno, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnlistaespera, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnpagos, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnlimpieza, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnavanzado, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnconfiguracion, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(84, Short.MAX_VALUE))
+        jpinformesLayout.setVerticalGroup(
+            jpinformesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 495, Short.MAX_VALUE)
         );
 
-        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 220, 540));
-
-        escritorio.setBackground(new java.awt.Color(255, 255, 102));
-        escritorio.setLayout(null);
-
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\HotelC\\src\\main\\java\\File\\logo combugas.png")); // NOI18N
-        escritorio.add(jLabel1);
-        jLabel1.setBounds(430, 0, 101, 100);
-
-        lblidpersona.setFont(new java.awt.Font("Segoe UI Historic", 1, 14)); // NOI18N
-        lblidpersona.setText("jLabel3");
-        escritorio.add(lblidpersona);
-        lblidpersona.setBounds(6, 6, 80, 20);
-
-        lblnombres.setFont(new java.awt.Font("Segoe UI Historic", 1, 14)); // NOI18N
-        lblnombres.setText("jLabel4");
-        escritorio.add(lblnombres);
-        lblnombres.setBounds(10, 30, 80, 20);
-
-        lblapellidos.setFont(new java.awt.Font("Segoe UI Historic", 1, 14)); // NOI18N
-        lblapellidos.setText("jLabel5");
-        escritorio.add(lblapellidos);
-        lblapellidos.setBounds(80, 30, 150, 20);
-
-        lblacceso.setFont(new java.awt.Font("Segoe UI Historic", 1, 14)); // NOI18N
-        lblacceso.setText("jLabel6");
-        escritorio.add(lblacceso);
-        lblacceso.setBounds(70, 10, 150, 20);
-
-        jPanel2.add(escritorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 0, 560, 100));
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        javax.swing.GroupLayout jpsemaforoLayout = new javax.swing.GroupLayout(jpsemaforo);
+        jpsemaforo.setLayout(jpsemaforoLayout);
+        jpsemaforoLayout.setHorizontalGroup(
+            jpsemaforoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpsemaforoLayout.createSequentialGroup()
+                .addComponent(jpmenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jpinformes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+        jpsemaforoLayout.setVerticalGroup(
+            jpsemaforoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jpmenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jpsemaforoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jpinformes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(21, Short.MAX_VALUE))
         );
+
+        jPanel2.add(jpsemaforo, java.awt.BorderLayout.CENTER);
+
+        getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -326,22 +339,25 @@ public final class Jmenuhotel extends javax.swing.JFrame {
 
     private void btnpagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpagosActionPerformed
 
-        new Jpago().setVisible(true);
+        new Jabono().setVisible(true);
     }//GEN-LAST:event_btnpagosActionPerformed
 
     private void btnavanzadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnavanzadoActionPerformed
-        
-            Javanzado = new LoguinDeAdmin();
-            Javanzado.toFront();
-            Javanzado.setVisible(true);
 
-            sesionIniciada = true;
-         
+        Javanzado = new LoguinDeAdmin();
+        Javanzado.toFront();
+        Javanzado.setVisible(true);
+
+        sesionIniciada = true;
+
 //        new Javanzado().setVisible(true);
     }//GEN-LAST:event_btnavanzadoActionPerformed
 
     private void btnlistaesperaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlistaesperaActionPerformed
         new Jlistaespera().setVisible(true);
+        Jlistaespera.txtidempleado.setText(lblidpersona.getText());
+        Jlistaespera.txtempleado.setText(lblnombres.getText() + " " + lblapellidos.getText());
+        Jlistaespera.idusuario = Integer.parseInt(lblidpersona.getText());
     }//GEN-LAST:event_btnlistaesperaActionPerformed
 
     private void btncambioturnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncambioturnoActionPerformed
@@ -352,8 +368,7 @@ public final class Jmenuhotel extends javax.swing.JFrame {
             Jturnos.setVisible(true);
 
             sesionIniciada = true;
-        } 
-        
+        }
 
 //        cerrarTurno();
 
@@ -365,6 +380,36 @@ public final class Jmenuhotel extends javax.swing.JFrame {
         form.setVisible(true);
 
     }//GEN-LAST:event_btnlimpiezaActionPerformed
+
+    private void cboinformesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cboinformesMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboinformesMouseClicked
+
+    private void cboinformesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboinformesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboinformesActionPerformed
+
+    private void btnconsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnconsultasActionPerformed
+        if (cboinformes.getSelectedItem() != null) {
+            String selectedItem = (String) cboinformes.getSelectedItem();
+            // Verificar el elemento seleccionado y realizar la acción correspondiente
+            if (selectedItem.equals("Salidas")) {
+                Jvistasalida frameSalida = new Jvistasalida();
+                frameSalida.toFront();
+                frameSalida.setVisible(true);
+
+            } else if (selectedItem.equals("Ingreso")) {
+                //                    realizarAccionOpcion2();
+            } else if (selectedItem.equals("Reserva")) {
+                //                    realizarAccionOpcion3();
+            } else if (selectedItem.equals("Abonos")) {
+                JOptionPane.showMessageDialog(this, "Seleccione una opción válida", "Error", JOptionPane.ERROR_MESSAGE);
+            } else if (selectedItem.equals("")) {
+                
+            }
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnconsultasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -403,6 +448,7 @@ public final class Jmenuhotel extends javax.swing.JFrame {
     public static javax.swing.JButton btnavanzado;
     private javax.swing.JButton btncambioturno;
     public static javax.swing.JButton btnconfiguracion;
+    private javax.swing.JButton btnconsultas;
     private javax.swing.JButton btningresohuesped;
     private javax.swing.JButton btnlimpieza;
     private javax.swing.JButton btnlistaespera;
@@ -410,10 +456,14 @@ public final class Jmenuhotel extends javax.swing.JFrame {
     private javax.swing.JButton btnregistro;
     private javax.swing.JButton btnreservas;
     private javax.swing.JButton btnsalidahuesped;
+    private javax.swing.JComboBox<String> cboinformes;
     public static javax.swing.JPanel escritorio;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jpinformes;
+    private javax.swing.JPanel jpmenu;
+    private javax.swing.JPanel jpsemaforo;
     public static javax.swing.JLabel lblacceso;
     public static javax.swing.JLabel lblapellidos;
     public static javax.swing.JLabel lblidpersona;

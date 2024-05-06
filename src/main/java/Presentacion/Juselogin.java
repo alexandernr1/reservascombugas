@@ -35,7 +35,7 @@ public class Juselogin extends javax.swing.JFrame {
 
     private void mostrarTiempo() {
 
-        txtfechahorainicio.setText(time.fechacomp + " " + time.horacomp);
+        txtfechahorainicio.setText(time.getFechacomp() + " " + time.getHoracomp());
     }
 //    public void finalizarTurno() {
 //        this.setVisible(false); // Oculta el formulario

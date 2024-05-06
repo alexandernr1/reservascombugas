@@ -49,21 +49,21 @@ public class Jhabitaciones extends javax.swing.JFrame {
     void habilitar() {
         txtidhabitacion.setVisible(false);
 
-        compiso.setEnabled(true);
-        comnumero.setEnabled(true);
-        comdescripcion.setEnabled(true);
-        comcaracteristicas.setEnabled(true);
-        txtprecio.setEnabled(true);
-        comestado.setEnabled(true);
-        comtipohabitacion.setEnabled(true);
-
-        btnguardar.setEnabled(true);
-        btncancelar.setEnabled(true);
-        btneliminar.setEnabled(true);
-        txtidhabitacion.setText("");
-        txtprecio.setText("");
-        comcaracteristicas.setEnabled(true);
-        comdescripcion.setEnabled(true);
+//        compiso.setEnabled(true);
+//        comnumero.setEnabled(true);
+//        comdescripcion.setEnabled(true);
+//        comcaracteristicas.setEnabled(true);
+//        txtprecio.setEnabled(true);
+//        comestado.setEnabled(true);
+//        comtipohabitacion.setEnabled(true);
+//
+//        btnguardar.setEnabled(true);
+//        btncancelar.setEnabled(true);
+//        btneliminar.setEnabled(true);
+//        txtidhabitacion.setText("");
+//        txtprecio.setText("");
+//        comcaracteristicas.setEnabled(true);
+//        comdescripcion.setEnabled(true);
 
     }
 

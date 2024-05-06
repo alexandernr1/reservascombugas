@@ -9,6 +9,8 @@ Presentacion\Jmanejoreservas$8.class
 Presentacion\Jturnos$2.class
 Presentacion\Jsalidahuesped$12.class
 Presentacion\Jlimpieza$8.class
+Presentacion\Jlistaespera$5.class
+Presentacion\Jmenuhotel$11.class
 Datos\Dingreso.class
 Presentacion\Jcliente$17.class
 Presentacion\Jmenuprin$3.class
@@ -87,7 +89,9 @@ Presentacion\LoguinDeAdmin$1.class
 Presentacion\Jabono$5.class
 Presentacion\Jhabitaciones$10.class
 Presentacion\Jregistroempleados$3.class
+Datos\Dlistaespera.class
 Presentacion\Jcliente$6.class
+Presentacion\Jmenuhotel$12.class
 Presentacion\Jhabitaciones$13.class
 Presentacion\Jingreso$17.class
 Presentacion\Jlimpieza$9.class
@@ -98,8 +102,10 @@ Presentacion\Jvistahabitacion$4.class
 Presentacion\Jcliente$13.class
 Presentacion\Jcliente$16.class
 Presentacion\Jvistahabitacion$1.class
+Presentacion\Jlistaespera$4.class
 Presentacion\Jhabitaciones$12.class
 Presentacion\Jregistroempleados$5.class
+Presentacion\Jlistaespera$7.class
 Presentacion\Jpago$12.class
 Presentacion\Jmenuprin$5.class
 Presentacion\Jmanejoreservas$2.class
@@ -125,6 +131,7 @@ Presentacion\Jcliente$4.class
 Presentacion\Jregistroempleados$18.class
 Presentacion\Jvistacliente.class
 Presentacion\Jvistahabitacion$3.class
+Presentacion\Jlistaespera$6.class
 Presentacion\Jingreso$15.class
 Presentacion\Jmanejoreservas$1.class
 Presentacion\Jturnos$8.class
@@ -139,6 +146,8 @@ Presentacion\Jmanejoreservas$19.class
 Presentacion\Jcliente$5.class
 Presentacion\Jingreso$13.class
 Presentacion\Jlimpieza$5.class
+Presentacion\Jlistaespera$2.class
+Logica\Flistaespera.class
 Presentacion\Jcliente$14.class
 Presentacion\Jregistroempleados$19.class
 Presentacion\LoguinDeSistema.class
@@ -146,6 +155,7 @@ Presentacion\Jpago$6.class
 Presentacion\LoguinDeSistema$1.class
 Logica\Fabonos.class
 Presentacion\Jlimpieza$13.class
+Presentacion\Jlistaespera$8.class
 Presentacion\Jvistaempleado$3.class
 Presentacion\Jingreso$19.class
 Presentacion\Jabono.class
@@ -157,6 +167,7 @@ Presentacion\Jingreso$6.class
 Presentacion\Jpago$11.class
 Presentacion\Jregistroempleados$13.class
 Presentacion\Jabono$6.class
+Presentacion\Jlistaespera$10.class
 Presentacion\Jsalidahuesped$4.class
 Presentacion\Jabono$13.class
 Presentacion\Jmenuhotel$7.class
@@ -168,6 +179,7 @@ Presentacion\Jmanejoreservas$11.class
 Presentacion\Jregistroempleados$7.class
 Presentacion\LoguinDeAdmin$5.class
 Presentacion\Jingreso$18.class
+Presentacion\Jmenuhotel$13.class
 Presentacion\Jregistroempleados$14.class
 Presentacion\Jmenuhotel$1.class
 Presentacion\Jvistasalida$1.class
@@ -179,6 +191,7 @@ Presentacion\Jmanejoreservas$17.class
 Presentacion\Jcliente$19.class
 Presentacion\Jregistroempleados$8.class
 Presentacion\LoguinDeAdmin$4.class
+Presentacion\Jlistaespera$3.class
 Presentacion\Jlistaespera.class
 Presentacion\Jmanejoreservas$10.class
 Presentacion\Jmenuhotel.class
@@ -195,6 +208,7 @@ Presentacion\Jregistroempleados$2.class
 Presentacion\Jsalidahuesped$3.class
 Presentacion\Jsalidahuesped$9.class
 Presentacion\Jvistaempleado$4.class
+Presentacion\Jlistaespera$9.class
 Presentacion\Jingreso$1.class
 Presentacion\Jingreso.class
 Presentacion\Jpago$5.class

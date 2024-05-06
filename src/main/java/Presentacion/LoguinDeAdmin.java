@@ -194,13 +194,14 @@ public final class LoguinDeAdmin extends javax.swing.JFrame {
                     // Verificar si el acceso es para un empleado
                     if (!Javanzado.lblaccesoadmin.getText().equals("Administrador")) {
                         // Si el acceso no es para un General, puedes desactivar el menú u realizar alguna otra acción
+                         JOptionPane.showMessageDialog(rootPane, "Acceso Denegado", "Acceso al Sistema", JOptionPane.ERROR_MESSAGE);
                         form.setVisible(false);
                     }
 
                 }
                 
                  else {
-                    JOptionPane.showMessageDialog(rootPane, "Acceso Denegado", "Acceso al Sistema", JOptionPane.ERROR_MESSAGE);
+                   
                 }
             
         } catch (HeadlessException e) {

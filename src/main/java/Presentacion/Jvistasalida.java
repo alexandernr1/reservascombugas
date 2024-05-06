@@ -1,7 +1,7 @@
 package Presentacion;
 
 import javax.swing.JFrame;
-import Logica.Fempleado;
+import Logica.Fsalida;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -10,7 +10,7 @@ public final class Jvistasalida extends javax.swing.JFrame {
     public Jvistasalida() {
         initComponents();
         setLocationRelativeTo(null);
-        setTitle("REGISTRO DE EMPLEADOS");
+        setTitle("REGISTRO DE SALIDAS");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mostrar("");
     }
@@ -20,6 +20,14 @@ public final class Jvistasalida extends javax.swing.JFrame {
         tablalistado.getColumnModel().getColumn(0).setMinWidth(0);
         tablalistado.getColumnModel().getColumn(0).setPreferredWidth(0);
 
+        tablalistado.getColumnModel().getColumn(1).setMaxWidth(0);
+        tablalistado.getColumnModel().getColumn(1).setMinWidth(0);
+        tablalistado.getColumnModel().getColumn(1).setPreferredWidth(0);
+
+        tablalistado.getColumnModel().getColumn(2).setMaxWidth(0);
+        tablalistado.getColumnModel().getColumn(2).setMinWidth(0);
+        tablalistado.getColumnModel().getColumn(2).setPreferredWidth(0);
+
         tablalistado.getColumnModel().getColumn(3).setMaxWidth(0);
         tablalistado.getColumnModel().getColumn(3).setMinWidth(0);
         tablalistado.getColumnModel().getColumn(3).setPreferredWidth(0);
@@ -28,56 +36,14 @@ public final class Jvistasalida extends javax.swing.JFrame {
         tablalistado.getColumnModel().getColumn(4).setMinWidth(0);
         tablalistado.getColumnModel().getColumn(4).setPreferredWidth(0);
 
-        tablalistado.getColumnModel().getColumn(5).setMaxWidth(0);
-        tablalistado.getColumnModel().getColumn(5).setMinWidth(0);
-        tablalistado.getColumnModel().getColumn(5).setPreferredWidth(0);
-
-        tablalistado.getColumnModel().getColumn(6).setMaxWidth(0);
-        tablalistado.getColumnModel().getColumn(6).setMinWidth(0);
-        tablalistado.getColumnModel().getColumn(6).setPreferredWidth(0);
-
-        tablalistado.getColumnModel().getColumn(7).setMaxWidth(0);
-        tablalistado.getColumnModel().getColumn(7).setMinWidth(0);
-        tablalistado.getColumnModel().getColumn(7).setPreferredWidth(0);
-
-        tablalistado.getColumnModel().getColumn(8).setMaxWidth(0);
-        tablalistado.getColumnModel().getColumn(8).setMinWidth(0);
-        tablalistado.getColumnModel().getColumn(8).setPreferredWidth(0);
-
-        tablalistado.getColumnModel().getColumn(9).setMaxWidth(0);
-        tablalistado.getColumnModel().getColumn(9).setMinWidth(0);
-        tablalistado.getColumnModel().getColumn(9).setPreferredWidth(0);
-
-        tablalistado.getColumnModel().getColumn(10).setMaxWidth(0);
-        tablalistado.getColumnModel().getColumn(10).setMinWidth(0);
-        tablalistado.getColumnModel().getColumn(10).setPreferredWidth(0);
-
-        tablalistado.getColumnModel().getColumn(11).setMaxWidth(0);
-        tablalistado.getColumnModel().getColumn(11).setMinWidth(0);
-        tablalistado.getColumnModel().getColumn(11).setPreferredWidth(0);
-
-        tablalistado.getColumnModel().getColumn(12).setMaxWidth(0);
-        tablalistado.getColumnModel().getColumn(12).setMinWidth(0);
-        tablalistado.getColumnModel().getColumn(12).setPreferredWidth(0);
-
-        tablalistado.getColumnModel().getColumn(13).setMaxWidth(0);
-        tablalistado.getColumnModel().getColumn(13).setMinWidth(0);
-        tablalistado.getColumnModel().getColumn(13).setPreferredWidth(0);
-
-        tablalistado.getColumnModel().getColumn(14).setMaxWidth(0);
-        tablalistado.getColumnModel().getColumn(14).setMinWidth(0);
-        tablalistado.getColumnModel().getColumn(14).setPreferredWidth(0);
-
-        tablalistado.getColumnModel().getColumn(15).setMaxWidth(0);
-        tablalistado.getColumnModel().getColumn(15).setMinWidth(0);
-        tablalistado.getColumnModel().getColumn(15).setPreferredWidth(0);
+       
     }
 
     void mostrar(String buscar) {
         try {
             DefaultTableModel modelo;
-            Fempleado func = new Fempleado();
-            modelo = func.mostrarvista(buscar);
+            Fsalida func = new Fsalida();
+            modelo = func.mostrar(buscar);
 
             tablalistado.setModel(modelo);
             ocultar_columnas();
@@ -128,20 +94,20 @@ public final class Jvistasalida extends javax.swing.JFrame {
         tablalistado.setBorder(javax.swing.BorderFactory.createCompoundBorder());
         tablalistado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Nombres", "Apellidos"
+                "Nombres", "Apellidos", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8", "Title 9", "Title 10", "Title 11", "Title 12", "Title 13", "Title 14", "Title 15", "Title 16", "Title 17", "Title 18", "Title 19", "Title 20", "Title 21", "Title 22", "Title 23"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -181,35 +147,33 @@ public final class Jvistasalida extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(lbltotalregistro)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 471, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addComponent(btnbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
-                        .addComponent(btnsalir, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(44, 44, 44))))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnsalir, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(lbltotalregistro))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 969, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(btnbuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnsalir, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btnsalir, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+                    .addComponent(btnbuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39)
                 .addComponent(lbltotalregistro)
                 .addContainerGap())
         );
@@ -237,23 +201,12 @@ public final class Jvistasalida extends javax.swing.JFrame {
     }//GEN-LAST:event_btnsalirActionPerformed
 
     private void tablalistadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablalistadoMouseClicked
+       
 
     }//GEN-LAST:event_tablalistadoMouseClicked
 
     private void tablalistadoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablalistadoMousePressed
-        if (evt.getClickCount() == 2) {
-            int fila = tablalistado.getSelectedRow();
-            String cod;
-            String valor;
-            cod = tablalistado.getValueAt(fila, 0).toString();
-            valor = tablalistado.getValueAt(fila, 1).toString() + " " + tablalistado.getValueAt(fila, 2).toString();
-
-            Jlimpieza.txtidempleado.setText(cod);
-            Jlimpieza.txtempleado.setText(valor);
-
-            this.dispose();
-
-        }
+       
     }//GEN-LAST:event_tablalistadoMousePressed
 
     private void txtbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtbuscarActionPerformed

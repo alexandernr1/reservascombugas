@@ -24,8 +24,8 @@ public final class Jcliente extends javax.swing.JFrame {
 
     private void mostrarTiempo() {
 
-        lblfecha.setText(time.fechacomp);
-        lblhora.setText(time.horacomp);
+        lblfecha.setText(time.getFechacomp());
+        lblhora.setText(time.getHoracomp());
     }
 
     private String accion = "guardar";

@@ -200,6 +200,7 @@ public final class LoguinDeSistema extends javax.swing.JFrame {
                     
                     // Verificar si el acceso es para un empleado
                     if (!Jmenuprin.lblacceso.getText().equals("General")) {
+                        JOptionPane.showMessageDialog(rootPane, "Acceso Denegado", "Acceso al Sistema", JOptionPane.ERROR_MESSAGE);
                         // Si el acceso no es para un General, puedes desactivar el menú u realizar alguna otra acción
                         form.setVisible(false);
                     }
@@ -207,7 +208,7 @@ public final class LoguinDeSistema extends javax.swing.JFrame {
                 }
                 
                  else {
-                    JOptionPane.showMessageDialog(rootPane, "Acceso Denegado", "Acceso al Sistema", JOptionPane.ERROR_MESSAGE);
+                    
                 }
             
         } catch (HeadlessException e) {

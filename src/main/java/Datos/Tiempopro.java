@@ -1,51 +1,24 @@
 package Datos;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 public class Tiempopro {
 
-    Calendar fecha = new GregorianCalendar();
-    String dia = Integer.toString(fecha.get(Calendar.DATE));
-    String mes = Integer.toString(fecha.get(Calendar.MONTH)+1);
-    String anho = Integer.toString(fecha.get(Calendar.YEAR));
+    public Calendar fecha = new GregorianCalendar();
+    
+    public SimpleDateFormat formatoHora = new SimpleDateFormat("hh:mm a", Locale.ENGLISH);
+    public SimpleDateFormat formatoFecha = new SimpleDateFormat("dd-MM-yyyy");
 
-    public String fechacomp = dia + "-" + mes + "-" + anho;
-
-    String hora;
-    String amPm;
-
-    public String horacomp;
-
-    public Tiempopro() {
-        int hour = fecha.get(Calendar.HOUR);
-        int minute = fecha.get(Calendar.MINUTE);
-        int amPmValue = fecha.get(Calendar.AM_PM);
-
-        hora = Integer.toString(hour);
-        amPm = (amPmValue == Calendar.AM) ? "AM" : "PM";
-
-        if (hour == 0) {
-            hora = "12";
-        }
-
-        if (hour < 10) {
-            hora = "0" + hora;
-        }
-
-        String minutos = Integer.toString(minute);
-        if (minute < 10) {
-            minutos = "0" + minutos;
-        }
-
-        horacomp = hora + ":" + minutos + " " + amPm;
+    public String getFechacomp() {
+        return formatoFecha.format(fecha.getTime());
     }
 
     public String getHoracomp() {
-        return horacomp;
+        return formatoHora.format(fecha.getTime());
     }
 
-    public String getFechacomp() {
-        return fechacomp;
-    }
+
 }

@@ -1,6 +1,7 @@
 package Logica;
 
 import Datos.Dabono;
+import Datos.Dreserva;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -117,6 +118,24 @@ public class Fabonos {
             pst.setString(11, dts.getPrivilegiosrecepcion());
             pst.setInt(13, dts.getOtroscobros());
             pst.setInt(12, dts.getIdabono());
+
+            int n = pst.executeUpdate();
+
+            return n != 0;
+
+        } catch (SQLException e) {
+            JOptionPane.showConfirmDialog(null, e);
+            return false;
+        }
+    }
+    public boolean eliminar(Dabono dts) {
+        sSQL = "delete from abono where idabono=?";
+
+        try {
+
+            PreparedStatement pst = cn.prepareStatement(sSQL);
+
+            pst.setInt(1, dts.getIdabono());
 
             int n = pst.executeUpdate();
 

@@ -22,9 +22,13 @@ public class Jabono extends javax.swing.JFrame {
         setTitle("");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mostrar("");
+       
+
         inhabilitar();
     }
     private String accion = "guardar";
+
+   
 
     void ocultar_columnas() {
         tablalistados.getColumnModel().getColumn(0).setMaxWidth(0);
@@ -34,12 +38,12 @@ public class Jabono extends javax.swing.JFrame {
         tablalistados.getColumnModel().getColumn(1).setMaxWidth(0);
         tablalistados.getColumnModel().getColumn(1).setMinWidth(0);
         tablalistados.getColumnModel().getColumn(1).setPreferredWidth(0);
-        
-         tablalistados.getColumnModel().getColumn(2).setMaxWidth(0);
+
+        tablalistados.getColumnModel().getColumn(2).setMaxWidth(0);
         tablalistados.getColumnModel().getColumn(2).setMinWidth(0);
         tablalistados.getColumnModel().getColumn(2).setPreferredWidth(0);
-        
-         tablalistados.getColumnModel().getColumn(4).setMaxWidth(0);
+
+        tablalistados.getColumnModel().getColumn(4).setMaxWidth(0);
         tablalistados.getColumnModel().getColumn(4).setMinWidth(0);
         tablalistados.getColumnModel().getColumn(4).setPreferredWidth(0);
     }
@@ -47,11 +51,10 @@ public class Jabono extends javax.swing.JFrame {
     private void inhabilitar() {
         txtidabono.setVisible(false);
         txtidingreso.setVisible(false);
-         txtidhabitacion.setVisible(false);
-          txtidcliente.setVisible(false);
+        txtidhabitacion.setVisible(false);
+        txtidcliente.setVisible(false);
 
     }
-    
 
     private void mostrar(String buscar) {
         try {
@@ -553,21 +556,21 @@ public class Jabono extends javax.swing.JFrame {
 
     private void btneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarActionPerformed
 
-//        if (!txtidpago.getText().equals("")) {
-//            int confirmacion = JOptionPane.showConfirmDialog(rootPane, "Estás seguro de Eliminar el Pago seleccionado?", "Confirmar", 2);
-//
-//            if (confirmacion == 0) {
-//                Fpago func = new Fpago();
-//                Dpago dts = new Dpago();
-//
-//                dts.setIdpago(Integer.parseInt(txtidpago.getText()));
-//                func.eliminar(dts);
-//                mostrar(idingreso);
-//                inhabilitar();
-//
-//            }
-//
-//        }
+        if (!txtidabono.getText().equals("")) {
+            int confirmacion = JOptionPane.showConfirmDialog(rootPane, "Estás seguro de Eliminar el abono seleccionado?", "Confirmar", 2);
+
+            if (confirmacion == 0) {
+                Fabonos func = new Fabonos();
+                Dabono dts = new Dabono();
+
+                dts.setIdabono(Integer.parseInt(txtidabono.getText()));
+                func.eliminar(dts);
+                mostrar("");
+                inhabilitar();
+
+            }
+
+        }
     }//GEN-LAST:event_btneliminarActionPerformed
 
     private void btnsalir4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsalir4ActionPerformed
@@ -586,9 +589,9 @@ public class Jabono extends javax.swing.JFrame {
         Dabono dts = new Dabono();
         Fabonos func = new Fabonos();
 
-       dts.setIdingreso(Integer.parseInt(txtidingreso.getText()));
-       dts.setIdhabitacion(Integer.parseInt(txtidhabitacion.getText()));
-       dts.setIdcliente(Integer.parseInt(txtidcliente.getText()));
+        dts.setIdingreso(Integer.parseInt(txtidingreso.getText()));
+        dts.setIdhabitacion(Integer.parseInt(txtidhabitacion.getText()));
+        dts.setIdcliente(Integer.parseInt(txtidcliente.getText()));
         Calendar cal;
         int d, m, a;
 
@@ -597,7 +600,7 @@ public class Jabono extends javax.swing.JFrame {
         m = cal.get(Calendar.MONTH);
         a = cal.get(Calendar.YEAR) - 1900;
         dts.setFechaabono(new Date(a, m, d));
-        
+
         int seleccionadoAdmon = cboprivilegiosadmon.getSelectedIndex();
         int seleccionadoRecep = cboprivilegiosrecep.getSelectedIndex();
         dts.setConceptodescuento(txtconcepto.getText());
@@ -617,7 +620,6 @@ public class Jabono extends javax.swing.JFrame {
                 mostrar("");
                 inhabilitar();
 
- 
             }
 
         } else if (accion.equals("editar")) {
@@ -625,7 +627,7 @@ public class Jabono extends javax.swing.JFrame {
 
             if (func.editar(dts)) {
                 JOptionPane.showMessageDialog(rootPane, "El abono del Sr. "
-                    + txtcliente.getText() + " Ha sido Modificado Correctamente");
+                        + txtcliente.getText() + " Ha sido Modificado Correctamente");
                 mostrar("");
                 inhabilitar();
             }
@@ -664,7 +666,6 @@ public class Jabono extends javax.swing.JFrame {
 //                txtabonohabitacion.setText(String.valueOf(rs.getDouble("costoalojamiento")));
                 txtnumero.setText(String.valueOf(rs.getInt("numero")));
                 txtclientenu.setText(String.valueOf(rs.getString("clientenu")));
-                
 
             } else {
                 JOptionPane.showMessageDialog(null, "No se encontró el CLIENTE solicitado");
@@ -757,7 +758,7 @@ public class Jabono extends javax.swing.JFrame {
     private javax.swing.JTable tablalistados;
     public static javax.swing.JTextField txtabonohabitacion;
     private javax.swing.JTextField txtcliente;
-    private javax.swing.JTextField txtclientenu;
+    public static javax.swing.JTextField txtclientenu;
     private javax.swing.JTextField txtconcepto;
     private javax.swing.JTextField txtdescuentos;
     private javax.swing.JTextField txtidabono;

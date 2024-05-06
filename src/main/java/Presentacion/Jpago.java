@@ -21,7 +21,7 @@ public final class Jpago extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setTitle("PAGOS");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mostrar(idingreso);
+        mostrar("");
         inhabilitar();
         txtidingreso.setText(idingreso);
         txtcliente.setText(cliente);

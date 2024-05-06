@@ -32,7 +32,7 @@ public final class Jingreso extends javax.swing.JFrame {
 
     private void mostrarTiempo() {
 
-        jdfechaingreso.setText(time.fechacomp + "  " + time.horacomp);
+        jdfechaingreso.setText(time.getFechacomp() + " " + time.getHoracomp());
     }
 
     public Jingreso(String cod, String numero, String costoalojamiento) {
@@ -415,7 +415,6 @@ public final class Jingreso extends javax.swing.JFrame {
 
         txtidcliente.setText("IDC");
 
-        jdfechaingreso.setEditable(false);
         jdfechaingreso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jdfechaingresoActionPerformed(evt);
@@ -696,7 +695,6 @@ public final class Jingreso extends javax.swing.JFrame {
 
         }
 
-        
         if (txtmotivo_viaje.getText().length() == 0) {
             JOptionPane.showConfirmDialog(rootPane, "Debes Seleccionar un Cliente");
             txtmotivo_viaje.requestFocus();
@@ -720,18 +718,18 @@ public final class Jingreso extends javax.swing.JFrame {
         dts.setMotivo_viaje(txtmotivo_viaje.getText());
 
         dts.setEstado((String) comestado.getItemAt(seleccionado));
-       
 
         if (accion.equals("guardar")) {
             if (func.insertar(dts)) {
-              int opcion = JOptionPane.showConfirmDialog(rootPane, "Ingreso satisfactoriamente. ¿Desea realizar un abono?", "Confirmación", JOptionPane.YES_NO_OPTION);
-        
-        if (opcion == JOptionPane.YES_OPTION) {
-            // Abrir formulario de abono
-            Jabono formularioAbono = new Jabono();
-            formularioAbono.setVisible(true);
-        }
-                
+                int opcion = JOptionPane.showConfirmDialog(rootPane, "Ingreso satisfactoriamente. ¿Desea realizar un abono?", "Confirmación", JOptionPane.YES_NO_OPTION);
+
+                if (opcion == JOptionPane.YES_OPTION) {
+                    // Abrir formulario de ab
+
+                    Jabono formularioAbono = new Jabono();
+                    formularioAbono.setVisible(true);
+                }
+
                 Fhabitacion func3 = new Fhabitacion();
                 Dhabitacion dts3 = new Dhabitacion();
 
@@ -781,19 +779,19 @@ public final class Jingreso extends javax.swing.JFrame {
 
     private void btnrealizarpagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnrealizarpagosActionPerformed
 
-        int fila = tablalistado.getSelectedRow();
-
-        Jpago.idingreso = tablalistado.getValueAt(fila, 0).toString();
-        Jpago.cliente = tablalistado.getValueAt(fila, 4).toString();
-        Jpago.totalingreso = tablalistado.getValueAt(fila, 9).toString();
-
-        Jpago.idhabitacion = tablalistado.getValueAt(fila, 1).toString();
-        Jpago.habitacion = tablalistado.getValueAt(fila, 2).toString();
-
-        Jpago form = new Jpago();
-
-        form.toFront();
-        form.setVisible(true);
+//        int fila = tablalistado.getSelectedRow();
+//
+//        Jpago.idingreso = tablalistado.getValueAt(fila, 0).toString();
+//        Jpago.cliente = tablalistado.getValueAt(fila, 4).toString();
+//        Jpago.totalingreso = tablalistado.getValueAt(fila, 9).toString();
+//
+//        Jpago.idhabitacion = tablalistado.getValueAt(fila, 1).toString();
+//        Jpago.habitacion = tablalistado.getValueAt(fila, 2).toString();
+//
+//        Jpago form = new Jpago();
+//
+//        form.toFront();
+//        form.setVisible(true);
     }//GEN-LAST:event_btnrealizarpagosActionPerformed
 
     private void tablalistadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablalistadoMouseClicked
@@ -861,7 +859,6 @@ public final class Jingreso extends javax.swing.JFrame {
         dts.setCostoalojamiento(Double.valueOf(txtcostoalojamiento.getText()));
         dts.setMotivo_viaje(txtmotivo_viaje.getText());
         dts.setEstado((String) comestado.getItemAt(seleccionado));
-       
 
         if (func.editar(dts)) {
             JOptionPane.showMessageDialog(rootPane, "El ingreso fue editado satisfactoriamente");
