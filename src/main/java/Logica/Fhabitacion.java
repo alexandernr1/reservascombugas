@@ -190,7 +190,7 @@ public class Fhabitacion {
            return false;
        }
    } 
-   public boolean reservar (Dhabitacion dts){
+   public boolean reserva (Dhabitacion dts){
        sSQL="update habitacion set estado='Reserva'"+
                " where idhabitacion=?";
            //alt + 39
@@ -228,6 +228,26 @@ public class Fhabitacion {
            return false;
        }
    } 
+    public boolean disponible (Dhabitacion dts){
+       sSQL="update habitacion set estado='Limpieza'"+
+               " where idhabitacion=?";
+           //alt + 39
+        
+       try {
+           PreparedStatement pst=cn.prepareStatement(sSQL);
+          
+           pst.setInt(1, dts.getIdhabitacion());
+           
+           int n=pst.executeUpdate();
+           
+           return n!=0;
+           
+       } catch (SQLException e) {
+           JOptionPane.showConfirmDialog(null, e);
+           return false;
+       }
+   } 
+    
    public boolean eliminar (Dhabitacion dts){
        sSQL="delete from habitacion where idhabitacion=?";
        
@@ -287,30 +307,7 @@ public String obtenerEstadoHabitacion(int idhabitacion) {
 
         return estados;
     }
- public boolean buscarpornumero(int numero) {
-    sSQL = "SELECT * FROM reserva WHERE numero = ?";
-    try {
-        PreparedStatement pst = cn.prepareStatement(sSQL);
-        pst.setInt(1, numero);
-        ResultSet rs = pst.executeQuery();
-        
-        // Aquí puedes procesar el resultado de la consulta
-        // Por ejemplo, imprimir los datos o hacer lo que necesites con ellos
-        while (rs.next()) {
-            // Por ejemplo, mostrar los datos de la reserva
-            System.out.println("ID Reserva: " + rs.getInt("idreserva"));
-            // Aquí continúa mostrando los demás datos que necesites
-        }
-
-        // Cerrar los recursos
-        rs.close();
-        pst.close();
-        return true;
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(null, "Error al buscar reserva por id de habitación: " + e.getMessage());
-        return false;
-    }
-}
+ 
 
 }
 

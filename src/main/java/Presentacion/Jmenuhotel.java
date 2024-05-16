@@ -1,30 +1,28 @@
 package Presentacion;
 
-import Logica.CambioEstadoEvento;
-import Logica.CambioEstadoListener;
+import Logica.ActualizadorColores;
 import Logica.Fhabitacion;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JToggleButton;
 
-public final class Jmenuhotel extends javax.swing.JFrame implements CambioEstadoListener {
+public final class Jmenuhotel extends javax.swing.JFrame {
 
-    private String idpersona;
-    private String nombres;
-    private String apellidos;
-    private String acceso;
-    private Boolean sesionIniciada = false;
+    public String idpersona;
+    public String nombres;
+    public String apellidos;
+    public String acceso;
+    public Boolean sesionIniciada = false;
 //    private Jinicioturno Jsalidaturno;
     private LoguinDeAdmin Javanzado;
-    private final Fhabitacion fcn;
-    private final List<CambioEstadoListener> cambioEstadoListeners;
+    public Fhabitacion fcn;
 
     public Jmenuhotel(String idpersona, String nombres, String apellidos, String acceso) {
 
@@ -35,21 +33,24 @@ public final class Jmenuhotel extends javax.swing.JFrame implements CambioEstado
         setTitle("MENU HOTEL");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
         this.fcn = new Fhabitacion();
-        this.cambioEstadoListeners = new ArrayList<>();
+
         this.idpersona = idpersona;
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.acceso = acceso;
-
+      
         lblidpersona.setText(idpersona);
         lblnombres.setText(nombres);
         lblapellidos.setText(apellidos);
         lblacceso.setText(acceso);
         inhabilitar();
-
-        actualizarColoresBotones();
-//       ;
+        ActualizadorColores actualizador = new ActualizadorColores(this);
+        Thread thread = new Thread(actualizador);
+        thread.start();
+        
+//        actualizarColoresBotones();
     }
     public static int idusuario;
 
@@ -58,28 +59,10 @@ public final class Jmenuhotel extends javax.swing.JFrame implements CambioEstado
         lblacceso.setVisible(false);
 
     }
-    // Método para agregar un listener de cambio de estado
 
-    public void agregarCambioEstadoListener(CambioEstadoListener listener) {
-        // Agrega el listener a una lista de listeners
-        cambioEstadoListeners.add(listener);
-    }
+    
 
-    // Método para notificar a los listeners sobre un cambio de estado
-    public void notificarCambioEstado(CambioEstadoEvento evento) {
-        for (CambioEstadoListener listener : cambioEstadoListeners) {
-            listener.cambioEstadoOcurrido(evento);
-        }
-    }
-
-    @Override
-    // Implementación del método de la interfaz CambioEstadoListener
-    public void cambioEstadoOcurrido(CambioEstadoEvento evento) {
-        actualizarColoresBotones();
-    }
-
-    private void actualizarColoresBotones() {
-
+    public void actualizarColoresBotones() {
         Component[] componentes = pnlBotones.getComponents();
 
         for (Component componente : componentes) {
@@ -100,46 +83,13 @@ public final class Jmenuhotel extends javax.swing.JFrame implements CambioEstado
                     case "Limpieza" ->
                         boton.setBackground(Color.BLUE);
                     default ->
-                        boton.setBackground(new Color(255, 255, 255));
+                        boton.setBackground(Color.WHITE);
                 }
             }
         }
     }
 
-    // Tu código existente...
-//    public void actualizarColoresBotones() {
-//        Fhabitacion fcn = new Fhabitacion();
-//
-//        // Iterar sobre los componentes del panel de botones
-//        Component[] componentes = pnlBotones.getComponents();
-////        Component[] componente = pnlbotnes.getComponents();
-//        for (Component componente : componentes) {
-//            if (componente instanceof JToggleButton) {
-//                JToggleButton boton = (JToggleButton) componente;
-//                String nombreBoton = boton.getText(); // Obtener el nombre del botón (por ejemplo, "HabitaciónX")
-//                int idHabitacion = Integer.parseInt(nombreBoton.substring(10)); // Extraer el número de habitación del nombre del botón
-//
-//                // Obtener el estado de la habitación según su ID
-//                String estadoHabitacion = fcn.obtenerEstadoHabitacion(idHabitacion);
-//
-//                // Asignar color al botón según el estado de la habitación
-//                switch (estadoHabitacion) {
-//                    case "Disponible":
-//                        boton.setBackground(new Color(31, 222, 101)); // Color verde
-//                        break;
-//                    case "Ocupado":
-//                        boton.setBackground(new Color(240, 82, 48)); // Color naranja
-//                        break;
-//                    case "Mantenimiento":
-//                        boton.setBackground(new Color(255, 255, 0)); // Color amarillo
-//                        break;
-//                    default:
-//                        boton.setBackground(new Color(255, 255, 255)); // Color blanco si no se reconoce el estado
-//                        break;
-//                }
-//            }
-//        }
-//    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -221,26 +171,20 @@ public final class Jmenuhotel extends javax.swing.JFrame implements CambioEstado
         jPanel2.setLayout(new java.awt.BorderLayout());
 
         escritorio.setBackground(new java.awt.Color(255, 255, 102));
-        escritorio.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\HotelC\\src\\main\\java\\File\\logo combugas.png")); // NOI18N
-        escritorio.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 0, -1, -1));
 
         lblidpersona.setFont(new java.awt.Font("Segoe UI Historic", 1, 14)); // NOI18N
         lblidpersona.setText("jLabel3");
-        escritorio.add(lblidpersona, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 80, -1));
 
         lblnombres.setFont(new java.awt.Font("Segoe UI Historic", 1, 14)); // NOI18N
         lblnombres.setText("jLabel4");
-        escritorio.add(lblnombres, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 80, -1));
 
         lblapellidos.setFont(new java.awt.Font("Segoe UI Historic", 1, 14)); // NOI18N
         lblapellidos.setText("jLabel5");
-        escritorio.add(lblapellidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, 150, -1));
 
         lblacceso.setFont(new java.awt.Font("Segoe UI Historic", 1, 14)); // NOI18N
         lblacceso.setText("jLabel6");
-        escritorio.add(lblacceso, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 150, -1));
 
         cboinformes.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         cboinformes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ingresos", "Reservas", "Salidas", "Abonos", " ", " ", " " }));
@@ -254,7 +198,6 @@ public final class Jmenuhotel extends javax.swing.JFrame implements CambioEstado
                 cboinformesActionPerformed(evt);
             }
         });
-        escritorio.add(cboinformes, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 60, 143, -1));
 
         btnconsultas.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         btnconsultas.setText("CONSULTAR");
@@ -263,11 +206,9 @@ public final class Jmenuhotel extends javax.swing.JFrame implements CambioEstado
                 btnconsultasActionPerformed(evt);
             }
         });
-        escritorio.add(btnconsultas, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 60, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         jLabel2.setText("Consutas de informes:");
-        escritorio.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 50, -1, 40));
 
         tablalistado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -287,7 +228,64 @@ public final class Jmenuhotel extends javax.swing.JFrame implements CambioEstado
         });
         jScrollPane1.setViewportView(tablalistado);
 
-        escritorio.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 20, 10, 20));
+        javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
+        escritorio.setLayout(escritorioLayout);
+        escritorioLayout.setHorizontalGroup(
+            escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(escritorioLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblidpersona, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblnombres, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(escritorioLayout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addComponent(lblacceso, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(escritorioLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(lblapellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(60, 60, 60)
+                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(escritorioLayout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel2))
+                .addGap(1, 1, 1)
+                .addComponent(cboinformes, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(17, 17, 17)
+                .addComponent(btnconsultas)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 359, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addContainerGap())
+        );
+        escritorioLayout.setVerticalGroup(
+            escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(escritorioLayout.createSequentialGroup()
+                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(escritorioLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(lblidpersona)
+                        .addGap(10, 10, 10)
+                        .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblnombres)
+                            .addComponent(lblapellidos)))
+                    .addGroup(escritorioLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(lblacceso))
+                    .addGroup(escritorioLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(escritorioLayout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addComponent(cboinformes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(escritorioLayout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addComponent(btnconsultas)))
+                .addGap(10, 10, 10))
+            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
+        );
 
         jPanel2.add(escritorio, java.awt.BorderLayout.PAGE_START);
 
@@ -296,7 +294,7 @@ public final class Jmenuhotel extends javax.swing.JFrame implements CambioEstado
         jpmenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btncambioturno.setBackground(new java.awt.Color(204, 255, 153));
-        btncambioturno.setFont(new java.awt.Font("Source Sans Pro Black", 0, 14)); // NOI18N
+        btncambioturno.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         btncambioturno.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\HotelC\\src\\main\\java\\File\\cambio-de-turno.png")); // NOI18N
         btncambioturno.setText("CAMBIO DE TURNO");
         btncambioturno.setBorder(null);
@@ -308,7 +306,7 @@ public final class Jmenuhotel extends javax.swing.JFrame implements CambioEstado
         jpmenu.add(btncambioturno, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 210, 198, 34));
 
         btnlistaespera.setBackground(new java.awt.Color(204, 255, 153));
-        btnlistaespera.setFont(new java.awt.Font("Source Sans Pro Black", 0, 14)); // NOI18N
+        btnlistaespera.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         btnlistaespera.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\HotelC\\src\\main\\java\\File\\tiempo.png")); // NOI18N
         btnlistaespera.setText("LISTA DE ESPERA");
         btnlistaespera.setBorder(null);
@@ -320,7 +318,7 @@ public final class Jmenuhotel extends javax.swing.JFrame implements CambioEstado
         jpmenu.add(btnlistaespera, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 256, 198, 36));
 
         btnlimpieza.setBackground(new java.awt.Color(204, 255, 153));
-        btnlimpieza.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
+        btnlimpieza.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         btnlimpieza.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\HotelC\\src\\main\\java\\File\\limpieza.png")); // NOI18N
         btnlimpieza.setText("LiMPIEZA");
         btnlimpieza.setBorder(null);
@@ -332,7 +330,7 @@ public final class Jmenuhotel extends javax.swing.JFrame implements CambioEstado
         jpmenu.add(btnlimpieza, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 339, 198, 35));
 
         btnconfiguracion.setBackground(new java.awt.Color(204, 255, 153));
-        btnconfiguracion.setFont(new java.awt.Font("Source Sans Pro Black", 0, 14)); // NOI18N
+        btnconfiguracion.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         btnconfiguracion.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\HotelC\\src\\main\\java\\File\\configuracion.png")); // NOI18N
         btnconfiguracion.setText("CONFIGURACION");
         btnconfiguracion.setBorder(null);
@@ -341,10 +339,10 @@ public final class Jmenuhotel extends javax.swing.JFrame implements CambioEstado
                 btnconfiguracionActionPerformed(evt);
             }
         });
-        jpmenu.add(btnconfiguracion, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 421, 198, -1));
+        jpmenu.add(btnconfiguracion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 420, 198, -1));
 
         btnsalidahuesped.setBackground(new java.awt.Color(204, 255, 153));
-        btnsalidahuesped.setFont(new java.awt.Font("Source Sans Pro Black", 0, 14)); // NOI18N
+        btnsalidahuesped.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         btnsalidahuesped.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\HotelC\\src\\main\\java\\File\\salida.png")); // NOI18N
         btnsalidahuesped.setText("SALIDA HUESPED");
         btnsalidahuesped.setBorder(null);
@@ -356,7 +354,7 @@ public final class Jmenuhotel extends javax.swing.JFrame implements CambioEstado
         jpmenu.add(btnsalidahuesped, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 167, 198, 31));
 
         btningresohuesped.setBackground(new java.awt.Color(204, 255, 153));
-        btningresohuesped.setFont(new java.awt.Font("Source Sans Pro Black", 0, 14)); // NOI18N
+        btningresohuesped.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         btningresohuesped.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\HotelC\\src\\main\\java\\File\\ingreso.png")); // NOI18N
         btningresohuesped.setText("INGRESO HUESPED");
         btningresohuesped.setBorder(null);
@@ -368,7 +366,7 @@ public final class Jmenuhotel extends javax.swing.JFrame implements CambioEstado
         jpmenu.add(btningresohuesped, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 123, 198, 32));
 
         btnregistro.setBackground(new java.awt.Color(204, 255, 153));
-        btnregistro.setFont(new java.awt.Font("Source Sans Pro Black", 0, 14)); // NOI18N
+        btnregistro.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         btnregistro.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\HotelC\\src\\main\\java\\File\\registro-en-linea.png")); // NOI18N
         btnregistro.setText("REGISTRO");
         btnregistro.setActionCommand("     REGISTRO");
@@ -382,7 +380,7 @@ public final class Jmenuhotel extends javax.swing.JFrame implements CambioEstado
         jpmenu.add(btnregistro, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 198, 40));
 
         btnavanzado.setBackground(new java.awt.Color(204, 255, 153));
-        btnavanzado.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
+        btnavanzado.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         btnavanzado.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\HotelC\\src\\main\\java\\File\\carrera-profesional.png")); // NOI18N
         btnavanzado.setText("AVANZADO");
         btnavanzado.setBorder(null);
@@ -394,7 +392,7 @@ public final class Jmenuhotel extends javax.swing.JFrame implements CambioEstado
         jpmenu.add(btnavanzado, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 380, 192, 35));
 
         btnreservas.setBackground(new java.awt.Color(204, 255, 153));
-        btnreservas.setFont(new java.awt.Font("Source Sans Pro Black", 0, 14)); // NOI18N
+        btnreservas.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         btnreservas.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\HotelC\\src\\main\\java\\File\\reserva.png")); // NOI18N
         btnreservas.setText("RESERVAS");
         btnreservas.setBorder(null);
@@ -406,7 +404,7 @@ public final class Jmenuhotel extends javax.swing.JFrame implements CambioEstado
         jpmenu.add(btnreservas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 198, -1));
 
         btnpagos.setBackground(new java.awt.Color(204, 255, 153));
-        btnpagos.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
+        btnpagos.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         btnpagos.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\HotelC\\src\\main\\java\\File\\metodo-de-pago.png")); // NOI18N
         btnpagos.setText("PAGOS Y ABONOS");
         btnpagos.setBorder(null);
@@ -661,15 +659,17 @@ public final class Jmenuhotel extends javax.swing.JFrame implements CambioEstado
             .addGroup(jpsemaforoLayout.createSequentialGroup()
                 .addComponent(jpmenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlBotones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pnlBotones, javax.swing.GroupLayout.DEFAULT_SIZE, 993, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jpsemaforoLayout.setVerticalGroup(
             jpsemaforoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jpmenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jpsemaforoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(pnlBotones, javax.swing.GroupLayout.DEFAULT_SIZE, 567, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpsemaforoLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jpsemaforoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(pnlBotones, javax.swing.GroupLayout.DEFAULT_SIZE, 597, Short.MAX_VALUE)
+                    .addComponent(jpmenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jPanel2.add(jpsemaforo, java.awt.BorderLayout.CENTER);

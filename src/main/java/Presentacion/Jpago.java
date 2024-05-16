@@ -196,6 +196,11 @@ public final class Jpago extends javax.swing.JFrame {
 
         btnnuevo.setBackground(new java.awt.Color(153, 153, 153));
         btnnuevo.setText("NUEVO");
+        btnnuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnnuevoActionPerformed(evt);
+            }
+        });
 
         btnguardar.setBackground(new java.awt.Color(153, 153, 153));
         btnguardar.setText("GUARDAR");
@@ -638,6 +643,10 @@ public final class Jpago extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_btnguardarActionPerformed
+
+    private void btnnuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnuevoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnnuevoActionPerformed
 
     /**
      * @param args the command line arguments

@@ -467,7 +467,7 @@ public final class Jmanejoreservas extends javax.swing.JFrame {
         jLabel20.setText("Tipo reserva");
 
         comtiporeserva.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
-        comtiporeserva.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "En Reserva", "Alquilada", "En espera " }));
+        comtiporeserva.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Reserva", " " }));
 
         jLabel6.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         jLabel6.setText("N° Personas");
@@ -598,7 +598,6 @@ public final class Jmanejoreservas extends javax.swing.JFrame {
         });
 
         butsalir.setBackground(new java.awt.Color(153, 153, 153));
-        butsalir.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Desktop\\COMBUGAS\\Complementos\\Images\\salir.gif")); // NOI18N
         butsalir.setText("SALIR");
         butsalir.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         butsalir.addActionListener(new java.awt.event.ActionListener() {
@@ -866,7 +865,7 @@ public final class Jmanejoreservas extends javax.swing.JFrame {
                 Dhabitacion dts4 = new Dhabitacion();
 
                 dts4.setIdhabitacion(Integer.parseInt(txtidhabitacion.getText()));
-                func4.reservar(dts4);
+                func4.reserva(dts4);
             }
 
         } else if (accion.equals("editar")) {

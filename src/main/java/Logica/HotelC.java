@@ -1,7 +1,6 @@
 package Logica;
 
 import Presentacion.LoguinDeSistema;
-import javax.swing.JPanel;
 
 public class HotelC {
 
@@ -10,5 +9,7 @@ public class HotelC {
         prin.setVisible(true);
         Cconexion objetoConexion = new Cconexion();
         objetoConexion.establecerConexion();
+        
+        
     }
 }

@@ -16,7 +16,7 @@ public int total_recibos;
 public int base;
 public int tarjetas;
 public int efectivo;
-public int transfrencias;
+public int transferencias;
 public int totalhabitaciones;
 public int total_abonos;
 public int otros_ingresos;
@@ -28,7 +28,7 @@ public String observaciones;
     public Dsalidaturno() {
     }
 
-    public Dsalidaturno(int idturno, int idabonos, int idempleado, int idhabitacion, String empleado, String turno, String fecha_hora_inicio, String fecha_hora_salida, int habitaciones_ocupadas, int total_recibos, int base, int tarjetas, int efectivo, int transfrencias, int totalhabitaciones, int total_abonos, int otros_ingresos, int total_recaudo, int entrega_admon, int total_efectivo, String observaciones) {
+    public Dsalidaturno(int idturno, int idabonos, int idempleado, int idhabitacion, String empleado, String turno, String fecha_hora_inicio, String fecha_hora_salida, int habitaciones_ocupadas, int total_recibos, int base, int tarjetas, int efectivo, int transferencias, int totalhabitaciones, int total_abonos, int otros_ingresos, int total_recaudo, int entrega_admon, int total_efectivo, String observaciones) {
         this.idturno = idturno;
         this.idabonos = idabonos;
         this.idempleado = idempleado;
@@ -42,7 +42,7 @@ public String observaciones;
         this.base = base;
         this.tarjetas = tarjetas;
         this.efectivo = efectivo;
-        this.transfrencias = transfrencias;
+        this.transferencias = transferencias;
         this.totalhabitaciones = totalhabitaciones;
         this.total_abonos = total_abonos;
         this.otros_ingresos = otros_ingresos;
@@ -156,12 +156,12 @@ public String observaciones;
         this.efectivo = efectivo;
     }
 
-    public int getTransfrencias() {
-        return transfrencias;
+    public int getTransferencias() {
+        return transferencias;
     }
 
-    public void setTransfrencias(int transfrencias) {
-        this.transfrencias = transfrencias;
+    public void setTransferencias(int transferencias) {
+        this.transferencias = transferencias;
     }
 
     public int getTotalhabitaciones() {

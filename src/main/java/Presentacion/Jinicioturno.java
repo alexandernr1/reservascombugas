@@ -44,10 +44,7 @@ public class Jinicioturno extends javax.swing.JFrame {
 
         txtfecha_hora_inicio.setText(time.getFechacomp() + " " + time.getHoracomp());
     }
-//    public void finalizarTurno() {
-//        this.setVisible(false); // Oculta el formulario
-//        this.dispose(); // Libera los recursos
-//    }
+
 
     public String obtenerTextoFechahorainicio(String txtfechahorainicio) {
         return txtfechahorainicio;
@@ -191,7 +188,7 @@ public class Jinicioturno extends javax.swing.JFrame {
         
         if (accion.equals("guardar")) {
             if (func1.insertar(dts1)) {
-                JOptionPane.showMessageDialog(rootPane, " fue registrado satisfactoriamente");
+//                JOptionPane.showMessageDialog(rootPane, " fue registrado satisfactoriamente");
 
 
             }

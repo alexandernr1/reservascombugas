@@ -145,7 +145,7 @@ public class Jlimpieza extends javax.swing.JFrame {
         txtidlimpieza.setText("IDL");
 
         cboestado.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
-        cboestado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "En Limpieza", "Item 2", "Item 3", "Item 4" }));
+        cboestado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "En Limpieza", "Disponible", " " }));
 
         txtidempleado.setText("IDE");
         txtidempleado.addActionListener(new java.awt.event.ActionListener() {
@@ -155,7 +155,6 @@ public class Jlimpieza extends javax.swing.JFrame {
         });
 
         butnuevo.setBackground(new java.awt.Color(153, 153, 153));
-        butnuevo.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Desktop\\COMBUGAS\\Complementos\\Images\\nuevo.GIF")); // NOI18N
         butnuevo.setText("NUEVO");
         butnuevo.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         butnuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -165,7 +164,6 @@ public class Jlimpieza extends javax.swing.JFrame {
         });
 
         btnguardar.setBackground(new java.awt.Color(153, 153, 153));
-        btnguardar.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Desktop\\COMBUGAS\\Complementos\\Images\\guardar.png")); // NOI18N
         btnguardar.setText("GUARDAR");
         btnguardar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnguardar.addActionListener(new java.awt.event.ActionListener() {
@@ -175,7 +173,6 @@ public class Jlimpieza extends javax.swing.JFrame {
         });
 
         butsalir.setBackground(new java.awt.Color(153, 153, 153));
-        butsalir.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Desktop\\COMBUGAS\\Complementos\\Images\\salir.gif")); // NOI18N
         butsalir.setText("SALIR");
         butsalir.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         butsalir.addActionListener(new java.awt.event.ActionListener() {
@@ -481,6 +478,12 @@ public class Jlimpieza extends javax.swing.JFrame {
 
                 dts1.setIdhabitacion(Integer.parseInt(txtidhabitacion.getText()));
                 fnc.limpieza(dts1);
+                
+                Fhabitacion func2 = new Fhabitacion();
+                Dhabitacion dts2 = new Dhabitacion();
+
+                dts2.setIdhabitacion(Integer.parseInt(txtidhabitacion.getText()));
+                func2.disponible(dts2);
             }
         } else if (accion.equals("editar")) {
             dts.setIdlimpieza(Integer.parseInt(txtidlimpieza.getText()));
