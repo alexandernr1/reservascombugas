@@ -1,22 +1,22 @@
-
 package Datos;
 
 import java.sql.Date;
 
-
 public class Dlimpieza {
-public int idlimpieza;
-public int idempleado;
-public int numero;
-public String tipo_habitacion;
-public Date fecha;
-public String estado;
-public String turno;
+
+    public int idlimpieza;
+    public int idempleado;
+    public int numero;
+    public String tipo_habitacion;
+    public Date fecha;
+    public String estado;
+    public String turno;
+    public int idhabitacion;
 
     public Dlimpieza() {
     }
 
-    public Dlimpieza(int idlimpieza, int idempleado, int numero, String tipo_habitacion, Date fecha, String estado, String turno) {
+    public Dlimpieza(int idlimpieza, int idempleado, int numero, String tipo_habitacion, Date fecha, String estado, String turno, int idhabitacion) {
         this.idlimpieza = idlimpieza;
         this.idempleado = idempleado;
         this.numero = numero;
@@ -24,6 +24,7 @@ public String turno;
         this.fecha = fecha;
         this.estado = estado;
         this.turno = turno;
+        this.idhabitacion = idhabitacion;
     }
 
     public int getIdlimpieza() {
@@ -80,6 +81,14 @@ public String turno;
 
     public void setTurno(String turno) {
         this.turno = turno;
+    }
+
+    public int getIdhabitacion() {
+        return idhabitacion;
+    }
+
+    public void setIdhabitacion(int idhabitacion) {
+        this.idhabitacion = idhabitacion;
     }
 
 }

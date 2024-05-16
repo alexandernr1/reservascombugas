@@ -190,7 +190,44 @@ public class Fhabitacion {
            return false;
        }
    } 
-   
+   public boolean reservar (Dhabitacion dts){
+       sSQL="update habitacion set estado='Reserva'"+
+               " where idhabitacion=?";
+           //alt + 39
+        
+       try {
+           PreparedStatement pst=cn.prepareStatement(sSQL);
+          
+           pst.setInt(1, dts.getIdhabitacion());
+           
+           int n=pst.executeUpdate();
+           
+           return n!=0;
+           
+       } catch (SQLException e) {
+           JOptionPane.showConfirmDialog(null, e);
+           return false;
+       }
+   } 
+    public boolean limpieza (Dhabitacion dts){
+       sSQL="update habitacion set estado='Limpieza'"+
+               " where idhabitacion=?";
+           //alt + 39
+        
+       try {
+           PreparedStatement pst=cn.prepareStatement(sSQL);
+          
+           pst.setInt(1, dts.getIdhabitacion());
+           
+           int n=pst.executeUpdate();
+           
+           return n!=0;
+           
+       } catch (SQLException e) {
+           JOptionPane.showConfirmDialog(null, e);
+           return false;
+       }
+   } 
    public boolean eliminar (Dhabitacion dts){
        sSQL="delete from habitacion where idhabitacion=?";
        
@@ -216,7 +253,7 @@ public String obtenerEstadoHabitacion(int idhabitacion) {
         try {
             sSQL = "SELECT estado FROM habitacion WHERE idhabitacion = ?";
             PreparedStatement pst = cn.prepareStatement(sSQL);
-            pst.setInt(0, idhabitacion);
+            pst.setInt(1, idhabitacion);
 
             ResultSet rs = pst.executeQuery();
 

@@ -19,8 +19,8 @@ public class Freserva {
     public DefaultTableModel mostrar(String buscar) {
         DefaultTableModel modelo;
 
-        String[] titulos = {"Idreserva", "Idhabitacion", "Numero", "idcliente", "Cliente", "Idempleado", "Empleado", "TipoReserva", "FechaReserva", "FechaIngreso", "FechaSalida", "Costo", "Numnoches", "Numpersonas", "Estado"};
-        String[] registro = new String[15];
+        String[] titulos = {"Idreserva", "Idhabitacion", "Numero Hbit", "idcliente", "Cliente", "Documento", "Telefono", "Idempleado", "Empleado", "TipoReserva", "FechaReserva", "FechaIngreso", "FechaSalida", "Costo", "Numnoches", "Numpersonas", "Estado"};
+        String[] registro = new String[17];
 
         totalregistros = 0;
         modelo = new DefaultTableModel(null, titulos);
@@ -28,6 +28,8 @@ public class Freserva {
         sSQL = "select r.idreserva,r.idhabitacion,h.numero,r.idcliente,"
                 + "(select nombres from cliente where idcliente=r.idcliente)as clienten,"
                 + "(select apellidos from cliente where idcliente=r.idcliente)as clienteap,"
+                + "(select numdocumento from cliente where idcliente=r.idcliente)as clientenu,"
+                + "(select telefono from cliente where idcliente=r.idcliente)as clientet,"
                 + "r.idempleado,(select nombres from persona where idpersona = r.idempleado)as empleadon,"
                 + "(select apellidos from persona where idpersona = r.idempleado)as empleadoap,"
                 + "r.tiporeserva,r.fechareserva,r.fechaingreso,r.fechasalida,"
@@ -43,16 +45,18 @@ public class Freserva {
                 registro[2] = rs.getString("numero");
                 registro[3] = rs.getString("idcliente");
                 registro[4] = rs.getString("clienten") + " " + rs.getString("clienteap");
-                registro[5] = rs.getString("idempleado");
-                registro[6] = rs.getString("empleadon") + " " + rs.getString("empleadoap");
-                registro[7] = rs.getString("tiporeserva");
-                registro[8] = rs.getString("fechareserva");
-                registro[9] = rs.getString("fechaingreso");
-                registro[10] = rs.getString("fechasalida");
-                registro[11] = rs.getString("costoalojamiento");
-                registro[12] = rs.getString("numnoches");
-                registro[13] = rs.getString("numpersonas");
-                registro[14] = rs.getString("estado");
+                registro[5] = rs.getString("clientenu");
+                registro[6] = rs.getString("clientet");
+                registro[7] = rs.getString("idempleado");
+                registro[8] = rs.getString("empleadon") + " " + rs.getString("empleadoap");
+                registro[9] = rs.getString("tiporeserva");
+                registro[10] = rs.getString("fechareserva");
+                registro[11] = rs.getString("fechaingreso");
+                registro[12] = rs.getString("fechasalida");
+                registro[13] = rs.getString("costoalojamiento");
+                registro[14] = rs.getString("numnoches");
+                registro[15] = rs.getString("numpersonas");
+                registro[16] = rs.getString("estado");
 
                 totalregistros = totalregistros + 1;
                 modelo.addRow(registro);

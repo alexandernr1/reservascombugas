@@ -71,7 +71,7 @@ public class Fsalida {
         return modelo;
 
     } catch (SQLException e) {
-        JOptionPane.showMessageDialog(null, "NO SE PUEDE MOSTRAR LOS DATOS: " + e.getMessage());
+//        JOptionPane.showMessageDialog(null, "NO SE PUEDE MOSTRAR LOS DATOS: " + e.getMessage());
         return null;
     }
 }

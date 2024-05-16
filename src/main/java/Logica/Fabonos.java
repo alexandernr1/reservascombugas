@@ -100,7 +100,7 @@ public class Fabonos {
     }
 
     public boolean editar(Dabono dts) {
-        sSQL = "update abono set idingreso=?,idhabitacion=?,idcliente=?,fechaabono=?,costoalojamiento=?,descuentos=?,conceptodescuento=?,formaabono=?,totalabonos=?,privilegiosadmon=?,privilegiosrecepcion=?"
+        sSQL = "update abono set idingreso=?,idhabitacion=?,idcliente=?,fechaabono=?,abonohabitacion=?,descuentos=?,conceptodescuento=?,formaabono=?,totalabonos=?,privilegiosadmon=?,privilegiosrecepcion=?, otroscobros=?"
                 + " where idabono=?";
 
         try {
@@ -116,8 +116,9 @@ public class Fabonos {
             pst.setInt(9, dts.getTotalAbonos());
             pst.setString(10, dts.getPrivilegiosAdmon());
             pst.setString(11, dts.getPrivilegiosrecepcion());
-            pst.setInt(13, dts.getOtroscobros());
-            pst.setInt(12, dts.getIdabono());
+            pst.setInt(12, dts.getOtroscobros());
+            
+            pst.setInt(13, dts.getIdabono());
 
             int n = pst.executeUpdate();
 
