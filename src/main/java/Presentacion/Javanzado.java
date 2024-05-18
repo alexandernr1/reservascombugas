@@ -31,11 +31,12 @@ public class Javanzado extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(204, 255, 153));
+        jPanel1.setBackground(new java.awt.Color(102, 255, 102));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "opciones avanzadas", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Black", 1, 14))); // NOI18N
 
-        btnempleados.setBackground(new java.awt.Color(204, 255, 153));
+        btnempleados.setBackground(new java.awt.Color(102, 255, 102));
         btnempleados.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        btnempleados.setForeground(new java.awt.Color(0, 0, 102));
         btnempleados.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\HotelC\\src\\main\\java\\File\\trabajadores.png")); // NOI18N
         btnempleados.setText("REGISTRO EMPLEADOS");
         btnempleados.addActionListener(new java.awt.event.ActionListener() {
@@ -44,8 +45,9 @@ public class Javanzado extends javax.swing.JFrame {
             }
         });
 
-        btnhabitaciones.setBackground(new java.awt.Color(204, 255, 153));
+        btnhabitaciones.setBackground(new java.awt.Color(102, 255, 102));
         btnhabitaciones.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        btnhabitaciones.setForeground(new java.awt.Color(0, 0, 102));
         btnhabitaciones.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\HotelC\\src\\main\\java\\File\\habitaciones.png")); // NOI18N
         btnhabitaciones.setText("REGISTRO HABITACIONES");
         btnhabitaciones.addActionListener(new java.awt.event.ActionListener() {
@@ -54,8 +56,9 @@ public class Javanzado extends javax.swing.JFrame {
             }
         });
 
-        btnproducto.setBackground(new java.awt.Color(204, 255, 153));
+        btnproducto.setBackground(new java.awt.Color(102, 255, 102));
         btnproducto.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        btnproducto.setForeground(new java.awt.Color(0, 0, 102));
         btnproducto.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\HotelC\\src\\main\\java\\File\\Reservas.png")); // NOI18N
         btnproducto.setText("REGISTRO PRODUCTOS");
         btnproducto.addActionListener(new java.awt.event.ActionListener() {
@@ -65,7 +68,6 @@ public class Javanzado extends javax.swing.JFrame {
         });
 
         butsalir.setBackground(new java.awt.Color(153, 153, 153));
-        butsalir.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Desktop\\COMBUGAS\\Complementos\\Images\\salir.gif")); // NOI18N
         butsalir.setText("SALIR");
         butsalir.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         butsalir.addActionListener(new java.awt.event.ActionListener() {

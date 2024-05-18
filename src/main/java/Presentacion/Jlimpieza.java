@@ -479,11 +479,7 @@ public class Jlimpieza extends javax.swing.JFrame {
                 dts1.setIdhabitacion(Integer.parseInt(txtidhabitacion.getText()));
                 fnc.limpieza(dts1);
                 
-                Fhabitacion func2 = new Fhabitacion();
-                Dhabitacion dts2 = new Dhabitacion();
-
-                dts2.setIdhabitacion(Integer.parseInt(txtidhabitacion.getText()));
-                func2.disponible(dts2);
+                
             }
         } else if (accion.equals("editar")) {
             dts.setIdlimpieza(Integer.parseInt(txtidlimpieza.getText()));
@@ -493,6 +489,11 @@ public class Jlimpieza extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(rootPane, "Editado satisfactoriamente");
                 mostrar("");
                 inhabilitar();
+                Fhabitacion func2 = new Fhabitacion();
+                Dhabitacion dts2 = new Dhabitacion();
+
+                dts2.setIdhabitacion(Integer.parseInt(txtidhabitacion.getText()));
+                func2.disponible(dts2);
             }
         }
 

@@ -24,8 +24,8 @@ public final class Jmenuhotel extends javax.swing.JFrame {
     public Jmenuhotel(String idpersona, String nombres, String apellidos, String acceso) {
 
         initComponents();
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        setSize(screenSize.width, screenSize.height);
+//        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+//        setSize(screenSize.width, screenSize.height);
         setResizable(false);
         setTitle("MENU HOTEL");
         setLocationRelativeTo(null);
@@ -96,7 +96,7 @@ public final class Jmenuhotel extends javax.swing.JFrame {
                     case "Reserva" ->
                         boton.setBackground(Color.YELLOW);
                     case "Mantenimiento" ->
-                        boton.setBackground(Color.ORANGE);
+                        boton.setBackground(Color.orange);
                     case "Limpieza" ->
                         boton.setBackground(Color.BLUE);
                     default ->
@@ -120,9 +120,6 @@ public final class Jmenuhotel extends javax.swing.JFrame {
         cboinformes = new javax.swing.JComboBox<>();
         btnconsultas = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tablalistado = new javax.swing.JTable();
-        jpsemaforo = new javax.swing.JPanel();
         jpmenu = new javax.swing.JPanel();
         btncambioturno = new javax.swing.JButton();
         btnlistaespera = new javax.swing.JButton();
@@ -179,15 +176,13 @@ public final class Jmenuhotel extends javax.swing.JFrame {
         jToggleButton39 = new javax.swing.JToggleButton();
         jToggleButton22 = new javax.swing.JToggleButton();
         jToggleButton40 = new javax.swing.JToggleButton();
-        btnactualizar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
-        jPanel2.setLayout(new java.awt.BorderLayout());
 
-        escritorio.setBackground(new java.awt.Color(255, 255, 102));
+        escritorio.setBackground(new java.awt.Color(102, 255, 102));
 
         jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\HotelC\\src\\main\\java\\File\\logo combugas.png")); // NOI18N
 
@@ -225,53 +220,33 @@ public final class Jmenuhotel extends javax.swing.JFrame {
         });
 
         jLabel2.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 102));
         jLabel2.setText("Consultas de informes:");
-
-        tablalistado.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        tablalistado.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tablalistadoMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(tablalistado);
 
         javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
         escritorio.setLayout(escritorioLayout);
         escritorioLayout.setHorizontalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(escritorioLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblidpersona, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblnombres, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(escritorioLayout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(lblacceso, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(escritorioLayout.createSequentialGroup()
+                        .addGap(154, 154, 154)
+                        .addComponent(lblidpersona, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(lblapellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(60, 60, 60)
-                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lblacceso, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(136, 136, 136))
                     .addGroup(escritorioLayout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel2))
-                .addGap(1, 1, 1)
+                        .addGap(140, 140, 140)
+                        .addComponent(lblnombres, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblapellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)))
                 .addComponent(cboinformes, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(17, 17, 17)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnconsultas)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 355, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addContainerGap())
         );
@@ -280,38 +255,31 @@ public final class Jmenuhotel extends javax.swing.JFrame {
             .addGroup(escritorioLayout.createSequentialGroup()
                 .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(escritorioLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(lblidpersona)
-                        .addGap(10, 10, 10)
+                        .addGap(18, 18, 18)
                         .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblnombres)
-                            .addComponent(lblapellidos)))
+                            .addComponent(lblacceso)
+                            .addComponent(lblidpersona))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblapellidos)
+                            .addComponent(lblnombres)))
                     .addGroup(escritorioLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(lblacceso))
-                    .addGroup(escritorioLayout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(escritorioLayout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addComponent(cboinformes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(escritorioLayout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addComponent(btnconsultas)))
-                .addGap(10, 10, 10))
+                        .addGap(52, 52, 52)
+                        .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cboinformes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnconsultas))))
+                .addGap(8, 8, 8))
             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
-        jPanel2.add(escritorio, java.awt.BorderLayout.PAGE_START);
-
-        jpmenu.setBackground(new java.awt.Color(204, 255, 153));
-        jpmenu.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "MENÚ HOTEL", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Black", 0, 24))); // NOI18N
+        jpmenu.setBackground(new java.awt.Color(102, 255, 102));
+        jpmenu.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "MENÚ HOTEL", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Black", 0, 24), new java.awt.Color(0, 0, 102))); // NOI18N
         jpmenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btncambioturno.setBackground(new java.awt.Color(204, 255, 153));
+        btncambioturno.setBackground(new java.awt.Color(102, 255, 102));
         btncambioturno.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        btncambioturno.setForeground(new java.awt.Color(0, 0, 102));
         btncambioturno.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\HotelC\\src\\main\\java\\File\\cambio-de-turno.png")); // NOI18N
         btncambioturno.setText("CAMBIO DE TURNO");
         btncambioturno.setBorder(null);
@@ -320,10 +288,11 @@ public final class Jmenuhotel extends javax.swing.JFrame {
                 btncambioturnoActionPerformed(evt);
             }
         });
-        jpmenu.add(btncambioturno, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 210, 198, 34));
+        jpmenu.add(btncambioturno, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 198, 34));
 
-        btnlistaespera.setBackground(new java.awt.Color(204, 255, 153));
+        btnlistaespera.setBackground(new java.awt.Color(102, 255, 102));
         btnlistaespera.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        btnlistaespera.setForeground(new java.awt.Color(0, 0, 102));
         btnlistaespera.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\HotelC\\src\\main\\java\\File\\tiempo.png")); // NOI18N
         btnlistaespera.setText("LISTA DE ESPERA");
         btnlistaespera.setBorder(null);
@@ -332,10 +301,11 @@ public final class Jmenuhotel extends javax.swing.JFrame {
                 btnlistaesperaActionPerformed(evt);
             }
         });
-        jpmenu.add(btnlistaespera, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 256, 198, 36));
+        jpmenu.add(btnlistaespera, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, 198, 36));
 
-        btnlimpieza.setBackground(new java.awt.Color(204, 255, 153));
+        btnlimpieza.setBackground(new java.awt.Color(102, 255, 102));
         btnlimpieza.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        btnlimpieza.setForeground(new java.awt.Color(0, 0, 102));
         btnlimpieza.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\HotelC\\src\\main\\java\\File\\limpieza.png")); // NOI18N
         btnlimpieza.setText("LiMPIEZA");
         btnlimpieza.setBorder(null);
@@ -344,10 +314,11 @@ public final class Jmenuhotel extends javax.swing.JFrame {
                 btnlimpiezaActionPerformed(evt);
             }
         });
-        jpmenu.add(btnlimpieza, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 339, 198, 35));
+        jpmenu.add(btnlimpieza, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 440, 198, 35));
 
-        btnconfiguracion.setBackground(new java.awt.Color(204, 255, 153));
+        btnconfiguracion.setBackground(new java.awt.Color(102, 255, 102));
         btnconfiguracion.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        btnconfiguracion.setForeground(new java.awt.Color(0, 0, 102));
         btnconfiguracion.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\HotelC\\src\\main\\java\\File\\configuracion.png")); // NOI18N
         btnconfiguracion.setText("CONFIGURACION");
         btnconfiguracion.setBorder(null);
@@ -356,10 +327,11 @@ public final class Jmenuhotel extends javax.swing.JFrame {
                 btnconfiguracionActionPerformed(evt);
             }
         });
-        jpmenu.add(btnconfiguracion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 420, 198, -1));
+        jpmenu.add(btnconfiguracion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 520, 198, -1));
 
-        btnsalidahuesped.setBackground(new java.awt.Color(204, 255, 153));
+        btnsalidahuesped.setBackground(new java.awt.Color(102, 255, 102));
         btnsalidahuesped.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        btnsalidahuesped.setForeground(new java.awt.Color(0, 0, 102));
         btnsalidahuesped.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\HotelC\\src\\main\\java\\File\\salida.png")); // NOI18N
         btnsalidahuesped.setText("SALIDA HUESPED");
         btnsalidahuesped.setBorder(null);
@@ -368,10 +340,11 @@ public final class Jmenuhotel extends javax.swing.JFrame {
                 btnsalidahuespedActionPerformed(evt);
             }
         });
-        jpmenu.add(btnsalidahuesped, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 167, 198, 31));
+        jpmenu.add(btnsalidahuesped, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 198, 31));
 
-        btningresohuesped.setBackground(new java.awt.Color(204, 255, 153));
+        btningresohuesped.setBackground(new java.awt.Color(102, 255, 102));
         btningresohuesped.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        btningresohuesped.setForeground(new java.awt.Color(0, 0, 102));
         btningresohuesped.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\HotelC\\src\\main\\java\\File\\ingreso.png")); // NOI18N
         btningresohuesped.setText("INGRESO HUESPED");
         btningresohuesped.setBorder(null);
@@ -380,10 +353,11 @@ public final class Jmenuhotel extends javax.swing.JFrame {
                 btningresohuespedActionPerformed(evt);
             }
         });
-        jpmenu.add(btningresohuesped, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 123, 198, 32));
+        jpmenu.add(btningresohuesped, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 198, 32));
 
-        btnregistro.setBackground(new java.awt.Color(204, 255, 153));
+        btnregistro.setBackground(new java.awt.Color(102, 255, 102));
         btnregistro.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        btnregistro.setForeground(new java.awt.Color(0, 0, 102));
         btnregistro.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\HotelC\\src\\main\\java\\File\\registro-en-linea.png")); // NOI18N
         btnregistro.setText("REGISTRO");
         btnregistro.setActionCommand("     REGISTRO");
@@ -394,10 +368,11 @@ public final class Jmenuhotel extends javax.swing.JFrame {
                 btnregistroActionPerformed(evt);
             }
         });
-        jpmenu.add(btnregistro, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 198, 40));
+        jpmenu.add(btnregistro, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 198, 40));
 
-        btnavanzado.setBackground(new java.awt.Color(204, 255, 153));
+        btnavanzado.setBackground(new java.awt.Color(102, 255, 102));
         btnavanzado.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        btnavanzado.setForeground(new java.awt.Color(0, 0, 102));
         btnavanzado.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\HotelC\\src\\main\\java\\File\\carrera-profesional.png")); // NOI18N
         btnavanzado.setText("AVANZADO");
         btnavanzado.setBorder(null);
@@ -406,10 +381,11 @@ public final class Jmenuhotel extends javax.swing.JFrame {
                 btnavanzadoActionPerformed(evt);
             }
         });
-        jpmenu.add(btnavanzado, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 380, 192, 35));
+        jpmenu.add(btnavanzado, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 480, 192, 35));
 
-        btnreservas.setBackground(new java.awt.Color(204, 255, 153));
+        btnreservas.setBackground(new java.awt.Color(102, 255, 102));
         btnreservas.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        btnreservas.setForeground(new java.awt.Color(0, 0, 102));
         btnreservas.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\HotelC\\src\\main\\java\\File\\reserva.png")); // NOI18N
         btnreservas.setText("RESERVAS");
         btnreservas.setBorder(null);
@@ -418,10 +394,11 @@ public final class Jmenuhotel extends javax.swing.JFrame {
                 btnreservasActionPerformed(evt);
             }
         });
-        jpmenu.add(btnreservas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 198, -1));
+        jpmenu.add(btnreservas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 198, -1));
 
-        btnpagos.setBackground(new java.awt.Color(204, 255, 153));
+        btnpagos.setBackground(new java.awt.Color(102, 255, 102));
         btnpagos.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        btnpagos.setForeground(new java.awt.Color(0, 0, 102));
         btnpagos.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\HotelC\\src\\main\\java\\File\\metodo-de-pago.png")); // NOI18N
         btnpagos.setText("PAGOS Y ABONOS");
         btnpagos.setBorder(null);
@@ -430,9 +407,9 @@ public final class Jmenuhotel extends javax.swing.JFrame {
                 btnpagosActionPerformed(evt);
             }
         });
-        jpmenu.add(btnpagos, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 298, 210, 35));
+        jpmenu.add(btnpagos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 400, 210, 35));
 
-        pnlBotones.setBackground(new java.awt.Color(204, 204, 204));
+        pnlBotones.setBackground(new java.awt.Color(255, 255, 255));
         pnlBotones.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jToggleButton1.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
@@ -483,10 +460,12 @@ public final class Jmenuhotel extends javax.swing.JFrame {
 
         jLabel3.setBackground(new java.awt.Color(0, 255, 255));
         jLabel3.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 102));
         jLabel3.setText("SEGUNDO PISO");
         pnlBotones.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 200, 103, 28));
 
         jLabel4.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 0, 102));
         jLabel4.setText("PRIMER PISO");
         pnlBotones.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 30, 103, 28));
 
@@ -616,6 +595,7 @@ public final class Jmenuhotel extends javax.swing.JFrame {
 
         jLabel5.setBackground(new java.awt.Color(0, 204, 204));
         jLabel5.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 0, 102));
         jLabel5.setText("TERCER PISO");
         pnlBotones.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 370, 103, 28));
 
@@ -669,37 +649,35 @@ public final class Jmenuhotel extends javax.swing.JFrame {
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
-        pnlBotones.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 70, -1, 180));
+        pnlBotones.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 20, -1, 180));
 
-        btnactualizar.setText("ACTUALIZAR");
-        btnactualizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnactualizarActionPerformed(evt);
-            }
-        });
-        pnlBotones.add(btnactualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, 30));
-
-        javax.swing.GroupLayout jpsemaforoLayout = new javax.swing.GroupLayout(jpsemaforo);
-        jpsemaforo.setLayout(jpsemaforoLayout);
-        jpsemaforoLayout.setHorizontalGroup(
-            jpsemaforoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpsemaforoLayout.createSequentialGroup()
-                .addComponent(jpmenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlBotones, javax.swing.GroupLayout.DEFAULT_SIZE, 993, Short.MAX_VALUE)
-                .addContainerGap())
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jpmenu, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(pnlBotones, javax.swing.GroupLayout.PREFERRED_SIZE, 998, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(escritorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
-        jpsemaforoLayout.setVerticalGroup(
-            jpsemaforoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpsemaforoLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jpsemaforoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(pnlBotones, javax.swing.GroupLayout.DEFAULT_SIZE, 597, Short.MAX_VALUE)
-                    .addComponent(jpmenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jpmenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(escritorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pnlBotones, javax.swing.GroupLayout.PREFERRED_SIZE, 589, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        jPanel2.add(jpsemaforo, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
 
@@ -827,10 +805,6 @@ public final class Jmenuhotel extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnconsultasActionPerformed
 
-    private void tablalistadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablalistadoMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tablalistadoMouseClicked
-
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jToggleButton1ActionPerformed
@@ -854,13 +828,6 @@ public final class Jmenuhotel extends javax.swing.JFrame {
     private void jToggleButton26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton26ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jToggleButton26ActionPerformed
-
-    private void btnactualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnactualizarActionPerformed
-        // TODO add your handling code here:
-        ActualizadorColores actualizador = new ActualizadorColores(this);
-        Thread thread = new Thread(actualizador);
-        thread.start();
-    }//GEN-LAST:event_btnactualizarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -904,7 +871,6 @@ public final class Jmenuhotel extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnactualizar;
     public static javax.swing.JButton btnavanzado;
     private javax.swing.JButton btncambioturno;
     public static javax.swing.JButton btnconfiguracion;
@@ -925,7 +891,6 @@ public final class Jmenuhotel extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JToggleButton jToggleButton10;
     private javax.swing.JToggleButton jToggleButton11;
@@ -967,13 +932,11 @@ public final class Jmenuhotel extends javax.swing.JFrame {
     private javax.swing.JToggleButton jToggleButton8;
     private javax.swing.JToggleButton jToggleButton9;
     private javax.swing.JPanel jpmenu;
-    private javax.swing.JPanel jpsemaforo;
     public static javax.swing.JLabel lblacceso;
     public static javax.swing.JLabel lblapellidos;
     public static javax.swing.JLabel lblidpersona;
     public static javax.swing.JLabel lblnombres;
     public static javax.swing.JPanel pnlBotones;
-    private javax.swing.JTable tablalistado;
     // End of variables declaration//GEN-END:variables
 
 }

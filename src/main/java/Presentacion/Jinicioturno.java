@@ -6,6 +6,7 @@ import Datos.Tiempopro;
 import Logica.Fempleado;
 import Logica.Finicioturno;
 import java.awt.HeadlessException;
+import java.awt.event.KeyEvent;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
@@ -69,17 +70,17 @@ public class Jinicioturno extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(204, 255, 153));
+        jPanel1.setBackground(new java.awt.Color(102, 255, 102));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "INICIO TURNOS", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Black", 0, 14))); // NOI18N
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         jLabel1.setText("Usuario:");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 190, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 150, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         jLabel2.setText("Password:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 230, -1, 20));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 190, -1, 20));
 
         txtusuario.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         txtusuario.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -88,7 +89,7 @@ public class Jinicioturno extends javax.swing.JFrame {
                 txtusuarioActionPerformed(evt);
             }
         });
-        jPanel1.add(txtusuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, 160, 30));
+        jPanel1.add(txtusuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 140, 160, 30));
 
         btningresar.setBackground(new java.awt.Color(204, 204, 204));
         btningresar.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
@@ -99,7 +100,7 @@ public class Jinicioturno extends javax.swing.JFrame {
                 btningresarActionPerformed(evt);
             }
         });
-        jPanel1.add(btningresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 280, -1, 38));
+        jPanel1.add(btningresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, -1, 38));
 
         btnsalir.setBackground(new java.awt.Color(204, 204, 204));
         btnsalir.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
@@ -110,7 +111,7 @@ public class Jinicioturno extends javax.swing.JFrame {
                 btnsalirActionPerformed(evt);
             }
         });
-        jPanel1.add(btnsalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 280, 110, 38));
+        jPanel1.add(btnsalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 240, 110, 38));
 
         tablalistado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -138,21 +139,26 @@ public class Jinicioturno extends javax.swing.JFrame {
                 txtpasswordActionPerformed(evt);
             }
         });
-        jPanel1.add(txtpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 220, 160, 30));
+        txtpassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtpasswordKeyPressed(evt);
+            }
+        });
+        jPanel1.add(txtpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, 160, 30));
 
         jLabel3.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         jLabel3.setText("Turno:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 130, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         jLabel4.setText("Fecha y Hora Inicio:");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, -1));
 
         txtfecha_hora_inicio.setEditable(false);
         txtfecha_hora_inicio.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
-        jPanel1.add(txtfecha_hora_inicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 90, 160, 30));
+        jPanel1.add(txtfecha_hora_inicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 50, 160, 30));
 
-        jPanel1.add(cboturnos, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, 160, 30));
+        jPanel1.add(cboturnos, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 90, 160, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -167,7 +173,7 @@ public class Jinicioturno extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -247,6 +253,66 @@ public class Jinicioturno extends javax.swing.JFrame {
     private void tablalistadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablalistadoMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_tablalistadoMouseClicked
+
+    private void txtpasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtpasswordKeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+             Finicioturno func1 = new Finicioturno();
+        Dinicioturno dts1 = new Dinicioturno();
+
+        dts1.setFecha_hora_inicio(txtfecha_hora_inicio.getText());
+
+        int selecturno = cboturnos.getSelectedIndex();
+        dts1.setTurno((String) cboturnos.getItemAt(selecturno));
+
+        if (accion.equals("guardar")) {
+            if (func1.insertar(dts1)) {
+//                JOptionPane.showMessageDialog(rootPane, " fue registrado satisfactoriamente");
+
+            }
+        }
+        try {
+            DefaultTableModel modelo;
+            Fempleado func = new Fempleado();
+            Dempleado dts = new Dempleado();
+
+            dts.setLogin(txtusuario.getText());
+            dts.setPassword(txtpassword.getText());
+
+            modelo = func.login(dts.getLogin(), dts.getPassword());
+            Jmenuhotel.sesionIniciada = true; // Cambiar el estado de la sesión
+            JOptionPane.showMessageDialog(this, "Turno iniciado");
+            tablalistado.setModel(modelo);
+
+            if (func.totalregistros > 0) {
+                this.dispose();
+                Jsalidaturno form = new Jsalidaturno();
+                form.toFront();
+                form.setVisible(true);
+                // Establece los valores en Jmenuhotel
+                Jmenuhotel.actualizarDatosUsuario(
+                        tablalistado.getValueAt(0, 0).toString(),
+                        tablalistado.getValueAt(0, 1).toString(),
+                        tablalistado.getValueAt(0, 2).toString(),
+                        tablalistado.getValueAt(0, 3).toString()
+                );
+//                    // Establece los valores en Jmenuhotel
+//                    Jmenuhotel.lblidpersona.setText(tablalistado.getValueAt(0, 0).toString());
+//                    Jmenuhotel.lblnombres.setText(tablalistado.getValueAt(0, 1).toString());
+//                    Jmenuhotel.lblapellidos.setText(tablalistado.getValueAt(0, 2).toString());
+//                    Jmenuhotel.lblacceso.setText(tablalistado.getValueAt(0, 3).toString());
+
+//                    Jsalidaturno.txtempleado.setText(tablalistado.getValueAt(0, 1)+""+tablalistado.getValueAt(0, 2));
+            } else {
+
+                JOptionPane.showMessageDialog(rootPane, "Acceso Denegado", "HAS INICIADO CORECTAMENTE TU TURNO", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (HeadlessException e) {
+        }
+
+            
+        }
+    }//GEN-LAST:event_txtpasswordKeyPressed
 
     /**
      * @param args the command line arguments

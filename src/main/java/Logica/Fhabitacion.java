@@ -229,7 +229,7 @@ public class Fhabitacion {
        }
    } 
     public boolean disponible (Dhabitacion dts){
-       sSQL="update habitacion set estado='Limpieza'"+
+       sSQL="update habitacion set estado='Disponible'"+
                " where idhabitacion=?";
            //alt + 39
         

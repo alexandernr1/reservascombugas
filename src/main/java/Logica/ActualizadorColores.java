@@ -4,7 +4,6 @@ import Presentacion.Jmenuhotel;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-import javax.swing.JOptionPane;
 /**
  *
  * @author Usuario
@@ -23,7 +22,7 @@ public class ActualizadorColores implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("ActualizadorColores se está ejecutando: " + System.currentTimeMillis());
+//        System.out.println("ActualizadorColores se está ejecutando: " + System.currentTimeMillis());
         ventana.actualizarColoresBotones();
     }
 
@@ -35,9 +34,9 @@ public class ActualizadorColores implements Runnable {
             @Override
             public void run() {
                 if (!scheduler.isShutdown()) {
-                    System.out.println("Scheduler está activo: " + System.currentTimeMillis());
+//                    System.out.println("Scheduler está activo: " + System.currentTimeMillis());
                 } else {
-                    System.out.println("Scheduler ha sido apagado.");
+//                    System.out.println("Scheduler ha sido apagado.");
                 }
             }
         }, 0, 5, TimeUnit.SECONDS);
