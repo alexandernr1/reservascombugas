@@ -14,20 +14,20 @@ import javax.swing.table.DefaultTableModel;
 public class Jinicioturno extends javax.swing.JFrame {
 
     Tiempopro time = new Tiempopro();
-    private boolean sesionIniciada;
+//    public static boolean sesionIniciada;
 
-    public Jinicioturno(boolean sesionIniciada) {
+    public Jinicioturno() {
         initComponents();
         setLocationRelativeTo(null);
         this.setTitle("ACCESO AL SISTEMA");
         this.setLocationRelativeTo(null);
         mostrarTiempo();
         fechacbo();
-        this.sesionIniciada = sesionIniciada;
+//        this.sesionIniciada = sesionIniciada;
 
     }
     public static int idpersona;
-     
+
     private String accion = "guardar";
 
     private void fechacbo() {
@@ -44,7 +44,6 @@ public class Jinicioturno extends javax.swing.JFrame {
 
         txtfecha_hora_inicio.setText(time.getFechacomp() + " " + time.getHoracomp());
     }
-
 
     public String obtenerTextoFechahorainicio(String txtfechahorainicio) {
         return txtfechahorainicio;
@@ -177,52 +176,58 @@ public class Jinicioturno extends javax.swing.JFrame {
 
     private void btningresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btningresarActionPerformed
 
-        
         Finicioturno func1 = new Finicioturno();
         Dinicioturno dts1 = new Dinicioturno();
-        
+
         dts1.setFecha_hora_inicio(txtfecha_hora_inicio.getText());
-        
+
         int selecturno = cboturnos.getSelectedIndex();
-        dts1.setTurno((String)cboturnos.getItemAt(selecturno));
-        
+        dts1.setTurno((String) cboturnos.getItemAt(selecturno));
+
         if (accion.equals("guardar")) {
             if (func1.insertar(dts1)) {
 //                JOptionPane.showMessageDialog(rootPane, " fue registrado satisfactoriamente");
 
-
             }
         }
-            try {
-                DefaultTableModel modelo;
-                Fempleado func = new Fempleado();
-                Dempleado dts = new Dempleado();
+        try {
+            DefaultTableModel modelo;
+            Fempleado func = new Fempleado();
+            Dempleado dts = new Dempleado();
 
-                dts.setLogin(txtusuario.getText());
-                dts.setPassword(txtpassword.getText());
+            dts.setLogin(txtusuario.getText());
+            dts.setPassword(txtpassword.getText());
 
-                modelo = func.login(dts.getLogin(), dts.getPassword());
+            modelo = func.login(dts.getLogin(), dts.getPassword());
+            Jmenuhotel.sesionIniciada = true; // Cambiar el estado de la sesión
+            JOptionPane.showMessageDialog(this, "Turno iniciado");
+            tablalistado.setModel(modelo);
 
-                tablalistado.setModel(modelo);
+            if (func.totalregistros > 0) {
+                this.dispose();
+                Jsalidaturno form = new Jsalidaturno();
+                form.toFront();
+                form.setVisible(true);
+                // Establece los valores en Jmenuhotel
+                Jmenuhotel.actualizarDatosUsuario(
+                        tablalistado.getValueAt(0, 0).toString(),
+                        tablalistado.getValueAt(0, 1).toString(),
+                        tablalistado.getValueAt(0, 2).toString(),
+                        tablalistado.getValueAt(0, 3).toString()
+                );
+//                    // Establece los valores en Jmenuhotel
+//                    Jmenuhotel.lblidpersona.setText(tablalistado.getValueAt(0, 0).toString());
+//                    Jmenuhotel.lblnombres.setText(tablalistado.getValueAt(0, 1).toString());
+//                    Jmenuhotel.lblapellidos.setText(tablalistado.getValueAt(0, 2).toString());
+//                    Jmenuhotel.lblacceso.setText(tablalistado.getValueAt(0, 3).toString());
 
-                if (func.totalregistros > 0) {
-                    this.dispose();
-                    Jsalidaturno form = new Jsalidaturno();
-                    form.toFront();
-                    form.setVisible(true);
-                    // Establece los valores en Jmenuhotel
-                    Jmenuhotel.lblidpersona.setText(tablalistado.getValueAt(0, 0).toString());
-                    Jmenuhotel.lblnombres.setText(tablalistado.getValueAt(0, 1).toString());
-                    Jmenuhotel.lblapellidos.setText(tablalistado.getValueAt(0, 2).toString());
-                    Jmenuhotel.lblacceso.setText(tablalistado.getValueAt(0, 3).toString());
-                    
 //                    Jsalidaturno.txtempleado.setText(tablalistado.getValueAt(0, 1)+""+tablalistado.getValueAt(0, 2));
-                } else   {
-                    
-                  JOptionPane.showMessageDialog(rootPane, "Acceso Denegado", "HAS INICIADO CORECTAMENTE TU TURNO", JOptionPane.ERROR_MESSAGE);
-                }
-            } catch (HeadlessException e) {
+            } else {
+
+                JOptionPane.showMessageDialog(rootPane, "Acceso Denegado", "HAS INICIADO CORECTAMENTE TU TURNO", JOptionPane.ERROR_MESSAGE);
             }
+        } catch (HeadlessException e) {
+        }
 
 
     }//GEN-LAST:event_btningresarActionPerformed
@@ -273,7 +278,7 @@ public class Jinicioturno extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-          
+
         });
     }
 

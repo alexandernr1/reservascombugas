@@ -6,9 +6,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JToggleButton;
@@ -19,7 +16,7 @@ public final class Jmenuhotel extends javax.swing.JFrame {
     public String nombres;
     public String apellidos;
     public String acceso;
-    public Boolean sesionIniciada = false;
+    public static Boolean sesionIniciada = false;
 //    private Jinicioturno Jsalidaturno;
     private LoguinDeAdmin Javanzado;
     public Fhabitacion fcn;
@@ -33,14 +30,14 @@ public final class Jmenuhotel extends javax.swing.JFrame {
         setTitle("MENU HOTEL");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
+
         this.fcn = new Fhabitacion();
 
         this.idpersona = idpersona;
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.acceso = acceso;
-      
+
         lblidpersona.setText(idpersona);
         lblnombres.setText(nombres);
         lblapellidos.setText(apellidos);
@@ -48,9 +45,24 @@ public final class Jmenuhotel extends javax.swing.JFrame {
         inhabilitar();
         ActualizadorColores actualizador = new ActualizadorColores(this);
         Thread thread = new Thread(actualizador);
+        actualizador.iniciarHilo();
         thread.start();
-        
+
 //        actualizarColoresBotones();
+    }
+    
+    public static void actualizarDatosUsuario(String idPersona, String nombres, String apellidos, String acceso) {
+        lblidpersona.setText(idPersona);
+        lblnombres.setText(nombres);
+        lblapellidos.setText(apellidos);
+        lblacceso.setText(acceso);
+    }
+
+    public static void limpiarDatosUsuario() {
+        lblidpersona.setText("");
+        lblnombres.setText("");
+        lblapellidos.setText("");
+        lblacceso.setText("");
     }
     public static int idusuario;
 
@@ -60,8 +72,13 @@ public final class Jmenuhotel extends javax.swing.JFrame {
 
     }
 
-    
+    public void metodoDondeSeNecesitaFormLogin() {
+        // Inicialización de formLogin
+        Jinicioturno formLogin = new Jinicioturno();
 
+        // Intento de deshabilitar formLogin
+        formLogin.setEnabled(false); // Aquí debería funcionar correctamente
+    }
     public void actualizarColoresBotones() {
         Component[] componentes = pnlBotones.getComponents();
 
@@ -88,7 +105,6 @@ public final class Jmenuhotel extends javax.swing.JFrame {
             }
         }
     }
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -163,6 +179,7 @@ public final class Jmenuhotel extends javax.swing.JFrame {
         jToggleButton39 = new javax.swing.JToggleButton();
         jToggleButton22 = new javax.swing.JToggleButton();
         jToggleButton40 = new javax.swing.JToggleButton();
+        btnactualizar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -208,7 +225,7 @@ public final class Jmenuhotel extends javax.swing.JFrame {
         });
 
         jLabel2.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
-        jLabel2.setText("Consutas de informes:");
+        jLabel2.setText("Consultas de informes:");
 
         tablalistado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -254,7 +271,7 @@ public final class Jmenuhotel extends javax.swing.JFrame {
                 .addComponent(cboinformes, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(17, 17, 17)
                 .addComponent(btnconsultas)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 359, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 355, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addContainerGap())
         );
@@ -454,7 +471,7 @@ public final class Jmenuhotel extends javax.swing.JFrame {
 
         jToggleButton7.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         jToggleButton7.setText("Habitacion7");
-        pnlBotones.add(jToggleButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 110, 42));
+        pnlBotones.add(jToggleButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 152, 110, 50));
 
         jToggleButton8.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         jToggleButton8.setText("Habitacion8");
@@ -464,13 +481,14 @@ public final class Jmenuhotel extends javax.swing.JFrame {
         jToggleButton9.setText("Habitacion9");
         pnlBotones.add(jToggleButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 70, 102, 42));
 
+        jLabel3.setBackground(new java.awt.Color(0, 255, 255));
         jLabel3.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         jLabel3.setText("SEGUNDO PISO");
-        pnlBotones.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 210, 103, 28));
+        pnlBotones.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 200, 103, 28));
 
         jLabel4.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         jLabel4.setText("PRIMER PISO");
-        pnlBotones.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, 103, 28));
+        pnlBotones.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 30, 103, 28));
 
         jToggleButton10.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         jToggleButton10.setText("Habitacion10");
@@ -491,7 +509,7 @@ public final class Jmenuhotel extends javax.swing.JFrame {
                 jToggleButton13ActionPerformed(evt);
             }
         });
-        pnlBotones.add(jToggleButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 310, -1, 47));
+        pnlBotones.add(jToggleButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 280, -1, 47));
 
         jToggleButton14.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         jToggleButton14.setText("Habitacion22");
@@ -500,43 +518,43 @@ public final class Jmenuhotel extends javax.swing.JFrame {
                 jToggleButton14ActionPerformed(evt);
             }
         });
-        pnlBotones.add(jToggleButton14, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 310, -1, 47));
+        pnlBotones.add(jToggleButton14, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 280, -1, 47));
 
         jToggleButton15.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         jToggleButton15.setText("Habitacion23");
-        pnlBotones.add(jToggleButton15, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 310, 120, 47));
+        pnlBotones.add(jToggleButton15, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 280, 120, 47));
 
         jToggleButton16.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         jToggleButton16.setText("Habitacion24");
-        pnlBotones.add(jToggleButton16, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 310, -1, 47));
+        pnlBotones.add(jToggleButton16, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 280, -1, 47));
 
         jToggleButton17.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         jToggleButton17.setText("Habitacion27");
-        pnlBotones.add(jToggleButton17, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 270, -1, 42));
+        pnlBotones.add(jToggleButton17, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 240, -1, 42));
 
         jToggleButton18.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         jToggleButton18.setText("Habitacion28");
-        pnlBotones.add(jToggleButton18, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 270, -1, 42));
+        pnlBotones.add(jToggleButton18, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 240, -1, 42));
 
         jToggleButton19.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         jToggleButton19.setText("Habitacion25");
-        pnlBotones.add(jToggleButton19, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 310, -1, 47));
+        pnlBotones.add(jToggleButton19, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 280, -1, 47));
 
         jToggleButton20.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         jToggleButton20.setText("Habitacion26");
-        pnlBotones.add(jToggleButton20, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 120, 60));
+        pnlBotones.add(jToggleButton20, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 120, 60));
 
         jToggleButton21.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         jToggleButton21.setText("Habitacion29");
-        pnlBotones.add(jToggleButton21, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 270, 120, 42));
+        pnlBotones.add(jToggleButton21, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 240, 120, 42));
 
         jToggleButton23.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         jToggleButton23.setText("Habitacion211");
-        pnlBotones.add(jToggleButton23, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 259, 120, 50));
+        pnlBotones.add(jToggleButton23, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 120, 50));
 
         jToggleButton24.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         jToggleButton24.setText("Habitacion210");
-        pnlBotones.add(jToggleButton24, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 270, 220, 39));
+        pnlBotones.add(jToggleButton24, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 240, 220, 40));
 
         jToggleButton25.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         jToggleButton25.setText("Habitacion31");
@@ -554,7 +572,7 @@ public final class Jmenuhotel extends javax.swing.JFrame {
                 jToggleButton26ActionPerformed(evt);
             }
         });
-        pnlBotones.add(jToggleButton26, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 500, -1, 47));
+        pnlBotones.add(jToggleButton26, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 497, -1, 50));
 
         jToggleButton27.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         jToggleButton27.setText("Habitacion33");
@@ -596,9 +614,10 @@ public final class Jmenuhotel extends javax.swing.JFrame {
         jToggleButton36.setText("Habitacion310");
         pnlBotones.add(jToggleButton36, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 410, -1, 39));
 
+        jLabel5.setBackground(new java.awt.Color(0, 204, 204));
         jLabel5.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         jLabel5.setText("TERCER PISO");
-        pnlBotones.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 370, 103, 28));
+        pnlBotones.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 370, 103, 28));
 
         jToggleButton37.setBackground(new java.awt.Color(255, 0, 0));
         jToggleButton37.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
@@ -647,10 +666,18 @@ public final class Jmenuhotel extends javax.swing.JFrame {
                 .addComponent(jToggleButton39)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jToggleButton40)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
-        pnlBotones.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 70, -1, 170));
+        pnlBotones.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 70, -1, 180));
+
+        btnactualizar.setText("ACTUALIZAR");
+        btnactualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnactualizarActionPerformed(evt);
+            }
+        });
+        pnlBotones.add(btnactualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, 30));
 
         javax.swing.GroupLayout jpsemaforoLayout = new javax.swing.GroupLayout(jpsemaforo);
         jpsemaforo.setLayout(jpsemaforoLayout);
@@ -742,26 +769,24 @@ public final class Jmenuhotel extends javax.swing.JFrame {
 
     private void btncambioturnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncambioturnoActionPerformed
         if (sesionIniciada) {
-            // Si la sesión ya está iniciada, mostrar el formulario Jsalidaturno
+            // Si la sesión no está iniciada, mostrar el formulario de inicio de sesión
+
             Jsalidaturno formTurnos = new Jsalidaturno();
             formTurnos.toFront();
             formTurnos.setVisible(true);
+            // Si la sesión ya está iniciada, mostrar el formulario Jsalidaturno
+             metodoDondeSeNecesitaFormLogin();
         } else {
-            // Si la sesión no está iniciada, mostrar el formulario de inicio de sesión
-            Jinicioturno formLogin = new Jinicioturno(sesionIniciada);
+
+            Jinicioturno formLogin = new Jinicioturno();
             formLogin.toFront();
             formLogin.setVisible(true);
 //        Jsalidaturno.txtidempleado.setText(lblidpersona.getText());
 //        Jsalidaturno.txtempleado.setText(lblnombres.getText() + " " + lblapellidos.getText());
 //        Jsalidaturno.idusuario = Integer.parseInt(lblidpersona.getText());
-        }
-        //        if (!sesionIniciada) {
-//            Jsalidaturno = new Jinicioturno();
-//            Jsalidaturno.toFront();
-//            Jsalidaturno.setVisible(true);1
-//        }
 
-//        cerrarTurno();
+        }
+
 
     }//GEN-LAST:event_btncambioturnoActionPerformed
 
@@ -830,6 +855,13 @@ public final class Jmenuhotel extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jToggleButton26ActionPerformed
 
+    private void btnactualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnactualizarActionPerformed
+        // TODO add your handling code here:
+        ActualizadorColores actualizador = new ActualizadorColores(this);
+        Thread thread = new Thread(actualizador);
+        thread.start();
+    }//GEN-LAST:event_btnactualizarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -872,6 +904,7 @@ public final class Jmenuhotel extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnactualizar;
     public static javax.swing.JButton btnavanzado;
     private javax.swing.JButton btncambioturno;
     public static javax.swing.JButton btnconfiguracion;

@@ -53,9 +53,13 @@ public class Jsalidaturno extends javax.swing.JFrame {
     }
 
     public void finalizarTurno() {
+        Jmenuhotel.sesionIniciada = false; // Cambiar el estado de la sesión
+        Jmenuhotel.limpiarDatosUsuario();
+        JOptionPane.showMessageDialog(this, "Turno cerrado");
         this.setVisible(false); // Oculta el formulario
         this.dispose(); // Libera los recursos
-        Jinicioturno inicio = new Jinicioturno(sesionIniciada);
+
+        Jinicioturno inicio = new Jinicioturno();
         inicio.setVisible(true);
     }
 
