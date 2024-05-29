@@ -36,7 +36,7 @@ public class Fingreso {
                 + "(SELECT numdocumento FROM cliente WHERE idcliente = i.idcliente)AS clientenu,"
                 + "(select telefono from cliente where idcliente= i.idcliente)as clientete,"
                 + "i.fecha_hora_ingreso,i.num_personas,i.tipo_cliente,i.motivo_viaje,i.estado,"
-                + "i.costoalojamiento from ingreso i inner join habitacion h on i.idhabitacion=h.idhabitacion where i.fecha_hora_ingreso like '%" + buscar + "%' order by idingreso desc";
+                + "i.costoalojamiento from ingreso i inner join habitacion h on i.idhabitacion=h.idhabitacion where (SELECT numdocumento FROM cliente WHERE idcliente = i.idcliente) like '%" + buscar + "%' order by idingreso desc";
 
         try {
             Statement st = cn.createStatement();
@@ -129,7 +129,7 @@ public class Fingreso {
             pst.setString(8, dts.getEstado());
            
 
-            pst.setInt(10, dts.getIdingreso());
+            pst.setInt(9, dts.getIdingreso());
 
             int n = pst.executeUpdate();
 
@@ -141,5 +141,23 @@ public class Fingreso {
         }
     }
 
-   
+   public boolean finalizar (Dingreso dts){
+       sSQL="update ingreso set estado='Finalizado'"+
+               " where idingreso=?";
+           //alt + 39
+       
+       try {
+           PreparedStatement pst=cn.prepareStatement(sSQL);
+          
+           pst.setInt(1, dts.getIdingreso());
+           
+           int n=pst.executeUpdate();
+           
+           return n!=0;
+           
+       } catch (SQLException e) {
+           JOptionPane.showConfirmDialog(null, e);
+           return false;
+       }
+   }
 }

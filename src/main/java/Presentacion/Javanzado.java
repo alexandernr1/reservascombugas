@@ -9,10 +9,10 @@ public class Javanzado extends javax.swing.JFrame {
     public Javanzado() {
         initComponents();
         setTitle("AVANZADO");
-//         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-//        setSize(screenSize.width, screenSize.height);
+         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        setSize(screenSize.width, screenSize.height);
         setResizable(false);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
 
     }
@@ -25,7 +25,6 @@ public class Javanzado extends javax.swing.JFrame {
         btnempleados = new javax.swing.JButton();
         btnhabitaciones = new javax.swing.JButton();
         btnproducto = new javax.swing.JButton();
-        butsalir = new javax.swing.JButton();
         lblaccesoadmin = new javax.swing.JLabel();
         jdmenu = new javax.swing.JDesktopPane();
 
@@ -37,7 +36,7 @@ public class Javanzado extends javax.swing.JFrame {
         btnempleados.setBackground(new java.awt.Color(102, 255, 102));
         btnempleados.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         btnempleados.setForeground(new java.awt.Color(0, 0, 102));
-        btnempleados.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\HotelC\\src\\main\\java\\File\\trabajadores.png")); // NOI18N
+        btnempleados.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Desktop\\reservascombugas\\Imágenes Menú\\trabajadores.png")); // NOI18N
         btnempleados.setText("REGISTRO EMPLEADOS");
         btnempleados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -48,7 +47,7 @@ public class Javanzado extends javax.swing.JFrame {
         btnhabitaciones.setBackground(new java.awt.Color(102, 255, 102));
         btnhabitaciones.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         btnhabitaciones.setForeground(new java.awt.Color(0, 0, 102));
-        btnhabitaciones.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\HotelC\\src\\main\\java\\File\\habitaciones.png")); // NOI18N
+        btnhabitaciones.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Desktop\\reservascombugas\\Imágenes Menú\\habitaciones.png")); // NOI18N
         btnhabitaciones.setText("REGISTRO HABITACIONES");
         btnhabitaciones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -59,20 +58,11 @@ public class Javanzado extends javax.swing.JFrame {
         btnproducto.setBackground(new java.awt.Color(102, 255, 102));
         btnproducto.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         btnproducto.setForeground(new java.awt.Color(0, 0, 102));
-        btnproducto.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\HotelC\\src\\main\\java\\File\\Reservas.png")); // NOI18N
+        btnproducto.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Desktop\\reservascombugas\\Imágenes Menú\\productos.png")); // NOI18N
         btnproducto.setText("REGISTRO PRODUCTOS");
         btnproducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnproductoActionPerformed(evt);
-            }
-        });
-
-        butsalir.setBackground(new java.awt.Color(153, 153, 153));
-        butsalir.setText("SALIR");
-        butsalir.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        butsalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                butsalirActionPerformed(evt);
             }
         });
 
@@ -85,13 +75,8 @@ public class Javanzado extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(73, 73, 73)
-                                .addComponent(butsalir, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(94, 94, 94)
-                                .addComponent(lblaccesoadmin, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(94, 94, 94)
+                        .addComponent(lblaccesoadmin, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
@@ -112,9 +97,7 @@ public class Javanzado extends javax.swing.JFrame {
                 .addComponent(btnempleados, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnhabitaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 412, Short.MAX_VALUE)
-                .addComponent(butsalir, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10))
+                .addContainerGap(453, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jdmenuLayout = new javax.swing.GroupLayout(jdmenu);
@@ -165,11 +148,6 @@ public class Javanzado extends javax.swing.JFrame {
         Jregistroempleados.setVisible(true);
     }//GEN-LAST:event_btnempleadosActionPerformed
 
-    private void butsalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butsalirActionPerformed
-        // TODO add your handling code here:
-        this.dispose();
-    }//GEN-LAST:event_butsalirActionPerformed
-
     private void btnproductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnproductoActionPerformed
        Jproducto Jproducto = new Jproducto();
         jdmenu.add(Jproducto);
@@ -179,8 +157,11 @@ public class Javanzado extends javax.swing.JFrame {
 
     public static void main(String args[]) {
 
-        java.awt.EventQueue.invokeLater(() -> {
-            new Javanzado().setVisible(true);
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new Javanzado().setVisible(true);
+            }
         });
     }
 
@@ -188,7 +169,6 @@ public class Javanzado extends javax.swing.JFrame {
     private javax.swing.JButton btnempleados;
     private javax.swing.JButton btnhabitaciones;
     private javax.swing.JButton btnproducto;
-    private javax.swing.JButton butsalir;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JDesktopPane jdmenu;
     public static javax.swing.JLabel lblaccesoadmin;

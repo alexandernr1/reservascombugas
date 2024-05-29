@@ -9,7 +9,7 @@ public class Dabono {
     public int idhabitacion;
     public int idcliente;
     public Date fechaabono;
-    public Double abonohabitacion;
+    public int abonohabitacion;
     public String descuentos;
     public String conceptodescuento;
     public String formaAbono;
@@ -21,7 +21,7 @@ public class Dabono {
     public Dabono() {
     }
 
-    public Dabono(int idabono, int idingreso, int idhabitacion, int idcliente, Date fechaabono, Double abonohabitacion, String descuentos, String conceptodescuento, String formaAbono, int totalAbonos, String privilegiosAdmon, String privilegiosrecepcion, int otroscobros) {
+    public Dabono(int idabono, int idingreso, int idhabitacion, int idcliente, Date fechaabono, int abonohabitacion, String descuentos, String conceptodescuento, String formaAbono, int totalAbonos, String privilegiosAdmon, String privilegiosrecepcion, int otroscobros) {
         this.idabono = idabono;
         this.idingreso = idingreso;
         this.idhabitacion = idhabitacion;
@@ -77,11 +77,11 @@ public class Dabono {
         this.fechaabono = fechaabono;
     }
 
-    public Double getAbonohabitacion() {
+    public int getAbonohabitacion() {
         return abonohabitacion;
     }
 
-    public void setAbonohabitacion(Double abonohabitacion) {
+    public void setAbonohabitacion(int abonohabitacion) {
         this.abonohabitacion = abonohabitacion;
     }
 

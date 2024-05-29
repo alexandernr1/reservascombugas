@@ -2,39 +2,40 @@ package Datos;
 
 import java.sql.Date;
 
-/** @author Alexander nieves romero*/
-
+/**
+ * @author Alexander nieves romero
+ */
 public class Dsalida {
 
-    private int idsalida;
-    private int idingreso;
-    private int idcliente;
-    private int idhabitacion;
-    private int idabono;
-    private int idempleado;
-    private int numero;
-    private String cliente;
-    private int numnoches;
-    private Double costoalojamiento;
-    private String fechaingreso;
-    private String fechasalida;
-    private Date fechaemision;
-    private String tipocliente;
-    private String tipocomprobante;
-    private String num_comprobante;
-    private String formapago;
-    private int valor_noches;
-    private int abonos;
-    private int valor_total;
-    private int descuentos;
-    private int cobros_extra;
-    private int otros_cobros;
-    private Double totalpago;
+    public int idsalida;
+    public int idingreso;
+    public int idcliente;
+    public int idhabitacion;
+    public int idabono;
+    public int idempleado;
+    public int numero;
+    public String cliente;
+    public int numnoches;
+    public int costoalojamiento;
+    public String fechaingreso;
+    public String fechasalida;
+    public Date fechaemision;
+    public String tipocliente;
+    public String tipocomprobante;
+    public String num_comprobante;
+    public String formapago;
+    public int valor_noches;
+    public int abonos;
+    public int valor_total;
+    public int descuentos;
+    public int cobros_extra;
+    public int otros_cobros;
+    public Double totalpago;
 
     public Dsalida() {
     }
 
-    public Dsalida(int idsalida, int idingreso, int idcliente, int idhabitacion, int idabono, int idempleado, int numero, String cliente, int numnoches, Double costoalojamiento, String fechaingreso, String fechasalida, Date fechaemision, String tipocliente, String tipocomprobante, String num_comprobante, String formapago, int valor_noches, int abonos, int valor_total, int descuentos, int cobros_extra, int otros_cobros, Double totalpago) {
+    public Dsalida(int idsalida, int idingreso, int idcliente, int idhabitacion, int idabono, int idempleado, int numero, String cliente, int numnoches, int costoalojamiento, String fechaingreso, String fechasalida, Date fechaemision, String tipocliente, String tipocomprobante, String num_comprobante, String formapago, int valor_noches, int abonos, int valor_total, int descuentos, int cobros_extra, int otros_cobros, Double totalpago) {
         this.idsalida = idsalida;
         this.idingreso = idingreso;
         this.idcliente = idcliente;
@@ -108,7 +109,6 @@ public class Dsalida {
     public void setIdempleado(int idempleado) {
         this.idempleado = idempleado;
     }
-    
 
     public int getNumero() {
         return numero;
@@ -134,11 +134,11 @@ public class Dsalida {
         this.numnoches = numnoches;
     }
 
-    public Double getCostoalojamiento() {
+    public int getCostoalojamiento() {
         return costoalojamiento;
     }
 
-    public void setCostoalojamiento(Double costoalojamiento) {
+    public void setCostoalojamiento(int costoalojamiento) {
         this.costoalojamiento = costoalojamiento;
     }
 
@@ -253,6 +253,5 @@ public class Dsalida {
     public void setTotalpago(Double totalpago) {
         this.totalpago = totalpago;
     }
-    
-    
+
 }

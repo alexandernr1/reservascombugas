@@ -20,22 +20,22 @@ public final class Jpago extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         setTitle("PAGOS");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         mostrar("");
         inhabilitar();
-        txtidingreso.setText(idingreso);
-        txtcliente.setText(cliente);
-        txthabitacion.setText(habitacion);
-        txtidhabitacion.setText(idhabitacion);
-        txttotalingreso.setText(totalingreso);
-        txttotalpago.setText(totalingreso);
+//        txtidingreso.setText(idingreso);
+//        txtcliente.setText(cliente);
+//        txthabitacion.setText(habitacion);
+//        txtidhabitacion.setText(idhabitacion);
+//        txttotalingreso.setText(totalingreso);
+//        txttotalpago.setText(totalingreso);
     }
     private String accion = "guardar";
-    public static String idingreso;
-    public static String cliente;
-    public static String habitacion;
-    public static String idhabitacion;
-    public static String totalingreso;
+//    public static String idingreso;
+//    public static String cliente;
+//    public static String habitacion;
+//    public static String idhabitacion;
+//    public static String totalingreso;
     
     
 
@@ -107,7 +107,6 @@ public final class Jpago extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         tablalistado = new javax.swing.JTable();
         btneliminar = new javax.swing.JButton();
-        btnsalir = new javax.swing.JButton();
         lbltotalregistros = new javax.swing.JLabel();
         btnImprimirComprobante = new javax.swing.JButton();
 
@@ -396,15 +395,6 @@ public final class Jpago extends javax.swing.JFrame {
             }
         });
 
-        btnsalir.setBackground(new java.awt.Color(51, 51, 51));
-        btnsalir.setForeground(new java.awt.Color(255, 255, 255));
-        btnsalir.setText("Salir");
-        btnsalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnsalirActionPerformed(evt);
-            }
-        });
-
         lbltotalregistros.setText("Registros");
 
         btnImprimirComprobante.setBackground(new java.awt.Color(51, 51, 51));
@@ -430,8 +420,7 @@ public final class Jpago extends javax.swing.JFrame {
                             .addComponent(btnImprimirComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 255, Short.MAX_VALUE)
                         .addComponent(btneliminar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnsalir)))
+                        .addGap(84, 84, 84)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -440,7 +429,6 @@ public final class Jpago extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btneliminar)
-                    .addComponent(btnsalir)
                     .addComponent(btnImprimirComprobante))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -526,18 +514,13 @@ public final class Jpago extends javax.swing.JFrame {
 
                 dts.setIdpago(Integer.parseInt(txtidpago.getText()));
                 func.eliminar(dts);
-                mostrar(idingreso);
+                mostrar("");
                  inhabilitar();
 
             }
 
         }
     }//GEN-LAST:event_btneliminarActionPerformed
-
-    private void btnsalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsalirActionPerformed
-        // TODO add your handling code here:
-        this.dispose();
-    }//GEN-LAST:event_btnsalirActionPerformed
 
     private void btnImprimirComprobanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirComprobanteActionPerformed
         /* if (!txtidpago.getText().equals("")) {
@@ -611,7 +594,7 @@ public final class Jpago extends javax.swing.JFrame {
             if (func.insertar(dts)) {
                 JOptionPane.showMessageDialog(rootPane, " El pago por $. " + txttotalpago.getText()
                         + " del Sr. " + txtcliente.getText() + " Ha sido realizado con Éxito");
-                mostrar(idingreso);
+                mostrar("");
                  inhabilitar();
 
                 //Desocupar la Habitación
@@ -636,7 +619,7 @@ public final class Jpago extends javax.swing.JFrame {
             if (func.editar(dts)) {
                 JOptionPane.showMessageDialog(rootPane, "El pago del Sr. "
                         + txtcliente.getText() + " Ha sido Modificado Correctamente");
-                mostrar(idingreso);
+                mostrar("");
                  inhabilitar();
             }
         }
@@ -695,7 +678,6 @@ public final class Jpago extends javax.swing.JFrame {
     private javax.swing.JButton btneliminar;
     private javax.swing.JButton btnguardar;
     private javax.swing.JButton btnnuevo;
-    private javax.swing.JButton btnsalir;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> cboformapago;
     private javax.swing.JComboBox<String> cbotipocomprobante;

@@ -17,7 +17,6 @@ C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Logica\
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Presentacion\Jvistasalida.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Datos\Dlistaespera.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Datos\Dproductos.java
-C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Presentacion\Jvistahabitacion.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Presentacion\LoguinDeSistema.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Datos\Dabono.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Datos\Dinicioturno.java
@@ -29,7 +28,9 @@ C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Logica\
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Datos\Dpersona.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Logica\GenerarCodigo.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Logica\Cconexion.java
+C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Presentacion\Jvistareservas.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Presentacion\Jhabitaciones.java
+C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Presentacion\Jvistaingreso.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Datos\Tiempopro.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Presentacion\Jabono.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Presentacion\LoguinDeAdmin.java
@@ -52,5 +53,4 @@ C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Logica\
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Presentacion\Jpago.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Datos\Dpago.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Presentacion\Jmanejoreservas.java
-C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Presentacion\Jvistacliente.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Logica\HotelC.java

@@ -1,7 +1,6 @@
 package Logica;
 
 import Datos.Dabono;
-import Datos.Dreserva;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -81,7 +80,7 @@ public class Fabonos {
             pst.setInt(2, dts.getIdhabitacion());
             pst.setInt(3, dts.getIdcliente());
             pst.setDate(4, dts.getFechaabono());
-            pst.setDouble(5, dts.getAbonohabitacion());
+            pst.setInt(5, dts.getAbonohabitacion());
             pst.setString(6, dts.getDescuentos());
             pst.setString(7, dts.getConceptodescuento());
             pst.setString(8, dts.getFormaAbono());

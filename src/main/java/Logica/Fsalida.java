@@ -1,4 +1,4 @@
-package Logica;
+ package Logica;
 
 import Datos.Dsalida;
 import java.sql.Connection;
@@ -93,7 +93,7 @@ public class Fsalida {
             pst.setInt(6, dts.getNumero());
             pst.setString(7, dts.getCliente());
             pst.setInt(8, dts.getNumnoches());
-            pst.setDouble(9, dts.getCostoalojamiento());
+            pst.setInt(9, dts.getCostoalojamiento());
             pst.setString(10, dts.getFechaingreso());
             pst.setString(11, dts.getFechasalida());
             pst.setDate(12, dts.getFechaemision());
@@ -136,7 +136,7 @@ public class Fsalida {
                 + "i.costoalojamiento "
                 + "FROM ingreso i INNER JOIN habitacion h ON i.idhabitacion = h.idhabitacion "
                 + "LEFT JOIN abono a ON i.idingreso = a.idingreso "
-                + "WHERE h.numero = ?";
+                + "WHERE h.numero = ? AND i.estado = 'Activo'"; 
 
         PreparedStatement pst = cn.prepareStatement(sSQL);
         pst.setString(1, numeroHabitacion);

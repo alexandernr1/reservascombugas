@@ -9,11 +9,11 @@ public class Dhabitacion {
     public String piso;
     public String descripcion;
     public String caracteristicas;
-    public Double precio;
+    public Integer precio;
     public String estado;
     public String tipohabitacion;
 
-    public Dhabitacion(int idhabitacion, Integer numero, String piso, String descripcion, String caracteristicas, Double precio, String estado, String tipohabitacion) {
+    public Dhabitacion(int idhabitacion, Integer numero, String piso, String descripcion, String caracteristicas, Integer precio, String estado, String tipohabitacion) {
         this.idhabitacion = idhabitacion;
         this.numero = numero;
         this.piso = piso;
@@ -67,11 +67,11 @@ public class Dhabitacion {
         this.caracteristicas = caracteristicas;
     }
 
-    public Double getPrecio() {
+    public int getPrecio() {
         return precio;
     }
 
-    public void setPrecio(Double precio) {
+    public void setPrecio(int precio) {
         this.precio= precio;
     }
 

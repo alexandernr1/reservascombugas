@@ -4,12 +4,14 @@ import javax.swing.JFrame;
 
 public class Jmenuprin extends javax.swing.JFrame {
 
+    public static Boolean sesionIniciada = false;
+    
     public Jmenuprin() {
 
         initComponents();
         setLocationRelativeTo(null);
         setTitle("MENU PRINCIPAL");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(this);
         inhabilitar();
 
@@ -32,7 +34,6 @@ static void inhabilitar() {
         btnlavanderia = new javax.swing.JButton();
         btnpicinas = new javax.swing.JButton();
         btnparqueadero = new javax.swing.JButton();
-        butsalir = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         lblapellidos = new javax.swing.JLabel();
         lblidpersona = new javax.swing.JLabel();
@@ -88,15 +89,6 @@ static void inhabilitar() {
             }
         });
 
-        butsalir.setBackground(new java.awt.Color(153, 153, 153));
-        butsalir.setText("SALIR");
-        butsalir.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        butsalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                butsalirActionPerformed(evt);
-            }
-        });
-
         jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\HotelC\\src\\main\\java\\File\\logo combugas.png")); // NOI18N
 
         lblapellidos.setText("jLabel3");
@@ -115,10 +107,6 @@ static void inhabilitar() {
                 .addGap(103, 103, 103)
                 .addComponent(btnpicinas, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(212, 212, 212)
-                .addComponent(butsalir, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -164,9 +152,7 @@ static void inhabilitar() {
                     .addComponent(btnlavanderia, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnpicinas, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addComponent(butsalir, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26))
+                .addGap(91, 91, 91))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -196,14 +182,11 @@ static void inhabilitar() {
                 Jmenuprin.lblacceso.getText());
 
         if (Jmenuhotel.lblacceso.getText().equals("General")) {
-        // Si el usuario es administrador, simplemente se muestra el formulario
+       
         form.setVisible(true);
     } else {
-        // Si el usuario no es administrador, se deshabilitan los botones
-        Jmenuhotel.btnconfiguracion.setEnabled(false);
-        Jmenuhotel.btnavanzado.setEnabled(false);
-        // Y luego se muestra el formulario
-        form.setVisible(true);
+       
+       
     }
     }//GEN-LAST:event_btnmenuhotelActionPerformed
 
@@ -223,11 +206,6 @@ static void inhabilitar() {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnrestauranteActionPerformed
 
-    private void butsalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butsalirActionPerformed
-        // TODO add your handling code here:
-        this.dispose();
-    }//GEN-LAST:event_butsalirActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -244,7 +222,6 @@ static void inhabilitar() {
     private javax.swing.JButton btnparqueadero;
     private javax.swing.JButton btnpicinas;
     private javax.swing.JButton btnrestaurante;
-    private javax.swing.JButton butsalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel3;
     public static javax.swing.JLabel lblacceso;

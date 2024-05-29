@@ -17,7 +17,7 @@ public int base;
 public int tarjetas;
 public int efectivo;
 public int transferencias;
-public int totalhabitaciones;
+public double totalhabitaciones;
 public int total_abonos;
 public int otros_ingresos;
 public int total_recaudo;
@@ -28,7 +28,7 @@ public String observaciones;
     public Dsalidaturno() {
     }
 
-    public Dsalidaturno(int idturno, int idabonos, int idempleado, int idhabitacion, String empleado, String turno, String fecha_hora_inicio, String fecha_hora_salida, int habitaciones_ocupadas, int total_recibos, int base, int tarjetas, int efectivo, int transferencias, int totalhabitaciones, int total_abonos, int otros_ingresos, int total_recaudo, int entrega_admon, int total_efectivo, String observaciones) {
+    public Dsalidaturno(int idturno, int idabonos, int idempleado, int idhabitacion, String empleado, String turno, String fecha_hora_inicio, String fecha_hora_salida, int habitaciones_ocupadas, int total_recibos, int base, int tarjetas, int efectivo, int transferencias, double totalhabitaciones, int total_abonos, int otros_ingresos, int total_recaudo, int entrega_admon, int total_efectivo, String observaciones) {
         this.idturno = idturno;
         this.idabonos = idabonos;
         this.idempleado = idempleado;
@@ -164,11 +164,11 @@ public String observaciones;
         this.transferencias = transferencias;
     }
 
-    public int getTotalhabitaciones() {
+    public double getTotalhabitaciones() {
         return totalhabitaciones;
     }
 
-    public void setTotalhabitaciones(int totalhabitaciones) {
+    public void setTotalhabitaciones(double totalhabitaciones) {
         this.totalhabitaciones = totalhabitaciones;
     }
 
