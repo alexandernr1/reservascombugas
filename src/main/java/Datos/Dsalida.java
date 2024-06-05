@@ -12,18 +12,16 @@ public class Dsalida {
     public int idcliente;
     public int idhabitacion;
     public int idabono;
-    public int idempleado;
+    public String empleado;
     public int numero;
     public String cliente;
     public int numnoches;
     public int costoalojamiento;
     public String fechaingreso;
     public String fechasalida;
-    public Date fechaemision;
+
     public String tipocliente;
-    public String tipocomprobante;
-    public String num_comprobante;
-    public String formapago;
+
     public int valor_noches;
     public int abonos;
     public int valor_total;
@@ -35,24 +33,22 @@ public class Dsalida {
     public Dsalida() {
     }
 
-    public Dsalida(int idsalida, int idingreso, int idcliente, int idhabitacion, int idabono, int idempleado, int numero, String cliente, int numnoches, int costoalojamiento, String fechaingreso, String fechasalida, Date fechaemision, String tipocliente, String tipocomprobante, String num_comprobante, String formapago, int valor_noches, int abonos, int valor_total, int descuentos, int cobros_extra, int otros_cobros, Double totalpago) {
+    public Dsalida(int idsalida, int idingreso, int idcliente, int idhabitacion, int idabono, String empleado, int numero, String cliente, int numnoches, int costoalojamiento, String fechaingreso, String fechasalida,  String tipocliente, int valor_noches, int abonos, int valor_total, int descuentos, int cobros_extra, int otros_cobros, Double totalpago) {
         this.idsalida = idsalida;
         this.idingreso = idingreso;
         this.idcliente = idcliente;
         this.idhabitacion = idhabitacion;
         this.idabono = idabono;
-        this.idempleado = idempleado;
+        this.empleado = empleado;
         this.numero = numero;
         this.cliente = cliente;
         this.numnoches = numnoches;
         this.costoalojamiento = costoalojamiento;
         this.fechaingreso = fechaingreso;
         this.fechasalida = fechasalida;
-        this.fechaemision = fechaemision;
+
         this.tipocliente = tipocliente;
-        this.tipocomprobante = tipocomprobante;
-        this.num_comprobante = num_comprobante;
-        this.formapago = formapago;
+
         this.valor_noches = valor_noches;
         this.abonos = abonos;
         this.valor_total = valor_total;
@@ -102,12 +98,12 @@ public class Dsalida {
         this.idabono = idabono;
     }
 
-    public int getIdempleado() {
-        return idempleado;
+    public String getEmpleado() {
+        return empleado;
     }
 
-    public void setIdempleado(int idempleado) {
-        this.idempleado = idempleado;
+    public void setEmpleado(String empleado) {
+        this.empleado = empleado;
     }
 
     public int getNumero() {
@@ -158,44 +154,12 @@ public class Dsalida {
         this.fechasalida = fechasalida;
     }
 
-    public Date getFechaemision() {
-        return fechaemision;
-    }
-
-    public void setFechaemision(Date fechaemision) {
-        this.fechaemision = fechaemision;
-    }
-
     public String getTipocliente() {
         return tipocliente;
     }
 
     public void setTipocliente(String tipocliente) {
         this.tipocliente = tipocliente;
-    }
-
-    public String getTipocomprobante() {
-        return tipocomprobante;
-    }
-
-    public void setTipocomprobante(String tipocomprobante) {
-        this.tipocomprobante = tipocomprobante;
-    }
-
-    public String getNum_comprobante() {
-        return num_comprobante;
-    }
-
-    public void setNum_comprobante(String num_comprobante) {
-        this.num_comprobante = num_comprobante;
-    }
-
-    public String getFormapago() {
-        return formapago;
-    }
-
-    public void setFormapago(String formapago) {
-        this.formapago = formapago;
     }
 
     public int getValor_noches() {

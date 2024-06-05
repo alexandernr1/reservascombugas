@@ -1,30 +1,42 @@
 package Datos;
 
-import java.sql.Date;
-
 public class Dpago {
 
-    private int idpago;
-    private int idsalida;
-    private String tipocomprobante;
-    private String numcomprobante;
-    private Double totalpago;
-    private Date fechaemision;
-    private Date fechapago;
-    private String formapago;
+    public int idpago;
+    public int idsalida;
+    public String cliente;
+    public int numero;
+    public String fechaemision;
+    public String tipocomprobante;
+    public String numcomprobante;
+    public int efectivo;
+    public int tarjeta;
+    public int transferencia;
+    public int descuentos;
+    public int cobrosfraccion;
+    public int valorcobrar;
+    public int netoapagar;
+    public String empleado;
 
     public Dpago() {
     }
 
-    public Dpago(int idpago, int idsalida, String tipocomprobante, String numcomprobante, Double totalpago, Date fechaemision, Date fechapago, String formapago) {
+    public Dpago(int idpago, int idsalida, String cliente, int numero, String fechaemision, String tipocomprobante, String numcomprobante, int efectivo, int tarjeta, int transferencia, int descuentos, int cobrosfraccion, int valorcobrar, int netoapagar, String empleado) {
         this.idpago = idpago;
         this.idsalida = idsalida;
+        this.cliente = cliente;
+        this.numero = numero;
+        this.fechaemision = fechaemision;
         this.tipocomprobante = tipocomprobante;
         this.numcomprobante = numcomprobante;
-        this.totalpago = totalpago;
-        this.fechaemision = fechaemision;
-        this.fechapago = fechapago;
-        this.formapago = formapago;
+        this.efectivo = efectivo;
+        this.tarjeta = tarjeta;
+        this.transferencia = transferencia;
+        this.descuentos = descuentos;
+        this.cobrosfraccion = cobrosfraccion;
+        this.valorcobrar = valorcobrar;
+        this.netoapagar = netoapagar;
+        this.empleado = empleado;
     }
 
     public int getIdpago() {
@@ -43,6 +55,30 @@ public class Dpago {
         this.idsalida = idsalida;
     }
 
+    public String getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(String cliente) {
+        this.cliente = cliente;
+    }
+
+    public int getNumero() {
+        return numero;
+    }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
+
+    public String getFechaemision() {
+        return fechaemision;
+    }
+
+    public void setFechaemision(String fechaemision) {
+        this.fechaemision = fechaemision;
+    }
+
     public String getTipocomprobante() {
         return tipocomprobante;
     }
@@ -59,37 +95,70 @@ public class Dpago {
         this.numcomprobante = numcomprobante;
     }
 
-    public Double getTotalpago() {
-        return totalpago;
+    public int getEfectivo() {
+        return efectivo;
     }
 
-    public void setTotalpago(Double totalpago) {
-        this.totalpago = totalpago;
+    public void setEfectivo(int efectivo) {
+        this.efectivo = efectivo;
     }
 
-    public Date getFechaemision() {
-        return fechaemision;
+    public int getTarjeta() {
+        return tarjeta;
     }
 
-    public void setFechaemision(Date fechaemision) {
-        this.fechaemision = fechaemision;
+    public void setTarjeta(int tarjeta) {
+        this.tarjeta = tarjeta;
     }
 
-    public Date getFechapago() {
-        return fechapago;
+    public int getTransferencia() {
+        return transferencia;
     }
 
-    public void setFechapago(Date fechapago) {
-        this.fechapago = fechapago;
+    public void setTransferencia(int transferencia) {
+        this.transferencia = transferencia;
     }
 
-    public String getFormapago() {
-        return formapago;
+    public int getDescuentos() {
+        return descuentos;
     }
 
-    public void setFormapago(String formapago) {
-        this.formapago = formapago;
+    public void setDescuentos(int descuentos) {
+        this.descuentos = descuentos;
     }
+
+    public int getCobrosfraccion() {
+        return cobrosfraccion;
+    }
+
+    public void setCobrosfraccion(int cobrosfraccion) {
+        this.cobrosfraccion = cobrosfraccion;
+    }
+
+    public int getValorcobrar() {
+        return valorcobrar;
+    }
+
+    public void setValorcobrar(int valorcobrar) {
+        this.valorcobrar = valorcobrar;
+    }
+
+    public int getNetoapagar() {
+        return netoapagar;
+    }
+
+    public void setNetoapagar(int netoapagar) {
+        this.netoapagar = netoapagar;
+    }
+
+    public String getEmpleado() {
+        return empleado;
+    }
+
+    public void setEmpleado(String empleado) {
+        this.empleado = empleado;
+    }
+
     
 
 }

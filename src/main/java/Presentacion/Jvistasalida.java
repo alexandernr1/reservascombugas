@@ -2,6 +2,8 @@ package Presentacion;
 
 import javax.swing.JFrame;
 import Logica.Fsalida;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -9,16 +11,20 @@ import javax.swing.table.DefaultTableModel;
 public final class Jvistasalida extends javax.swing.JFrame {
 
     public Jvistasalida() {
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        setSize(screenSize.width, screenSize.height);
         initComponents();
         setLocationRelativeTo(null);
         setTitle("REGISTRO DE SALIDAS");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         mostrar("");
     }
- public void limpiarTabla(JTable tablalistadosalida) {
+
+    public void limpiarTabla(JTable tablalistadosalida) {
         DefaultTableModel model = (DefaultTableModel) tablalistadosalida.getModel();
         model.setRowCount(0);
     }
+
     void ocultar_columnas() {
         tablalistadosalida.getColumnModel().getColumn(0).setMaxWidth(0);
         tablalistadosalida.getColumnModel().getColumn(0).setMinWidth(0);
@@ -40,7 +46,6 @@ public final class Jvistasalida extends javax.swing.JFrame {
         tablalistadosalida.getColumnModel().getColumn(4).setMinWidth(0);
         tablalistadosalida.getColumnModel().getColumn(4).setPreferredWidth(0);
 
-       
     }
 
     void mostrar(String buscar) {
@@ -198,12 +203,12 @@ public final class Jvistasalida extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tablalistadosalidaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablalistadosalidaMouseClicked
-       
+
 
     }//GEN-LAST:event_tablalistadosalidaMouseClicked
 
     private void tablalistadosalidaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablalistadosalidaMousePressed
-       
+
     }//GEN-LAST:event_tablalistadosalidaMousePressed
 
     private void txtbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtbuscarActionPerformed

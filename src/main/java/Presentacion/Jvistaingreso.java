@@ -219,12 +219,12 @@ void ocultar_columnas() {
     }//GEN-LAST:event_btneliminarActionPerformed
 
     private void tablalistadoingresoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablalistadoingresoMouseClicked
-        // TODO add your handling code here:
-        //        btningresar.setText("Editar");
+//         TODO add your handling code here:
+//                btningresar.setText("Editar");
 //        habilitar();
 //        btneliminar.setEnabled(true);
 //        accion = "editar";
-
+//
 //        int fila = tablalistadoingreso.rowAtPoint(evt.getPoint());
 //
 //        txtidingreso.setText(tablalistadoingreso.getValueAt(fila, 0).toString());

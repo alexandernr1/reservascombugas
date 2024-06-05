@@ -89,7 +89,10 @@ public final class Jproducto extends javax.swing.JInternalFrame {
         btneliminar = new javax.swing.JButton();
         lbltotalregistros = new javax.swing.JLabel();
 
+        setClosable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setIconifiable(true);
+        setMaximizable(true);
 
         jPanel3.setBackground(new java.awt.Color(204, 204, 204));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Registro de Productos"));

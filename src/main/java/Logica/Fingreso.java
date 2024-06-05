@@ -160,4 +160,43 @@ public class Fingreso {
            return false;
        }
    }
+    public boolean activar (Dingreso dts){
+       sSQL="update ingreso set estado='Activo'"+
+               " where idingreso=?";
+           //alt + 39
+       
+       try {
+           PreparedStatement pst=cn.prepareStatement(sSQL);
+          
+           pst.setInt(1, dts.getIdingreso());
+           
+           int n=pst.executeUpdate();
+           
+           return n!=0;
+           
+       } catch (SQLException e) {
+           JOptionPane.showConfirmDialog(null, e);
+           return false;
+       }
+   }
+     public int obtenerIdHabitacionAnterior(int idIngreso) {
+        sSQL = "SELECT idhabitacion FROM ingreso WHERE idingreso = ?";
+        int idHabitacion = -1; // Valor predeterminado en caso de error o no encontrado
+
+        try {
+            PreparedStatement pst = cn.prepareStatement(sSQL);
+            pst.setInt(1, idIngreso);
+            ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+                idHabitacion = rs.getInt("idhabitacion");
+            }
+            rs.close();
+            pst.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+
+        return idHabitacion;
+    }
 }

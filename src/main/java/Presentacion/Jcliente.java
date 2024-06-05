@@ -19,7 +19,10 @@ public final class Jcliente extends javax.swing.JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         mostrarTiempo();
         mostrar("");
-
+        inhabilitar();
+        cbopais.setSelectedItem("Colombia");
+        cbociudad.setSelectedItem("Cartagena");
+        
     }
 
     public static Jcliente getInstance() {
@@ -42,6 +45,9 @@ public final class Jcliente extends javax.swing.JFrame {
         tablalistado.getColumnModel().getColumn(0).setMinWidth(0);
         tablalistado.getColumnModel().getColumn(0).setPreferredWidth(0);
     }
+    void inhabilitar() {
+        txtidcliente.setVisible(false);
+    }
 
     void habilitar() {
 
@@ -53,8 +59,8 @@ public final class Jcliente extends javax.swing.JFrame {
         txttelefono.setEnabled(true);
         txtdireccion.setEnabled(true);
         txtemail.setEnabled(true);
-        txtpais.setEnabled(true);
-        txtciudad.setEnabled(true);
+        cbopais.setEnabled(true);
+        cbociudad.setEnabled(true);
 
         butguardar.setEnabled(true);
         butbuscar.setEnabled(true);
@@ -66,8 +72,8 @@ public final class Jcliente extends javax.swing.JFrame {
         txttelefono.setText("");
         txtdireccion.setText("");
         txtemail.setText("");
-        txtpais.setText("");
-        txtciudad.setText("");
+        cbopais.setSelectedItem("");
+        cbociudad.setSelectedItem("");
 
     }
 
@@ -108,8 +114,6 @@ public final class Jcliente extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         txtdireccion = new javax.swing.JTextField();
-        txtpais = new javax.swing.JTextField();
-        txtciudad = new javax.swing.JTextField();
         butnuevo = new javax.swing.JButton();
         butguardar = new javax.swing.JButton();
         txtidcliente = new javax.swing.JTextField();
@@ -117,6 +121,8 @@ public final class Jcliente extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         lblfecha = new javax.swing.JLabel();
         lblhora = new javax.swing.JLabel();
+        cbopais = new javax.swing.JComboBox<>();
+        cbociudad = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablalistado = new javax.swing.JTable();
@@ -211,20 +217,6 @@ public final class Jcliente extends javax.swing.JFrame {
             }
         });
 
-        txtpais.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
-        txtpais.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtpaisActionPerformed(evt);
-            }
-        });
-
-        txtciudad.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
-        txtciudad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtciudadActionPerformed(evt);
-            }
-        });
-
         butnuevo.setBackground(new java.awt.Color(153, 153, 153));
         butnuevo.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Desktop\\reservascombugas\\Images\\nuevo.GIF")); // NOI18N
         butnuevo.setText("NUEVO");
@@ -266,6 +258,12 @@ public final class Jcliente extends javax.swing.JFrame {
         lblhora.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         lblhora.setText("jLabel16");
 
+        cbopais.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        cbopais.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Afganistán", "Albania", "Alemania", "Andorra", "Angola", "Antigua y Barbuda", "Arabia Saudita", "Argelia", "Argentina", "Armenia", "Australia", "Austria", "Azerbaiyán", "Bahamas", "Bangladés", "Barbados", "Baréin", "Bélgica", "Belice", "Benín", "Bielorrusia", "Birmania", "Bolivia", "Bosnia y Herzegovina", "Botsuana", "Brasil", "Brunéi", "Bulgaria", "Burkina Faso", "Burundi", "Bután", "Cabo Verde", "Camboya", "Camerún", "Canadá", "Catar", "Chad", "Chile", "China", "Chipre", "Ciudad del Vaticano", "Colombia", "Comoras", "Corea del Norte", "Corea del Sur", "Costa de Marfil", "Costa Rica", "Croacia", "Cuba", "Dinamarca", "Dominica", "Ecuador", "Egipto", "El Salvador", "Emiratos Árabes Unidos", "Eritrea", "Eslovaquia", "Eslovenia", "España", "Estados Unidos", "Estonia", "Etiopía", "Filipinas", "Finlandia", "Fiyi", "Francia", "Gabón", "Gambia", "Georgia", "Ghana", "Granada", "Grecia", "Guatemala", "Guyana", "Guinea", "Guinea ecuatorial", "Guinea-Bisáu", "Haití", "Honduras", "Hungría", "India", "Indonesia", "Irak", "Irán", "Irlanda", "Islandia", "Islas Marshall", "Islas Salomón", "Israel", "Italia", "Jamaica", "Japón", "Jordania", "Kazajistán", "Kenia", "Kirguistán", "Kiribati", "Kuwait", "Laos", "Lesoto", "Letonia", "Líbano", "Liberia", "Libia", "Liechtenstein", "Lituania", "Luxemburgo", "Macedonia del Norte", "Madagascar", "Malasia", "Malaui", "Maldivas", "Maldivas", "Malta", "Marruecos", "Mauricio", "Mauritania", "México", "Micronesia", "Moldavia", "Mónaco", "Mongolia", "Montenegro", "Mozambique", "Namibia", "Nauru", "Nepal", "Nicaragua", "Níger", "Nigeria", "Noruega", "Nueva Zelanda", "Omán", "Países Bajos", "Pakistán", "Palaos", "Panamá", "Papúa Nueva Guinea", "Paraguay", "Perú", "Polonia", "Portugal", "Reino Unido", "República Centroafricana", "República Checa", "República del Congo", "República Democrática del Congo", "República Dominicana", "República Sudafricana", "Ruanda", "Rumanía", "Rusia", "Samoa", "San Cristóbal y Nieves", "San Marino", "San Vicente y las Granadinas", "Santa Lucía", "Santo Tomé y Príncipe", "Senegal", "Serbia", "Seychelles", "Sierra Leona", "Singapur", "Siria", "Somalia", "Sri Lanka", "Suazilandia", "Sudán", "Sudán del Sur", "Suecia", "Suiza", "Surinam", "Tailandia", "Tanzania", "Tayikistán", "Timor Oriental", "Togo", "Tonga", "Trinidad y Tobago", "Túnez", "Turkmenistán", "Turquía", "Tuvalu", "Ucrania", "Uganda", "Uruguay", "Uzbekistán", "Vanuatu", "Venezuela", "Vietnam", "Yemen", "Yibuti", "Zambia", "Zimbabue", " " }));
+
+        cbociudad.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        cbociudad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bogotá", "Medellín", "Cali", "Barranquilla", "Cartagena", "Bucaramanga", "Cúcuta", "Palermo", "Soledad", "Villavicencio", "Pereira", "Bello", "Valledupar", "Ibagué", "Montería", "Soacha", "Santa Marta", "Manizales", "Buenaventura", "Pasto", "Neiva", "Palmira", "Fontibón", "Usme", "Armenia", "Popayán", "Floridablanca", "Sincelejo", "Itagüí", "Envigado", "Tuluá", "Tumaco", "Barrancabermeja", "Uripa", "Zipaquirá", "Florencia", "Turbo", "Santander de Quilichao", "Dosquebradas", "Fusagasugá", "Ríohacha", "Ipiales", "Tunja", "Girón", "Piedecuesta", "Facatativá", "Cartago", "Malambo", "Rionegro", "Pitalito", "Quibdó", "Jamundí", "Girardot", "Ciénaga", "Guadalajara de Buga", "Mosquera", "Duitama", "Chía", "Magangué", "Maicao", "Apartadó", "Uribia", "Ocaña", "Sogamoso", "Turbaco", "Madrid", "Aguachica", "Yopal", "Sabanalarga", "Arauca", "Funza", "Sabaneta", "Copacabana", "San Andrés", "La Estrella", "San José del Guaviare", "Mocoa", "Cajicá", "La Jagua de Ibirico", "Leticia", "La Virginia", "Mitú", "Inírida", "Puerto Carreño", " " }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -306,7 +304,7 @@ public final class Jcliente extends javax.swing.JFrame {
                                 .addComponent(jLabel4)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(comtipodocumento, 0, 183, Short.MAX_VALUE)
+                            .addComponent(comtipodocumento, 0, 222, Short.MAX_VALUE)
                             .addComponent(txtnumdocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(90, 90, 90))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -321,14 +319,16 @@ public final class Jcliente extends javax.swing.JFrame {
                             .addComponent(txtemail, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txttelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtpais, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtciudad, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(107, 107, 107))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel11)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cbociudad, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cbopais, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(97, 97, 97))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -380,11 +380,11 @@ public final class Jcliente extends javax.swing.JFrame {
                                 .addGap(237, 237, 237))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtpais, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel10))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jLabel10)
+                            .addComponent(cbopais, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtciudad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbociudad, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel11))
                         .addContainerGap())))
         );
@@ -567,8 +567,8 @@ public final class Jcliente extends javax.swing.JFrame {
         dts.setTelefono(txttelefono.getText());
         dts.setDireccion(txtdireccion.getText());
         dts.setEmail(txtemail.getText());
-        dts.setPais(txtpais.getText());
-        dts.setCiudad(txtciudad.getText());
+        dts.setPais(cbopais.getItemAt(seleccionado));
+        dts.setCiudad(cbociudad.getItemAt(seleccionado));
 
         if (accion.equals("guardar")) {
             if (func.insertar(dts)) {
@@ -645,16 +645,6 @@ public final class Jcliente extends javax.swing.JFrame {
         txtdireccion.transferFocus();
     }//GEN-LAST:event_txtdireccionActionPerformed
 
-    private void txtpaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtpaisActionPerformed
-        // TODO add your handling code here:
-        txtpais.transferFocus();
-    }//GEN-LAST:event_txtpaisActionPerformed
-
-    private void txtciudadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtciudadActionPerformed
-        // TODO add your handling code here:
-        txtciudad.transferFocus();
-    }//GEN-LAST:event_txtciudadActionPerformed
-
     private void txtidclienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtidclienteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtidclienteActionPerformed
@@ -677,12 +667,11 @@ public final class Jcliente extends javax.swing.JFrame {
         txtapellidos.setText(tablalistado.getValueAt(fila, 2).toString());
         comtipodocumento.setSelectedItem(tablalistado.getValueAt(fila, 3).toString());
         txtnumdocumento.setText(tablalistado.getValueAt(fila, 4).toString());
-
         txttelefono.setText(tablalistado.getValueAt(fila, 5).toString());
         txtdireccion.setText(tablalistado.getValueAt(fila, 6).toString());
         txtemail.setText(tablalistado.getValueAt(fila, 7).toString());
-        txtpais.setText(tablalistado.getValueAt(fila, 8).toString());
-        txtciudad.setText(tablalistado.getValueAt(fila, 9).toString());
+        cbopais.setSelectedItem(tablalistado.getValueAt(fila, 8).toString());
+        cbociudad.setSelectedItem(tablalistado.getValueAt(fila, 9).toString());
 
 
     }//GEN-LAST:event_tablalistadoMouseClicked
@@ -732,6 +721,8 @@ public final class Jcliente extends javax.swing.JFrame {
     private javax.swing.JButton butguardar;
     private javax.swing.JButton butingreso;
     private javax.swing.JButton butnuevo;
+    private javax.swing.JComboBox<String> cbociudad;
+    private javax.swing.JComboBox<String> cbopais;
     private javax.swing.JComboBox<String> comtipodocumento;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -755,13 +746,11 @@ public final class Jcliente extends javax.swing.JFrame {
     private javax.swing.JTable tablalistado;
     private javax.swing.JTextField txtapellidos;
     private javax.swing.JTextField txtbuscar;
-    private javax.swing.JTextField txtciudad;
     private javax.swing.JTextField txtdireccion;
     private javax.swing.JTextField txtemail;
     private javax.swing.JTextField txtidcliente;
     private javax.swing.JTextField txtnombres;
     private javax.swing.JTextField txtnumdocumento;
-    private javax.swing.JTextField txtpais;
     private javax.swing.JTextField txttelefono;
     // End of variables declaration//GEN-END:variables
 }

@@ -15,13 +15,14 @@ public final class LoguinDeAdmin extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         this.setTitle("ACCESO A ADMIN");
         this.setLocationRelativeTo(null);
-         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         inhabilitar();
     }
 
     public void inhabilitar() {
         tablalistado.setVisible(false);
 
+        jScrollPane1.setVisible(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -177,30 +178,28 @@ public final class LoguinDeAdmin extends javax.swing.JFrame {
             dts.setLogin(txtusuario.getText());
             dts.setPassword(txtpassword.getText());
             modelo = func.login(dts.getLogin(), dts.getPassword());
-             
-                tablalistado.setModel(modelo);
 
-                if (func.totalregistros > 0) {
-                    this.dispose();
-                    Javanzado form = new Javanzado();
-                    form.toFront();
-                    form.setVisible(true);
-                    // Establece los valores en Jmenuprin
-                    Javanzado.lblaccesoadmin.setText(tablalistado.getValueAt(0, 3).toString());
-                    
-                    // Verificar si el acceso es para un empleado
-                    if (!Javanzado.lblaccesoadmin.getText().equals("Administrador")) {
-                        // Si el acceso no es para un General, puedes desactivar el menú u realizar alguna otra acción
-                         JOptionPane.showMessageDialog(rootPane, "Acceso Denegado", "Acceso al Sistema", JOptionPane.ERROR_MESSAGE);
-                        form.setVisible(false);
-                    }
+            tablalistado.setModel(modelo);
 
+            if (func.totalregistros > 0) {
+                this.dispose();
+                Javanzado form = new Javanzado();
+                form.toFront();
+                form.setVisible(true);
+                // Establece los valores en Jmenuprin
+                Javanzado.lblaccesoadmin.setText(tablalistado.getValueAt(0, 3).toString());
+
+                // Verificar si el acceso es para un empleado
+                if (!Javanzado.lblaccesoadmin.getText().equals("Administrador")) {
+                    // Si el acceso no es para un General, puedes desactivar el menú u realizar alguna otra acción
+                    JOptionPane.showMessageDialog(rootPane, "Acceso Denegado", "Acceso al Sistema", JOptionPane.ERROR_MESSAGE);
+                    form.setVisible(false);
                 }
-                
-                 else {
-                   
-                }
-            
+
+            } else {
+
+            }
+
         } catch (HeadlessException e) {
             System.out.println("ERROR DE LOGIN");
         }
@@ -212,17 +211,17 @@ public final class LoguinDeAdmin extends javax.swing.JFrame {
 
     private void txtpasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtpasswordKeyPressed
         // TODO add your handling code here:
-        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
-             try {
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            try {
 
-            DefaultTableModel modelo;
-            Fempleado func = new Fempleado();
-            Dempleado dts = new Dempleado();
+                DefaultTableModel modelo;
+                Fempleado func = new Fempleado();
+                Dempleado dts = new Dempleado();
 
-            dts.setLogin(txtusuario.getText());
-            dts.setPassword(txtpassword.getText());
-            modelo = func.login(dts.getLogin(), dts.getPassword());
-             
+                dts.setLogin(txtusuario.getText());
+                dts.setPassword(txtpassword.getText());
+                modelo = func.login(dts.getLogin(), dts.getPassword());
+
                 tablalistado.setModel(modelo);
 
                 if (func.totalregistros > 0) {
@@ -232,24 +231,22 @@ public final class LoguinDeAdmin extends javax.swing.JFrame {
                     form.setVisible(true);
                     // Establece los valores en Jmenuprin
                     Javanzado.lblaccesoadmin.setText(tablalistado.getValueAt(0, 3).toString());
-                    
+
                     // Verificar si el acceso es para un empleado
                     if (!Javanzado.lblaccesoadmin.getText().equals("Administrador")) {
                         // Si el acceso no es para un General, puedes desactivar el menú u realizar alguna otra acción
-                         JOptionPane.showMessageDialog(rootPane, "Acceso Denegado", "Acceso al Sistema", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(rootPane, "Acceso Denegado", "Acceso al Sistema", JOptionPane.ERROR_MESSAGE);
                         form.setVisible(false);
                     }
 
+                } else {
+
                 }
-                
-                 else {
-                   
-                }
-            
-        } catch (HeadlessException e) {
-            System.out.println("ERROR DE LOGIN");
-        }
-            
+
+            } catch (HeadlessException e) {
+                System.out.println("ERROR DE LOGIN");
+            }
+
         }
     }//GEN-LAST:event_txtpasswordKeyPressed
 

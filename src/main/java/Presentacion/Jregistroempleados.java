@@ -143,7 +143,10 @@ public final class Jregistroempleados extends javax.swing.JInternalFrame {
         tablalistado = new javax.swing.JTable();
         lbltotalregistro = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setVisible(true);
 
         jLayeredPane1.setBorder(javax.swing.BorderFactory.createTitledBorder("REGISTRO DE EMPLEADOS"));
 

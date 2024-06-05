@@ -32,20 +32,9 @@ public class Jabono extends javax.swing.JFrame {
         txtabonohabitacion.setText("0");
         txtdescuentos.setText("0");
         txtotroscobros.setText("0");
-        txttotalabono.setText("0");
-        
-//        Jingreso Jingreso = new Jingreso();
-//        txtnumero.setText(Jingreso.numero);
-//        txtcliente.setText(Jingreso.cliente);
-//        txtclientenu.setText(Jingreso.numdocumento);
-        
-        
-        
+        txttotalabono.setText("0");     
     }
     private String accion = "guardar";
-    
-    
-   
     public static Jabono getInstance() {
         if (instance == null) {
             instance = new Jabono();
@@ -571,7 +560,6 @@ public class Jabono extends javax.swing.JFrame {
     private void tablalistadosabonosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablalistadosabonosMouseClicked
 
         btnguardar.setText("Editar");
-//         habilitar();
         btneliminar.setEnabled(true);
         accion = "editar";
 

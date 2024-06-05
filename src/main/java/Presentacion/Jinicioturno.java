@@ -26,6 +26,7 @@ public class Jinicioturno extends javax.swing.JFrame {
          setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         mostrarTiempo();
         fechacbo();
+        inhabilitar();
 //        this.sesionIniciada = sesionIniciada;
 
     }
@@ -41,6 +42,11 @@ public class Jinicioturno extends javax.swing.JFrame {
         cboturnos.addItem("Turno 2" + " " + fechaActual);
         cboturnos.addItem("Turno 3" + " " + fechaActual);
 
+    }
+     public void inhabilitar() {
+        tablalistado.setVisible(false);
+
+        jScrollPane1.setVisible(false);
     }
 
     private void mostrarTiempo() {
@@ -120,7 +126,7 @@ public class Jinicioturno extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tablalistado);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 20, 10, 20));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 20, 40, 20));
 
         txtpassword.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         txtpassword.addActionListener(new java.awt.event.ActionListener() {

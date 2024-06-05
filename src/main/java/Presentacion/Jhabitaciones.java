@@ -114,7 +114,10 @@ public class Jhabitaciones extends javax.swing.JInternalFrame {
         comdescripcion = new javax.swing.JComboBox<>();
         comnumero = new javax.swing.JComboBox<>();
 
+        setClosable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setIconifiable(true);
+        setMaximizable(true);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "LISTADO DE HABITACIONES"));
 

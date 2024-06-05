@@ -22,15 +22,15 @@ public class Fsalida {
    public DefaultTableModel mostrar(String buscar) {
     DefaultTableModel modelo;
 
-    String[] titulos = {"Idsalida", "Idingreso", "idcliente", "idhabitacion", "idabono", "Idempleado", "Numero", "Cliente", "Numnoches", "Costo", "Fecha Ingreso", "Fecha Salida", "Fecha Emision", "Tipo Cliente", "Tipo comprobante", "N Comprobante", "Forma Pago", "valor Noches", "Abonos", "Valor Total", "Descunetos", "Cobros Extra", "Otros Cobros", "Total Pago"};
-    String[] registro = new String[24];
+    String[] titulos = {"Idsalida", "Idingreso", "idcliente", "idhabitacion", "idabono", "empleado", "Numero", "Cliente", "Numnoches", "Costo", "Fecha Ingreso", "Fecha Salida", "Tipo Cliente", "valor Noches", "Abonos", "Valor Total", "Descunetos", "Cobros Extra", "Otros Cobros", "Total Pago"};
+    String[] registro = new String[20];
 
     totalregistros = 0;
     modelo = new DefaultTableModel(null, titulos);
 
-    sSQL = "SELECT s.idsalida, s.idingreso, s.idcliente, s.idhabitacion, s.idabono, s.idempleado, " +
+    sSQL = "SELECT s.idsalida, s.idingreso, s.idcliente, s.idhabitacion, s.idabono, s.empleado, " +
             "s.numero, s.cliente, s.numnoches, s.costoalojamiento, s.fechaingreso, s.fechasalida, " +
-            "s.fechaemision, s.tipocliente, s.tipocomprobante, s.num_comprobante, s.formapago, s.valor_noches, " +
+            "s.tipocliente, s.valor_noches, " +
             "s.abonos, s.valor_total, s.descuentos, s.cobros_extra, s.otros_cobros, s.totalpago " +
             "FROM salida s WHERE s.numero LIKE '%" + buscar + "%' ORDER BY idsalida DESC";
 
@@ -44,25 +44,21 @@ public class Fsalida {
             registro[2] = rs.getString("idcliente");
             registro[3] = rs.getString("idhabitacion");
             registro[4] = rs.getString("idabono");
-            registro[5] = rs.getString("idempleado");
+            registro[5] = rs.getString("empleado");
             registro[6] = rs.getString("numero");
             registro[7] = rs.getString("cliente");
             registro[8] = rs.getString("numnoches");
             registro[9] = rs.getString("costoalojamiento");
             registro[10] = rs.getString("fechaingreso");
-            registro[11] = rs.getString("fechasalida");
-            registro[12] = rs.getString("fechaemision");
-            registro[13] = rs.getString("tipocliente");
-            registro[14] = rs.getString("tipocomprobante");
-            registro[15] = rs.getString("num_comprobante");
-            registro[16] = rs.getString("formapago");
-            registro[17] = rs.getString("valor_noches");
-            registro[18] = rs.getString("abonos");
-            registro[19] = rs.getString("valor_total");
-            registro[20] = rs.getString("descuentos");
-            registro[21] = rs.getString("cobros_extra");
-            registro[22] = rs.getString("otros_cobros");
-            registro[23] = rs.getString("totalpago");
+            registro[11] = rs.getString("fechasalida");       
+            registro[12] = rs.getString("tipocliente");
+            registro[13] = rs.getString("valor_noches");
+            registro[14] = rs.getString("abonos");
+            registro[15] = rs.getString("valor_total");
+            registro[16] = rs.getString("descuentos");
+            registro[17] = rs.getString("cobros_extra");
+            registro[18] = rs.getString("otros_cobros");
+            registro[19] = rs.getString("totalpago");
 
             totalregistros = totalregistros + 1;
             modelo.addRow(registro);
@@ -78,10 +74,10 @@ public class Fsalida {
 
 
     public boolean insertar(Dsalida dts) {
-        sSQL = "insert into salida (idingreso,idcliente,idhabitacion,idabono,idempleado,"
-                + "numero, cliente, numnoches,costoalojamiento,fechaingreso,fechasalida,fechaemision,tipocliente,tipocomprobante,num_comprobante,formapago,"
+        sSQL = "insert into salida (idingreso,idcliente,idhabitacion,idabono,empleado,"
+                + "numero, cliente, numnoches,costoalojamiento,fechaingreso,fechasalida,tipocliente,"
                 + "valor_noches,abonos,valor_total,descuentos,cobros_extra,otros_cobros,totalpago)"
-                + "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                + "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
 
             PreparedStatement pst = cn.prepareStatement(sSQL);
@@ -89,25 +85,21 @@ public class Fsalida {
             pst.setInt(2, dts.getIdcliente());
             pst.setInt(3, dts.getIdhabitacion());
             pst.setInt(4, dts.getIdabono());
-            pst.setInt(5, dts.getIdempleado());
+            pst.setString(5, dts.getEmpleado());
             pst.setInt(6, dts.getNumero());
             pst.setString(7, dts.getCliente());
             pst.setInt(8, dts.getNumnoches());
             pst.setInt(9, dts.getCostoalojamiento());
             pst.setString(10, dts.getFechaingreso());
             pst.setString(11, dts.getFechasalida());
-            pst.setDate(12, dts.getFechaemision());
-            pst.setString(13, dts.getTipocliente());
-            pst.setString(14, dts.getTipocomprobante());
-            pst.setString(15, dts.getNum_comprobante());
-            pst.setString(16, dts.getFormapago());
-            pst.setInt(17, dts.getValor_noches());
-            pst.setInt(18, dts.getAbonos());
-            pst.setInt(19, dts.getValor_total());
-            pst.setInt(20, dts.getDescuentos());
-            pst.setInt(21, dts.getCobros_extra());
-            pst.setInt(22, dts.getOtros_cobros());
-            pst.setDouble(23, dts.getTotalpago());
+            pst.setString(12, dts.getTipocliente());
+            pst.setInt(13, dts.getValor_noches());
+            pst.setInt(14, dts.getAbonos());
+            pst.setInt(15, dts.getValor_total());
+            pst.setInt(16, dts.getDescuentos());
+            pst.setInt(17, dts.getCobros_extra());
+            pst.setInt(18, dts.getOtros_cobros());
+            pst.setDouble(19, dts.getTotalpago());
 
             int n = pst.executeUpdate();
 
