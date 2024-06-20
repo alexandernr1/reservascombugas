@@ -1,4 +1,4 @@
- package Logica;
+package Logica;
 
 import Datos.Dsalida;
 import java.sql.Connection;
@@ -19,65 +19,66 @@ public class Fsalida {
     private String sSQL = "";
     public Integer totalregistros;
 
-   public DefaultTableModel mostrar(String buscar) {
-    DefaultTableModel modelo;
+    public DefaultTableModel mostrarsalida(String buscar) {
+        DefaultTableModel modelo;
 
-    String[] titulos = {"Idsalida", "Idingreso", "idcliente", "idhabitacion", "idabono", "empleado", "Numero", "Cliente", "Numnoches", "Costo", "Fecha Ingreso", "Fecha Salida", "Tipo Cliente", "valor Noches", "Abonos", "Valor Total", "Descunetos", "Cobros Extra", "Otros Cobros", "Total Pago"};
-    String[] registro = new String[20];
+        String[] titulos = {"Idsalida", "Idingreso", "idcliente", "idhabitacion", "idabono", "empleado", "Numero", "Cliente", "Numnoches", "Costo", "Fecha Ingreso", "Fecha Salida", "Tipo Cliente", "valor Noches", "Abonos", "Valor Total", "Descunetos", "Cobros Extra", "Otros Cobros", "Total Pago", "Numero Turno", "Deuda Anterior"};
+        String[] registro = new String[23];
 
-    totalregistros = 0;
-    modelo = new DefaultTableModel(null, titulos);
+        totalregistros = 0;
+        modelo = new DefaultTableModel(null, titulos);
 
-    sSQL = "SELECT s.idsalida, s.idingreso, s.idcliente, s.idhabitacion, s.idabono, s.empleado, " +
-            "s.numero, s.cliente, s.numnoches, s.costoalojamiento, s.fechaingreso, s.fechasalida, " +
-            "s.tipocliente, s.valor_noches, " +
-            "s.abonos, s.valor_total, s.descuentos, s.cobros_extra, s.otros_cobros, s.totalpago " +
-            "FROM salida s WHERE s.numero LIKE '%" + buscar + "%' ORDER BY idsalida DESC";
+        sSQL = "SELECT s.idsalida, s.idingreso, s.idcliente, s.idhabitacion, s.idabono, s.empleado, "
+                + "s.numero, s.cliente, s.numnoches, s.costoalojamiento, s.fechaingreso, s.fechasalida, "
+                + "s.tipocliente, s.valor_noches, "
+                + "s.abonos, s.valor_total, s.descuentos, s.cobros_extra, s.otros_cobros, s.totalpago, s.numero_turno, s.deuda_anterior "
+                + "FROM salida s WHERE s.numero like '%" + buscar + "%' order by idsalida desc";
 
-    try {
-        Statement st = cn.createStatement();
-        ResultSet rs = st.executeQuery(sSQL);
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sSQL);
 
-        while (rs.next()) {
-            registro[0] = rs.getString("idsalida");
-            registro[1] = rs.getString("idingreso");
-            registro[2] = rs.getString("idcliente");
-            registro[3] = rs.getString("idhabitacion");
-            registro[4] = rs.getString("idabono");
-            registro[5] = rs.getString("empleado");
-            registro[6] = rs.getString("numero");
-            registro[7] = rs.getString("cliente");
-            registro[8] = rs.getString("numnoches");
-            registro[9] = rs.getString("costoalojamiento");
-            registro[10] = rs.getString("fechaingreso");
-            registro[11] = rs.getString("fechasalida");       
-            registro[12] = rs.getString("tipocliente");
-            registro[13] = rs.getString("valor_noches");
-            registro[14] = rs.getString("abonos");
-            registro[15] = rs.getString("valor_total");
-            registro[16] = rs.getString("descuentos");
-            registro[17] = rs.getString("cobros_extra");
-            registro[18] = rs.getString("otros_cobros");
-            registro[19] = rs.getString("totalpago");
+            while (rs.next()) {
+                registro[0] = rs.getString("idsalida");
+                registro[1] = rs.getString("idingreso");
+                registro[2] = rs.getString("idcliente");
+                registro[3] = rs.getString("idhabitacion");
+                registro[4] = rs.getString("idabono");
+                registro[5] = rs.getString("empleado");
+                registro[6] = rs.getString("numero");
+                registro[7] = rs.getString("cliente");
+                registro[8] = rs.getString("numnoches");
+                registro[9] = rs.getString("costoalojamiento");
+                registro[10] = rs.getString("fechaingreso");
+                registro[11] = rs.getString("fechasalida");
+                registro[12] = rs.getString("tipocliente");
+                registro[13] = rs.getString("valor_noches");
+                registro[14] = rs.getString("abonos");
+                registro[15] = rs.getString("valor_total");
+                registro[16] = rs.getString("descuentos");
+                registro[17] = rs.getString("cobros_extra");
+                registro[18] = rs.getString("otros_cobros");
+                registro[19] = rs.getString("totalpago");
+                registro[20] = rs.getString("numero_turno");
+                registro[21] = rs.getString("deuda_anterior");
 
-            totalregistros = totalregistros + 1;
-            modelo.addRow(registro);
+                totalregistros = totalregistros + 1;
+                modelo.addRow(registro);
+            }
+
+            return modelo;
+
+        } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "NO SE PUEDE MOSTRAR LOS DATOS: " + e.getMessage());
+            return null;
         }
-
-        return modelo;
-
-    } catch (SQLException e) {
-//        JOptionPane.showMessageDialog(null, "NO SE PUEDE MOSTRAR LOS DATOS: " + e.getMessage());
-        return null;
     }
-}
-
 
     public boolean insertar(Dsalida dts) {
         sSQL = "insert into salida (idingreso,idcliente,idhabitacion,idabono,empleado,"
                 + "numero, cliente, numnoches,costoalojamiento,fechaingreso,fechasalida,tipocliente,"
-                + "valor_noches,abonos,valor_total,descuentos,cobros_extra,otros_cobros,totalpago)"
-                + "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                + "valor_noches,abonos,valor_total,descuentos,cobros_extra,otros_cobros,totalpago,numero_turno,deuda_anterior)"
+                + "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
 
             PreparedStatement pst = cn.prepareStatement(sSQL);
@@ -100,11 +101,12 @@ public class Fsalida {
             pst.setInt(17, dts.getCobros_extra());
             pst.setInt(18, dts.getOtros_cobros());
             pst.setDouble(19, dts.getTotalpago());
+            pst.setInt(20, dts.getNumero_turno());
+            pst.setInt(21, dts.getDeuda_anterior());
 
             int n = pst.executeUpdate();
 
-            JOptionPane.showMessageDialog(null, "DATOS ALMACENADOS CORRECTAMENTE");
-
+//            JOptionPane.showMessageDialog(null, "DATOS ALMACENADOS CORRECTAMENTE");
             return n != 0;
 
         } catch (SQLException e) {
@@ -112,8 +114,9 @@ public class Fsalida {
             return false;
         }
     }
-     public ResultSet realizarConsulta(String numeroHabitacion) throws SQLException {
-       
+
+    
+    public ResultSet realizarConsulta(String numeroHabitacion) throws SQLException {
 
         // Preparar la consulta SQL con un JOIN y subconsultas para obtener información del cliente
         sSQL
@@ -128,14 +131,69 @@ public class Fsalida {
                 + "i.costoalojamiento "
                 + "FROM ingreso i INNER JOIN habitacion h ON i.idhabitacion = h.idhabitacion "
                 + "LEFT JOIN abono a ON i.idingreso = a.idingreso "
-                + "WHERE h.numero = ? AND i.estado = 'Activo'"; 
+                + "WHERE h.numero = ? AND i.estado = 'Activo'";
 
         PreparedStatement pst = cn.prepareStatement(sSQL);
         pst.setString(1, numeroHabitacion);
 
         return pst.executeQuery();
     }
+
+    public int obtenerIdHabitacionAnterior(int idIsalida) {
+        sSQL = "SELECT idhabitacion FROM salida WHERE idsalida = ?";
+        int idHabitacion = -1; // Valor predeterminado en caso de error o no encontrado
+
+        try {
+            PreparedStatement pst = cn.prepareStatement(sSQL);
+            pst.setInt(1, idIsalida);
+            ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+                idHabitacion = rs.getInt("idhabitacion");
+            }
+            rs.close();
+            pst.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+
+        return idHabitacion;
+    }
+
+    public String numeroturno() {
+        String numeroturno = "";
+        String sSQL = "SELECT numero_turno FROM inicioturno WHERE estado = 'Activo' ORDER BY numero_turno DESC LIMIT 1";
+        try {
+
+            PreparedStatement pst = cn.prepareStatement(sSQL);
+            ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+                numeroturno = rs.getString("numero_turno");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al obtener el numero del turno: " + e.getMessage());
+        }
+
+        return numeroturno;
+    }
+
+    public int deudaanterior(String documento) {
+        int idcambio = 0;
+        sSQL = "SELECT deuda_anterior FROM cambio_habitacion WHERE documento = ?AND estado = 'Activo' ORDER BY numero_turno";
+        try {
+
+            PreparedStatement pst = cn.prepareStatement(sSQL);
+            pst.setString(1, documento);
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                idcambio = rs.getInt("deuda_anterior");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al obtener deuda anterior: " + e.getMessage());
+        }
+
+        return idcambio;
+    }
+
 }
-
-
-

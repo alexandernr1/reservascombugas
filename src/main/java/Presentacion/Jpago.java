@@ -1,11 +1,7 @@
 package Presentacion;
 
-import Datos.Dhabitacion;
-import Datos.Dingreso;
 import Datos.Dpago;
 import Datos.Tiempopro;
-import Logica.Fhabitacion;
-import Logica.Fingreso;
 import Logica.Fpago;
 import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
@@ -24,15 +20,19 @@ public final class Jpago extends javax.swing.JFrame {
         mostrar("");
         inhabilitar();
         mostrarTiempo();
-        txtnumcomprobante.setText("0");
+        generarnumero();
+//        txtnumcomprobante.setText("0");
 
         Jsalidahuesped pago = new Jsalidahuesped();
+        
         txtcliente.setText(pago.cliente);
         txthabitacion.setText(pago.habitacion);
         txtdescuentos.setText(pago.totaldescuentos);
         txtcobrosfraccion.setText(pago.cobros_extra);
         txtvaloracobrar.setText(pago.pagototal);
         txtempleado.setText(pago.empleado);
+        txtnumero_turno.setText(pago.numero_turno);
+        txtdeudaanterior.setText(pago.deuda_anterior);
 
     }
     private String accion = "guardar";
@@ -40,6 +40,17 @@ public final class Jpago extends javax.swing.JFrame {
     private void mostrarTiempo() {
 
         txtfechaemision.setText(time.getFechacomp());
+    }
+
+    public void generarnumero() {
+        Fpago func = new Fpago();
+        int numeroTurno = func.generarComprobante();
+
+        // Convertir el número de turno a cadena
+        String numero = Integer.toString(numeroTurno);
+
+        // Mostrar el número de turno en el campo de texto
+        txtnumcomprobante.setText(numero);
     }
 
     void ocultar_columnas() {
@@ -78,7 +89,6 @@ public final class Jpago extends javax.swing.JFrame {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         jLayeredPane1 = new javax.swing.JLayeredPane();
-        txtidpago = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -93,6 +103,10 @@ public final class Jpago extends javax.swing.JFrame {
         txtvaloracobrar = new javax.swing.JTextField();
         txtempleado = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
+        txtnumero_turno = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        cboestado = new javax.swing.JComboBox<>();
         jPanel1 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         txtdescuentos = new javax.swing.JTextField();
@@ -108,18 +122,20 @@ public final class Jpago extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         Btnnuevo = new javax.swing.JButton();
         btnguardar = new javax.swing.JButton();
+        txtdeudaanterior = new javax.swing.JTextField();
+        jLabel21 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tablalistado = new javax.swing.JTable();
         btneliminar = new javax.swing.JButton();
         lbltotalregistros = new javax.swing.JLabel();
         btnImprimirComprobante = new javax.swing.JButton();
+        txtidpago = new javax.swing.JTextField();
+        txtidsalida = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLayeredPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "DATOS DE PAGOS", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Serif", 1, 14))); // NOI18N
-
-        txtidpago.setText("IDP");
 
         jLabel2.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         jLabel2.setText("Habitación:");
@@ -139,7 +155,6 @@ public final class Jpago extends javax.swing.JFrame {
             }
         });
 
-        txtnumcomprobante.setEditable(false);
         txtnumcomprobante.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         txtnumcomprobante.setText(" ");
         txtnumcomprobante.addActionListener(new java.awt.event.ActionListener() {
@@ -186,7 +201,23 @@ public final class Jpago extends javax.swing.JFrame {
         jLabel20.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         jLabel20.setText("Responsable:");
 
-        jLayeredPane1.setLayer(txtidpago, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        txtnumero_turno.setEditable(false);
+        txtnumero_turno.setFont(new java.awt.Font("Serif", 2, 14)); // NOI18N
+        txtnumero_turno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtnumero_turnoActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        jLabel7.setText("Numero turno:");
+
+        jLabel9.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        jLabel9.setText("Estado:");
+
+        cboestado.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        cboestado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pendiente", "Pagado" }));
+
         jLayeredPane1.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jLabel4, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jLabel5, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -201,6 +232,10 @@ public final class Jpago extends javax.swing.JFrame {
         jLayeredPane1.setLayer(txtvaloracobrar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(txtempleado, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jLabel20, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(txtnumero_turno, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(jLabel7, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(jLabel9, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(cboestado, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
@@ -227,23 +262,41 @@ public final class Jpago extends javax.swing.JFrame {
                         .addComponent(txtempleado)))
                 .addContainerGap())
             .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel19))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtfechaemision, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbotipocomprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtcliente, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txthabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
-            .addComponent(txtidpago, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                        .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel19))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtfechaemision, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbotipocomprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtcliente, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txthabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel7)
+                        .addGap(6, 6, 6)
+                        .addComponent(txtnumero_turno, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cboestado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 11, Short.MAX_VALUE))
         );
         jLayeredPane1Layout.setVerticalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                .addComponent(txtidpago, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtnumero_turno, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel7))
+                    .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel9)
+                        .addComponent(cboestado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel19)
@@ -330,6 +383,12 @@ public final class Jpago extends javax.swing.JFrame {
             }
         });
 
+        txtdeudaanterior.setEditable(false);
+        txtdeudaanterior.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+
+        jLabel21.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        jLabel21.setText("Deuda Anterior:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -354,15 +413,20 @@ public final class Jpago extends javax.swing.JFrame {
                                 .addComponent(txtdescuentos, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(59, 59, 59))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel1)
+                                        .addComponent(jLabel21)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txttransferencia, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel13)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtcobrosfraccion, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(txtdeudaanterior, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addComponent(jLabel1)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(txttransferencia, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addComponent(jLabel13)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(txtcobrosfraccion, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addGap(37, 37, 37)))))
                 .addGap(0, 38, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -402,6 +466,10 @@ public final class Jpago extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtcobrosfraccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel13))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtdeudaanterior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel21))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtnetoapagar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -455,21 +523,35 @@ public final class Jpago extends javax.swing.JFrame {
             }
         });
 
+        txtidpago.setText("IDP");
+
+        txtidsalida.setText("IDS");
+        txtidsalida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtidsalidaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane3)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lbltotalregistros, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(btnImprimirComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btneliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(btneliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtidpago, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtidsalida, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -478,9 +560,12 @@ public final class Jpago extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnImprimirComprobante, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
-                    .addComponent(btneliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btneliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtidpago, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtidsalida, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lbltotalregistros))
         );
@@ -528,27 +613,30 @@ public final class Jpago extends javax.swing.JFrame {
 
     private void tablalistadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablalistadoMouseClicked
 
-        btnguardar.setText("Editar");
-        // habilitar();
-        btneliminar.setEnabled(true);
-        accion = "editar";
-
-        int fila = tablalistado.rowAtPoint(evt.getPoint());
-
-        txtidpago.setText(tablalistado.getValueAt(fila, 0).toString());
-        txtcliente.setText(tablalistado.getValueAt(fila, 2).toString());
-        txthabitacion.setText(tablalistado.getValueAt(fila, 3).toString());
-        txtfechaemision.setText(tablalistado.getValueAt(fila, 4).toString());
-        cbotipocomprobante.setSelectedItem(tablalistado.getValueAt(fila, 5).toString());
-        txtnumcomprobante.setText(tablalistado.getValueAt(fila, 6).toString());
-        txtefectivo.setText(tablalistado.getValueAt(fila, 7).toString());
-        txttarjeta.setText(tablalistado.getValueAt(fila, 8).toString());
-        txttransferencia.setText(tablalistado.getValueAt(fila, 9).toString());
-        txtdescuentos.setText(tablalistado.getValueAt(fila, 10).toString());
-        txtcobrosfraccion.setText(tablalistado.getValueAt(fila, 11).toString());
-        txtvaloracobrar.setText(tablalistado.getValueAt(fila, 12).toString());
-        txtnetoapagar.setText(tablalistado.getValueAt(fila, 13).toString());
-        txtempleado.setText(tablalistado.getValueAt(fila, 14).toString());
+//        btnguardar.setText("Editar");
+//        // habilitar();
+//        btneliminar.setEnabled(true);
+//        accion = "editar";
+//
+//        int fila = tablalistado.rowAtPoint(evt.getPoint());
+//
+//        txtidpago.setText(tablalistado.getValueAt(fila, 0).toString());
+//        txtcliente.setText(tablalistado.getValueAt(fila, 2).toString());
+//        txthabitacion.setText(tablalistado.getValueAt(fila, 3).toString());
+//        txtfechaemision.setText(tablalistado.getValueAt(fila, 4).toString());
+//        cbotipocomprobante.setSelectedItem(tablalistado.getValueAt(fila, 5).toString());
+//        txtnumcomprobante.setText(tablalistado.getValueAt(fila, 6).toString());
+//        txtefectivo.setText(tablalistado.getValueAt(fila, 7).toString());
+//        txttarjeta.setText(tablalistado.getValueAt(fila, 8).toString());
+//        txttransferencia.setText(tablalistado.getValueAt(fila, 9).toString());
+//        txtdescuentos.setText(tablalistado.getValueAt(fila, 10).toString());
+//        txtcobrosfraccion.setText(tablalistado.getValueAt(fila, 11).toString());
+//        txtvaloracobrar.setText(tablalistado.getValueAt(fila, 12).toString());
+//        txtnetoapagar.setText(tablalistado.getValueAt(fila, 13).toString());
+//        txtempleado.setText(tablalistado.getValueAt(fila, 14).toString());
+//        txtnumero_turno.setText(tablalistado.getValueAt(fila, 15).toString());
+//        txtdeudaanterior.setText(tablalistado.getValueAt(fila, 16).toString());
+//        cboestado.setSelectedItem(tablalistado.getValueAt(fila, 17).toString());
 
 
     }//GEN-LAST:event_tablalistadoMouseClicked
@@ -621,7 +709,7 @@ public final class Jpago extends javax.swing.JFrame {
 
         Dpago dts = new Dpago();
         Fpago func = new Fpago();
-
+       
         dts.setCliente(txtcliente.getText());
         dts.setNumero(Integer.parseInt(txthabitacion.getText()));
         dts.setFechaemision(txtfechaemision.getText());
@@ -636,31 +724,35 @@ public final class Jpago extends javax.swing.JFrame {
         dts.setValorcobrar(Integer.parseInt(txtvaloracobrar.getText()));
         dts.setNetoapagar(Integer.parseInt(txtnetoapagar.getText()));
         dts.setEmpleado(txtempleado.getText());
+        dts.setNumero_turno(Integer.parseInt(txtnumero_turno.getText()));
+        dts.setDeuda_anterior(Integer.parseInt(txtdeudaanterior.getText()));
+        int estado = cboestado.getSelectedIndex();
+        dts.setEstado((String) cboestado.getItemAt(estado));
 
         if (accion.equals("guardar")) {
             if (func.insertar(dts)) {
-                JOptionPane.showMessageDialog(rootPane, " El pago por $. " + txtvaloracobrar.getText()
+                JOptionPane.showMessageDialog(rootPane, " El pago por $. " + txtnetoapagar.getText()
                         + " del Sr. " + txtcliente.getText() + " Ha sido realizado con Éxito");
                 mostrar("");
                 inhabilitar();
 
-                //Cancelar o pagar la reserva
-                Fingreso func3 = new Fingreso();
-                Dingreso dts3 = new Dingreso();
+                //Cancelar o pagar
+                Fpago func3 = new Fpago();
+                Dpago dts3 = new Dpago();
 
-//                dts3.setIdingreso(Integer.parseInt(txtidsalida.getText()));
-//                func3.pagar(dts3);
+                dts3.setIdpago(Integer.parseInt(txtidpago.getText()));
+                func3.pagar(dts3);
             }
 
-        } else if (accion.equals("editar")) {
-            dts.setIdpago(Integer.parseInt(txtidpago.getText()));
-
-            if (func.editar(dts)) {
-                JOptionPane.showMessageDialog(rootPane, "El pago del Sr. "
-                        + txtcliente.getText() + " Ha sido Modificado Correctamente");
-                mostrar("");
-                inhabilitar();
-            }
+//        } else if (accion.equals("editar")) {
+//            dts.setIdpago(Integer.parseInt(txtidpago.getText()));
+//
+//            if (func.editar(dts)) {
+//                JOptionPane.showMessageDialog(rootPane, "El pago del Sr. "
+//                        + txtcliente.getText() + " Ha sido Modificado Correctamente");
+//                mostrar("");
+//                inhabilitar();
+//            }
         }
     }//GEN-LAST:event_btnguardarActionPerformed
 
@@ -678,16 +770,16 @@ public final class Jpago extends javax.swing.JFrame {
                 int efectivo = Integer.parseInt(txtefectivo.getText());
                 int tarjeta = Integer.parseInt(txttarjeta.getText());
                 int transferencia = Integer.parseInt(txttransferencia.getText());
+                int deudaanterior = Integer.parseInt(txtdeudaanterior.getText());
 
                 // Sumar los valores
-                int totalPago = efectivo + tarjeta + transferencia;
+                int totalPago = efectivo + tarjeta + transferencia + deudaanterior;
 
                 // Asignar el resultado al campo de texto txtTotalPago
                 txtnetoapagar.setText(String.valueOf(totalPago));
 
                 // Imprimir para verificar el valor que se asignó
-                System.out.println("Valor asignado a txtTotalPago: " + txtnetoapagar.getText());
-
+//                System.out.println("Valor asignado a txtTotalPago: " + txtnetoapagar.getText());
             } catch (NumberFormatException e) {
                 // Manejar la excepción si alguno de los campos de texto no contiene un número válido
                 System.err.println("Error: uno o más campos no contienen un número válido");
@@ -696,6 +788,14 @@ public final class Jpago extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_txtnetoapagarKeyPressed
+
+    private void txtnumero_turnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnumero_turnoActionPerformed
+        // Generar el número de turno
+    }//GEN-LAST:event_txtnumero_turnoActionPerformed
+
+    private void txtidsalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtidsalidaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtidsalidaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -745,6 +845,7 @@ public final class Jpago extends javax.swing.JFrame {
     private javax.swing.JButton btneliminar;
     private javax.swing.JButton btnguardar;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JComboBox<String> cboestado;
     private javax.swing.JComboBox<String> cbotipocomprobante;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;
@@ -754,11 +855,14 @@ public final class Jpago extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -768,13 +872,16 @@ public final class Jpago extends javax.swing.JFrame {
     private javax.swing.JTextField txtcliente;
     private javax.swing.JTextField txtcobrosfraccion;
     private javax.swing.JTextField txtdescuentos;
+    private javax.swing.JTextField txtdeudaanterior;
     private javax.swing.JTextField txtefectivo;
     private javax.swing.JTextField txtempleado;
     private javax.swing.JTextField txtfechaemision;
     private javax.swing.JTextField txthabitacion;
     private javax.swing.JTextField txtidpago;
+    private javax.swing.JTextField txtidsalida;
     private javax.swing.JTextField txtnetoapagar;
     private javax.swing.JTextField txtnumcomprobante;
+    private javax.swing.JTextField txtnumero_turno;
     private javax.swing.JTextField txttarjeta;
     private javax.swing.JTextField txttransferencia;
     private javax.swing.JTextField txtvaloracobrar;

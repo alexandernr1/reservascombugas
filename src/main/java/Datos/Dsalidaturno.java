@@ -24,11 +24,13 @@ public int total_recaudo;
 public int entrega_admon;
 public int total_efectivo;
 public String observaciones;
+public int numero_turno;
+public String estado;
 
     public Dsalidaturno() {
     }
 
-    public Dsalidaturno(int idturno, int idabonos, int idempleado, int idhabitacion, String empleado, String turno, String fecha_hora_inicio, String fecha_hora_salida, int habitaciones_ocupadas, int total_recibos, int base, int tarjetas, int efectivo, int transferencias, double totalhabitaciones, int total_abonos, int otros_ingresos, int total_recaudo, int entrega_admon, int total_efectivo, String observaciones) {
+    public Dsalidaturno(int idturno, int idabonos, int idempleado, int idhabitacion, String empleado, String turno, String fecha_hora_inicio, String fecha_hora_salida, int habitaciones_ocupadas, int total_recibos, int base, int tarjetas, int efectivo, int transferencias, double totalhabitaciones, int total_abonos, int otros_ingresos, int total_recaudo, int entrega_admon, int total_efectivo, String observaciones, int numero_turno, String estado) {
         this.idturno = idturno;
         this.idabonos = idabonos;
         this.idempleado = idempleado;
@@ -50,7 +52,11 @@ public String observaciones;
         this.entrega_admon = entrega_admon;
         this.total_efectivo = total_efectivo;
         this.observaciones = observaciones;
+        this.numero_turno = numero_turno;
+        this.estado = estado;
     }
+
+   
 
     public int getIdturno() {
         return idturno;
@@ -218,6 +224,22 @@ public String observaciones;
 
     public void setObservaciones(String observaciones) {
         this.observaciones = observaciones;
+    }
+
+    public int getNumero_turno() {
+        return numero_turno;
+    }
+
+    public void setNumero_turno(int numero_turno) {
+        this.numero_turno = numero_turno;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
 

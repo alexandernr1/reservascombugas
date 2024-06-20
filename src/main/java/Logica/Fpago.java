@@ -21,9 +21,9 @@ public class Fpago {
     public DefaultTableModel mostrar(String buscar) {
         DefaultTableModel modelo;
 
-        String[] titulos = {"ID", "Idsalida", "cliente", "numero", "fecha emision", "tipo Comprobante", "Número comprobante", "Efectivo", "Tarjeta", "Transferencias", "Descuentos", "Cobros Fraccion", "Valor a Cobrar", "Neto a Pagar", "Empleado"};
+        String[] titulos = {"ID", "Idsalida", "cliente", "numero", "fecha emision", "tipo Comprobante", "Número comprobante", "Efectivo", "Tarjeta", "Transferencias", "Descuentos", "Cobros Fraccion", "Valor a Cobrar", "Neto a Pagar", "Empleado", "Numero Turno", "Deuda Anterior", "Estado"};
 
-        String[] registro = new String[15];
+        String[] registro = new String[18];
 
         totalregistros = 0;
         modelo = new DefaultTableModel(null, titulos);
@@ -50,6 +50,9 @@ public class Fpago {
                 registro[12] = rs.getString("valorcobrar");
                 registro[13] = rs.getString("netoapagar");
                 registro[14] = rs.getString("empleado");
+                registro[15] = rs.getString("numero_turno");
+                registro[16] = rs.getString("deuda_anterior");
+                registro[17] = rs.getString("estado");
 
                 totalregistros = totalregistros + 1;
                 modelo.addRow(registro);
@@ -65,8 +68,8 @@ public class Fpago {
     }
 
     public boolean insertar(Dpago dts) {
-        sSQL = "INSERT INTO pago (idsalida, cliente, numero, fechaemision,tipocomprobante,numcomprobante,efectivo, tarjeta,transferencia,descuentos,cobrosfraccion,valorcobrar,netoapagar,empleado)"
-                + "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        sSQL = "INSERT INTO pago (idsalida, cliente, numero, fechaemision,tipocomprobante,numcomprobante,efectivo, tarjeta,transferencia,descuentos,cobrosfraccion,valorcobrar,netoapagar,empleado,numero_turno,deuda_anterior,estado)"
+                + "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
 
             PreparedStatement pst = cn.prepareStatement(sSQL);
@@ -84,6 +87,9 @@ public class Fpago {
             pst.setInt(12, dts.getValorcobrar());
             pst.setInt(13, dts.getNetoapagar());
             pst.setString(14, dts.getEmpleado());
+            pst.setInt(15, dts.getNumero_turno());
+            pst.setInt(16, dts.getDeuda_anterior());
+            pst.setString(17, dts.getEstado());
 
             int n = pst.executeUpdate();
 
@@ -96,12 +102,12 @@ public class Fpago {
     }
 
     public boolean editar(Dpago dts) {
-        sSQL = "UPDATE pago set idsalida=?,cliente=?, numero=?, fechaemision=?,tipocomprobante=?,numcomprobante=?,efectivo=?, tarjeta=?,transferencia=?,descuentos=?,cobrosfraccion=?,valorcobrar=?,netoapagar=?,empleado=?)"
+        sSQL = "UPDATE pago set idsalida=?,cliente=?, numero=?, fechaemision=?,tipocomprobante=?,numcomprobante=?,efectivo=?, tarjeta=?,transferencia=?,descuentos=?,cobrosfraccion=?,valorcobrar=?,netoapagar=?,empleado=?,numero_turno=?,deuda_anterior=?,estado=?)"
                 + " where idpago=?";
 
         try {
             PreparedStatement pst = cn.prepareStatement(sSQL);
-             pst.setInt(1, dts.getIdsalida());
+            pst.setInt(1, dts.getIdsalida());
             pst.setString(2, dts.getCliente());
             pst.setInt(3, dts.getNumero());
             pst.setString(4, dts.getFechaemision());
@@ -115,8 +121,11 @@ public class Fpago {
             pst.setInt(12, dts.getValorcobrar());
             pst.setInt(13, dts.getNetoapagar());
             pst.setString(14, dts.getEmpleado());
-            
-            pst.setInt(15, dts.getIdpago());
+            pst.setInt(15, dts.getNumero_turno());
+            pst.setInt(16, dts.getDeuda_anterior());
+            pst.setString(17, dts.getEstado());
+
+            pst.setInt(18, dts.getIdpago());
 
             int n = pst.executeUpdate();
 
@@ -147,25 +156,26 @@ public class Fpago {
         }
     }
 
-    public int UltimoNumeroComprobante() {
-        sSQL = "SELECT MAX(numrocomprobante) AS ultimo_numero_comprobante FROM pagos";
-        int ultimoNumeroComprobante = 0;
-
-        try ( Statement statement = cn.createStatement()) {
-            ResultSet resultSet = statement.executeQuery(sSQL);
-
-            if (resultSet.next()) {
-                ultimoNumeroComprobante = resultSet.getInt("numcomprobante");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace(); // Manejo de errores
-        }
-
-        return ultimoNumeroComprobante;
-    }
+//    public int UltimoNumeroComprobante() {
+//        sSQL = "SELECT MAX(numrocomprobante) AS ultimo_numero_comprobante FROM pagos";
+//        int ultimoNumeroComprobante = 0;
+//
+//        try ( Statement statement = cn.createStatement()) {
+//            ResultSet resultSet = statement.executeQuery(sSQL);
+//
+//            if (resultSet.next()) {
+//                ultimoNumeroComprobante = resultSet.getInt("numcomprobante");
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace(); // Manejo de errores
+//        }
+//
+//        return ultimoNumeroComprobante;
+//    }
 
     public boolean pagar(Dpago dts) {
-        sSQL = "update ingreso set estado = 'pagada'" + "where idingreso=?";
+        sSQL = "UPDATE pago SET estado = 'Pagado'"
+                + " WHERE idpago = ?";
 
         try {
             PreparedStatement pst = cn.prepareStatement(sSQL);
@@ -181,4 +191,32 @@ public class Fpago {
 
     }
 
+    public int generarComprobante() {
+        String serie = "";
+        String sSQL = "SELECT MAX(numcomprobante) FROM pago";
+
+        try {
+            PreparedStatement pst = cn.prepareStatement(sSQL);
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                serie = rs.getString(1);
+                if (serie != null) {
+                    // Incrementar el valor de serie
+                    return Integer.parseInt(serie) + 1;
+                } else {
+                    // Si no hay registros, el primer número de turno es 1
+                    return 1;
+                }
+            } else {
+                // Si la consulta no devuelve resultados, también retornamos 1
+                return 1;
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al generar el número de turno: " + e.getMessage());
+            return 0;
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Error al convertir el número de turno: " + e.getMessage());
+            return 0;
+        }
+    }
 }

@@ -267,13 +267,13 @@ public class Fhabitacion {
        }
    }
    
-public String obtenerEstadoHabitacion(int idhabitacion) {
+public String obtenerEstadoHabitacion(int numero) {
         String estado = "Disponible";
 
         try {
-            sSQL = "SELECT estado FROM habitacion WHERE idhabitacion = ?";
+            sSQL = "SELECT estado FROM habitacion WHERE numero = ?";
             PreparedStatement pst = cn.prepareStatement(sSQL);
-            pst.setInt(1, idhabitacion);
+            pst.setInt(1, numero);
 
             ResultSet rs = pst.executeQuery();
 

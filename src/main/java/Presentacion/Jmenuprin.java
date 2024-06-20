@@ -42,7 +42,7 @@ static void inhabilitar() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel3.setBackground(new java.awt.Color(102, 255, 102));
+        jPanel3.setBackground(new java.awt.Color(0, 153, 204));
 
         btnmenuhotel.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
         btnmenuhotel.setText("HOTEL");

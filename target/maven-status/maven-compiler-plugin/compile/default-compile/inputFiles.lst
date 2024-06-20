@@ -8,6 +8,7 @@ C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Logica\
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Presentacion\Jsalidahuesped.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Logica\Fabonos.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Presentacion\Jlimpieza.java
+C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Datos\Dcambio.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Presentacion\Jingreso.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Presentacion\Jmenuhotel.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Presentacion\Jvistaempleado.java
@@ -22,6 +23,7 @@ C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Datos\D
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Datos\Dinicioturno.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Presentacion\Jlistaespera.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Presentacion\Jcliente.java
+C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Presentacion\JcambioHabit.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Logica\Flimpieza.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Presentacion\Jinicioturno.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Logica\Finicioturno.java
@@ -30,15 +32,16 @@ C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Logica\
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Logica\Cconexion.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Presentacion\Jvistareservas.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Presentacion\Jhabitaciones.java
-C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Presentacion\Jvistaingreso.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Datos\Tiempopro.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Presentacion\Jabono.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Presentacion\LoguinDeAdmin.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Datos\Dhabitacion.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Presentacion\Jmenuprin.java
+C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Datos\Dacompañante.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Datos\Dingreso.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Presentacion\Jregistroempleados.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Datos\Dvehiculo.java
+C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Logica\Facompañante.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Logica\Freserva.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Datos\Dsalida.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Datos\Dconsumo.java
@@ -53,4 +56,5 @@ C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Logica\
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Presentacion\Jpago.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Datos\Dpago.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Presentacion\Jmanejoreservas.java
+C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Logica\Fcambio.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Logica\HotelC.java

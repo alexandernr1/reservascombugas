@@ -19,9 +19,7 @@ public class Dsalida {
     public int costoalojamiento;
     public String fechaingreso;
     public String fechasalida;
-
     public String tipocliente;
-
     public int valor_noches;
     public int abonos;
     public int valor_total;
@@ -29,11 +27,13 @@ public class Dsalida {
     public int cobros_extra;
     public int otros_cobros;
     public Double totalpago;
+    public int numero_turno;
+    public int deuda_anterior;
 
     public Dsalida() {
     }
 
-    public Dsalida(int idsalida, int idingreso, int idcliente, int idhabitacion, int idabono, String empleado, int numero, String cliente, int numnoches, int costoalojamiento, String fechaingreso, String fechasalida,  String tipocliente, int valor_noches, int abonos, int valor_total, int descuentos, int cobros_extra, int otros_cobros, Double totalpago) {
+    public Dsalida(int idsalida, int idingreso, int idcliente, int idhabitacion, int idabono, String empleado, int numero, String cliente, int numnoches, int costoalojamiento, String fechaingreso, String fechasalida, String tipocliente, int valor_noches, int abonos, int valor_total, int descuentos, int cobros_extra, int otros_cobros, Double totalpago, int numero_turno,int deuda_anterior) {
         this.idsalida = idsalida;
         this.idingreso = idingreso;
         this.idcliente = idcliente;
@@ -46,9 +46,7 @@ public class Dsalida {
         this.costoalojamiento = costoalojamiento;
         this.fechaingreso = fechaingreso;
         this.fechasalida = fechasalida;
-
         this.tipocliente = tipocliente;
-
         this.valor_noches = valor_noches;
         this.abonos = abonos;
         this.valor_total = valor_total;
@@ -56,7 +54,13 @@ public class Dsalida {
         this.cobros_extra = cobros_extra;
         this.otros_cobros = otros_cobros;
         this.totalpago = totalpago;
+        this.numero_turno = numero_turno;
+        this.deuda_anterior = deuda_anterior;
+    
+    
     }
+
+    
 
     public int getIdsalida() {
         return idsalida;
@@ -216,6 +220,22 @@ public class Dsalida {
 
     public void setTotalpago(Double totalpago) {
         this.totalpago = totalpago;
+    }
+
+    public int getNumero_turno() {
+        return numero_turno;
+    }
+
+    public void setNumero_turno(int numero_turno) {
+        this.numero_turno = numero_turno;
+    }
+
+    public int getDeuda_anterior() {
+        return deuda_anterior;
+    }
+
+    public void setDeuda_anterior(int deuda_anterior) {
+        this.deuda_anterior = deuda_anterior;
     }
 
 }

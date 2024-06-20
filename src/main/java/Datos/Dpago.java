@@ -17,11 +17,14 @@ public class Dpago {
     public int valorcobrar;
     public int netoapagar;
     public String empleado;
+    public int numero_turno;
+    public int deuda_anterior;
+    public String estado;
 
     public Dpago() {
     }
 
-    public Dpago(int idpago, int idsalida, String cliente, int numero, String fechaemision, String tipocomprobante, String numcomprobante, int efectivo, int tarjeta, int transferencia, int descuentos, int cobrosfraccion, int valorcobrar, int netoapagar, String empleado) {
+    public Dpago(int idpago, int idsalida, String cliente, int numero, String fechaemision, String tipocomprobante, String numcomprobante, int efectivo, int tarjeta, int transferencia, int descuentos, int cobrosfraccion, int valorcobrar, int netoapagar, String empleado, int numero_turno, int deuda_anterior, String estado) {
         this.idpago = idpago;
         this.idsalida = idsalida;
         this.cliente = cliente;
@@ -37,6 +40,10 @@ public class Dpago {
         this.valorcobrar = valorcobrar;
         this.netoapagar = netoapagar;
         this.empleado = empleado;
+        this.numero_turno = numero_turno;
+        this.deuda_anterior = deuda_anterior;
+        this.estado = estado;
+        
     }
 
     public int getIdpago() {
@@ -159,6 +166,28 @@ public class Dpago {
         this.empleado = empleado;
     }
 
-    
+    public int getNumero_turno() {
+        return numero_turno;
+    }
+
+    public void setNumero_turno(int numero_turno) {
+        this.numero_turno = numero_turno;
+    }
+
+    public int getDeuda_anterior() {
+        return deuda_anterior;
+    }
+
+    public void setDeuda_anterior(int deuda_anterior) {
+        this.deuda_anterior = deuda_anterior;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
 
 }

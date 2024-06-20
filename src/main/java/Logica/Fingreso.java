@@ -80,7 +80,7 @@ public class Fingreso {
             pst.setString(3, dts.getFecha_hora_ingreso());
             pst.setInt(4, dts.getNum_personas());
             pst.setString(5, dts.getTipo_cliente());
-            pst.setDouble(6, dts.getCostoalojamiento());
+            pst.setInt(6, dts.getCostoalojamiento());
             pst.setString(7, dts.getMotivo_viaje());
             pst.setString(8, dts.getEstado());
             
@@ -124,7 +124,7 @@ public class Fingreso {
             pst.setString(3, dts.getFecha_hora_ingreso());
             pst.setInt(4, dts.getNum_personas());
             pst.setString(5, dts.getTipo_cliente());
-            pst.setDouble(6, dts.getCostoalojamiento());
+            pst.setInt(6, dts.getCostoalojamiento());
             pst.setString(7, dts.getMotivo_viaje());
             pst.setString(8, dts.getEstado());
            

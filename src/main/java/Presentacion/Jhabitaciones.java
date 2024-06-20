@@ -578,8 +578,9 @@ public class Jhabitaciones extends javax.swing.JInternalFrame {
 
         if (accion.equals("guardar")) {
             if (func.insertar(dts)) {
+                 mostrar("");
                 JOptionPane.showMessageDialog(rootPane, "La habitación fue registrada satisfactoriamente");
-                mostrar("");
+               
                 inhabilitar();
 
             }
@@ -588,8 +589,9 @@ public class Jhabitaciones extends javax.swing.JInternalFrame {
             dts.setIdhabitacion(Integer.parseInt(txtidhabitacion.getText()));
 
             if (func.editar(dts)) {
+                 mostrar("");
                 JOptionPane.showMessageDialog(rootPane, "La habitación fue Editada satisfactoriamente");
-                mostrar("");
+               
                 inhabilitar();
             }
         }

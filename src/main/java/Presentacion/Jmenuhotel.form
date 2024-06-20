@@ -18,7 +18,7 @@
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
-    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,-107,0,0,4,78"/>
+    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,-102,0,0,4,84"/>
   </AuxValues>
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
@@ -54,7 +54,7 @@
                       <Component id="escritorio" max="32767" attributes="0"/>
                       <Component id="pnlBotones" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="6" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -171,12 +171,11 @@
                   <Font name="Serif" size="14" style="1"/>
                 </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="5">
-                    <StringItem index="0" value="Ingresos"/>
-                    <StringItem index="1" value="Reservas"/>
-                    <StringItem index="2" value="Salidas"/>
+                  <StringArray count="4">
+                    <StringItem index="0" value="Reservas"/>
+                    <StringItem index="1" value="Salidas"/>
+                    <StringItem index="2" value=" "/>
                     <StringItem index="3" value=" "/>
-                    <StringItem index="4" value=" "/>
                   </StringArray>
                 </Property>
               </Properties>
@@ -538,8 +537,8 @@
                               </Group>
                               <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jToggleButton23" max="32767" attributes="0"/>
-                                  <Component id="jToggleButton20" min="-2" pref="80" max="-2" attributes="0"/>
+                                  <Component id="jToggleButton" max="32767" attributes="0"/>
+                                  <Component id="jToggleButton26" min="-2" pref="80" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" attributes="0">
@@ -569,26 +568,26 @@
                               <EmptySpace max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jToggleButton19" min="-2" pref="60" max="-2" attributes="0"/>
+                                      <Component id="jToggleButton25" min="-2" pref="60" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jToggleButton16" max="32767" attributes="0"/>
+                                      <Component id="jToggleButton24" max="32767" attributes="0"/>
                                   </Group>
-                                  <Component id="jToggleButton24" min="-2" pref="130" max="-2" attributes="0"/>
+                                  <Component id="jToggleButton210" min="-2" pref="130" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="jToggleButton21" max="32767" attributes="0"/>
-                                  <Component id="jToggleButton15" min="-2" pref="64" max="-2" attributes="0"/>
+                                  <Component id="jToggleButton29" max="32767" attributes="0"/>
+                                  <Component id="jToggleButton23" min="-2" pref="64" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jToggleButton18" pref="65" max="32767" attributes="0"/>
-                                  <Component id="jToggleButton14" max="32767" attributes="0"/>
+                                  <Component id="jToggleButton28" pref="65" max="32767" attributes="0"/>
+                                  <Component id="jToggleButton22" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jToggleButton13" min="-2" pref="64" max="-2" attributes="0"/>
-                                  <Component id="jToggleButton17" min="-2" pref="64" max="-2" attributes="0"/>
+                                  <Component id="jToggleButton21" min="-2" pref="64" max="-2" attributes="0"/>
+                                  <Component id="jToggleButton27" min="-2" pref="64" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
@@ -608,35 +607,35 @@
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jToggleButton29" max="32767" attributes="0"/>
-                                  <Component id="jToggleButton34" min="-2" pref="90" max="-2" attributes="0"/>
+                                  <Component id="jToggleButton37" max="32767" attributes="0"/>
+                                  <Component id="jToggleButton312" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jToggleButton35" max="32767" attributes="0"/>
-                                  <Component id="jToggleButton32" min="-2" pref="66" max="-2" attributes="0"/>
+                                  <Component id="jToggleButton311" max="32767" attributes="0"/>
+                                  <Component id="jToggleButton36" min="-2" pref="66" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jToggleButton36" max="32767" attributes="0"/>
-                                  <Component id="jToggleButton31" min="-2" pref="65" max="-2" attributes="0"/>
+                                  <Component id="jToggleButton310" max="32767" attributes="0"/>
+                                  <Component id="jToggleButton35" min="-2" pref="65" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jToggleButton33" max="32767" attributes="0"/>
-                                  <Component id="jToggleButton28" min="-2" pref="61" max="-2" attributes="0"/>
+                                  <Component id="jToggleButton39" max="32767" attributes="0"/>
+                                  <Component id="jToggleButton34" min="-2" pref="61" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jToggleButton27" max="32767" attributes="0"/>
+                                      <Component id="jToggleButton33" max="32767" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jToggleButton25" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jToggleButton26" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jToggleButton031" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jToggleButton32" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <Component id="jToggleButton30" min="-2" pref="114" max="-2" attributes="0"/>
+                                  <Component id="jToggleButton38" min="-2" pref="114" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -681,22 +680,22 @@
                               <Component id="jLabel3" min="-2" pref="28" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jToggleButton23" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
-                                  <Component id="jToggleButton24" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
-                                  <Component id="jToggleButton21" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
-                                  <Component id="jToggleButton18" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
-                                  <Component id="jToggleButton17" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
+                                  <Component id="jToggleButton" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
+                                  <Component id="jToggleButton210" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
+                                  <Component id="jToggleButton29" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
+                                  <Component id="jToggleButton28" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
+                                  <Component id="jToggleButton27" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jToggleButton16" alignment="0" min="-2" pref="47" max="-2" attributes="0"/>
+                                  <Component id="jToggleButton24" alignment="0" min="-2" pref="47" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jToggleButton13" alignment="3" min="-2" pref="47" max="-2" attributes="0"/>
-                                      <Component id="jToggleButton19" alignment="3" min="-2" pref="47" max="-2" attributes="0"/>
-                                      <Component id="jToggleButton15" alignment="3" min="-2" pref="47" max="-2" attributes="0"/>
-                                      <Component id="jToggleButton14" alignment="3" min="-2" pref="47" max="-2" attributes="0"/>
+                                      <Component id="jToggleButton21" alignment="3" min="-2" pref="47" max="-2" attributes="0"/>
+                                      <Component id="jToggleButton25" alignment="3" min="-2" pref="47" max="-2" attributes="0"/>
+                                      <Component id="jToggleButton23" alignment="3" min="-2" pref="47" max="-2" attributes="0"/>
+                                      <Component id="jToggleButton22" alignment="3" min="-2" pref="47" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="jToggleButton20" min="-2" pref="65" max="-2" attributes="0"/>
+                                  <Component id="jToggleButton26" min="-2" pref="65" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -710,32 +709,32 @@
                               <Component id="jLabel5" min="-2" pref="28" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jToggleButton34" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
-                                  <Component id="jToggleButton35" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
-                                  <Component id="jToggleButton36" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
-                                  <Component id="jToggleButton33" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                                  <Component id="jToggleButton30" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                                  <Component id="jToggleButton312" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jToggleButton311" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
+                                  <Component id="jToggleButton310" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
+                                  <Component id="jToggleButton39" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                                  <Component id="jToggleButton38" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jToggleButton29" alignment="0" min="-2" pref="60" max="-2" attributes="0"/>
+                                  <Component id="jToggleButton37" alignment="0" min="-2" pref="60" max="-2" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jToggleButton32" alignment="0" min="-2" pref="47" max="-2" attributes="0"/>
+                                          <Component id="jToggleButton36" alignment="0" min="-2" pref="47" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="jToggleButton31" alignment="3" min="-2" pref="47" max="-2" attributes="0"/>
-                                              <Component id="jToggleButton28" alignment="3" min="-2" pref="47" max="-2" attributes="0"/>
-                                              <Component id="jToggleButton27" alignment="3" min="-2" pref="47" max="-2" attributes="0"/>
-                                              <Component id="jToggleButton25" alignment="3" min="-2" pref="47" max="-2" attributes="0"/>
+                                              <Component id="jToggleButton35" alignment="3" min="-2" pref="47" max="-2" attributes="0"/>
+                                              <Component id="jToggleButton34" alignment="3" min="-2" pref="47" max="-2" attributes="0"/>
+                                              <Component id="jToggleButton33" alignment="3" min="-2" pref="47" max="-2" attributes="0"/>
+                                              <Component id="jToggleButton031" alignment="3" min="-2" pref="47" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jToggleButton26" min="-2" pref="50" max="-2" attributes="0"/>
+                                      <Component id="jToggleButton32" min="-2" pref="50" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace pref="86" max="32767" attributes="0"/>
+                      <EmptySpace pref="91" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -868,7 +867,7 @@
                 <Property name="text" type="java.lang.String" value="12"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JToggleButton" name="jToggleButton13">
+            <Component class="javax.swing.JToggleButton" name="jToggleButton21">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Serif" size="24" style="1"/>
@@ -876,10 +875,10 @@
                 <Property name="text" type="java.lang.String" value="21"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButton13ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButton21ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JToggleButton" name="jToggleButton14">
+            <Component class="javax.swing.JToggleButton" name="jToggleButton22">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Serif" size="24" style="1"/>
@@ -887,10 +886,10 @@
                 <Property name="text" type="java.lang.String" value="22"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButton14ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButton22ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JToggleButton" name="jToggleButton15">
+            <Component class="javax.swing.JToggleButton" name="jToggleButton23">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Serif" size="24" style="1"/>
@@ -898,7 +897,7 @@
                 <Property name="text" type="java.lang.String" value="23"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JToggleButton" name="jToggleButton16">
+            <Component class="javax.swing.JToggleButton" name="jToggleButton24">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Serif" size="24" style="1"/>
@@ -906,7 +905,7 @@
                 <Property name="text" type="java.lang.String" value="24"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JToggleButton" name="jToggleButton17">
+            <Component class="javax.swing.JToggleButton" name="jToggleButton27">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Serif" size="24" style="1"/>
@@ -914,7 +913,7 @@
                 <Property name="text" type="java.lang.String" value="27"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JToggleButton" name="jToggleButton18">
+            <Component class="javax.swing.JToggleButton" name="jToggleButton28">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Serif" size="24" style="1"/>
@@ -922,7 +921,7 @@
                 <Property name="text" type="java.lang.String" value="28"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JToggleButton" name="jToggleButton19">
+            <Component class="javax.swing.JToggleButton" name="jToggleButton25">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Serif" size="24" style="1"/>
@@ -930,7 +929,7 @@
                 <Property name="text" type="java.lang.String" value="25"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JToggleButton" name="jToggleButton20">
+            <Component class="javax.swing.JToggleButton" name="jToggleButton26">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Serif" size="24" style="1"/>
@@ -938,7 +937,7 @@
                 <Property name="text" type="java.lang.String" value="26"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JToggleButton" name="jToggleButton21">
+            <Component class="javax.swing.JToggleButton" name="jToggleButton29">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Serif" size="24" style="1"/>
@@ -946,7 +945,7 @@
                 <Property name="text" type="java.lang.String" value="29"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JToggleButton" name="jToggleButton23">
+            <Component class="javax.swing.JToggleButton" name="jToggleButton">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Serif" size="24" style="1"/>
@@ -954,7 +953,7 @@
                 <Property name="text" type="java.lang.String" value="211"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JToggleButton" name="jToggleButton24">
+            <Component class="javax.swing.JToggleButton" name="jToggleButton210">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Serif" size="24" style="1"/>
@@ -962,7 +961,7 @@
                 <Property name="text" type="java.lang.String" value="210"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JToggleButton" name="jToggleButton30">
+            <Component class="javax.swing.JToggleButton" name="jToggleButton38">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Serif" size="24" style="1"/>
@@ -970,15 +969,18 @@
                 <Property name="text" type="java.lang.String" value="38"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JToggleButton" name="jToggleButton33">
+            <Component class="javax.swing.JToggleButton" name="jToggleButton39">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Serif" size="24" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="39"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButton39ActionPerformed"/>
+              </Events>
             </Component>
-            <Component class="javax.swing.JToggleButton" name="jToggleButton34">
+            <Component class="javax.swing.JToggleButton" name="jToggleButton312">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Serif" size="24" style="1"/>
@@ -986,7 +988,7 @@
                 <Property name="text" type="java.lang.String" value="312"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JToggleButton" name="jToggleButton35">
+            <Component class="javax.swing.JToggleButton" name="jToggleButton311">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Serif" size="24" style="1"/>
@@ -994,7 +996,7 @@
                 <Property name="text" type="java.lang.String" value="311"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JToggleButton" name="jToggleButton36">
+            <Component class="javax.swing.JToggleButton" name="jToggleButton310">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Serif" size="24" style="1"/>
@@ -1024,11 +1026,11 @@
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jToggleButton37" max="32767" attributes="0"/>
-                              <Component id="jToggleButton38" max="32767" attributes="0"/>
-                              <Component id="jToggleButton39" min="-2" pref="120" max="-2" attributes="0"/>
-                              <Component id="jToggleButton22" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jToggleButton40" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jToggleButtonrojo" max="32767" attributes="0"/>
+                              <Component id="jToggleButtonamarillo" max="32767" attributes="0"/>
+                              <Component id="jToggleButtonnaranja" min="-2" pref="120" max="-2" attributes="0"/>
+                              <Component id="jToggleButtonverde" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jToggleButtonazul" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
@@ -1038,22 +1040,22 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jToggleButton22" min="-2" max="-2" attributes="0"/>
+                          <Component id="jToggleButtonverde" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jToggleButton37" min="-2" max="-2" attributes="0"/>
+                          <Component id="jToggleButtonrojo" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jToggleButton38" min="-2" max="-2" attributes="0"/>
+                          <Component id="jToggleButtonamarillo" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jToggleButton39" min="-2" max="-2" attributes="0"/>
+                          <Component id="jToggleButtonnaranja" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jToggleButton40" min="-2" max="-2" attributes="0"/>
+                          <Component id="jToggleButtonazul" min="-2" max="-2" attributes="0"/>
                           <EmptySpace pref="23" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JToggleButton" name="jToggleButton37">
+                <Component class="javax.swing.JToggleButton" name="jToggleButtonrojo">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="0" green="0" red="ff" type="rgb"/>
@@ -1064,7 +1066,7 @@
                     <Property name="text" type="java.lang.String" value="OCUPADA"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JToggleButton" name="jToggleButton38">
+                <Component class="javax.swing.JToggleButton" name="jToggleButtonamarillo">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="0" green="ff" red="ff" type="rgb"/>
@@ -1075,7 +1077,7 @@
                     <Property name="text" type="java.lang.String" value="RESERVADA"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JToggleButton" name="jToggleButton39">
+                <Component class="javax.swing.JToggleButton" name="jToggleButtonnaranja">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="0" green="66" red="ff" type="rgb"/>
@@ -1086,7 +1088,7 @@
                     <Property name="text" type="java.lang.String" value="MANTENIMIENTO"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JToggleButton" name="jToggleButton22">
+                <Component class="javax.swing.JToggleButton" name="jToggleButtonverde">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="0" green="cc" red="0" type="rgb"/>
@@ -1097,7 +1099,7 @@
                     <Property name="text" type="java.lang.String" value="DISPONIBLE"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JToggleButton" name="jToggleButton40">
+                <Component class="javax.swing.JToggleButton" name="jToggleButtonazul">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="0" red="33" type="rgb"/>
@@ -1110,7 +1112,7 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JToggleButton" name="jToggleButton26">
+            <Component class="javax.swing.JToggleButton" name="jToggleButton32">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Serif" size="24" style="1"/>
@@ -1118,10 +1120,10 @@
                 <Property name="text" type="java.lang.String" value="32"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButton26ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButton32ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JToggleButton" name="jToggleButton27">
+            <Component class="javax.swing.JToggleButton" name="jToggleButton33">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Serif" size="24" style="1"/>
@@ -1129,7 +1131,7 @@
                 <Property name="text" type="java.lang.String" value="33"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JToggleButton" name="jToggleButton25">
+            <Component class="javax.swing.JToggleButton" name="jToggleButton031">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Serif" size="24" style="1"/>
@@ -1137,10 +1139,10 @@
                 <Property name="text" type="java.lang.String" value="31"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButton25ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButton031ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JToggleButton" name="jToggleButton32">
+            <Component class="javax.swing.JToggleButton" name="jToggleButton36">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Serif" size="24" style="1"/>
@@ -1148,7 +1150,7 @@
                 <Property name="text" type="java.lang.String" value="36"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JToggleButton" name="jToggleButton31">
+            <Component class="javax.swing.JToggleButton" name="jToggleButton35">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Serif" size="24" style="1"/>
@@ -1156,7 +1158,7 @@
                 <Property name="text" type="java.lang.String" value="35"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JToggleButton" name="jToggleButton28">
+            <Component class="javax.swing.JToggleButton" name="jToggleButton34">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Serif" size="24" style="1"/>
@@ -1164,7 +1166,7 @@
                 <Property name="text" type="java.lang.String" value="34"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JToggleButton" name="jToggleButton29">
+            <Component class="javax.swing.JToggleButton" name="jToggleButton37">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Serif" size="24" style="1"/>

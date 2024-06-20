@@ -75,8 +75,8 @@ public class Fsalidaturno {
 //}
     public boolean insertar(Dsalidaturno dts) {
         sSQL = "insert into salidaturno (idabonos, idempleado, idhabitacion, empleado, turno, fecha_hora_inicio, fecha_hora_salida,"
-                + " habitaciones_ocupadas, total_recibos, base, tarjetas, efectivo, transferencias, totalhabitaciones, total_abonos, otros_ingresos, total_recaudo, entrega_admon, total_efectivo, observaciones)"
-                + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                + " habitaciones_ocupadas, total_recibos, base, tarjetas, efectivo, transferencias, totalhabitaciones, total_abonos, otros_ingresos, total_recaudo, entrega_admon, total_efectivo, observaciones, numero_turno, estado)"
+                + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
 
             PreparedStatement pst = cn.prepareStatement(sSQL);
@@ -100,6 +100,8 @@ public class Fsalidaturno {
             pst.setInt(18, dts.getEntrega_admon());
             pst.setInt(19, dts.getTotal_efectivo());
             pst.setString(20, dts.getObservaciones());
+            pst.setInt(21, dts.getNumero_turno());
+            pst.setString(22, dts.getEstado());
 
             int n = pst.executeUpdate();
 
@@ -114,8 +116,8 @@ public class Fsalidaturno {
 
     public ResultSet realizarConsulta(String inicioturno) throws SQLException {
 
-        sSQL = "select *from inicioturno where turno=?";
-
+        sSQL = "select *from inicioturno where numero_turno=?";
+//        sSQL = "SELECT numero_turno FROM inicioturno WHERE estado = 'Activo'";
         PreparedStatement pst = cn.prepareStatement(sSQL);
         pst.setString(1, inicioturno);
 
@@ -124,17 +126,16 @@ public class Fsalidaturno {
 
     public int obtenerTotalHabitacionesOcupadas() {
         int totalOcupadas = 0;
-   
 
         try {
             String sSQL = "SELECT COUNT(*) AS total FROM habitacion WHERE estado = 'Ocupado'";
-                    
+
             PreparedStatement pst = cn.prepareStatement(sSQL);
             ResultSet rs = pst.executeQuery();
 
             if (rs.next()) {
                 totalOcupadas = rs.getInt("total");
-                
+
             }
 
         } catch (SQLException e) {
@@ -142,7 +143,8 @@ public class Fsalidaturno {
 
         return totalOcupadas;
     }
-     public double obtenerCostoTotalAlojamiento() {
+
+    public double obtenerCostoTotalAlojamiento() {
         double totalCosto = 0.0;
 
         try {
@@ -159,9 +161,72 @@ public class Fsalidaturno {
         return totalCosto;
     }
 
+    public String estadoturno() {
+        String estado = "";
+        String sSQL = "select estado from inicioturno ORDER BY numero_turno DESC LIMIT 1;";
+        try {
+
+            PreparedStatement pst = cn.prepareStatement(sSQL);
+            ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+                estado = rs.getString("estado");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al obtener el estado del turno: " + e.getMessage());
+        }
+
+        return estado;
+    }
+
+    public String numeroturno() {
+        String numeroturno = "";
+        String sSQL = "SELECT numero_turno FROM inicioturno WHERE estado = 'Activo' ORDER BY numero_turno DESC LIMIT 1";
+        try {
+
+            PreparedStatement pst = cn.prepareStatement(sSQL);
+            ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+                numeroturno = rs.getString("numero_turno");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al obtener el numero del turno: " + e.getMessage());
+        }
+
+        return numeroturno;
+    }
+
+    public boolean totalmedio_pagos() {
+        int efectivos = 0;
+        int tarjetas = 0;
+        int transferencias = 0;
+
+    // Consulta SQL para obtener los totales de medios de pago durante un turno activo
+    String sSQL = "SELECT efectivo, tarjeta, transferencia FROM pago WHERE numero_turno = 'Activo'";
+
+    try {
+        PreparedStatement pst = cn.prepareStatement(sSQL);
+        ResultSet rs = pst.executeQuery();
+        
+        while (rs.next()) {
+            efectivos += rs.getDouble("efectivo");
+            tarjetas += rs.getDouble("tarjeta");
+            transferencias += rs.getDouble("transferencia");
+        }
+        
+        // Aquí puedes hacer algo con los totales obtenidos, por ejemplo, mostrarlos o almacenarlos
+        System.out.println("Total en efectivo: " + efectivos);
+        System.out.println("Total en tarjetas: " + tarjetas);
+        System.out.println("Total en transferencias: " + transferencias);
+
+        return true; // Indica que la operación fue exitosa
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Error al obtener totales de medios de pago: " + e.getMessage());
+        return false; // Indica que hubo un error
+    }
+        
+
+    }
+
 }
-//"(SELECT totalabonos  FROM abono a WHERE a.idabono = i.idabono) AS totalabonos,"
-//        +"(SELECT fecha_hora_inicio FROM inicioturno it WHERE it.idinicioturno = it.idinicioturno) AS fecha_hora_inicio,"
-//        +"(SELECT turno FROM inicioturno it WHERE it.idinicioturno = t.idinicioturno) AS turno"
-//        +"FROM inicioturno t INNER JOIN turno tu ON t.idinicioturno = tu.idinicioturno"
-//        +"LEFT JOIN abono a ON t.idingreso = a.idingreso WHERE it.turno =  ?";

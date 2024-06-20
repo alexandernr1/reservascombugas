@@ -20,9 +20,9 @@ public final class Jcliente extends javax.swing.JFrame {
         mostrarTiempo();
         mostrar("");
         inhabilitar();
-        cbopais.setSelectedItem("Colombia");
-        cbociudad.setSelectedItem("Cartagena");
-        
+//        cbopais.setSelectedItem("Colombia");
+//        cbociudad.setSelectedItem("Cartagena");
+
     }
 
     public static Jcliente getInstance() {
@@ -45,6 +45,7 @@ public final class Jcliente extends javax.swing.JFrame {
         tablalistado.getColumnModel().getColumn(0).setMinWidth(0);
         tablalistado.getColumnModel().getColumn(0).setPreferredWidth(0);
     }
+
     void inhabilitar() {
         txtidcliente.setVisible(false);
     }
@@ -567,8 +568,10 @@ public final class Jcliente extends javax.swing.JFrame {
         dts.setTelefono(txttelefono.getText());
         dts.setDireccion(txtdireccion.getText());
         dts.setEmail(txtemail.getText());
-        dts.setPais(cbopais.getItemAt(seleccionado));
-        dts.setCiudad(cbociudad.getItemAt(seleccionado));
+        int pais = cbopais.getSelectedIndex();
+        dts.setPais((String)cbopais.getItemAt(pais));
+        int ciudad = cbociudad.getSelectedIndex();
+        dts.setCiudad((String)cbociudad.getItemAt(ciudad));
 
         if (accion.equals("guardar")) {
             if (func.insertar(dts)) {

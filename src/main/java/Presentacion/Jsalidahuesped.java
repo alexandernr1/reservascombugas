@@ -1,24 +1,22 @@
 package Presentacion;
 
+import Datos.Dcambio;
 import Datos.Dhabitacion;
 import Datos.Dingreso;
 import Datos.Dsalida;
 import Datos.Tiempopro;
+import Logica.Fcambio;
 import Logica.Fhabitacion;
 import Logica.Fingreso;
 import Logica.Fsalida;
 import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.NumberFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.Calendar;
 import java.util.Locale;
-import java.util.concurrent.atomic.AtomicInteger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -34,25 +32,28 @@ public final class Jsalidahuesped extends javax.swing.JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         mostrarTiempo();
         inhabilitar();
+        mostrarnumeroturno();
         txtcobros_extra.setText("0");
         txtotros_cobros.setText("0");
         txtvalor_noches.setText("0");
         txtabonos.setText("0");
         txtvalor_total.setText("0");
         txttotaldescuentos.setText("0");
-//        txtcobros_extra.setText("0");
         txtotros_cobros.setText("0");
         txttotal_pago.setText("0");
 
     }
     public static int idusuario;
     private String accion = "guardar";
+    
     public static String cliente = "";
     public static String habitacion = "";
     public static String totaldescuentos = "";
     public static String cobros_extra = "";
     public static String pagototal = "";
     public static String empleado = "";
+    public static String numero_turno = "";
+    public static String deuda_anterior = "";
 
     public static Jsalidahuesped getInstance() {
         if (instance == null) {
@@ -61,25 +62,29 @@ public final class Jsalidahuesped extends javax.swing.JFrame {
         return instance;
     }
 
+    public void mostrarnumeroturno() {
+        Fsalida func = new Fsalida();
+        String numeroturno = func.numeroturno();
+        txtnumero_turno.setText(numeroturno);
+    }
+
     private void mostrarTiempo() {
 
         txtfecha_hora_salida.setText(time.getFechacomp() + " " + time.getHoracomp());
     }
 
-//    private String formatNumber(int number) {
-//        NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.US);
-//        return numberFormat.format(number);
-//    }
+
     void limpiarcajas() {
         txtcajabuscar.setText(null);
         txtcliente.setText(null);
+        txtnumdocumento.setText(null);
         txtnumnoches.setText(null);
         txtcostoalojamiento.setText(null);
         txtfecha_hora_ingreso.setText(null);
         txtfecha_hora_salida.setText(null);
-
+        txtnumero.setText(null);
         cbotipo_cliente.setSelectedItem(0);
-
+        txtcliente.setText(null);
         txtvalor_noches.setText(null);
         txtabonos.setText(null);
         txtvalor_total.setText(null);
@@ -87,6 +92,7 @@ public final class Jsalidahuesped extends javax.swing.JFrame {
         txtcobros_extra.setText(null);
         txtotros_cobros.setText(null);
         txttotal_pago.setText(null);
+        txtdeudaanterior.setText(null);
 
     }
 
@@ -125,6 +131,8 @@ public final class Jsalidahuesped extends javax.swing.JFrame {
         txtvalor_total = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
         txttotal_pago = new javax.swing.JTextField();
+        deudaanterior = new javax.swing.JLabel();
+        txtdeudaanterior = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         telefono = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
@@ -153,7 +161,8 @@ public final class Jsalidahuesped extends javax.swing.JFrame {
         txtcajabuscar = new javax.swing.JTextField();
         jLabel23 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        txtturnoinicio = new javax.swing.JTextField();
+        txtnumero_turno = new javax.swing.JTextField();
+        btncambiohabit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -245,6 +254,9 @@ public final class Jsalidahuesped extends javax.swing.JFrame {
         txttotal_pago.setEditable(false);
         txttotal_pago.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
 
+        deudaanterior.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        deudaanterior.setText("Deuda Anterior:");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -268,13 +280,18 @@ public final class Jsalidahuesped extends javax.swing.JFrame {
                             .addComponent(txtabonos, javax.swing.GroupLayout.Alignment.LEADING))))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addComponent(jLabel9))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                            .addComponent(jLabel10)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                        .addComponent(jLabel9))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(deudaanterior)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(txtcobros_extra)
-                    .addComponent(txttotaldescuentos, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txttotaldescuentos, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
+                    .addComponent(txtdeudaanterior))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -317,7 +334,9 @@ public final class Jsalidahuesped extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel21)
-                    .addComponent(txttotal_pago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txttotal_pago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(deudaanterior)
+                    .addComponent(txtdeudaanterior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -495,6 +514,13 @@ public final class Jsalidahuesped extends javax.swing.JFrame {
         jLabel17.setText("Turno:");
         jLabel17.setToolTipText("");
 
+        btncambiohabit.setText("Cambio Habit");
+        btncambiohabit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btncambiohabitActionPerformed(evt);
+            }
+        });
+
         jLayeredPane1.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jLabel8, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(txtidsalida, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -521,7 +547,8 @@ public final class Jsalidahuesped extends javax.swing.JFrame {
         jLayeredPane1.setLayer(txtcajabuscar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jLabel23, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jLabel17, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(txtturnoinicio, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(txtnumero_turno, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(btncambiohabit, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
@@ -580,7 +607,7 @@ public final class Jsalidahuesped extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel17)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtturnoinicio))
+                        .addComponent(txtnumero_turno, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jLayeredPane1Layout.createSequentialGroup()
@@ -588,7 +615,10 @@ public final class Jsalidahuesped extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnguardar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnrealizarpagos)))
+                        .addComponent(btnrealizarpagos)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btncambiohabit)
+                        .addGap(28, 28, 28)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jLayeredPane1Layout.setVerticalGroup(
@@ -634,12 +664,13 @@ public final class Jsalidahuesped extends javax.swing.JFrame {
                     .addComponent(jLabel15)
                     .addComponent(txtempleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel17)
-                    .addComponent(txtturnoinicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtnumero_turno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnguardar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnrealizarpagos, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnrealizarpagos, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btncambiohabit))
                 .addGap(13, 13, 13))
         );
 
@@ -693,14 +724,16 @@ public final class Jsalidahuesped extends javax.swing.JFrame {
     }//GEN-LAST:event_txtvalor_nochesActionPerformed
 
     private void btnrealizarpagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnrealizarpagosActionPerformed
-
+         
         cliente = txtcliente.getText();
-
+ 
         habitacion = txtnumero.getText();
         totaldescuentos = txttotaldescuentos.getText();
         cobros_extra = txtcobros_extra.getText();
         pagototal = txttotal_pago.getText();
         empleado = txtempleado.getText();
+        numero_turno = txtnumero_turno.getText();
+        deuda_anterior = txtdeudaanterior.getText();
         Jpago pago = new Jpago();
         pago.toFront();
         pago.setVisible(true);
@@ -733,13 +766,11 @@ public final class Jsalidahuesped extends javax.swing.JFrame {
         dts.setCobros_extra(Integer.parseInt(txtcobros_extra.getText()));
         dts.setOtros_cobros(Integer.parseInt(txtotros_cobros.getText()));
         dts.setTotalpago(Double.valueOf(txttotal_pago.getText()));
+        dts.setDeuda_anterior(Integer.parseInt(txtdeudaanterior.getText()));
 
         if (accion.equals("guardar")) {
             if (func.insertar(dts)) {
-                JOptionPane.showMessageDialog(rootPane, "la salida fue registrado satisfactoriamente");
-//                JOptionPane.showMessageDialog(rootPane, " El pago por $. " + txttotalpago.getText()
-//                    + " del Sr. " + txtcliente.getText() + " Ha sido realizado con Éxito");
-//                mostrar("");
+
                 inhabilitar();
 
                 Fhabitacion func2 = new Fhabitacion();
@@ -753,6 +784,22 @@ public final class Jsalidahuesped extends javax.swing.JFrame {
 
                 dts3.setIdingreso(Integer.parseInt(txtidingreso.getText()));
                 fnc.finalizar(dts3);
+                
+                Fcambio func3 = new Fcambio();
+                Dcambio dts4 = new Dcambio();
+                 
+                dts4.setNumero_habita(Integer.parseInt(txtnumero.getText()));
+                func3.finalizar(dts4);
+
+                int respuesta = JOptionPane.showConfirmDialog(rootPane, "SALIDA DE HUESPED EXITO. ¿Deseas asignar limpeza?", "confirmación", JOptionPane.YES_NO_OPTION);
+                limpiarcajas();
+                if (respuesta == JOptionPane.YES_NO_OPTION) {
+
+                    Jlimpieza limpieza = new Jlimpieza();
+                    limpieza.toFront();
+                    limpieza.setVisible(true);
+
+                }
             }
 
         }
@@ -839,8 +886,8 @@ public final class Jsalidahuesped extends javax.swing.JFrame {
                     int valorTotal = (int) Math.round(rs.getInt("abonohabitacion"));
                     txtabonos.setText(String.valueOf(valorTotal));
 
-                    int Nuevovalortotal = valorTotal - (int) nuevoCostoAlojamiento + descuentoTotalEntero;
-                    Nuevovalortotal = Math.abs(Nuevovalortotal);
+                    int Nuevovalortotal = (int) nuevoCostoAlojamiento - valorTotal + descuentoTotalEntero;
+
                     txtvalor_total.setText(String.valueOf(Nuevovalortotal));
 
                     int costoFraccionEntero = 0;
@@ -866,17 +913,27 @@ public final class Jsalidahuesped extends javax.swing.JFrame {
 
                         }
 
-                       
                     }
-                     int otrosCobros = (int) Double.parseDouble(txtotros_cobros.getText());
 
-                        // Calcular total a pagar
-                        String tipoCliente = rs.getString("tipo_cliente");
-                        if (!"Administrativo".equalsIgnoreCase(tipoCliente)) {
-                            int totalAPagar = Nuevovalortotal + costoFraccionEntero + (int) otrosCobros  ;
-                             totalAPagar = Math.abs(totalAPagar);
-                            txttotal_pago.setText(String.valueOf(totalAPagar));
+                    Fsalida func = new Fsalida();
+                    String documento = txtnumdocumento.getText();
+                    int deudaanterior = func.deudaanterior(documento);
+                    if (deudaanterior == 0) {
+                        txtdeudaanterior.setText("0");
+                    } else {
+                        txtdeudaanterior.setText(String.valueOf(deudaanterior));
+                    }
+                    int otrosCobros = (int) Double.parseDouble(txtotros_cobros.getText());
+
+                    // Calcular total a pagar
+                    String tipoCliente = rs.getString("tipo_cliente");
+                    if (!"Administrativo".equalsIgnoreCase(tipoCliente)) {
+                        int totalAPagar = Nuevovalortotal + costoFraccionEntero + (int) otrosCobros;
+                        if (totalAPagar < 0) {
+                            totalAPagar = 0;
                         }
+                        txttotal_pago.setText(String.valueOf(totalAPagar));
+                    }
                 } else {
                     JOptionPane.showMessageDialog(null, "No se encontró el CLIENTE solicitado");
                 }
@@ -887,6 +944,16 @@ public final class Jsalidahuesped extends javax.swing.JFrame {
 
 // TODO add your handling code here:
     }//GEN-LAST:event_txtcajabuscarKeyPressed
+
+    private void btncambiohabitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncambiohabitActionPerformed
+        // TODO add your handling code here:
+        pagototal = txttotal_pago.getText();
+        empleado = txtempleado.getText();
+        numero_turno = txtnumero_turno.getText();
+        JcambioHabit cambio = new JcambioHabit();
+        cambio.toFront();
+        cambio.setVisible(true);
+    }//GEN-LAST:event_btncambiohabitActionPerformed
 
     /**
      * @param args the command line arguments
@@ -924,9 +991,11 @@ public final class Jsalidahuesped extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btncambiohabit;
     private javax.swing.JButton btnguardar;
     private javax.swing.JButton btnrealizarpagos;
     private javax.swing.JComboBox<String> cbotipo_cliente;
+    private javax.swing.JLabel deudaanterior;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -956,6 +1025,7 @@ public final class Jsalidahuesped extends javax.swing.JFrame {
     private javax.swing.JTextField txtcliente;
     private javax.swing.JTextField txtcobros_extra;
     private javax.swing.JTextField txtcostoalojamiento;
+    private javax.swing.JTextField txtdeudaanterior;
     public static javax.swing.JTextField txtempleado;
     private javax.swing.JTextField txtfecha_hora_ingreso;
     private javax.swing.JTextField txtfecha_hora_salida;
@@ -967,11 +1037,11 @@ public final class Jsalidahuesped extends javax.swing.JFrame {
     private javax.swing.JTextField txtidsalida;
     private javax.swing.JTextField txtnumdocumento;
     private javax.swing.JTextField txtnumero;
+    private javax.swing.JTextField txtnumero_turno;
     private javax.swing.JTextField txtnumnoches;
     private javax.swing.JTextField txtotros_cobros;
     private javax.swing.JTextField txttotal_pago;
     private javax.swing.JTextField txttotaldescuentos;
-    private javax.swing.JTextField txtturnoinicio;
     private javax.swing.JTextField txtvalor_noches;
     private javax.swing.JTextField txtvalor_total;
     // End of variables declaration//GEN-END:variables

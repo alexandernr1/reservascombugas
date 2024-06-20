@@ -14,7 +14,7 @@ public class Dingreso {
     public String fecha_hora_ingreso;
     public int num_personas;
     public String tipo_cliente;
-    public Double costoalojamiento;
+    public int costoalojamiento;
     public String motivo_viaje;
     public String estado;
 //    public int numnoches;
@@ -22,7 +22,7 @@ public class Dingreso {
     public Dingreso() {
     }
 
-    public Dingreso(int idingreso, int idhabitacion, int idcliente, String fecha_hora_ingreso, int num_personas, String tipo_cliente, Double costoalojamiento, String motivo_viaje, String estado) {
+    public Dingreso(int idingreso, int idhabitacion, int idcliente, String fecha_hora_ingreso, int num_personas, String tipo_cliente, int costoalojamiento, String motivo_viaje, String estado) {
         this.idingreso = idingreso;
         this.idhabitacion = idhabitacion;
         this.idcliente = idcliente;
@@ -32,7 +32,6 @@ public class Dingreso {
         this.costoalojamiento = costoalojamiento;
         this.motivo_viaje = motivo_viaje;
         this.estado = estado;
-//        this.numnoches = numnoches;
     }
 
     public int getIdingreso() {
@@ -83,11 +82,11 @@ public class Dingreso {
         this.tipo_cliente = tipo_cliente;
     }
 
-    public Double getCostoalojamiento() {
+    public int getCostoalojamiento() {
         return costoalojamiento;
     }
 
-    public void setCostoalojamiento(Double costoalojamiento) {
+    public void setCostoalojamiento(int costoalojamiento) {
         this.costoalojamiento = costoalojamiento;
     }
 
@@ -107,13 +106,8 @@ public class Dingreso {
         this.estado = estado;
     }
 
-//    public int getNumnoches() {
-//        return numnoches;
-//    }
-//
-//    public void setNumnoches(int numnoches) {
-//        this.numnoches = numnoches;
-//    }
+   
+
 
     
 

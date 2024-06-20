@@ -5,15 +5,18 @@ package Datos;
 public class Dhabitacion {
     
     public int idhabitacion;
-    public Integer numero;
+    public int numero;
     public String piso;
     public String descripcion;
     public String caracteristicas;
-    public Integer precio;
+    public int precio;
     public String estado;
     public String tipohabitacion;
 
-    public Dhabitacion(int idhabitacion, Integer numero, String piso, String descripcion, String caracteristicas, Integer precio, String estado, String tipohabitacion) {
+    public Dhabitacion() {
+    }
+
+    public Dhabitacion(int idhabitacion, int numero, String piso, String descripcion, String caracteristicas, int precio, String estado, String tipohabitacion) {
         this.idhabitacion = idhabitacion;
         this.numero = numero;
         this.piso = piso;
@@ -24,9 +27,6 @@ public class Dhabitacion {
         this.tipohabitacion = tipohabitacion;
     }
 
-    public Dhabitacion() {
-    }
-
     public int getIdhabitacion() {
         return idhabitacion;
     }
@@ -35,11 +35,11 @@ public class Dhabitacion {
         this.idhabitacion = idhabitacion;
     }
 
-    public Integer getNumero() {
+    public int getNumero() {
         return numero;
     }
 
-    public void setNumero(Integer numero) {
+    public void setNumero(int numero) {
         this.numero = numero;
     }
 
@@ -72,7 +72,7 @@ public class Dhabitacion {
     }
 
     public void setPrecio(int precio) {
-        this.precio= precio;
+        this.precio = precio;
     }
 
     public String getEstado() {
@@ -90,6 +90,8 @@ public class Dhabitacion {
     public void setTipohabitacion(String tipohabitacion) {
         this.tipohabitacion = tipohabitacion;
     }
+
+  
 
    
     
