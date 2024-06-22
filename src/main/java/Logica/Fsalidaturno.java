@@ -197,36 +197,52 @@ public class Fsalidaturno {
         return numeroturno;
     }
 
-    public boolean totalmedio_pagos() {
-        int efectivos = 0;
-        int tarjetas = 0;
-        int transferencias = 0;
+    public int[] totalmedio_pagos(int numeroturno) {
+        int[] mediosDePago = new int[3]; // Un array para almacenar los totales de efectivo, tarjeta y transferencia
 
-    // Consulta SQL para obtener los totales de medios de pago durante un turno activo
-    String sSQL = "SELECT efectivo, tarjeta, transferencia FROM pago WHERE numero_turno = 'Activo'";
+        // Consulta SQL para obtener los totales de medios de pago durante un turno activo
+        String sSQL = "SELECT SUM(efectivo) AS efectivo, SUM(tarjeta) AS tarjeta, SUM(transferencia) AS transferencia "
+                + "FROM pago WHERE numero_turno = ?";
 
-    try {
-        PreparedStatement pst = cn.prepareStatement(sSQL);
-        ResultSet rs = pst.executeQuery();
-        
-        while (rs.next()) {
-            efectivos += rs.getDouble("efectivo");
-            tarjetas += rs.getDouble("tarjeta");
-            transferencias += rs.getDouble("transferencia");
+        try ( PreparedStatement pst = cn.prepareStatement(sSQL)) {
+            pst.setInt(1, numeroturno);
+
+            try ( ResultSet rs = pst.executeQuery()) {
+                if (rs.next()) {
+                    mediosDePago[0] = rs.getInt("efectivo"); // Total en efectivo
+                    mediosDePago[1] = rs.getInt("tarjeta");  // Total en tarjeta
+                    mediosDePago[2] = rs.getInt("transferencia"); // Total en transferencia
+                }
+            }
+
+            // Aquí puedes hacer algo con los totales obtenidos, por ejemplo, mostrarlos o almacenarlos
+            System.out.println("Total en efectivo: " + mediosDePago[0]);
+            System.out.println("Total en tarjeta: " + mediosDePago[1]);
+            System.out.println("Total en transferencia: " + mediosDePago[2]);
+
+            return mediosDePago; // Retornar el array con los totales
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al obtener totales en medios de pago: " + e.getMessage());
+            return new int[]{0, 0, 0}; // En caso de error, retornar un array con valores 0
         }
-        
-        // Aquí puedes hacer algo con los totales obtenidos, por ejemplo, mostrarlos o almacenarlos
-        System.out.println("Total en efectivo: " + efectivos);
-        System.out.println("Total en tarjetas: " + tarjetas);
-        System.out.println("Total en transferencias: " + transferencias);
-
-        return true; // Indica que la operación fue exitosa
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(null, "Error al obtener totales de medios de pago: " + e.getMessage());
-        return false; // Indica que hubo un error
     }
-        
 
+    public int numeroturno(int numero) {
+        int numeroturno = 0;
+        String sSQL = "select sum(abonohabitacion) AS abonohabitacion from abono where numero_turno = ?";
+
+        try ( PreparedStatement pst = cn.prepareStatement(sSQL)) {
+            pst.setInt(1, numero);
+            try ( ResultSet rs = pst.executeQuery()) {
+                if (rs.next()) {
+                    numeroturno = rs.getInt("abonohabitacion");
+                }
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al obtener el número del turno: " + e.getMessage());
+        }
+
+        return numeroturno;
     }
 
 }

@@ -17,11 +17,12 @@ public class Dabono {
     public String privilegiosAdmon;
     public String privilegiosrecepcion;
     public int otroscobros;
+    public int numero_turno;
 
     public Dabono() {
     }
 
-    public Dabono(int idabono, int idingreso, int idhabitacion, int idcliente, Date fechaabono, int abonohabitacion, String descuentos, String conceptodescuento, String formaAbono, int totalAbonos, String privilegiosAdmon, String privilegiosrecepcion, int otroscobros) {
+    public Dabono(int idabono, int idingreso, int idhabitacion, int idcliente, Date fechaabono, int abonohabitacion, String descuentos, String conceptodescuento, String formaAbono, int totalAbonos, String privilegiosAdmon, String privilegiosrecepcion, int otroscobros, int numero_turno) {
         this.idabono = idabono;
         this.idingreso = idingreso;
         this.idhabitacion = idhabitacion;
@@ -35,6 +36,7 @@ public class Dabono {
         this.privilegiosAdmon = privilegiosAdmon;
         this.privilegiosrecepcion = privilegiosrecepcion;
         this.otroscobros = otroscobros;
+        this.numero_turno = numero_turno;
     }
 
     public int getIdabono() {
@@ -139,6 +141,14 @@ public class Dabono {
 
     public void setOtroscobros(int otroscobros) {
         this.otroscobros = otroscobros;
+    }
+
+    public int getNumero_turno() {
+        return numero_turno;
+    }
+
+    public void setNumero_turno(int numero_turno) {
+        this.numero_turno = numero_turno;
     }
 
 }

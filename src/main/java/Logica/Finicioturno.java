@@ -2,6 +2,7 @@ package Logica;
 
 import Datos.Dempleado;
 import Datos.Dinicioturno;
+import Datos.Dpersona;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,9 +16,9 @@ public class Finicioturno {
     private final Connection cn = mysql.establecerConexion();
     private String sSQL = "";
 
-    ArrayList<Dempleado>listaEMpleado = new ArrayList<>();
+    ArrayList<Dpersona>listaEMpleado = new ArrayList<>();
     
-    public void agregarEmpleados(Dempleado empleado){
+    public void agregarEmpleados(Dpersona empleado){
         listaEMpleado.add(empleado);
     }
     

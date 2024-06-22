@@ -20,9 +20,9 @@ public class Fabonos {
     public DefaultTableModel mostrar(String buscar) {
         DefaultTableModel modelo;
 
-        String[] titulos = {"Idabono", "Idingreso", "Idhabitacion", "Numero", "idcliente", "Cliente", "Identificación", "Fecha Abono", "Abono habitacion", "Descuentos", "Conceptos Descuentos", "Forma Abono", "Total Abonos ", "Privilegios Admon", "Privilegios Recep", "otros cobros"};
+        String[] titulos = {"Idabono", "Idingreso", "Idhabitacion", "Numero", "idcliente", "Cliente", "Identificación", "Fecha Abono", "Abono habitacion", "Descuentos", "Conceptos Descuentos", "Forma Abono", "Total Abonos ", "Privilegios Admon", "Privilegios Recep", "otros cobros", "Numero Turno"};
 
-        String[] registro = new String[16];
+        String[] registro = new String[17];
 
         totalregistros = 0;
         modelo = new DefaultTableModel(null, titulos);
@@ -32,7 +32,7 @@ public class Fabonos {
                 + "(SELECT apellidos FROM cliente WHERE idcliente = a.idcliente) AS clienteap, "
                 + "(SELECT numdocumento FROM cliente WHERE idcliente = a.idcliente)AS clientenu,"
                 + "a.fechaabono, a.abonohabitacion, a.descuentos, a.conceptodescuento, a.formaabono,"
-                + "a.totalabonos, a.privilegiosadmon, a.privilegiosrecepcion, a.otroscobros " 
+                + "a.totalabonos, a.privilegiosadmon, a.privilegiosrecepcion, a.otroscobros, a.numero_turno "
                 + "FROM abono a INNER JOIN habitacion h ON a.idhabitacion = h.idhabitacion WHERE h.numero like '%" + buscar + "%' order by idabono desc";
 
         try {
@@ -56,6 +56,7 @@ public class Fabonos {
                 registro[13] = rs.getString("privilegiosadmon");
                 registro[14] = rs.getString("privilegiosrecepcion");
                 registro[15] = rs.getString("otroscobros");
+                registro[16] = rs.getString("numero_turno");
 
                 totalregistros = totalregistros + 1;
                 modelo.addRow(registro);
@@ -71,8 +72,8 @@ public class Fabonos {
     }
 
     public boolean insertar(Dabono dts) {
-        sSQL = "INSERT INTO abono (idingreso,idhabitacion,idcliente,fechaabono,abonohabitacion,descuentos,conceptodescuento,formaabono,totalabonos,privilegiosadmon,privilegiosrecepcion,otroscobros)"
-                + "values (?,?,?,?,?,?,?,?,?,?,?,?)";
+        sSQL = "INSERT INTO abono (idingreso,idhabitacion,idcliente,fechaabono,abonohabitacion,descuentos,conceptodescuento,formaabono,totalabonos,privilegiosadmon,privilegiosrecepcion,otroscobros,numero_turno)"
+                + "values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
 
             PreparedStatement pst = cn.prepareStatement(sSQL);
@@ -88,6 +89,7 @@ public class Fabonos {
             pst.setString(10, dts.getPrivilegiosAdmon());
             pst.setString(11, dts.getPrivilegiosrecepcion());
             pst.setInt(12, dts.getOtroscobros());
+            pst.setInt(13, dts.getNumero_turno());
             int n = pst.executeUpdate();
 //            JOptionPane.showMessageDialog(null, "DATOS ALMACENADOS CORRECTAMENTE");
             return n != 0;
@@ -99,7 +101,7 @@ public class Fabonos {
     }
 
     public boolean editar(Dabono dts) {
-        sSQL = "update abono set idingreso=?,idhabitacion=?,idcliente=?,fechaabono=?,abonohabitacion=?,descuentos=?,conceptodescuento=?,formaabono=?,totalabonos=?,privilegiosadmon=?,privilegiosrecepcion=?, otroscobros=?"
+        sSQL = "update abono set idingreso=?,idhabitacion=?,idcliente=?,fechaabono=?,abonohabitacion=?,descuentos=?,conceptodescuento=?,formaabono=?,totalabonos=?,privilegiosadmon=?,privilegiosrecepcion=?, otroscobros=?, numero_turno=?"
                 + " where idabono=?";
 
         try {
@@ -116,8 +118,9 @@ public class Fabonos {
             pst.setString(10, dts.getPrivilegiosAdmon());
             pst.setString(11, dts.getPrivilegiosrecepcion());
             pst.setInt(12, dts.getOtroscobros());
-            
-            pst.setInt(13, dts.getIdabono());
+            pst.setInt(13, dts.getNumero_turno());
+
+            pst.setInt(14, dts.getIdabono());
 
             int n = pst.executeUpdate();
 
@@ -128,6 +131,7 @@ public class Fabonos {
             return false;
         }
     }
+
     public boolean eliminar(Dabono dts) {
         sSQL = "delete from abono where idabono=?";
 

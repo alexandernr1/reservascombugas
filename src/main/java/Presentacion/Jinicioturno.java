@@ -2,6 +2,7 @@ package Presentacion;
 
 import Datos.Dempleado;
 import Datos.Dinicioturno;
+import Datos.Dpersona;
 import Datos.Tiempopro;
 import Logica.Cconexion;
 import Logica.Fempleado;
@@ -21,9 +22,10 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class Jinicioturno extends javax.swing.JFrame {
+
     Statement st;
     ResultSet rs;
-    
+
     Tiempopro time = new Tiempopro();
 //    public static boolean sesionIniciada;
 
@@ -37,24 +39,41 @@ public class Jinicioturno extends javax.swing.JFrame {
         fechacbo();
         inhabilitar();
         generarnumero();
+        llenarcboempleado1(cboempleados);
 //        this.sesionIniciada = sesionIniciada;
 
     }
-    
-    private void llenarcboempleado1(JComboBox combo){
+
+    private void llenarcboempleado1(JComboBox combo) {
         Finicioturno func = new Finicioturno();
         DefaultComboBoxModel com = new DefaultComboBoxModel();
         combo.setModel(com);
         Cconexion conexion = new Cconexion();
-        
-        try{
+
+        try {
             Connection conectar = conexion.establecerConexion();
             st = conectar.createStatement();
-            rs = st.executeQuery("");
-        }catch(){
-            
+            rs = st.executeQuery("SELECT p.nombres, p.apellidos "
+                    + "FROM empleado e "
+                    + "JOIN persona p ON e.idpersona = p.idpersona "
+                    + "WHERE e.acceso = 'Empleado' ;");
+
+            while (rs.next()) {
+                Dpersona persona = new Dpersona();
+                String nombres = rs.getString("nombres");
+                String apellidos = rs.getString("apellidos");
+
+                persona.setNombres(nombres + " " + apellidos);
+                func.agregarEmpleados(persona);
+                com.addElement(persona.getNombres());
+
+                System.out.println("¡EXITO!");
+
+            }
+        } catch (Exception e) {
+            System.out.println("ERROR " + e);
         }
-        
+
     }
     public static int idpersona;
 
@@ -75,9 +94,9 @@ public class Jinicioturno extends javax.swing.JFrame {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String fechaActual = LocalDate.now().format(formatter);
-        cboempleado.addItem("Turno 1" + " " + fechaActual);
-        cboempleado.addItem("Turno 2" + " " + fechaActual);
-        cboempleado.addItem("Turno 3" + " " + fechaActual);
+        cboturnos.addItem("Turno 1" + " " + fechaActual);
+        cboturnos.addItem("Turno 2" + " " + fechaActual);
+        cboturnos.addItem("Turno 3" + " " + fechaActual);
 
     }
 
@@ -112,12 +131,12 @@ public class Jinicioturno extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtfecha_hora_inicio = new javax.swing.JTextField();
-        cboempleado = new javax.swing.JComboBox<>();
+        cboturnos = new javax.swing.JComboBox<>();
         cboestado = new javax.swing.JComboBox<>();
         txtnumero_turno = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        cboturnos = new javax.swing.JComboBox<>();
+        cboempleados = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
 
@@ -201,7 +220,7 @@ public class Jinicioturno extends javax.swing.JFrame {
         txtfecha_hora_inicio.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         jPanel1.add(txtfecha_hora_inicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 260, 160, 30));
 
-        jPanel1.add(cboempleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 210, 290, 30));
+        jPanel1.add(cboturnos, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 300, 160, 30));
 
         cboestado.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         cboestado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Activo", "Finalizado" }));
@@ -225,7 +244,7 @@ public class Jinicioturno extends javax.swing.JFrame {
         jLabel7.setText("Usuario:");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 360, -1, -1));
 
-        jPanel1.add(cboturnos, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 300, 160, 30));
+        jPanel1.add(cboempleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 210, 270, 30));
 
         jLabel6.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         jLabel6.setText("Turno:");
@@ -263,7 +282,7 @@ public class Jinicioturno extends javax.swing.JFrame {
         int selecturno = cboturnos.getSelectedIndex();
         dts1.setTurno((String) cboturnos.getItemAt(selecturno));
         dts1.setEstado((String) cboestado.getItemAt(selecturno));
-        dts1.setEstado((String) cboempleado.getItemAt(selecturno));
+//        dts1.setEmpleado((String) cboempleados.getItemAt(selecturno));
 
         dts1.setNumero_turno(Integer.parseInt(txtnumero_turno.getText()));
 
@@ -300,7 +319,7 @@ public class Jinicioturno extends javax.swing.JFrame {
                 );
                 form.actualizarTurno(
                         txtfecha_hora_inicio.getText(),
-                        (String) cboempleado.getItemAt(selecturno)
+                        (String) cboturnos.getItemAt(selecturno)
                 );
 //                Jsalidaturno.lblacceso.setText(tablalistado.getValueAt(0, 3).toString());
 //                Jsalidaturno.txtempleado.setText(tablalistado.getValueAt(0, 1) + "" + tablalistado.getValueAt(0, 2));
@@ -334,9 +353,10 @@ public class Jinicioturno extends javax.swing.JFrame {
 
             dts1.setFecha_hora_inicio(txtfecha_hora_inicio.getText());
 
-            int selecturno = cboempleado.getSelectedIndex();
-            dts1.setTurno((String) cboempleado.getItemAt(selecturno));
+            int selecturno = cboturnos.getSelectedIndex();
+            dts1.setTurno((String) cboturnos.getItemAt(selecturno));
             dts1.setEstado((String) cboestado.getItemAt(selecturno));
+//        dts1.setEmpleado((String) cboempleados.getItemAt(selecturno));
 
             dts1.setNumero_turno(Integer.parseInt(txtnumero_turno.getText()));
 
@@ -373,7 +393,7 @@ public class Jinicioturno extends javax.swing.JFrame {
                     );
                     form.actualizarTurno(
                             txtfecha_hora_inicio.getText(),
-                            (String) cboempleado.getItemAt(selecturno)
+                            (String) cboturnos.getItemAt(selecturno)
                     );
 //                    // Establece los valores en Jmenuhotel
 
@@ -431,7 +451,7 @@ public class Jinicioturno extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btningresar;
-    private javax.swing.JComboBox<String> cboempleado;
+    private javax.swing.JComboBox<String> cboempleados;
     private javax.swing.JComboBox<String> cboestado;
     private javax.swing.JComboBox<String> cboturnos;
     private javax.swing.JLabel jLabel1;
