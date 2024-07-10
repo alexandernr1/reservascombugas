@@ -1,11 +1,6 @@
 package Datos;
 
-import java.sql.Date;
 
-/**
- *
- * @author Alexander Nieves
- */
 public class Dingreso {
 
     public int idingreso;
@@ -17,12 +12,13 @@ public class Dingreso {
     public int costoalojamiento;
     public String motivo_viaje;
     public String estado;
-//    public int numnoches;
+    public String ciudad_de_recidencia;
+    public String ciudad_de_procedencia;
 
     public Dingreso() {
     }
 
-    public Dingreso(int idingreso, int idhabitacion, int idcliente, String fecha_hora_ingreso, int num_personas, String tipo_cliente, int costoalojamiento, String motivo_viaje, String estado) {
+    public Dingreso(int idingreso, int idhabitacion, int idcliente, String fecha_hora_ingreso, int num_personas, String tipo_cliente, int costoalojamiento, String motivo_viaje, String estado, String ciudad_de_recidencia, String ciudad_de_procedencia) {
         this.idingreso = idingreso;
         this.idhabitacion = idhabitacion;
         this.idcliente = idcliente;
@@ -32,6 +28,8 @@ public class Dingreso {
         this.costoalojamiento = costoalojamiento;
         this.motivo_viaje = motivo_viaje;
         this.estado = estado;
+        this.ciudad_de_recidencia = ciudad_de_recidencia;
+        this.ciudad_de_procedencia = ciudad_de_procedencia;
     }
 
     public int getIdingreso() {
@@ -104,6 +102,22 @@ public class Dingreso {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public String getCiudad_de_recidencia() {
+        return ciudad_de_recidencia;
+    }
+
+    public void setCiudad_de_recidencia(String ciudad_de_recidencia) {
+        this.ciudad_de_recidencia = ciudad_de_recidencia;
+    }
+
+    public String getCiudad_de_procedencia() {
+        return ciudad_de_procedencia;
+    }
+
+    public void setCiudad_de_procedencia(String ciudad_de_procedencia) {
+        this.ciudad_de_procedencia = ciudad_de_procedencia;
     }
 
    

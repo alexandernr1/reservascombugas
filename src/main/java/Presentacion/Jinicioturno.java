@@ -67,8 +67,7 @@ public class Jinicioturno extends javax.swing.JFrame {
                 func.agregarEmpleados(persona);
                 com.addElement(persona.getNombres());
 
-                System.out.println("¡EXITO!");
-
+//                System.out.println("¡EXITO!");
             }
         } catch (Exception e) {
             System.out.println("ERROR " + e);
@@ -282,9 +281,10 @@ public class Jinicioturno extends javax.swing.JFrame {
         int selecturno = cboturnos.getSelectedIndex();
         dts1.setTurno((String) cboturnos.getItemAt(selecturno));
         dts1.setEstado((String) cboestado.getItemAt(selecturno));
-//        dts1.setEmpleado((String) cboempleados.getItemAt(selecturno));
-
+        dts1.setEmpleado((String) cboempleados.getItemAt(selecturno));
         dts1.setNumero_turno(Integer.parseInt(txtnumero_turno.getText()));
+        
+        
 
         if (accion.equals("guardar")) {
             if (func1.insertar(dts1)) {
@@ -356,7 +356,7 @@ public class Jinicioturno extends javax.swing.JFrame {
             int selecturno = cboturnos.getSelectedIndex();
             dts1.setTurno((String) cboturnos.getItemAt(selecturno));
             dts1.setEstado((String) cboestado.getItemAt(selecturno));
-//        dts1.setEmpleado((String) cboempleados.getItemAt(selecturno));
+            dts1.setEmpleado((String) cboempleados.getItemAt(selecturno));
 
             dts1.setNumero_turno(Integer.parseInt(txtnumero_turno.getText()));
 

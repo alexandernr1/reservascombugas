@@ -1,0 +1,33 @@
+                                
+          HOTEL COMBUGAS S.A.S  
+            NIT: 900139412-4    
+              TEL:3205417916    
+               CARTAGENA        
+        DG 31D N.32A-25B.TERNERA
+    -----------------------------------
+    Fecha Hora Inicio: 10-07-2024 12:05 PM
+    Fecha Hora Salida: 10-07-2024 12:05 PM
+    Habitaciones Ocupadas: 2    
+    Total Recibos: 0            
+    -----------------------------------
+    Total Recaudo: 0            
+    -----------------------------------
+          Detalle valores del turno
+    -----------------------------------
+    Base: 150000                
+    Tarjetas: 0                 
+    Efectivo: 0                 
+    Transferencias: 0           
+    Total Habitaciones: 144000.0
+    Total Abonos: 0             
+    Otros Ingresos: 0           
+    Entrega Admon: 0            
+    Total Efectivo: 0           
+    Observaciones:              
+    -----------------------------------
+    Empleado: GINA PEREZ        
+    Turno: Turno 1 10/07/2024   
+    Numero Turno: 18            
+    -----------------------------------
+                                
+VAVA

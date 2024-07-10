@@ -1,6 +1,5 @@
 package Logica;
 
-import Datos.Dempleado;
 import Datos.Dinicioturno;
 import Datos.Dpersona;
 import java.sql.Connection;
@@ -108,7 +107,7 @@ public class Finicioturno {
     }
 
     public boolean llenarcboempleado() {
-        String sSQL = "select idpersona from empleado where idpersona = '78'";
+        String sSQL = "select idpersona from empleado where idpersona = ?";
         try {
             PreparedStatement pst = cn.prepareStatement(sSQL);
             ResultSet rs = pst.executeQuery();

@@ -14,7 +14,13 @@
     </repositories>
     
     <dependencies>
-       <dependency>
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports</artifactId>
+            <version>6.20.0</version>
+        </dependency>
+
+        <dependency>
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
             <version>8.3.0</version>
@@ -34,6 +40,11 @@
             <groupId>com.toedter</groupId>
             <artifactId>jcalendar</artifactId>
             <version>1.4</version>
+        </dependency>
+        <dependency>
+            <groupId>br.ticket.adilson.util</groupId>
+            <artifactId>ticket</artifactId>
+            <version>1.0.0.0</version>
         </dependency>
     </dependencies>
     <properties>

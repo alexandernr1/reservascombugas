@@ -5,7 +5,6 @@ import Logica.Fhabitacion;
 import Logica.Finicioturno;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.regex.Pattern;
 import javax.swing.JFrame;
@@ -25,8 +24,6 @@ public final class Jmenuhotel extends javax.swing.JFrame {
     public Jmenuhotel(String idpersona, String nombres, String apellidos, String acceso) {
 
         initComponents();
-//        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-//        setSize(screenSize.width, screenSize.height);
         setResizable(false);
         setTitle("MENU HOTEL");
         setLocationRelativeTo(null);

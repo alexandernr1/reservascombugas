@@ -22,10 +22,10 @@ public class Fingreso {
     public DefaultTableModel mostrar(String buscar) {
         DefaultTableModel modelo;
 
-        String[] titulos = {"Idingreso", "Idhabitacion", "Numero", "Idcliente", "Cliente", "clientete","Documento",
-            "Fecha ingreso", "Numero personas", "tipo cliente", "Costoalojamiento", "Motivo viaje", "Estado"};
+        String[] titulos = {"Idingreso", "Idhabitacion", "Numero", "Idcliente", "Cliente", "clientete", "Documento",
+            "Fecha ingreso", "Numero personas", "tipo cliente", "Costoalojamiento", "Motivo viaje", "Estado", "Ciudad Recidencia", "Ciudad Procedencia"};
 
-        String[] registro = new String[13];
+        String[] registro = new String[15];
 
         totalregistros = 0;
         modelo = new DefaultTableModel(null, titulos);
@@ -35,7 +35,7 @@ public class Fingreso {
                 + "(select apellidos from cliente where idcliente=i.idcliente)as clienteap,"
                 + "(SELECT numdocumento FROM cliente WHERE idcliente = i.idcliente)AS clientenu,"
                 + "(select telefono from cliente where idcliente= i.idcliente)as clientete,"
-                + "i.fecha_hora_ingreso,i.num_personas,i.tipo_cliente,i.motivo_viaje,i.estado,"
+                + "i.fecha_hora_ingreso,i.num_personas,i.tipo_cliente,i.motivo_viaje,i.estado,i.ciudad_de_recidencia, i.ciudad_de_procedencia,"
                 + "i.costoalojamiento from ingreso i inner join habitacion h on i.idhabitacion=h.idhabitacion where (SELECT numdocumento FROM cliente WHERE idcliente = i.idcliente) like '%" + buscar + "%' order by idingreso desc";
 
         try {
@@ -56,7 +56,8 @@ public class Fingreso {
                 registro[10] = rs.getString("costoalojamiento");
                 registro[11] = rs.getString("motivo_viaje");
                 registro[12] = rs.getString("estado");
-               
+                registro[13] = rs.getString("ciudad_de_recidencia");
+                registro[14] = rs.getString("ciudad_de_procedencia");
 
                 totalregistros = totalregistros + 1;
                 modelo.addRow(registro);
@@ -72,8 +73,8 @@ public class Fingreso {
     }
 
     public boolean insertar(Dingreso dts) {
-        sSQL = "INSERT INTO ingreso (idhabitacion, idcliente, fecha_hora_ingreso, num_personas, tipo_cliente, costoalojamiento, motivo_viaje,estado)"
-                + " VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        sSQL = "INSERT INTO ingreso (idhabitacion, idcliente, fecha_hora_ingreso, num_personas, tipo_cliente, costoalojamiento, motivo_viaje,estado,ciudad_de_recidencia,ciudad_de_procedencia)"
+                + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try ( PreparedStatement pst = cn.prepareStatement(sSQL)) {
             pst.setInt(1, dts.getIdhabitacion());
             pst.setInt(2, dts.getIdcliente());
@@ -83,8 +84,9 @@ public class Fingreso {
             pst.setInt(6, dts.getCostoalojamiento());
             pst.setString(7, dts.getMotivo_viaje());
             pst.setString(8, dts.getEstado());
+            pst.setString(9, dts.getCiudad_de_recidencia());
+            pst.setString(10, dts.getCiudad_de_procedencia());
             
-
             int n = pst.executeUpdate();
             // JOptionPane.showMessageDialog(null, "DATOS ALMACENADOS CORRECTAMENTE");
             return n != 0;
@@ -114,7 +116,7 @@ public class Fingreso {
     }
 
     public boolean editar(Dingreso dts) {
-        sSQL = "update ingreso set idhabitacion=?,idcliente=?,fecha_hora_ingreso=?,num_personas=?,tipo_cliente=?,costoalojamiento=?,motivo_viaje=?,estado=?"
+        sSQL = "update ingreso set idhabitacion=?,idcliente=?,fecha_hora_ingreso=?,num_personas=?,tipo_cliente=?,costoalojamiento=?,motivo_viaje=?,estado=?,ciudad_de_recidencia=?,ciudad_de_procedencia=?"
                 + " where idingreso=?";
 
         try {
@@ -127,9 +129,10 @@ public class Fingreso {
             pst.setInt(6, dts.getCostoalojamiento());
             pst.setString(7, dts.getMotivo_viaje());
             pst.setString(8, dts.getEstado());
-           
+             pst.setString(9, dts.getCiudad_de_recidencia());
+            pst.setString(10, dts.getCiudad_de_procedencia());
 
-            pst.setInt(9, dts.getIdingreso());
+            pst.setInt(11, dts.getIdingreso());
 
             int n = pst.executeUpdate();
 
@@ -141,45 +144,47 @@ public class Fingreso {
         }
     }
 
-   public boolean finalizar (Dingreso dts){
-       sSQL="update ingreso set estado='Finalizado'"+
-               " where idingreso=?";
-           //alt + 39
-       
-       try {
-           PreparedStatement pst=cn.prepareStatement(sSQL);
-          
-           pst.setInt(1, dts.getIdingreso());
-           
-           int n=pst.executeUpdate();
-           
-           return n!=0;
-           
-       } catch (SQLException e) {
-           JOptionPane.showConfirmDialog(null, e);
-           return false;
-       }
-   }
-    public boolean activar (Dingreso dts){
-       sSQL="update ingreso set estado='Activo'"+
-               " where idingreso=?";
-           //alt + 39
-       
-       try {
-           PreparedStatement pst=cn.prepareStatement(sSQL);
-          
-           pst.setInt(1, dts.getIdingreso());
-           
-           int n=pst.executeUpdate();
-           
-           return n!=0;
-           
-       } catch (SQLException e) {
-           JOptionPane.showConfirmDialog(null, e);
-           return false;
-       }
-   }
-     public int obtenerIdHabitacionAnterior(int idIngreso) {
+    public boolean finalizar(Dingreso dts) {
+        sSQL = "update ingreso set estado='Finalizado'"
+                + " where idingreso=?";
+        //alt + 39
+
+        try {
+            PreparedStatement pst = cn.prepareStatement(sSQL);
+
+            pst.setInt(1, dts.getIdingreso());
+
+            int n = pst.executeUpdate();
+
+            return n != 0;
+
+        } catch (SQLException e) {
+            JOptionPane.showConfirmDialog(null, e);
+            return false;
+        }
+    }
+
+    public boolean activar(Dingreso dts) {
+        sSQL = "update ingreso set estado='Activo'"
+                + " where idingreso=?";
+        //alt + 39
+
+        try {
+            PreparedStatement pst = cn.prepareStatement(sSQL);
+
+            pst.setInt(1, dts.getIdingreso());
+
+            int n = pst.executeUpdate();
+
+            return n != 0;
+
+        } catch (SQLException e) {
+            JOptionPane.showConfirmDialog(null, e);
+            return false;
+        }
+    }
+
+    public int obtenerIdHabitacionAnterior(int idIngreso) {
         sSQL = "SELECT idhabitacion FROM ingreso WHERE idingreso = ?";
         int idHabitacion = -1; // Valor predeterminado en caso de error o no encontrado
 

@@ -3,15 +3,26 @@ package Presentacion;
 import Datos.Dinicioturno;
 import Datos.Dsalidaturno;
 import Datos.Tiempopro;
+import Impresion.ImprimirCierreTurno;
+import Logica.Cconexion;
 import Logica.Finicioturno;
 import Logica.Fsalidaturno;
 import java.awt.HeadlessException;
+import java.io.File;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class Jsalidaturno extends javax.swing.JFrame {
 
@@ -28,11 +39,17 @@ public class Jsalidaturno extends javax.swing.JFrame {
         mostrarTiempo();
         txtbase.setText("150000");
         mostrarnumeroturno();
+        inhabilitar();
         txtotros_ingresos.setText("0");
 
     }
     public static int idusuario;
     private String accion = "guardar";
+
+    static void inhabilitar() {
+        txtidinicioturno.setVisible(false);
+
+    }
 
     public void mostrarnumeroturno() {
         Fsalidaturno func = new Fsalidaturno();
@@ -88,6 +105,7 @@ public class Jsalidaturno extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        txtidturnos = new javax.swing.JTextField();
         jLayeredPane1 = new javax.swing.JLayeredPane();
         jPanel1 = new javax.swing.JPanel();
         txttotal_abonos = new javax.swing.JTextField();
@@ -106,11 +124,8 @@ public class Jsalidaturno extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         txtentrega_admon = new javax.swing.JTextField();
-        txtidabonos = new javax.swing.JTextField();
-        txtidturnos = new javax.swing.JTextField();
         txtidinicioturno = new javax.swing.JTextField();
         txtidempleado = new javax.swing.JTextField();
-        txtidhabitacion = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -137,6 +152,13 @@ public class Jsalidaturno extends javax.swing.JFrame {
         buscarnumeroturno = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         txttotal_recibos = new javax.swing.JTextField();
+
+        txtidturnos.setText("IDT");
+        txtidturnos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtidturnosActionPerformed(evt);
+            }
+        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -205,20 +227,6 @@ public class Jsalidaturno extends javax.swing.JFrame {
             }
         });
 
-        txtidabonos.setText("IDA");
-        txtidabonos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtidabonosActionPerformed(evt);
-            }
-        });
-
-        txtidturnos.setText("IDT");
-        txtidturnos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtidturnosActionPerformed(evt);
-            }
-        });
-
         txtidinicioturno.setText("IDI");
         txtidinicioturno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -230,13 +238,6 @@ public class Jsalidaturno extends javax.swing.JFrame {
         txtidempleado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtidempleadoActionPerformed(evt);
-            }
-        });
-
-        txtidhabitacion.setText("IDH");
-        txtidhabitacion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtidhabitacionActionPerformed(evt);
             }
         });
 
@@ -275,16 +276,10 @@ public class Jsalidaturno extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(txtidabonos, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtidturnos, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtidinicioturno, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtidempleado, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtidhabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(118, 118, 118))
+                .addGap(168, 168, 168))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -330,11 +325,8 @@ public class Jsalidaturno extends javax.swing.JFrame {
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(txtidabonos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtidturnos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtidinicioturno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtidempleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtidhabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtidempleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(15, 15, 15))))
         );
 
@@ -550,12 +542,13 @@ public class Jsalidaturno extends javax.swing.JFrame {
                         .addComponent(jLabel3)
                         .addComponent(txtempleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                        .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(cboturnos, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtnumero_turno, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6)
-                            .addComponent(buscarnumeroturno, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(buscarnumeroturno, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel2)
+                                .addComponent(cboturnos, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtnumero_turno, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel6)))
                         .addGap(4, 4, 4)
                         .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel10)
@@ -614,17 +607,9 @@ public class Jsalidaturno extends javax.swing.JFrame {
 
     }//GEN-LAST:event_txtbaseActionPerformed
 
-    private void txttotal_efectivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txttotal_efectivoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txttotal_efectivoActionPerformed
-
     private void txtentrega_admonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtentrega_admonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtentrega_admonActionPerformed
-
-    private void txtidempleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtidempleadoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtidempleadoActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -635,10 +620,6 @@ public class Jsalidaturno extends javax.swing.JFrame {
         Dsalidaturno dts = new Dsalidaturno();
         Fsalidaturno func = new Fsalidaturno();
 
-//        dts.setIdturno(Integer.parseInt(txtidturnos.getText()));
-//        dts.setIdabonos(Integer.parseInt(txtidabonos.getText()));
-        dts.setIdempleado(Integer.parseInt(txtidempleado.getText()));
-//        dts.setIdhabitacion(Integer.parseInt(txtidhabitacion.getText()));
         dts.setEmpleado(txtempleado.getText());
 
         int seleccionado = cboturnos.getSelectedIndex();
@@ -660,34 +641,19 @@ public class Jsalidaturno extends javax.swing.JFrame {
         dts.setTotal_efectivo(Integer.parseInt(txttotal_efectivo.getText()));
         dts.setObservaciones(txtobservaciones.getText());
         dts.setNumero_turno(Integer.parseInt(txtnumero_turno.getText()));
-//        dts.setEstado((String)cboestado.getItemAt(seleccionado));
+//        dts.setEstado((String) cboestado.getItemAt(seleccionado));
 
         if (accion.equals("guardar")) {
             if (func.insertar(dts)) {
                 JOptionPane.showMessageDialog(rootPane, "Salida de turno satisfactoriamente");
-//                mostrar("");
+                
                 finalizarTurno();
-
+                ImprimirCierreTurno imprimir = new ImprimirCierreTurno();
+                imprimir.ImprimirCierreTurno();
             }
 
-//        } else if (accion.equals("editar")) {
-//            dts.setIdreserva(Integer.parseInt(txtidreserva.getText()));
-//            dts.setIdempleado(Integer.parseInt(txtidempleado.getText()));
-//            if (func.editar(dts)) {
-//                JOptionPane.showMessageDialog(rootPane, "La reserva fue Editada satisfactoriamente");
-//                mostrar("");
-//                inhabilitar();
-//            }
         }
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void txtidhabitacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtidhabitacionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtidhabitacionActionPerformed
-
-    private void txtidabonosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtidabonosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtidabonosActionPerformed
 
     private void cboturnosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cboturnosKeyPressed
 
@@ -707,7 +673,6 @@ public class Jsalidaturno extends javax.swing.JFrame {
     }//GEN-LAST:event_cboestadoActionPerformed
 
     private void buscarnumeroturnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarnumeroturnoActionPerformed
-        // TODO add your handling code here:
 
         try {
             Fsalidaturno func = new Fsalidaturno();
@@ -722,8 +687,6 @@ public class Jsalidaturno extends javax.swing.JFrame {
                 String estado = func.estadoturno();
                 cboestado.setSelectedItem(String.valueOf(estado));
 
-//                    txtidabonos.setText(String.valueOf(rs.getInt("idabono")));
-//                    txtidempleado.setText(String.valueOf(rs.getInt("idempleado")));
                 //obtener numero de habitaciones ocupadas.
                 int totalHabitacionesOcupadas = func.obtenerTotalHabitacionesOcupadas();
                 txthabitaciones_ocupadas.setText(String.valueOf(totalHabitacionesOcupadas));
@@ -740,26 +703,51 @@ public class Jsalidaturno extends javax.swing.JFrame {
                 txtefectivo.setText(String.valueOf(totalesMediosPago[0]));
                 txttarjeta.setText(String.valueOf(totalesMediosPago[1]));
                 txttransferencia.setText(String.valueOf(totalesMediosPago[2]));
-                
+
                 int entregaadmon = Integer.parseInt(txtefectivo.getText());
-                txtentrega_admon.setText((String.valueOf(entregaadmon)));  
-                
-                int numero = Integer.parseInt(txtnumero_turno.getText());  
-                
-                int totalAbono = func.numeroturno(numero);              
+                txtentrega_admon.setText((String.valueOf(entregaadmon)));
+
+                int numero = Integer.parseInt(txtnumero_turno.getText());
+
+                int totalAbono = func.totalAbonos(numero);
                 txttotal_abonos.setText((String.valueOf(totalAbono)));
-                
+
                 int otrosCobros = Integer.parseInt(txtotros_ingresos.getText());
                 
-                int totalrecaudo = (totalesMediosPago[0]+totalesMediosPago[1]+totalesMediosPago[2]+totalAbono+otrosCobros);
+                 int inicioturno3 = Integer.parseInt(txtnumero_turno.getText());
+                 int deuda_anterior =func.sumaDeudaAnterior(inicioturno3);
+                 txttotal_efectivo.setText((String.valueOf(deuda_anterior)));
+                  // calculo de suma de toteles 
+                int inicioturno2 = Integer.parseInt(txtnumero_turno.getText());
+                int netorecaudado =func.sumatotales(inicioturno2);
+                
+
+                int totalrecaudo = (totalesMediosPago[0] + totalesMediosPago[1] + totalesMediosPago[2] + totalAbono + otrosCobros +netorecaudado);
                 txttotal_recaudo.setText((String.valueOf(totalrecaudo)));
 
+                int inicioturno1 = Integer.parseInt(txtnumero_turno.getText());
+                String empleado1 = func.Consultaempleado(inicioturno1);
+                txtempleado.setText((String.valueOf(empleado1)));
+                
+              
+
             }
+
         } catch (HeadlessException | SQLException ex) {
             System.err.println("Error: " + ex.getMessage());
         }
 
     }//GEN-LAST:event_buscarnumeroturnoActionPerformed
+
+    private void txtidempleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtidempleadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtidempleadoActionPerformed
+
+    private void txttotal_efectivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txttotal_efectivoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txttotal_efectivoActionPerformed
+
+    private Connection Connection = new Cconexion().establecerConexion();
 
     /**
      * @param args the command line arguments
@@ -830,9 +818,7 @@ public class Jsalidaturno extends javax.swing.JFrame {
     private javax.swing.JTextField txtfecha_hora_inicio;
     private javax.swing.JTextField txtfecha_hora_salida;
     private javax.swing.JTextField txthabitaciones_ocupadas;
-    private javax.swing.JTextField txtidabonos;
     public static javax.swing.JTextField txtidempleado;
-    private javax.swing.JTextField txtidhabitacion;
     public static javax.swing.JTextField txtidinicioturno;
     private javax.swing.JTextField txtidturnos;
     private javax.swing.JTextField txtnumero_turno;

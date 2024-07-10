@@ -156,22 +156,7 @@ public class Fpago {
         }
     }
 
-//    public int UltimoNumeroComprobante() {
-//        sSQL = "SELECT MAX(numrocomprobante) AS ultimo_numero_comprobante FROM pagos";
-//        int ultimoNumeroComprobante = 0;
-//
-//        try ( Statement statement = cn.createStatement()) {
-//            ResultSet resultSet = statement.executeQuery(sSQL);
-//
-//            if (resultSet.next()) {
-//                ultimoNumeroComprobante = resultSet.getInt("numcomprobante");
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace(); // Manejo de errores
-//        }
-//
-//        return ultimoNumeroComprobante;
-//    }
+   
 
     public boolean pagar(Dpago dts) {
         sSQL = "UPDATE pago SET estado = 'Pagado'"

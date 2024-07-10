@@ -69,4 +69,6 @@ public class Dinicioturno {
         this.empleado = empleado;
     }
 
+   
+
 }
