@@ -252,46 +252,78 @@ public class Fempleado {
             return false;
         }
     }
-
-    public DefaultTableModel login(String login, String password) {
-        DefaultTableModel modelo;
-
-        String[] titulos = {"ID", "Nombres", "Apellidos", "Acceso", "Login", "Password", "Estado",};
-
-        String[] registro = new String[7];
-
-        totalregistros = 0;
-        modelo = new DefaultTableModel(null, titulos);
-
-        sSQL = "select p.idpersona,p.nombres,p.apellidos,"
-                + "e.acceso,e.login,e.password,e.estado,e.eps,e.arl from persona p inner join Empleado e "
+    
+    public Dempleado login(String login, String password) {
+     sSQL = "select p.idpersona,p.nombres,p.apellidos,"
+                + "e.acceso,e.login,e.password,e.estado,e.eps,e.arl from persona p inner join empleado e "
                 + "on p.idpersona= e.idpersona WHERE e.login='"
                 + login + "' and e.password='" + password + "' and e.estado='A'";
 
-        try {
-            Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery(sSQL);
+    try {
+        Statement st = cn.createStatement();
+        ResultSet rs = st.executeQuery(sSQL);
 
-            while (rs.next()) {
-                registro[0] = rs.getString("idpersona");
-                registro[1] = rs.getString("nombres");
-                registro[2] = rs.getString("apellidos");
+        if (rs.next()) {
+            int id = rs.getInt("idpersona");
+            String nombres = rs.getString("nombres");
+            String apellidos = rs.getString("apellidos");
+            String acceso = rs.getString("acceso");
+            String loginUsuario = rs.getString("login");
+            String passwordUsuario = rs.getString("password");
+            String estado = rs.getString("estado");
 
-                registro[3] = rs.getString("acceso");
-                registro[4] = rs.getString("login");
-                registro[5] = rs.getString("password");
-                registro[6] = rs.getString("estado");
-
-                totalregistros = totalregistros + 1;
-                modelo.addRow(registro);
-
-            }
-            return modelo;
-
-        } catch (SQLException e) {
-            JOptionPane.showConfirmDialog(null, e);
+            Dempleado empleado = new Dempleado(id, nombres, apellidos, acceso, loginUsuario, passwordUsuario, estado);
+            return empleado;
+        } else {
+            // Si no se encuentra el usuario
             return null;
         }
-
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, e);
+        return null;
     }
+}
+
+
+//    public DefaultTableModel login(String login, String password) {
+//        DefaultTableModel modelo;
+//
+//        String[] titulos = {"ID", "Nombres", "Apellidos", "Acceso", "Login", "Password", "Estado",};
+//
+//        String[] registro = new String[7];
+//
+//        totalregistros = 0;
+//        modelo = new DefaultTableModel(null, titulos);
+//
+//        sSQL = "select p.idpersona,p.nombres,p.apellidos,"
+//                + "e.acceso,e.login,e.password,e.estado,e.eps,e.arl from persona p inner join Empleado e "
+//                + "on p.idpersona= e.idpersona WHERE e.login='"
+//                + login + "' and e.password='" + password + "' and e.estado='A'";
+//
+//        try {
+//            Statement st = cn.createStatement();
+//            ResultSet rs = st.executeQuery(sSQL);
+//
+//            while (rs.next()) {
+//                registro[0] = rs.getString("idpersona");
+//                registro[1] = rs.getString("nombres");
+//                registro[2] = rs.getString("apellidos");
+//
+//                registro[3] = rs.getString("acceso");
+//                registro[4] = rs.getString("login");
+//                registro[5] = rs.getString("password");
+//                registro[6] = rs.getString("estado");
+//
+//                totalregistros = totalregistros + 1;
+//                modelo.addRow(registro);
+//
+//            }
+//            return modelo;
+//
+//        } catch (SQLException e) {
+//            JOptionPane.showConfirmDialog(null, e);
+//            return null;
+//        }
+//
+//    }
 }

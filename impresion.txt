@@ -5,8 +5,8 @@
                CARTAGENA        
         DG 31D N.32A-25B.TERNERA
     -----------------------------------
-    Fecha Hora Inicio: 10-07-2024 12:05 PM
-    Fecha Hora Salida: 10-07-2024 12:05 PM
+    Fecha Hora Inicio: 13-07-2024 12:33 PM
+    Fecha Hora Salida: 13-07-2024 12:33 PM
     Habitaciones Ocupadas: 2    
     Total Recibos: 0            
     -----------------------------------
@@ -18,16 +18,16 @@
     Tarjetas: 0                 
     Efectivo: 0                 
     Transferencias: 0           
-    Total Habitaciones: 144000.0
+    Total Habitaciones: 120000.0
     Total Abonos: 0             
     Otros Ingresos: 0           
     Entrega Admon: 0            
     Total Efectivo: 0           
     Observaciones:              
     -----------------------------------
-    Empleado: GINA PEREZ        
-    Turno: Turno 1 10/07/2024   
-    Numero Turno: 18            
+    Empleado: ANA MARCELA DIAZ RODRIGUEZ
+    Turno: Turno 1 13/07/2024   
+    Numero Turno: 35            
     -----------------------------------
                                 
 VAVA

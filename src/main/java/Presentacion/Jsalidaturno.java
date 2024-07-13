@@ -14,15 +14,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.Map;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.view.JasperViewer;
 
 public class Jsalidaturno extends javax.swing.JFrame {
 
@@ -646,7 +639,7 @@ public class Jsalidaturno extends javax.swing.JFrame {
         if (accion.equals("guardar")) {
             if (func.insertar(dts)) {
                 JOptionPane.showMessageDialog(rootPane, "Salida de turno satisfactoriamente");
-                
+
                 finalizarTurno();
                 ImprimirCierreTurno imprimir = new ImprimirCierreTurno();
                 imprimir.ImprimirCierreTurno();
@@ -684,8 +677,17 @@ public class Jsalidaturno extends javax.swing.JFrame {
                 txtidinicioturno.setText(String.valueOf(rs.getInt("idinicioturno")));
                 txtnumero_turno.setText(String.valueOf(rs.getString("numero_turno")));
                 txtfecha_hora_inicio.setText(rs.getString("fecha_hora_inicio"));
-                String estado = func.estadoturno();
-                cboestado.setSelectedItem(String.valueOf(estado));
+                txtempleado.setText(String.valueOf(rs.getString("empleado")));
+                String estado = rs.getString("estado");
+                cboestado.setSelectedItem(estado);
+                // Actualizar los JLabel en Jmenuhotel
+                Jmenuhotel.actualizarFecha(txtfecha_hora_inicio.getText());
+                Jmenuhotel.actualizarTurno(txtnumero_turno.getText());
+                Jmenuhotel.actualizarEmpleado(txtempleado.getText());
+                Jmenuhotel.actualizarEstado((String) cboestado.getSelectedItem());
+
+                estado = func.estadoturno();
+                cboestado.setSelectedItem(estado);
 
                 //obtener numero de habitaciones ocupadas.
                 int totalHabitacionesOcupadas = func.obtenerTotalHabitacionesOcupadas();
@@ -713,23 +715,20 @@ public class Jsalidaturno extends javax.swing.JFrame {
                 txttotal_abonos.setText((String.valueOf(totalAbono)));
 
                 int otrosCobros = Integer.parseInt(txtotros_ingresos.getText());
-                
-                 int inicioturno3 = Integer.parseInt(txtnumero_turno.getText());
-                 int deuda_anterior =func.sumaDeudaAnterior(inicioturno3);
-                 txttotal_efectivo.setText((String.valueOf(deuda_anterior)));
-                  // calculo de suma de toteles 
-                int inicioturno2 = Integer.parseInt(txtnumero_turno.getText());
-                int netorecaudado =func.sumatotales(inicioturno2);
-                
 
-                int totalrecaudo = (totalesMediosPago[0] + totalesMediosPago[1] + totalesMediosPago[2] + totalAbono + otrosCobros +netorecaudado);
+                int inicioturno3 = Integer.parseInt(txtnumero_turno.getText());
+                int deuda_anterior = func.sumaDeudaAnterior(inicioturno3);
+                txttotal_efectivo.setText((String.valueOf(deuda_anterior)));
+                // calculo de suma de toteles 
+                int inicioturno2 = Integer.parseInt(txtnumero_turno.getText());
+                int netorecaudado = func.sumatotales(inicioturno2);
+
+                int totalrecaudo = (totalesMediosPago[0] + totalesMediosPago[1] + totalesMediosPago[2] + totalAbono + otrosCobros + netorecaudado);
                 txttotal_recaudo.setText((String.valueOf(totalrecaudo)));
 
                 int inicioturno1 = Integer.parseInt(txtnumero_turno.getText());
                 String empleado1 = func.Consultaempleado(inicioturno1);
                 txtempleado.setText((String.valueOf(empleado1)));
-                
-              
 
             }
 

@@ -8,7 +8,6 @@ import Logica.Cconexion;
 import Logica.Fempleado;
 import Logica.Finicioturno;
 import java.awt.HeadlessException;
-import java.awt.List;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -27,7 +26,6 @@ public class Jinicioturno extends javax.swing.JFrame {
     ResultSet rs;
 
     Tiempopro time = new Tiempopro();
-//    public static boolean sesionIniciada;
 
     public Jinicioturno() {
         initComponents();
@@ -37,10 +35,9 @@ public class Jinicioturno extends javax.swing.JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         mostrarTiempo();
         fechacbo();
-        inhabilitar();
+
         generarnumero();
         llenarcboempleado1(cboempleados);
-//        this.sesionIniciada = sesionIniciada;
 
     }
 
@@ -67,7 +64,6 @@ public class Jinicioturno extends javax.swing.JFrame {
                 func.agregarEmpleados(persona);
                 com.addElement(persona.getNombres());
 
-//                System.out.println("¡EXITO!");
             }
         } catch (Exception e) {
             System.out.println("ERROR " + e);
@@ -99,12 +95,6 @@ public class Jinicioturno extends javax.swing.JFrame {
 
     }
 
-    public void inhabilitar() {
-        tablalistado.setVisible(false);
-
-        jScrollPane1.setVisible(false);
-    }
-
     private void mostrarTiempo() {
 
         txtfecha_hora_inicio.setText(time.getFechacomp() + " " + time.getHoracomp());
@@ -115,6 +105,8 @@ public class Jinicioturno extends javax.swing.JFrame {
     }
 
     @SuppressWarnings("unchecked")
+
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -123,9 +115,6 @@ public class Jinicioturno extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtusuario = new javax.swing.JTextField();
-        btningresar = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tablalistado = new javax.swing.JTable();
         txtpassword = new javax.swing.JPasswordField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -138,6 +127,7 @@ public class Jinicioturno extends javax.swing.JFrame {
         cboempleados = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        ingresoTurno = new javax.swing.JButton();
 
         jTextField1.setText("jTextField1");
 
@@ -163,36 +153,6 @@ public class Jinicioturno extends javax.swing.JFrame {
             }
         });
         jPanel1.add(txtusuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 350, 160, 30));
-
-        btningresar.setBackground(new java.awt.Color(204, 204, 204));
-        btningresar.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
-        btningresar.setText("Ingresar");
-        btningresar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btningresarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btningresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 430, -1, 38));
-
-        tablalistado.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        tablalistado.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tablalistadoMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(tablalistado);
-
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 20, 40, 20));
 
         txtpassword.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         txtpassword.addActionListener(new java.awt.event.ActionListener() {
@@ -252,6 +212,14 @@ public class Jinicioturno extends javax.swing.JFrame {
         jLabel9.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Desktop\\reservascombugas\\reservascombugas\\src\\main\\java\\File\\inicio de sesion.png")); // NOI18N
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 490, 470));
 
+        ingresoTurno.setText("Ingreso");
+        ingresoTurno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ingresoTurnoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(ingresoTurno, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 470, -1, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -271,68 +239,6 @@ public class Jinicioturno extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btningresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btningresarActionPerformed
-
-        Finicioturno func1 = new Finicioturno();
-        Dinicioturno dts1 = new Dinicioturno();
-
-        dts1.setFecha_hora_inicio(txtfecha_hora_inicio.getText());
-
-        int selecturno = cboturnos.getSelectedIndex();
-        dts1.setTurno((String) cboturnos.getItemAt(selecturno));
-        dts1.setEstado((String) cboestado.getItemAt(selecturno));
-        dts1.setEmpleado((String) cboempleados.getItemAt(selecturno));
-        dts1.setNumero_turno(Integer.parseInt(txtnumero_turno.getText()));
-        
-        
-
-        if (accion.equals("guardar")) {
-            if (func1.insertar(dts1)) {
-//                JOptionPane.showMessageDialog(rootPane, " fue registrado satisfactoriamente");
-
-            }
-        }
-        try {
-            DefaultTableModel modelo;
-            Fempleado func = new Fempleado();
-            Dempleado dts = new Dempleado();
-
-            dts.setLogin(txtusuario.getText());
-            dts.setPassword(txtpassword.getText());
-
-            modelo = func.login(dts.getLogin(), dts.getPassword());
-            Jmenuhotel.sesionIniciada = true; // Cambiar el estado de la sesión
-            JOptionPane.showMessageDialog(this, "Turno iniciado");
-            tablalistado.setModel(modelo);
-
-            if (func.totalregistros > 0) {
-                this.dispose();
-                Jsalidaturno form = new Jsalidaturno();
-                form.toFront();
-                form.setVisible(true);
-                // Establece los valores en Jmenuhotel
-                Jmenuhotel.actualizarDatosUsuario(
-                        tablalistado.getValueAt(0, 0).toString(),
-                        tablalistado.getValueAt(0, 1).toString(),
-                        tablalistado.getValueAt(0, 2).toString(),
-                        tablalistado.getValueAt(0, 3).toString()
-                );
-                form.actualizarTurno(
-                        txtfecha_hora_inicio.getText(),
-                        (String) cboturnos.getItemAt(selecturno)
-                );
-//                Jsalidaturno.lblacceso.setText(tablalistado.getValueAt(0, 3).toString());
-//                Jsalidaturno.txtempleado.setText(tablalistado.getValueAt(0, 1) + "" + tablalistado.getValueAt(0, 2));
-            } else {
-
-                JOptionPane.showMessageDialog(rootPane, "Acceso Denegado", "HAS INICIADO CORECTAMENTE TU TURNO", JOptionPane.ERROR_MESSAGE);
-            }
-        } catch (HeadlessException e) {
-        }
-
-
-    }//GEN-LAST:event_btningresarActionPerformed
-
     private void txtusuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtusuarioActionPerformed
         txtusuario.transferFocus();
     }//GEN-LAST:event_txtusuarioActionPerformed
@@ -341,12 +247,8 @@ public class Jinicioturno extends javax.swing.JFrame {
         txtpassword.transferFocus();
     }//GEN-LAST:event_txtpasswordActionPerformed
 
-    private void tablalistadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablalistadoMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tablalistadoMouseClicked
-
     private void txtpasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtpasswordKeyPressed
-        // TODO add your handling code here:
+//        // TODO add your handling code here:
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             Finicioturno func1 = new Finicioturno();
             Dinicioturno dts1 = new Dinicioturno();
@@ -356,57 +258,54 @@ public class Jinicioturno extends javax.swing.JFrame {
             int selecturno = cboturnos.getSelectedIndex();
             dts1.setTurno((String) cboturnos.getItemAt(selecturno));
             dts1.setEstado((String) cboestado.getItemAt(selecturno));
-            dts1.setEmpleado((String) cboempleados.getItemAt(selecturno));
-
+            int trabajador = cboempleados.getSelectedIndex();
+            dts1.setEmpleado((String) cboempleados.getItemAt(trabajador));
             dts1.setNumero_turno(Integer.parseInt(txtnumero_turno.getText()));
 
             if (accion.equals("guardar")) {
                 if (func1.insertar(dts1)) {
-//                JOptionPane.showMessageDialog(rootPane, " fue registrado satisfactoriamente");
-
+                    JOptionPane.showMessageDialog(rootPane, "Turno fue registrado satisfactoriamente");
                 }
             }
+
             try {
-                DefaultTableModel modelo;
                 Fempleado func = new Fempleado();
-                Dempleado dts = new Dempleado();
 
-                dts.setLogin(txtusuario.getText());
-                dts.setPassword(txtpassword.getText());
+                // Obtener el usuario y contraseña ingresados
+                String login = txtusuario.getText();
+                String password = txtpassword.getText();
 
-                modelo = func.login(dts.getLogin(), dts.getPassword());
-                Jmenuhotel.sesionIniciada = true; // Cambiar el estado de la sesión
-                JOptionPane.showMessageDialog(this, "Turno iniciado");
-                tablalistado.setModel(modelo);
+                // Intentar realizar el login
+                Dempleado empleado = func.login(login, password);
 
-                if (func.totalregistros > 0) {
+                if (empleado != null) {
+                    JOptionPane.showMessageDialog(this, "Turno iniciado");
+                    Jmenuhotel.sesionIniciada = true; // Cambiar el estado de la sesión
+
                     this.dispose();
                     Jsalidaturno form = new Jsalidaturno();
                     form.toFront();
                     form.setVisible(true);
+
                     // Establece los valores en Jmenuhotel
-                    Jmenuhotel.actualizarDatosUsuario(
-                            tablalistado.getValueAt(0, 0).toString(),
-                            tablalistado.getValueAt(0, 1).toString(),
-                            tablalistado.getValueAt(0, 2).toString(),
-                            tablalistado.getValueAt(0, 3).toString()
+                    Jmenuhotel.actualizarDatosUsuario1(
+                            (String) txtfecha_hora_inicio.getText(),
+                            (String) cboturnos.getItemAt(selecturno),
+                            (String) cboempleados.getItemAt(trabajador),
+                            (String) cboestado.getItemAt(selecturno)
                     );
                     form.actualizarTurno(
                             txtfecha_hora_inicio.getText(),
                             (String) cboturnos.getItemAt(selecturno)
                     );
-//                    // Establece los valores en Jmenuhotel
 
-//                    Jsalidaturno.lblidpersona.setText(tablalistado.getValueAt(0, 0).toString());
-//                    Jsalidaturno.lblacceso.setText(tablalistado.getValueAt(0, 3).toString());
-//                    Jsalidaturno.txtempleado.setText(tablalistado.getValueAt(0, 1) + "" + tablalistado.getValueAt(0, 2));
+                    Jsalidaturno.txtempleado.setText(empleado.getNombres() + " " + empleado.getApellidos());
                 } else {
-
-                    JOptionPane.showMessageDialog(rootPane, "Acceso Denegado", "HAS INICIADO CORECTAMENTE TU TURNO", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(rootPane, "Acceso Denegado", "Error de Login", JOptionPane.ERROR_MESSAGE);
                 }
             } catch (HeadlessException e) {
+                JOptionPane.showMessageDialog(rootPane, "Ocurrió un error durante el login.", "Error", JOptionPane.ERROR_MESSAGE);
             }
-
         }
     }//GEN-LAST:event_txtpasswordKeyPressed
 
@@ -414,6 +313,65 @@ public class Jinicioturno extends javax.swing.JFrame {
         // Generar el número de turno
 
     }//GEN-LAST:event_txtnumero_turnoActionPerformed
+
+    private void ingresoTurnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ingresoTurnoActionPerformed
+        Finicioturno func1 = new Finicioturno();
+        Dinicioturno dts1 = new Dinicioturno();
+
+        dts1.setFecha_hora_inicio(txtfecha_hora_inicio.getText());
+
+        int selecturno = cboturnos.getSelectedIndex();
+        dts1.setTurno((String) cboturnos.getItemAt(selecturno));
+        dts1.setEstado((String) cboestado.getItemAt(selecturno));
+        int trabajador = cboempleados.getSelectedIndex();
+        dts1.setEmpleado((String) cboempleados.getItemAt(trabajador));
+        dts1.setNumero_turno(Integer.parseInt(txtnumero_turno.getText()));
+
+        if (accion.equals("guardar")) {
+            if (func1.insertar(dts1)) {
+                JOptionPane.showMessageDialog(rootPane, "Turno fue registrado satisfactoriamente");
+            }
+        }
+
+        try {
+            Fempleado func = new Fempleado();
+
+            // Obtener el usuario y contraseña ingresados
+            String login = txtusuario.getText();
+            String password = txtpassword.getText();
+
+            // Intentar realizar el login
+            Dempleado empleado = func.login(login, password);
+
+            if (empleado != null) {
+                JOptionPane.showMessageDialog(this, "Turno iniciado");
+                Jmenuhotel.sesionIniciada = true; // Cambiar el estado de la sesión
+
+                this.dispose();
+                Jsalidaturno form = new Jsalidaturno();
+                form.toFront();
+                form.setVisible(true);
+
+                // Establece los valores en Jmenuhotel
+                Jmenuhotel.actualizarDatosUsuario1(
+                        (String) txtfecha_hora_inicio.getText(),
+                        (String) cboturnos.getItemAt(selecturno),
+                        (String) cboempleados.getItemAt(trabajador),
+                        (String) cboestado.getItemAt(selecturno)
+                );
+                form.actualizarTurno(
+                        txtfecha_hora_inicio.getText(),
+                        (String) cboturnos.getItemAt(selecturno)
+                );
+
+                Jsalidaturno.txtempleado.setText(empleado.getNombres() + " " + empleado.getApellidos());
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Acceso Denegado", "Error de Login", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (HeadlessException e) {
+            JOptionPane.showMessageDialog(rootPane, "Ocurrió un error durante el login.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_ingresoTurnoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -450,10 +408,10 @@ public class Jinicioturno extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btningresar;
     private javax.swing.JComboBox<String> cboempleados;
     private javax.swing.JComboBox<String> cboestado;
     private javax.swing.JComboBox<String> cboturnos;
+    private javax.swing.JButton ingresoTurno;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -463,9 +421,7 @@ public class Jinicioturno extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTable tablalistado;
     private javax.swing.JTextField txtfecha_hora_inicio;
     private javax.swing.JTextField txtnumero_turno;
     private javax.swing.JPasswordField txtpassword;

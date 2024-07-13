@@ -195,5 +195,22 @@ public class Fsalida {
 
         return idcambio;
     }
+     public int otroscobros(int netocobros) {
+        int cobros = 0;
+        sSQL = "SELECT otroscobros FROM abono WHERE numero_turno=?";
+        try {
+
+            PreparedStatement pst = cn.prepareStatement(sSQL);
+            pst.setInt(1, netocobros);
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                cobros = rs.getInt("otroscobros");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al obtener Otros Cobros: " + e.getMessage());
+        }
+
+        return cobros;
+    }
 
 }

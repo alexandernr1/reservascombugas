@@ -3,9 +3,12 @@ package Presentacion;
 import Logica.ActualizadorColores;
 import Logica.Fhabitacion;
 import Logica.Finicioturno;
+import static Presentacion.Jmenuprin.lblacceso;
+import static Presentacion.Jmenuprin.lblapellidos;
+import static Presentacion.Jmenuprin.lblidpersona;
+import static Presentacion.Jmenuprin.lblnombres;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Toolkit;
 import java.util.regex.Pattern;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -13,15 +16,11 @@ import javax.swing.JToggleButton;
 
 public final class Jmenuhotel extends javax.swing.JFrame {
 
-    public String idpersona;
-    public String nombres;
-    public String apellidos;
-    public String acceso;
     public static Boolean sesionIniciada = false;
     private LoguinDeAdmin Javanzado;
     public Fhabitacion fcn;
 
-    public Jmenuhotel(String idpersona, String nombres, String apellidos, String acceso) {
+    public Jmenuhotel() {
 
         initComponents();
         setResizable(false);
@@ -31,15 +30,6 @@ public final class Jmenuhotel extends javax.swing.JFrame {
 
         this.fcn = new Fhabitacion();
 
-        this.idpersona = idpersona;
-        this.nombres = nombres;
-        this.apellidos = apellidos;
-        this.acceso = acceso;
-
-        lblidpersona.setText(idpersona);
-        lblnombres.setText(nombres);
-        lblapellidos.setText(apellidos);
-        lblacceso.setText(acceso);
         inhabilitar();
         ActualizadorColores actualizador = new ActualizadorColores(this);
         Thread thread = new Thread(actualizador);
@@ -48,21 +38,38 @@ public final class Jmenuhotel extends javax.swing.JFrame {
 
     }
 
-    
+    static void actualizarDatosUsuario1(String fecha, String turno, String empleado, String estado) {
+        lblfecha.setText(fecha);
+        lblturnos.setText(turno);
+        lblempleado.setText(empleado);
+        lblestado.setText(estado);
 
-    public static void actualizarDatosUsuario(String idPersona, String nombres, String apellidos, String acceso) {
-        lblidpersona.setText(idPersona);
-        lblnombres.setText(nombres);
-        lblapellidos.setText(apellidos);
-        lblacceso.setText(acceso);
     }
 
     public static void limpiarDatosUsuario() {
-        lblidpersona.setText("");
-        lblnombres.setText("");
-        lblapellidos.setText("");
-        lblacceso.setText("");
+        lblfecha.setText("");
+        lblturnos.setText("");
+        lblempleado.setText("");
+        lblestado.setText("");
     }
+    
+    // Métodos para actualizar los JLabel
+    public static void actualizarFecha(String fecha) {
+        lblfecha.setText(fecha);
+    }
+
+    public static void actualizarTurno(String turno) {
+        lblturnos.setText(turno);
+    }
+
+    public static void actualizarEmpleado(String empleado) {
+        lblempleado.setText(empleado);
+    }
+
+    public static void actualizarEstado(String estado) {
+        lblestado.setText(estado);
+    }
+
     public static int idusuario;
 
     static void inhabilitar() {
@@ -81,8 +88,7 @@ public final class Jmenuhotel extends javax.swing.JFrame {
 
     public void actualizarColoresBotones() {
 
-
- Component[] componentes = pnlBotones.getComponents();
+        Component[] componentes = pnlBotones.getComponents();
         Pattern pattern = Pattern.compile("\\d+"); // Patrón para solo números
 
         for (Component componente : componentes) {
@@ -91,21 +97,21 @@ public final class Jmenuhotel extends javax.swing.JFrame {
                 if (pattern.matcher(nombreBoton).matches()) { // Verifica si el texto es solo números
                     int idHabitacion = Integer.parseInt(nombreBoton);
                     String estadoHabitacion = fcn.obtenerEstadoHabitacion(idHabitacion);
-                    
-                switch (estadoHabitacion) {
-                    case "Disponible" ->
-                        boton.setBackground(Color.GREEN);
-                    case "Ocupado" ->
-                        boton.setBackground(Color.RED);
-                    case "Reserva" ->
-                        boton.setBackground(Color.YELLOW);
-                    case "Mantenimiento" ->
-                        boton.setBackground(Color.orange);
-                    case "Limpieza" ->
-                        boton.setBackground(Color.BLUE);
-                    default ->
-                        boton.setBackground(Color.WHITE);
-                }
+
+                    switch (estadoHabitacion) {
+                        case "Disponible" ->
+                            boton.setBackground(Color.GREEN);
+                        case "Ocupado" ->
+                            boton.setBackground(Color.RED);
+                        case "Reserva" ->
+                            boton.setBackground(Color.YELLOW);
+                        case "Mantenimiento" ->
+                            boton.setBackground(Color.orange);
+                        case "Limpieza" ->
+                            boton.setBackground(Color.BLUE);
+                        default ->
+                            boton.setBackground(Color.WHITE);
+                    }
                 }
             }
         }
@@ -118,13 +124,13 @@ public final class Jmenuhotel extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         escritorio = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        lblidpersona = new javax.swing.JLabel();
-        lblnombres = new javax.swing.JLabel();
-        lblapellidos = new javax.swing.JLabel();
-        lblacceso = new javax.swing.JLabel();
         cboinformes = new javax.swing.JComboBox<>();
         btnconsultas = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        lblfecha = new javax.swing.JLabel();
+        lblturnos = new javax.swing.JLabel();
+        lblempleado = new javax.swing.JLabel();
+        lblestado = new javax.swing.JLabel();
         jpmenu = new javax.swing.JPanel();
         btncambioturno = new javax.swing.JButton();
         btnlistaespera = new javax.swing.JButton();
@@ -194,22 +200,6 @@ public final class Jmenuhotel extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\HotelC\\src\\main\\java\\File\\logo combugas.png")); // NOI18N
         escritorio.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 0, -1, -1));
 
-        lblidpersona.setFont(new java.awt.Font("Segoe UI Historic", 1, 14)); // NOI18N
-        lblidpersona.setText("jLabel3");
-        escritorio.add(lblidpersona, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 80, -1));
-
-        lblnombres.setFont(new java.awt.Font("Segoe UI Historic", 1, 14)); // NOI18N
-        lblnombres.setText("jLabel4");
-        escritorio.add(lblnombres, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 80, -1));
-
-        lblapellidos.setFont(new java.awt.Font("Segoe UI Historic", 1, 14)); // NOI18N
-        lblapellidos.setText("jLabel5");
-        escritorio.add(lblapellidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 40, 150, -1));
-
-        lblacceso.setFont(new java.awt.Font("Segoe UI Historic", 1, 14)); // NOI18N
-        lblacceso.setText("jLabel6");
-        escritorio.add(lblacceso, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, 150, -1));
-
         cboinformes.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         cboinformes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Reservas", "Salidas", " ", " " }));
         cboinformes.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -222,7 +212,7 @@ public final class Jmenuhotel extends javax.swing.JFrame {
                 cboinformesActionPerformed(evt);
             }
         });
-        escritorio.add(cboinformes, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 50, 143, -1));
+        escritorio.add(cboinformes, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 10, 143, -1));
 
         btnconsultas.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         btnconsultas.setText("CONSULTAR");
@@ -236,7 +226,23 @@ public final class Jmenuhotel extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 102));
         jLabel2.setText("Consultas de informes:");
-        escritorio.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 50, -1, 40));
+        escritorio.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 0, -1, 40));
+
+        lblfecha.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblfecha.setText("fecha");
+        escritorio.add(lblfecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        lblturnos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblturnos.setText("turnos");
+        escritorio.add(lblturnos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, -1, -1));
+
+        lblempleado.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblempleado.setText("empleado");
+        escritorio.add(lblempleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, -1));
+
+        lblestado.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblestado.setText("estado");
+        escritorio.add(lblestado, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
 
         jpmenu.setBackground(new java.awt.Color(0, 153, 204));
         jpmenu.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "MENÚ HOTEL", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Black", 0, 24), new java.awt.Color(0, 0, 102))); // NOI18N
@@ -779,9 +785,8 @@ public final class Jmenuhotel extends javax.swing.JFrame {
         Jsalidahuesped salida = Jsalidahuesped.getInstance();
         salida.toFront();
         salida.setVisible(true);
-        Jsalidahuesped.txtidempleado.setText(lblidpersona.getText());
-        Jsalidahuesped.txtempleado.setText(lblnombres.getText() + " " + lblapellidos.getText());
-        Jsalidahuesped.idusuario = Integer.parseInt(lblidpersona.getText());
+        Jsalidahuesped.txtempleado.setText(lblempleado.getText());
+
     }//GEN-LAST:event_btnsalidahuespedActionPerformed
 
     private void btnregistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregistroActionPerformed
@@ -797,9 +802,9 @@ public final class Jmenuhotel extends javax.swing.JFrame {
         Jmanejoreservas form = Jmanejoreservas.getInstance();
         form.toFront();
         form.setVisible(true);
-        Jmanejoreservas.txtidempleado.setText(lblidpersona.getText());
-        Jmanejoreservas.txtempleado.setText(lblnombres.getText() + " " + lblapellidos.getText());
-        Jmanejoreservas.idusuario = Integer.parseInt(lblidpersona.getText());
+
+        Jmanejoreservas.txtempleado.setText(lblempleado.getText());
+
 
     }//GEN-LAST:event_btnreservasActionPerformed
 
@@ -808,9 +813,9 @@ public final class Jmenuhotel extends javax.swing.JFrame {
         Jingreso form = new Jingreso();
         form.toFront();
         form.setVisible(true);
-        Jingreso.txtidempleado.setText(lblidpersona.getText());
-        Jingreso.txtempleado.setText(lblnombres.getText() + " " + lblapellidos.getText());
-        Jingreso.idusuario = Integer.parseInt(lblidpersona.getText());
+
+        Jingreso.txtempleado.setText(lblempleado.getText());
+
 
     }//GEN-LAST:event_btningresohuespedActionPerformed
 
@@ -838,58 +843,39 @@ public final class Jmenuhotel extends javax.swing.JFrame {
         Jlistaespera espera = Jlistaespera.getInstance();
         espera.toFront();
         espera.setVisible(true);
-        Jlistaespera.txtidempleado.setText(lblidpersona.getText());
-        Jlistaespera.txtempleado.setText(lblnombres.getText() + " " + lblapellidos.getText());
-        Jlistaespera.idusuario = Integer.parseInt(lblidpersona.getText());
+
+        Jlistaespera.txtempleado.setText(lblempleado.getText());
+
     }//GEN-LAST:event_btnlistaesperaActionPerformed
 
     private void btncambioturnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncambioturnoActionPerformed
-//        if (sesionIniciada) {
-//            // Si la sesión no está iniciada, mostrar el formulario de inicio de sesión
-//
-//            Jsalidaturno formTurnos = Jsalidaturno.getInstance();
-//            formTurnos.toFront();
-//            formTurnos.setVisible(true);
-//            Jsalidaturno.txtidempleado.setText(lblidpersona.getText());
-//            Jsalidaturno.txtempleado.setText(lblnombres.getText() + " " + lblapellidos.getText());
-//            // Si la sesión ya está iniciada, mostrar el formulario Jsalidaturno
-//            metodoDondeSeNecesitaFormLogin();
-//        } else {
-//
-//            Jinicioturno formLogin = new Jinicioturno();
-//            formLogin.toFront();
-//            formLogin.setVisible(true);
-////        Jsalidaturno.txtidempleado.setText(lblidpersona.getText());
-////        Jsalidaturno.txtempleado.setText(lblnombres.getText() + " " + lblapellidos.getText());
-////        Jsalidaturno.idusuario = Integer.parseInt(lblidpersona.getText());
-//
-//        }
- Finicioturno finicio = new Finicioturno();
 
-    if (sesionIniciada) {
-        // Si la sesión no está iniciada, mostrar el formulario de inicio de sesión
+        Finicioturno finicio = new Finicioturno();
 
-        Jsalidaturno formTurnos = Jsalidaturno.getInstance();
-        formTurnos.toFront();
-        formTurnos.setVisible(true);
-        Jsalidaturno.txtidempleado.setText(lblidpersona.getText());
-        Jsalidaturno.txtempleado.setText(lblnombres.getText() + " " + lblapellidos.getText());
-        // Si la sesión ya está iniciada, mostrar el formulario Jsalidaturno
-        metodoDondeSeNecesitaFormLogin();
-    } else {
-        if (finicio.hayTurnoActivo()) {
-            JOptionPane.showMessageDialog(null, "Hay un turno activo. Debe finalizar el turno actual antes de iniciar uno nuevo.");
+        if (sesionIniciada) {
+            // Si la sesión no está iniciada, mostrar el formulario de inicio de sesión
+
             Jsalidaturno formTurnos = Jsalidaturno.getInstance();
             formTurnos.toFront();
             formTurnos.setVisible(true);
             Jsalidaturno.txtidempleado.setText(lblidpersona.getText());
             Jsalidaturno.txtempleado.setText(lblnombres.getText() + " " + lblapellidos.getText());
+            // Si la sesión ya está iniciada, mostrar el formulario Jsalidaturno
+            metodoDondeSeNecesitaFormLogin();
         } else {
-            Jinicioturno formLogin = new Jinicioturno();
-            formLogin.toFront();
-            formLogin.setVisible(true);
+            if (finicio.hayTurnoActivo()) {
+                JOptionPane.showMessageDialog(null, "Hay un turno activo. Debe finalizar el turno actual antes de iniciar uno nuevo.");
+                Jsalidaturno formTurnos = Jsalidaturno.getInstance();
+                formTurnos.toFront();
+                formTurnos.setVisible(true);
+                Jsalidaturno.txtidempleado.setText(lblidpersona.getText());
+                Jsalidaturno.txtempleado.setText(lblnombres.getText() + " " + lblapellidos.getText());
+            } else {
+                Jinicioturno formLogin = new Jinicioturno();
+                formLogin.toFront();
+                formLogin.setVisible(true);
+            }
         }
-    }
 
     }//GEN-LAST:event_btncambioturnoActionPerformed
 
@@ -1068,10 +1054,10 @@ public final class Jmenuhotel extends javax.swing.JFrame {
     private javax.swing.JToggleButton jToggleButtonrojo;
     private javax.swing.JToggleButton jToggleButtonverde;
     private javax.swing.JPanel jpmenu;
-    public static javax.swing.JLabel lblacceso;
-    public static javax.swing.JLabel lblapellidos;
-    public static javax.swing.JLabel lblidpersona;
-    public static javax.swing.JLabel lblnombres;
+    public static javax.swing.JLabel lblempleado;
+    public static javax.swing.JLabel lblestado;
+    public static javax.swing.JLabel lblfecha;
+    public static javax.swing.JLabel lblturnos;
     public static javax.swing.JPanel pnlBotones;
     // End of variables declaration//GEN-END:variables
 

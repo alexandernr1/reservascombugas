@@ -10,18 +10,38 @@ public class Dempleado extends Dpersona {
     public String estado;
     public String eps;
     public String arl;
-
-    public Dempleado() {
-    }
+    
+    public Dempleado(){}
 
     public Dempleado(String acceso, String login, String password, String estado, String eps, String arl) {
         this.acceso = acceso;
         this.login = login;
         this.password = password;
-        this.estado = estado; 
+        this.estado = estado;
         this.eps = eps;
         this.arl = arl;
     }
+
+    public Dempleado(String acceso, String login, String password, String estado, String eps, String arl, int idpersona, String nombres, String apellidos, String tipodocumento, String numdocumento, String telefono, String direccion, String email, String pais, String ciudad) {
+        super(idpersona, nombres, apellidos, tipodocumento, numdocumento, telefono, direccion, email, pais, ciudad);
+        this.acceso = acceso;
+        this.login = login;
+        this.password = password;
+        this.estado = estado;
+        this.eps = eps;
+        this.arl = arl;
+    }
+
+    public Dempleado(int idpersona, String nombres, String apellidos, String acceso, String login, String password, String estado){
+        this.idpersona = idpersona;
+        this.nombres = nombres;
+        this.apellidos = apellidos;
+        this.acceso = acceso;
+        this.login = login;
+        this.password = password;
+        this.estado = estado;
+    }
+   
 
     public String getAcceso() {
         return acceso;
@@ -71,6 +91,8 @@ public class Dempleado extends Dpersona {
     public void setArl(String arl) {
         this.arl = arl;
     }
+
+    
 
    
 

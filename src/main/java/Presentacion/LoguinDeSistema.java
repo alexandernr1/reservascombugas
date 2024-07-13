@@ -6,7 +6,6 @@ import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
 public final class LoguinDeSistema extends javax.swing.JFrame {
 
@@ -15,17 +14,11 @@ public final class LoguinDeSistema extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         this.setTitle("ACCESO A SISTEMA");
         this.setLocationRelativeTo(null);
-         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        inhabilitar();
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+       
     }
 
-    public void inhabilitar() {
-        
-        tablalistado.setVisible(false);
-        jScrollPane1.setVisible(false);
-
-    }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -36,8 +29,6 @@ public final class LoguinDeSistema extends javax.swing.JFrame {
         passwordLabel = new javax.swing.JLabel();
         usuarioLabel = new javax.swing.JLabel();
         btnIngresar = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tablalistado = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -84,26 +75,6 @@ public final class LoguinDeSistema extends javax.swing.JFrame {
         });
         jPanel1.add(btnIngresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 260, -1, -1));
 
-        tablalistado.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        tablalistado.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tablalistadoMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(tablalistado);
-
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(29, 23, 39, 20));
-
         jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Desktop\\reservascombugas\\reservascombugas\\src\\main\\java\\File\\inicio de sesion.png")); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 382));
 
@@ -132,86 +103,85 @@ public final class LoguinDeSistema extends javax.swing.JFrame {
     }//GEN-LAST:event_txtpasswordActionPerformed
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
-        try {
 
-            DefaultTableModel modelo;
-            Fempleado func = new Fempleado();
-            Dempleado dts = new Dempleado();
+  try {
+        Fempleado func = new Fempleado();
+        
+        // Obtener el usuario y contraseña ingresados
+        String login = txtusuario.getText();
+        String password = txtpassword.getText();
 
-            dts.setLogin(txtusuario.getText());
-            dts.setPassword(txtpassword.getText());
-            modelo = func.login(dts.getLogin(), dts.getPassword());
-             
-                tablalistado.setModel(modelo);
+        // Intentar realizar el login
+        Dempleado empleado = func.login(login, password);
 
-                if (func.totalregistros > 0) {
-                    this.dispose();
-                    Jmenuprin form = new Jmenuprin();
-                    form.toFront();
-                    form.setVisible(true);
-                    // Establece los valores en Jmenuprin
-                    Jmenuprin.lblacceso.setText(tablalistado.getValueAt(0, 3).toString());
-                    
-                    // Verificar si el acceso es para un empleado
-                    if (!Jmenuprin.lblacceso.getText().equals("General")) {
-                        JOptionPane.showMessageDialog(rootPane, "Acceso Denegado", "Acceso al Sistema", JOptionPane.ERROR_MESSAGE);
-                        // Si el acceso no es para un General, puedes desactivar el menú u realizar alguna otra acción
-                        form.setVisible(false);
-                    }
-
-                }
-                
-                 else {
-                    
-                }
+        if (empleado != null) {
+            System.out.println("Login exitoso. Datos del empleado:");
+            System.out.println(empleado);
             
-        } catch (HeadlessException e) {
-            System.out.println("ERROR DE LOGIN");
+            // Crear y mostrar el formulario principal
+            Jmenuprin form = new Jmenuprin();
+            form.toFront();
+            form.setVisible(true);
+            
+            // Establecer los valores en Jmenuprin
+            Jmenuprin.lblacceso.setText(empleado.getAcceso());
+
+            // Verificar si el acceso es para un empleado
+            if (!Jmenuprin.lblacceso.getText().equals("General")) {
+                JOptionPane.showMessageDialog(rootPane, "Acceso Denegado", "Acceso al Sistema", JOptionPane.ERROR_MESSAGE);
+                // Si el acceso no es para un General, puedes desactivar el menú u realizar alguna otra acción
+                form.setVisible(false);
+            } else {
+                this.dispose();
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Credenciales incorrectas o el usuario no está activo.", "Error de Login", JOptionPane.ERROR_MESSAGE);
         }
+    } catch (HeadlessException e) {
+        System.out.println("ERROR DE LOGIN");
+        JOptionPane.showMessageDialog(rootPane, "Ocurrió un error durante el login.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_btnIngresarActionPerformed
 
-    private void tablalistadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablalistadoMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tablalistadoMouseClicked
-
     private void txtpasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtpasswordKeyPressed
-        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
-            try {
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+             try {
+        Fempleado func = new Fempleado();
+        
+        // Obtener el usuario y contraseña ingresados
+        String login = txtusuario.getText();
+        String password = txtpassword.getText();
 
-            DefaultTableModel modelo;
-            Fempleado func = new Fempleado();
-            Dempleado dts = new Dempleado();
+        // Intentar realizar el login
+        Dempleado empleado = func.login(login, password);
 
-            dts.setLogin(txtusuario.getText());
-            dts.setPassword(txtpassword.getText());
-            modelo = func.login(dts.getLogin(), dts.getPassword());
-             
-                tablalistado.setModel(modelo);
-
-                if (func.totalregistros > 0) {
-                    this.dispose();
-                    Jmenuprin form = new Jmenuprin();
-                    form.toFront();
-                    form.setVisible(true);
-                    // Establece los valores en Jmenuprin
-                    Jmenuprin.lblacceso.setText(tablalistado.getValueAt(0, 3).toString());
-                    
-                    // Verificar si el acceso es para un empleado
-                    if (!Jmenuprin.lblacceso.getText().equals("General")) {
-                        JOptionPane.showMessageDialog(rootPane, "Acceso Denegado", "Acceso al Sistema", JOptionPane.ERROR_MESSAGE);
-                        
-                        form.setVisible(false);
-                    }
-
-                }
-                
-                 else {
-                    
-                }
+        if (empleado != null) {
+            System.out.println("Login exitoso. Datos del empleado:");
+            System.out.println(empleado);
             
-        } catch (HeadlessException e) {
-            System.out.println("ERROR DE LOGIN");
+            // Crear y mostrar el formulario principal
+            Jmenuprin form = new Jmenuprin();
+            form.toFront();
+            form.setVisible(true);
+            
+            // Establecer los valores en Jmenuprin
+            Jmenuprin.lblacceso.setText(empleado.getAcceso());
+
+            // Verificar si el acceso es para un empleado
+            if (!Jmenuprin.lblacceso.getText().equals("General")) {
+                JOptionPane.showMessageDialog(rootPane, "Acceso Denegado", "Acceso al Sistema", JOptionPane.ERROR_MESSAGE);
+                // Si el acceso no es para un General, puedes desactivar el menú u realizar alguna otra acción
+                form.setVisible(false);
+            } else {
+                this.dispose();
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Credenciales incorrectas o el usuario no está activo.", "Error de Login", JOptionPane.ERROR_MESSAGE);
         }
+    } catch (HeadlessException e) {
+        System.out.println("ERROR DE LOGIN");
+        JOptionPane.showMessageDialog(rootPane, "Ocurrió un error durante el login.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
         }
     }//GEN-LAST:event_txtpasswordKeyPressed
 
@@ -253,9 +223,7 @@ public final class LoguinDeSistema extends javax.swing.JFrame {
     private javax.swing.JButton btnIngresar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel passwordLabel;
-    private javax.swing.JTable tablalistado;
     private javax.swing.JPasswordField txtpassword;
     private javax.swing.JTextField txtusuario;
     private javax.swing.JLabel usuarioLabel;

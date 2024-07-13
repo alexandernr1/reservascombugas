@@ -117,7 +117,6 @@ Datos\Dinicioturno.class
 Datos\Dlistaespera.class
 Presentacion\Jcliente$6.class
 Presentacion\JcambioHabit$19.class
-Presentacion\Jinicioturno$6.class
 Presentacion\Jmenuhotel$12.class
 Presentacion\Jsalidaturno$11.class
 Presentacion\Jhabitaciones$13.class
@@ -155,6 +154,7 @@ Logica\Fingreso.class
 Presentacion\Jingreso$14.class
 Presentacion\Jhabitaciones$1.class
 Impresion\ImprimirCierreTurno.class
+Presentacion\Jacompañante$12.class
 Presentacion\Jhabitaciones$11.class
 Presentacion\Jhabitaciones$2.class
 Presentacion\Jregistroempleados$6.class
@@ -261,7 +261,6 @@ Presentacion\LoguinDeSistema$2.class
 Presentacion\Javanzado$4.class
 Presentacion\Jmenuhotel$3.class
 Presentacion\Jpago$2.class
-Presentacion\LoguinDeSistema$5.class
 Presentacion\Jmenuhotel$18.class
 Presentacion\Jinicioturno$3.class
 Presentacion\Jcliente$10.class
@@ -302,7 +301,6 @@ Presentacion\Jproducto$1.class
 Presentacion\Jvistaempleado$2.class
 Presentacion\Jhabitaciones$8.class
 Presentacion\JcambioHabit$15.class
-Presentacion\LoguinDeAdmin$7.class
 Presentacion\Jmenuhotel$4.class
 Presentacion\Jpago$1.class
 Presentacion\Jvistasalida$4.class

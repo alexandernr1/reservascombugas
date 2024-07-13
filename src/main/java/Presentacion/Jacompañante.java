@@ -1,12 +1,23 @@
 package Presentacion;
 
 import Datos.Dacompañante;
+import Logica.Cconexion;
 import Logica.Facompañante;
+import static Presentacion.Jingreso.txtcliente;
+import static Presentacion.Jingreso.txtnumdocumento;
+import static Presentacion.Jingreso.txttelefono;
+import java.awt.event.KeyEvent;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public final class Jacompañante extends javax.swing.JFrame {
+
+    PreparedStatement pst;
+    ResultSet rs;
 
     public Jacompañante() {
         initComponents();
@@ -70,13 +81,13 @@ public final class Jacompañante extends javax.swing.JFrame {
         cboparentesco = new javax.swing.JComboBox<>();
         cbo_tipoDocumento = new javax.swing.JComboBox<>();
         jLabel17 = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        dcCheckin = new com.toedter.calendar.JDateChooser();
         jLabel20 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtciudad_recidencia = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        txtciudad_procedencia = new javax.swing.JTextField();
+        txtnum_principal = new javax.swing.JTextField();
         jLabel23 = new javax.swing.JLabel();
         txtidacompañante = new javax.swing.JTextField();
         txtidcliente = new javax.swing.JTextField();
@@ -136,9 +147,9 @@ public final class Jacompañante extends javax.swing.JFrame {
         jLabel20.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         jLabel20.setText("check IN :");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtciudad_recidencia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txtciudad_recidenciaActionPerformed(evt);
             }
         });
 
@@ -146,13 +157,17 @@ public final class Jacompañante extends javax.swing.JFrame {
 
         jLabel22.setText("Ciudad de Procedencia:");
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        txtciudad_procedencia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                txtciudad_procedenciaActionPerformed(evt);
             }
         });
 
-        jTextField3.setText("jTextField3");
+        txtnum_principal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtnum_principalKeyPressed(evt);
+            }
+        });
 
         jLabel23.setText("N° huesped principal");
 
@@ -189,13 +204,13 @@ public final class Jacompañante extends javax.swing.JFrame {
                         .addGap(55, 55, 55)
                         .addComponent(jLabel23)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtnum_principal, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(114, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cbo_tipoDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(dcCheckin, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(41, 41, 41)
                                 .addComponent(jLabel15)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -214,11 +229,11 @@ public final class Jacompañante extends javax.swing.JFrame {
                                 .addGroup(jPanel2Layout.createSequentialGroup()
                                     .addComponent(jLabel21)
                                     .addGap(18, 18, 18)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtciudad_recidencia, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(jPanel2Layout.createSequentialGroup()
                                     .addComponent(jLabel22)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(txtciudad_procedencia, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(btnGuardarAcomp))
                         .addGap(84, 84, 84)
                         .addComponent(txtidacompañante, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -232,7 +247,7 @@ public final class Jacompañante extends javax.swing.JFrame {
                 .addGap(6, 6, 6)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(dcCheckin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel20, javax.swing.GroupLayout.Alignment.TRAILING))
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel15)
@@ -250,7 +265,7 @@ public final class Jacompañante extends javax.swing.JFrame {
                     .addComponent(txtdocumentos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10)
                     .addComponent(jLabel23)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtnum_principal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
@@ -258,13 +273,13 @@ public final class Jacompañante extends javax.swing.JFrame {
                 .addGap(11, 11, 11)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel21)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtciudad_recidencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(7, 7, 7)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel22)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtciudad_procedencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnGuardarAcomp)
                         .addContainerGap(12, Short.MAX_VALUE))
@@ -442,13 +457,13 @@ public final class Jacompañante extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnGuardarAcompActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtciudad_recidenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtciudad_recidenciaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txtciudad_recidenciaActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void txtciudad_procedenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtciudad_procedenciaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_txtciudad_procedenciaActionPerformed
 
     private void tablalistadoacompañanteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablalistadoacompañanteMouseClicked
         // TODO add your handling code here:
@@ -484,6 +499,35 @@ public final class Jacompañante extends javax.swing.JFrame {
     private void txtidacompañanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtidacompañanteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtidacompañanteActionPerformed
+
+    private void txtnum_principalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnum_principalKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            Cconexion conexion = new Cconexion();
+
+            try {
+                Connection conectar = conexion.establecerConexion();
+
+                pst = conectar.prepareStatement("select * from cliente where numdocumento=?");
+                pst.setString(1, txtnumdocumento.getText());
+
+                rs = pst.executeQuery();
+
+                if (rs.next()) {
+                    txtidcliente.setText(String.valueOf(rs.getInt("idcliente")));
+                    txtcliente.setText(rs.getString("nombres") + " " + rs.getString("apellidos"));
+                    txtnumdocumento.setText(rs.getString("numdocumento"));
+                    txttelefono.setText(rs.getString("telefono"));
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se encontro el CLIENTE solicitado");
+                }
+
+            } catch (Exception ex) {
+                System.err.println("Error" + ex);
+            }
+        }
+    }//GEN-LAST:event_txtnum_principalKeyPressed
 
     /**
      * @param args the command line arguments
@@ -526,7 +570,7 @@ public final class Jacompañante extends javax.swing.JFrame {
     private javax.swing.JButton btneliminaracompañante;
     private javax.swing.JComboBox<String> cbo_tipoDocumento;
     private javax.swing.JComboBox<String> cboparentesco;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
+    private com.toedter.calendar.JDateChooser dcCheckin;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel15;
@@ -541,16 +585,16 @@ public final class Jacompañante extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane8;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JLabel lbltotalregistroacompañante;
     private javax.swing.JTable tablalistadoacompañante;
     private javax.swing.JTextField txtacompañante;
     private javax.swing.JTextField txtbuscaracompañante;
+    private javax.swing.JTextField txtciudad_procedencia;
+    private javax.swing.JTextField txtciudad_recidencia;
     private javax.swing.JTextField txtdocumentos;
     private static javax.swing.JTextField txtidacompañante;
     public static javax.swing.JTextField txtidcliente;
+    private javax.swing.JTextField txtnum_principal;
     private javax.swing.JTextField txtnumero_habitacion;
     // End of variables declaration//GEN-END:variables
 }

@@ -45,7 +45,7 @@ public final class Jsalidahuesped extends javax.swing.JFrame {
     }
     public static int idusuario;
     private String accion = "guardar";
-    
+
     public static String cliente = "";
     public static String habitacion = "";
     public static String totaldescuentos = "";
@@ -72,7 +72,6 @@ public final class Jsalidahuesped extends javax.swing.JFrame {
 
         txtfecha_hora_salida.setText(time.getFechacomp() + " " + time.getHoracomp());
     }
-
 
     void limpiarcajas() {
         txtcajabuscar.setText(null);
@@ -234,7 +233,6 @@ public final class Jsalidahuesped extends javax.swing.JFrame {
         jLabel14.setText("Abonos:");
         jLabel14.setToolTipText("");
 
-        txtotros_cobros.setEditable(false);
         txtotros_cobros.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
 
         jLabel13.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
@@ -281,13 +279,10 @@ public final class Jsalidahuesped extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                            .addComponent(jLabel10)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                        .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jLabel9))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(deudaanterior)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                    .addComponent(deudaanterior))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(txtcobros_extra)
                     .addComponent(txttotaldescuentos, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
@@ -724,9 +719,9 @@ public final class Jsalidahuesped extends javax.swing.JFrame {
     }//GEN-LAST:event_txtvalor_nochesActionPerformed
 
     private void btnrealizarpagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnrealizarpagosActionPerformed
-         
+
         cliente = txtcliente.getText();
- 
+
         habitacion = txtnumero.getText();
         totaldescuentos = txttotaldescuentos.getText();
         cobros_extra = txtcobros_extra.getText();
@@ -784,10 +779,10 @@ public final class Jsalidahuesped extends javax.swing.JFrame {
 
                 dts3.setIdingreso(Integer.parseInt(txtidingreso.getText()));
                 fnc.finalizar(dts3);
-                
+
                 Fcambio func3 = new Fcambio();
                 Dcambio dts4 = new Dcambio();
-                 
+
                 dts4.setNumero_habita(Integer.parseInt(txtnumero.getText()));
                 func3.finalizar(dts4);
 
@@ -828,6 +823,8 @@ public final class Jsalidahuesped extends javax.swing.JFrame {
     private void txtcajabuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcajabuscarKeyPressed
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            txtotros_cobros.setText("0");
+            txtcobros_extra.setText("0");
 
             try {
                 ResultSet rs = new Fsalida().realizarConsulta(txtcajabuscar.getText());
@@ -923,12 +920,15 @@ public final class Jsalidahuesped extends javax.swing.JFrame {
                     } else {
                         txtdeudaanterior.setText(String.valueOf(deudaanterior));
                     }
-                    int otrosCobros = (int) Double.parseDouble(txtotros_cobros.getText());
+
+                    int netocobros = Integer.parseInt(txtnumero_turno.getText());
+                    int otroscobros = func.otroscobros(netocobros);
+                    txtotros_cobros.setText(String.valueOf(otroscobros));
 
                     // Calcular total a pagar
                     String tipoCliente = rs.getString("tipo_cliente");
                     if (!"Administrativo".equalsIgnoreCase(tipoCliente)) {
-                        int totalAPagar = Nuevovalortotal + costoFraccionEntero + (int) otrosCobros;
+                        int totalAPagar = Nuevovalortotal + costoFraccionEntero +  otroscobros;
                         if (totalAPagar < 0) {
                             totalAPagar = 0;
                         }
@@ -938,6 +938,8 @@ public final class Jsalidahuesped extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "No se encontró el CLIENTE solicitado");
                 }
             } catch (HeadlessException | SQLException ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Ocurrió un error al procesar la información del cliente.");
 
             }
         }

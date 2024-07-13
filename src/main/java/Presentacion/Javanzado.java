@@ -25,7 +25,7 @@ public class Javanzado extends javax.swing.JFrame {
         btnempleados = new javax.swing.JButton();
         btnhabitaciones = new javax.swing.JButton();
         btnproducto = new javax.swing.JButton();
-        lblaccesoadmin = new javax.swing.JLabel();
+        lblacceso = new javax.swing.JLabel();
         btnReportes = new javax.swing.JButton();
         jdmenu = new javax.swing.JDesktopPane();
 
@@ -67,7 +67,7 @@ public class Javanzado extends javax.swing.JFrame {
             }
         });
 
-        lblaccesoadmin.setText("jLabel1");
+        lblacceso.setText("jLabel1");
 
         btnReportes.setBackground(new java.awt.Color(0, 153, 204));
         btnReportes.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
@@ -88,7 +88,7 @@ public class Javanzado extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(94, 94, 94)
-                        .addComponent(lblaccesoadmin, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblacceso, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
@@ -103,7 +103,7 @@ public class Javanzado extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addComponent(lblaccesoadmin)
+                .addComponent(lblacceso)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnproducto, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -195,6 +195,6 @@ public class Javanzado extends javax.swing.JFrame {
     private javax.swing.JButton btnproducto;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JDesktopPane jdmenu;
-    public static javax.swing.JLabel lblaccesoadmin;
+    public static javax.swing.JLabel lblacceso;
     // End of variables declaration//GEN-END:variables
 }

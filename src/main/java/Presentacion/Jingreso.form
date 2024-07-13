@@ -662,16 +662,18 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtbuscar" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnbuscar" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btneliminar" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtidingreso" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtidhabitacion" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                           <Component id="txtidcliente" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtidempleado" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtbuscar" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnbuscar" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btneliminar" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtidingreso" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtidhabitacion" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>

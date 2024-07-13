@@ -120,4 +120,19 @@ public class Finicioturno {
         }
         return false;
     }
+    
+    public boolean asignardatos() {
+        String sSQL = "select idinicioturno from inicioturno where numero_turno = ?";
+        try {
+            PreparedStatement pst = cn.prepareStatement(sSQL);
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                int total = rs.getInt("empleado");
+                return total > 0;
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "no se encontro empleado: " + e.getMessage());
+        }
+        return false;
+    }
 }
