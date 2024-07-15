@@ -509,26 +509,7 @@ public class Jlistaespera extends javax.swing.JFrame {
     }//GEN-LAST:event_cbonumeroActionPerformed
 
     private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardarActionPerformed
-//        if (comnumero.getSelectedItem() == null || comnumero.getSelectedItem().toString().trim().isEmpty()) {
-//            JOptionPane.showConfirmDialog(rootPane, "Debes ingresar un Número de Habitación");
-//            comnumero.requestFocus();
-//            return;
-//        }
-//        if (comdescripcion.getSelectedItem() == null || comdescripcion.getSelectedItem().toString().trim().isEmpty()) {
-//            JOptionPane.showMessageDialog(rootPane, "Debes seleccionar una descripción para la Habitación.");
-//            comdescripcion.requestFocus();
-//            return;
-//        }
-//        if (txtprecio.getText().isEmpty()) {
-//            JOptionPane.showMessageDialog(rootPane, "Debes ingresar un precio diario para la Habitación.");
-//            txtprecio.requestFocus();
-//            return;
-//        }
-//        if (comcaracteristicas.getSelectedItem() == null || comcaracteristicas.getSelectedItem().toString().trim().isEmpty()) {
-//            JOptionPane.showMessageDialog(rootPane, "Debes ingresar una característica para la Habitación.");
-//            comcaracteristicas.requestFocus();
-//            return;
-//        }
+
 
         Dlistaespera dts = new Dlistaespera();
         Flistaespera func = new Flistaespera();

@@ -14,11 +14,12 @@ public class Dingreso {
     public String estado;
     public String ciudad_de_recidencia;
     public String ciudad_de_procedencia;
+    public int num_habitacion;
 
     public Dingreso() {
     }
 
-    public Dingreso(int idingreso, int idhabitacion, int idcliente, String fecha_hora_ingreso, int num_personas, String tipo_cliente, int costoalojamiento, String motivo_viaje, String estado, String ciudad_de_recidencia, String ciudad_de_procedencia) {
+    public Dingreso(int idingreso, int idhabitacion, int idcliente, String fecha_hora_ingreso, int num_personas, String tipo_cliente, int costoalojamiento, String motivo_viaje, String estado, String ciudad_de_recidencia, String ciudad_de_procedencia, int num_habitacion) {
         this.idingreso = idingreso;
         this.idhabitacion = idhabitacion;
         this.idcliente = idcliente;
@@ -30,6 +31,7 @@ public class Dingreso {
         this.estado = estado;
         this.ciudad_de_recidencia = ciudad_de_recidencia;
         this.ciudad_de_procedencia = ciudad_de_procedencia;
+        this.num_habitacion = num_habitacion;
     }
 
     public int getIdingreso() {
@@ -118,6 +120,14 @@ public class Dingreso {
 
     public void setCiudad_de_procedencia(String ciudad_de_procedencia) {
         this.ciudad_de_procedencia = ciudad_de_procedencia;
+    }
+
+    public int getNum_habitacion() {
+        return num_habitacion;
+    }
+
+    public void setNum_habitacion(int num_habitacion) {
+        this.num_habitacion = num_habitacion;
     }
 
    

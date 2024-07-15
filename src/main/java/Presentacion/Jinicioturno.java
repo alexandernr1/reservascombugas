@@ -18,7 +18,6 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
 public class Jinicioturno extends javax.swing.JFrame {
 
@@ -50,19 +49,28 @@ public class Jinicioturno extends javax.swing.JFrame {
         try {
             Connection conectar = conexion.establecerConexion();
             st = conectar.createStatement();
-            rs = st.executeQuery("SELECT p.nombres, p.apellidos "
+            rs = st.executeQuery("SELECT p.nombres, p.apellidos,p.numdocumento "
                     + "FROM empleado e "
                     + "JOIN persona p ON e.idpersona = p.idpersona "
                     + "WHERE e.acceso = 'Empleado' ;");
 
             while (rs.next()) {
-                Dpersona persona = new Dpersona();
+                //Dpersona persona = new Dpersona();
+                //String nombres = rs.getString("nombres");
+                //String apellidos = rs.getString("apellidos");
+
+                //persona.setNombres(nombres + " " + apellidos);
+                //func.agregarEmpleados(persona);
+                //com.addElement(persona.getNombres());
+                Dempleado empleado = new Dempleado();
                 String nombres = rs.getString("nombres");
                 String apellidos = rs.getString("apellidos");
+                String documento = rs.getString("numdocumento");
 
-                persona.setNombres(nombres + " " + apellidos);
-                func.agregarEmpleados(persona);
-                com.addElement(persona.getNombres());
+                empleado.setNombres(nombres + " " + apellidos);
+                empleado.setNumdocumento(documento);
+                func.agregarEmpleados(empleado);
+                com.addElement(empleado.getNombres());
 
             }
         } catch (Exception e) {
@@ -259,12 +267,15 @@ public class Jinicioturno extends javax.swing.JFrame {
             dts1.setTurno((String) cboturnos.getItemAt(selecturno));
             dts1.setEstado((String) cboestado.getItemAt(selecturno));
             int trabajador = cboempleados.getSelectedIndex();
-            dts1.setEmpleado((String) cboempleados.getItemAt(trabajador));
+            Dempleado empleadoSeleccionado = (Dempleado) cboempleados.getSelectedItem(); // Obtener el objeto Empleado seleccionado
+            //dts1.setEmpleado((String) cboempleados.getItemAt(trabajador));
+            //dts1.setNumero_turno(Integer.parseInt(txtnumero_turno.getText()));
+            dts1.setEmpleado(empleadoSeleccionado.getNombres());
             dts1.setNumero_turno(Integer.parseInt(txtnumero_turno.getText()));
 
             if (accion.equals("guardar")) {
                 if (func1.insertar(dts1)) {
-                    JOptionPane.showMessageDialog(rootPane, "Turno fue registrado satisfactoriamente");
+//                    JOptionPane.showMessageDialog(rootPane, "Turno fue registrado satisfactoriamente");
                 }
             }
 
@@ -274,12 +285,29 @@ public class Jinicioturno extends javax.swing.JFrame {
                 // Obtener el usuario y contraseña ingresados
                 String login = txtusuario.getText();
                 String password = txtpassword.getText();
+                
+                // Verificar si el número de cédula del txtusuario coincide con el empleado seleccionado
+            
+
+                // Obtener el nombre del empleado seleccionado en el ComboBox
+            //String empleadoSeleccionado = (String) cboempleados.getItemAt(trabajador);
+//
+//            //Verificar si el usuario ingresado coincide con el empleado seleccionado
+//            if (!login.equals(empleadoSeleccionado)) {
+//                JOptionPane.showMessageDialog(rootPane, "El usuario no coincide con el empleado seleccionado", "Error de Login", JOptionPane.ERROR_MESSAGE);
+//                return;
+//            }
+                String cedulaIngresada = txtusuario.getText();
+                if (!empleadoSeleccionado.getNumdocumento().equals(cedulaIngresada)) {
+                    JOptionPane.showMessageDialog(rootPane, "La cédula no coincide con el empleado seleccionado", "Error de Login", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
 
                 // Intentar realizar el login
                 Dempleado empleado = func.login(login, password);
 
                 if (empleado != null) {
-                    JOptionPane.showMessageDialog(this, "Turno iniciado");
+//                    JOptionPane.showMessageDialog(this, "Turno iniciado");
                     Jmenuhotel.sesionIniciada = true; // Cambiar el estado de la sesión
 
                     this.dispose();
@@ -329,7 +357,7 @@ public class Jinicioturno extends javax.swing.JFrame {
 
         if (accion.equals("guardar")) {
             if (func1.insertar(dts1)) {
-                JOptionPane.showMessageDialog(rootPane, "Turno fue registrado satisfactoriamente");
+//                JOptionPane.showMessageDialog(rootPane, "Turno fue registrado satisfactoriamente");
             }
         }
 
@@ -340,11 +368,19 @@ public class Jinicioturno extends javax.swing.JFrame {
             String login = txtusuario.getText();
             String password = txtpassword.getText();
 
+            // Obtener el nombre del empleado seleccionado en el ComboBox
+//            String empleadoSeleccionado = (String) cboempleados.getItemAt(trabajador);
+//
+//            // Verificar si el usuario ingresado coincide con el empleado seleccionado
+//            if (!login.equals(empleadoSeleccionado)) {
+//                JOptionPane.showMessageDialog(rootPane, "El usuario no coincide con el empleado seleccionado", "Error de Login", JOptionPane.ERROR_MESSAGE);
+//                return;
+//            }
             // Intentar realizar el login
             Dempleado empleado = func.login(login, password);
 
             if (empleado != null) {
-                JOptionPane.showMessageDialog(this, "Turno iniciado");
+//                JOptionPane.showMessageDialog(this, "Turno iniciado");
                 Jmenuhotel.sesionIniciada = true; // Cambiar el estado de la sesión
 
                 this.dispose();
@@ -406,9 +442,9 @@ public class Jinicioturno extends javax.swing.JFrame {
 
         });
     }
-
+//Cambiar el tipo de dato del combo a Dempleado
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> cboempleados;
+    public javax.swing.JComboBox<String> cboempleados;
     private javax.swing.JComboBox<String> cboestado;
     private javax.swing.JComboBox<String> cboturnos;
     private javax.swing.JButton ingresoTurno;

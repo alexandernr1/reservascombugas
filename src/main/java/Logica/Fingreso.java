@@ -73,8 +73,8 @@ public class Fingreso {
     }
 
     public boolean insertar(Dingreso dts) {
-        sSQL = "INSERT INTO ingreso (idhabitacion, idcliente, fecha_hora_ingreso, num_personas, tipo_cliente, costoalojamiento, motivo_viaje,estado,ciudad_de_recidencia,ciudad_de_procedencia)"
-                + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        sSQL = "INSERT INTO ingreso (idhabitacion, idcliente, fecha_hora_ingreso, num_personas, tipo_cliente, costoalojamiento, motivo_viaje,estado,ciudad_de_recidencia,ciudad_de_procedencia,num_habitacion)"
+                + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try ( PreparedStatement pst = cn.prepareStatement(sSQL)) {
             pst.setInt(1, dts.getIdhabitacion());
             pst.setInt(2, dts.getIdcliente());
@@ -86,7 +86,8 @@ public class Fingreso {
             pst.setString(8, dts.getEstado());
             pst.setString(9, dts.getCiudad_de_recidencia());
             pst.setString(10, dts.getCiudad_de_procedencia());
-            
+            pst.setInt(11, dts.getNum_habitacion());
+
             int n = pst.executeUpdate();
             // JOptionPane.showMessageDialog(null, "DATOS ALMACENADOS CORRECTAMENTE");
             return n != 0;
@@ -116,7 +117,7 @@ public class Fingreso {
     }
 
     public boolean editar(Dingreso dts) {
-        sSQL = "update ingreso set idhabitacion=?,idcliente=?,fecha_hora_ingreso=?,num_personas=?,tipo_cliente=?,costoalojamiento=?,motivo_viaje=?,estado=?,ciudad_de_recidencia=?,ciudad_de_procedencia=?"
+        sSQL = "update ingreso set idhabitacion=?,idcliente=?,fecha_hora_ingreso=?,num_personas=?,tipo_cliente=?,costoalojamiento=?,motivo_viaje=?,estado=?,ciudad_de_recidencia=?,ciudad_de_procedencia=?,num_habitacion=?"
                 + " where idingreso=?";
 
         try {
@@ -129,10 +130,11 @@ public class Fingreso {
             pst.setInt(6, dts.getCostoalojamiento());
             pst.setString(7, dts.getMotivo_viaje());
             pst.setString(8, dts.getEstado());
-             pst.setString(9, dts.getCiudad_de_recidencia());
+            pst.setString(9, dts.getCiudad_de_recidencia());
             pst.setString(10, dts.getCiudad_de_procedencia());
+            pst.setInt(11, dts.getNum_habitacion());
 
-            pst.setInt(11, dts.getIdingreso());
+            pst.setInt(12, dts.getIdingreso());
 
             int n = pst.executeUpdate();
 

@@ -12,6 +12,7 @@ public class Dempleado extends Dpersona {
     public String arl;
     
     public Dempleado(){}
+    
 
     public Dempleado(String acceso, String login, String password, String estado, String eps, String arl) {
         this.acceso = acceso;
@@ -40,6 +41,12 @@ public class Dempleado extends Dpersona {
         this.login = login;
         this.password = password;
         this.estado = estado;
+    }
+    
+    public Dempleado(String nombres, String apellidos,String login){
+        this.nombres = nombres;
+        this.apellidos = apellidos;
+        this.login = login;
     }
    
 

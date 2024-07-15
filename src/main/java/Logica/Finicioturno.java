@@ -1,5 +1,6 @@
 package Logica;
 
+import Datos.Dempleado;
 import Datos.Dinicioturno;
 import Datos.Dpersona;
 import java.sql.Connection;
@@ -14,10 +15,15 @@ public class Finicioturno {
     private final Cconexion mysql = new Cconexion();
     private final Connection cn = mysql.establecerConexion();
     private String sSQL = "";
-
-    ArrayList<Dpersona>listaEMpleado = new ArrayList<>();
     
-    public void agregarEmpleados(Dpersona empleado){
+//La liusta inicialmente es de tipo Dpersona pero se cambiará a Dempleado para pruebas
+    ArrayList<Dempleado>listaEMpleado = new ArrayList<>();
+    
+//    public void agregarEmpleados(Dpersona empleado){
+//        listaEMpleado.add(empleado);
+//    }
+    
+    public void agregarEmpleados(Dempleado empleado){
         listaEMpleado.add(empleado);
     }
     

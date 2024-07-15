@@ -682,6 +682,7 @@ public final class Jingreso extends javax.swing.JFrame {
         dts.setEstado((String) comestado.getItemAt(seleccionado));
         dts.setCiudad_de_recidencia(txtciudad_recidencia.getText());
         dts.setCiudad_de_procedencia(txtciudad_procedencia.getText());
+        dts.setNum_habitacion(Integer.parseInt(txtnumero.getText()));
 
         if (accion2.equals("guardar")) {
             if (func.insertar(dts)) {
