@@ -2,7 +2,6 @@ package Presentacion;
 
 import Datos.Dempleado;
 import Datos.Dinicioturno;
-import Datos.Dpersona;
 import Datos.Tiempopro;
 import Logica.Cconexion;
 import Logica.Fempleado;
@@ -11,9 +10,12 @@ import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -45,6 +47,7 @@ public class Jinicioturno extends javax.swing.JFrame {
         DefaultComboBoxModel com = new DefaultComboBoxModel();
         combo.setModel(com);
         Cconexion conexion = new Cconexion();
+        com.addElement("Seleccione un usuario");
 
         try {
             Connection conectar = conexion.establecerConexion();
@@ -55,13 +58,7 @@ public class Jinicioturno extends javax.swing.JFrame {
                     + "WHERE e.acceso = 'Empleado' ;");
 
             while (rs.next()) {
-                //Dpersona persona = new Dpersona();
-                //String nombres = rs.getString("nombres");
-                //String apellidos = rs.getString("apellidos");
 
-                //persona.setNombres(nombres + " " + apellidos);
-                //func.agregarEmpleados(persona);
-                //com.addElement(persona.getNombres());
                 Dempleado empleado = new Dempleado();
                 String nombres = rs.getString("nombres");
                 String apellidos = rs.getString("apellidos");
@@ -258,6 +255,11 @@ public class Jinicioturno extends javax.swing.JFrame {
     private void txtpasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtpasswordKeyPressed
 //        // TODO add your handling code here:
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+
+            if (cboempleados.getSelectedIndex() == 0) {
+                JOptionPane.showMessageDialog(this, "DEBE SELECCIONAR UN NOMBRE DE EMPLEADO", "Error", JOptionPane.ERROR_MESSAGE);
+
+            }
             Finicioturno func1 = new Finicioturno();
             Dinicioturno dts1 = new Dinicioturno();
 
@@ -265,12 +267,10 @@ public class Jinicioturno extends javax.swing.JFrame {
 
             int selecturno = cboturnos.getSelectedIndex();
             dts1.setTurno((String) cboturnos.getItemAt(selecturno));
-            dts1.setEstado((String) cboestado.getItemAt(selecturno));
+            int estado = cboestado.getSelectedIndex();
+            dts1.setEstado((String) cboestado.getItemAt(estado));
             int trabajador = cboempleados.getSelectedIndex();
-            Dempleado empleadoSeleccionado = (Dempleado) cboempleados.getSelectedItem(); // Obtener el objeto Empleado seleccionado
-            //dts1.setEmpleado((String) cboempleados.getItemAt(trabajador));
-            //dts1.setNumero_turno(Integer.parseInt(txtnumero_turno.getText()));
-            dts1.setEmpleado(empleadoSeleccionado.getNombres());
+            dts1.setEmpleado((String) cboempleados.getItemAt(trabajador));
             dts1.setNumero_turno(Integer.parseInt(txtnumero_turno.getText()));
 
             if (accion.equals("guardar")) {
@@ -285,25 +285,7 @@ public class Jinicioturno extends javax.swing.JFrame {
                 // Obtener el usuario y contraseña ingresados
                 String login = txtusuario.getText();
                 String password = txtpassword.getText();
-                
-                // Verificar si el número de cédula del txtusuario coincide con el empleado seleccionado
-            
 
-                // Obtener el nombre del empleado seleccionado en el ComboBox
-            //String empleadoSeleccionado = (String) cboempleados.getItemAt(trabajador);
-//
-//            //Verificar si el usuario ingresado coincide con el empleado seleccionado
-//            if (!login.equals(empleadoSeleccionado)) {
-//                JOptionPane.showMessageDialog(rootPane, "El usuario no coincide con el empleado seleccionado", "Error de Login", JOptionPane.ERROR_MESSAGE);
-//                return;
-//            }
-                String cedulaIngresada = txtusuario.getText();
-                if (!empleadoSeleccionado.getNumdocumento().equals(cedulaIngresada)) {
-                    JOptionPane.showMessageDialog(rootPane, "La cédula no coincide con el empleado seleccionado", "Error de Login", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-
-                // Intentar realizar el login
                 Dempleado empleado = func.login(login, password);
 
                 if (empleado != null) {
@@ -333,6 +315,8 @@ public class Jinicioturno extends javax.swing.JFrame {
                 }
             } catch (HeadlessException e) {
                 JOptionPane.showMessageDialog(rootPane, "Ocurrió un error durante el login.", "Error", JOptionPane.ERROR_MESSAGE);
+            } catch (SQLException ex) {
+                Logger.getLogger(Jinicioturno.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_txtpasswordKeyPressed
@@ -343,6 +327,12 @@ public class Jinicioturno extends javax.swing.JFrame {
     }//GEN-LAST:event_txtnumero_turnoActionPerformed
 
     private void ingresoTurnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ingresoTurnoActionPerformed
+
+        if (cboempleados.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(this, "DEBE SELECCIONAR UN NOMBRE DE EMPLEADO", "Error", JOptionPane.ERROR_MESSAGE);
+
+        }
+
         Finicioturno func1 = new Finicioturno();
         Dinicioturno dts1 = new Dinicioturno();
 
@@ -350,9 +340,13 @@ public class Jinicioturno extends javax.swing.JFrame {
 
         int selecturno = cboturnos.getSelectedIndex();
         dts1.setTurno((String) cboturnos.getItemAt(selecturno));
-        dts1.setEstado((String) cboestado.getItemAt(selecturno));
+
+        int estado = cboestado.getSelectedIndex();
+        dts1.setEstado((String) cboestado.getItemAt(estado));
+
         int trabajador = cboempleados.getSelectedIndex();
         dts1.setEmpleado((String) cboempleados.getItemAt(trabajador));
+
         dts1.setNumero_turno(Integer.parseInt(txtnumero_turno.getText()));
 
         if (accion.equals("guardar")) {
@@ -368,15 +362,6 @@ public class Jinicioturno extends javax.swing.JFrame {
             String login = txtusuario.getText();
             String password = txtpassword.getText();
 
-            // Obtener el nombre del empleado seleccionado en el ComboBox
-//            String empleadoSeleccionado = (String) cboempleados.getItemAt(trabajador);
-//
-//            // Verificar si el usuario ingresado coincide con el empleado seleccionado
-//            if (!login.equals(empleadoSeleccionado)) {
-//                JOptionPane.showMessageDialog(rootPane, "El usuario no coincide con el empleado seleccionado", "Error de Login", JOptionPane.ERROR_MESSAGE);
-//                return;
-//            }
-            // Intentar realizar el login
             Dempleado empleado = func.login(login, password);
 
             if (empleado != null) {
@@ -406,6 +391,8 @@ public class Jinicioturno extends javax.swing.JFrame {
             }
         } catch (HeadlessException e) {
             JOptionPane.showMessageDialog(rootPane, "Ocurrió un error durante el login.", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException ex) {
+            Logger.getLogger(Jinicioturno.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_ingresoTurnoActionPerformed
 

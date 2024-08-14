@@ -20,11 +20,18 @@ public class Dpago {
     public int numero_turno;
     public int deuda_anterior;
     public String estado;
+    public int documento;
+    public String correo;
+    public int numero_noches;
+    public int IVA;
+    public int retencion35;
+    public int retencion4;
+    public int idcliente;
 
     public Dpago() {
     }
 
-    public Dpago(int idpago, int idsalida, String cliente, int numero, String fechaemision, String tipocomprobante, String numcomprobante, int efectivo, int tarjeta, int transferencia, int descuentos, int cobrosfraccion, int valorcobrar, int netoapagar, String empleado, int numero_turno, int deuda_anterior, String estado) {
+    public Dpago(int idpago, int idsalida, String cliente, int numero, String fechaemision, String tipocomprobante, String numcomprobante, int efectivo, int tarjeta, int transferencia, int descuentos, int cobrosfraccion, int valorcobrar, int netoapagar, String empleado, int numero_turno, int deuda_anterior, String estado, int documento, String correo, int numero_noches, int IVA, int retencion35, int retencion4, int idcliente) {
         this.idpago = idpago;
         this.idsalida = idsalida;
         this.cliente = cliente;
@@ -43,8 +50,16 @@ public class Dpago {
         this.numero_turno = numero_turno;
         this.deuda_anterior = deuda_anterior;
         this.estado = estado;
-        
+        this.documento = documento;
+        this.correo = correo;
+        this.numero_noches = numero_noches;
+        this.IVA = IVA;
+        this.retencion35 = retencion35;
+        this.retencion4 = retencion4;
+        this.idcliente = idcliente;
     }
+
+    
 
     public int getIdpago() {
         return idpago;
@@ -189,5 +204,63 @@ public class Dpago {
     public void setEstado(String estado) {
         this.estado = estado;
     }
+
+    public int getDocumento() {
+        return documento;
+    }
+
+    public void setDocumento(int documento) {
+        this.documento = documento;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    public int getNumero_noches() {
+        return numero_noches;
+    }
+
+    public void setNumero_noches(int numero_noches) {
+        this.numero_noches = numero_noches;
+    }
+
+    public int getIVA() {
+        return IVA;
+    }
+
+    public void setIVA(int IVA) {
+        this.IVA = IVA;
+    }
+
+    public int getRetencion35() {
+        return retencion35;
+    }
+
+    public void setRetencion35(int retencion35) {
+        this.retencion35 = retencion35;
+    }
+
+    public int getRetencion4() {
+        return retencion4;
+    }
+
+    public void setRetencion4(int retencion4) {
+        this.retencion4 = retencion4;
+    }
+
+    public int getIdcliente() {
+        return idcliente;
+    }
+
+    public void setIdcliente(int idcliente) {
+        this.idcliente = idcliente;
+    }
+    
+    
 
 }

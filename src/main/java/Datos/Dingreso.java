@@ -15,11 +15,14 @@ public class Dingreso {
     public String ciudad_de_recidencia;
     public String ciudad_de_procedencia;
     public int num_habitacion;
+    public String documento;
+    public String tipo_documento;
+    public String tipo_habitacion;
 
     public Dingreso() {
     }
 
-    public Dingreso(int idingreso, int idhabitacion, int idcliente, String fecha_hora_ingreso, int num_personas, String tipo_cliente, int costoalojamiento, String motivo_viaje, String estado, String ciudad_de_recidencia, String ciudad_de_procedencia, int num_habitacion) {
+    public Dingreso(int idingreso, int idhabitacion, int idcliente, String fecha_hora_ingreso, int num_personas, String tipo_cliente, int costoalojamiento, String motivo_viaje, String estado, String ciudad_de_recidencia, String ciudad_de_procedencia, int num_habitacion, String documento, String tipo_documento, String tipo_habitacion) {
         this.idingreso = idingreso;
         this.idhabitacion = idhabitacion;
         this.idcliente = idcliente;
@@ -32,7 +35,12 @@ public class Dingreso {
         this.ciudad_de_recidencia = ciudad_de_recidencia;
         this.ciudad_de_procedencia = ciudad_de_procedencia;
         this.num_habitacion = num_habitacion;
+        this.documento = documento;
+        this.tipo_documento = tipo_documento;
+        this.tipo_habitacion = tipo_habitacion;
     }
+
+    
 
     public int getIdingreso() {
         return idingreso;
@@ -128,6 +136,30 @@ public class Dingreso {
 
     public void setNum_habitacion(int num_habitacion) {
         this.num_habitacion = num_habitacion;
+    }
+
+    public String getDocumento() {
+        return documento;
+    }
+
+    public void setDocumento(String documento) {
+        this.documento = documento;
+    }
+
+    public String getTipo_documento() {
+        return tipo_documento;
+    }
+
+    public void setTipo_documento(String tipo_documento) {
+        this.tipo_documento = tipo_documento;
+    }
+
+    public String getTipo_habitacion() {
+        return tipo_habitacion;
+    }
+
+    public void setTipo_habitacion(String tipo_habitacion) {
+        this.tipo_habitacion = tipo_habitacion;
     }
 
    

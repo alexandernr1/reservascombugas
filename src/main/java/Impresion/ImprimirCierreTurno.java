@@ -66,7 +66,7 @@ public class ImprimirCierreTurno {
                 // Imprimir los datos
                 Extenso extenso = new Extenso();
                 extenso.setNumber(101.85);
-                printer.setOutSize(32, 32);
+                printer.setOutSize(32, 80);
 
                 printer.printTextWrap(1, 2, 10, 80, "HOTEL COMBUGAS S.A.S ");
                 printer.printTextWrap(2, 3, 12, 80, "NIT: 900139412-4 ");
@@ -77,24 +77,22 @@ public class ImprimirCierreTurno {
 
                 printer.printTextWrap(7, 3, 4, 80, "Fecha Hora Inicio: " + turno.getFecha_hora_inicio());
                 printer.printTextWrap(8, 3, 4, 80, "Fecha Hora Salida: " + turno.getFecha_hora_salida());
-                printer.printTextWrap(9, 3, 4, 80, "Habitaciones Ocupadas: " + turno.getHabitaciones_ocupadas());
-                printer.printTextWrap(10, 3, 4, 80, "Total Recibos: " + turno.getTotal_recibos());
 
                 printer.printTextWrap(11, 3, 4, 80, "-----------------------------------");
                 printer.printTextWrap(12, 3, 4, 80, "Total Recaudo: " + turno.getTotal_recaudo());
                 printer.printTextWrap(13, 3, 4, 80, "-----------------------------------");
-                printer.printTextWrap(14, 2, 10, 80, "Detalle valores del turno");
+                printer.printTextWrap(14, 2, 10, 80, "Detalle del recaudado");
                  printer.printTextWrap(15, 3, 4, 80, "-----------------------------------");
-                printer.printTextWrap(16, 3, 4, 80, "Base: " + turno.getBase());
-                printer.printTextWrap(17, 3, 4, 80, "Tarjetas: " + turno.getTarjetas());
-                printer.printTextWrap(18, 3, 4, 80, "Efectivo: " + turno.getEfectivo());
-                printer.printTextWrap(19, 3, 4, 80, "Transferencias: " + turno.getTransferencias());
-                printer.printTextWrap(20, 3, 4, 80, "Total Habitaciones: " + turno.getTotalhabitaciones());
-                printer.printTextWrap(21, 3, 4, 80, "Total Abonos: " + turno.getTotal_abonos());
-                printer.printTextWrap(22, 3, 4, 80, "Otros Ingresos: " + turno.getOtros_ingresos());
 
-                printer.printTextWrap(23, 3, 4, 80, "Entrega Admon: " + turno.getEntrega_admon());
-                printer.printTextWrap(24, 3, 4, 80, "Total Efectivo: " + turno.getTotal_efectivo());
+                printer.printTextWrap(17, 3, 4, 80, "Tarjetas: " + turno.getTarjetas());               
+                printer.printTextWrap(18, 3, 4, 80, "Efectivo: " + turno.getEfectivo());               
+                printer.printTextWrap(19, 3, 4, 80, "Transferencias: " + turno.getTransferencias());              
+                printer.printTextWrap(21, 3, 4, 80, "Total Abonos: " + turno.getTotal_abonos());
+                
+                printer.printTextWrap(22, 3, 4, 80, "Otros Ingresos: " + turno.getOtros_ingresos());
+                printer.printTextWrap(23, 3, 4, 80, "Total cambio habitaciones: " + turno.getTotal_efectivo());
+                printer.printTextWrap(24, 3, 4, 80, "Efectivo Liquido: " + turno.getEntrega_admon());
+               
                 printer.printTextWrap(25, 3, 4, 80, "Observaciones: " + turno.getObservaciones());
                 printer.printTextWrap(26, 3, 4, 80, "-----------------------------------");
 

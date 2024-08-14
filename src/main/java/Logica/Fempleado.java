@@ -1,7 +1,6 @@
 package Logica;
 
 import Datos.Dempleado;
-import Presentacion.Jinicioturno;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -32,10 +31,9 @@ public class Fempleado {
                 + "p.telefono, p.direccion, p.email, p.pais,p.ciudad,e.acceso,e.login,e.password,e.estado, e.eps, e.arl FROM persona p inner join empleado e "
                 + "on p.idpersona=e.idpersona WHERE numdocumento like '%"
                 + buscar + "%' order by idpersona desc";
-
-        try {
-            Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery(sSQL);
+       
+        try { Statement st = cn.createStatement();
+        ResultSet rs = st.executeQuery(sSQL);
 
             while (rs.next()) {
                 registro[0] = rs.getString("idpersona");
@@ -64,11 +62,11 @@ public class Fempleado {
         } catch (SQLException e) {
             JOptionPane.showConfirmDialog(null, e);
             return null;
-        }
+        } 
 
     }
 
-    public DefaultTableModel mostrarvista(String buscar) {
+    public DefaultTableModel mostrarvista(String buscar) throws SQLException {
         DefaultTableModel modelo;
 
         String[] titulos = {"idpersona", "Nombres", "Apellidos", "Tipodocumento", "NúmeroDocumento", "Teléfono", "Dirección", "Email", "pais", "ciudad", "Acceso", "Login", "Password", "Estado", "eps", "arl"};
@@ -82,10 +80,9 @@ public class Fempleado {
                 + "p.telefono,p.direccion,p.email,p.pais,p.ciudad,e.acceso,e.login,e.password,e.estado, e.eps, e.arl FROM persona p inner join empleado e "
                 + "on p.idpersona=e.idpersona WHERE numdocumento like '%"
                 + buscar + "%' order by idpersona desc";
-
+        Statement st = cn.createStatement();
+        ResultSet rs = st.executeQuery(sSQL);
         try {
-            Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery(sSQL);
 
             while (rs.next()) {
                 registro[0] = rs.getString("idpersona");
@@ -114,19 +111,31 @@ public class Fempleado {
         } catch (SQLException e) {
             JOptionPane.showConfirmDialog(null, e);
             return null;
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (st != null) {
+                    st.close();
+                }
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error al cerrar recursos: " + e.getMessage());
+            }
         }
-
     }
 
-    public boolean insertar(Dempleado dts) {
+    public boolean insertar(Dempleado dts) throws SQLException {
         sSQL = "insert into persona (nombres, apellidos, tipodocumento, numdocumento, telefono, direccion, email,pais,ciudad)"
                 + "values (?,?,?,?,?,?,?,?,?) ";
         sSQL2 = "insert into empleado (idpersona,acceso,login,password,estado,eps,arl)"
                 + "values ((select idpersona from persona order by idpersona desc limit 1),?,?,?,?,?,?)";
-
+        PreparedStatement pst = cn.prepareStatement(sSQL);
+        PreparedStatement pst2 = cn.prepareStatement(sSQL2);
         try {
-            PreparedStatement pst = cn.prepareStatement(sSQL);
-            PreparedStatement pst2 = cn.prepareStatement(sSQL2);
 
             pst.setString(1, dts.getNombres());
             pst.setString(2, dts.getApellidos());
@@ -145,10 +154,6 @@ public class Fempleado {
             pst2.setString(5, dts.getEps());
             pst2.setString(6, dts.getArl());
 
-            // Agrega impresiones para depuración
-            System.out.println("sSQL2: " + sSQL2);
-            System.out.println("idpersona from subquery: " + getIdPersonaFromSubquery());
-
             int n = pst.executeUpdate();
 
             if (n != 0) {
@@ -157,36 +162,67 @@ public class Fempleado {
             } else {
                 return false;
             }
-        } catch (SQLException e) {
-            JOptionPane.showConfirmDialog(null, e);
-            return false;
-        }
-    }
-
-// Agrega un método para obtener el ID de persona desde la subconsulta
-    private int getIdPersonaFromSubquery() {
-        try {
-            Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("select idpersona from persona order by idpersona desc limit 1");
-            if (rs.next()) {
-                return rs.getInt(1);
+        }  finally {
+            try {
+                if (pst != null) {
+                    pst.close();
+                }
+                if (pst2 != null) {
+                    pst2.close();
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error al cerrar recursos: " + e.getMessage());
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
-        return 0; // Valor predeterminado si no se encuentra
+       
     }
 
-    public boolean editar(Dempleado dts) {
-        sSQL = "UPDATE persona SET nombres=?,apellidos=?,tipodocumento=?,numdocumento=?,"
+//    private int getIdPersonaFromSubquery() {
+//        Statement st = null;
+//        ResultSet rs = null;
+//
+//        try {
+//            st = cn.createStatement();
+//            rs = st.executeQuery("SELECT idpersona FROM persona ORDER BY idpersona DESC LIMIT 1");
+//
+//            if (rs.next()) {
+//                return rs.getInt(1);
+//            }
+//
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//            // Opcional: Mostrar un mensaje más informativo
+//            JOptionPane.showMessageDialog(null, "Error al obtener idpersona: " + e.getMessage());
+//
+//        } finally {
+//            try {
+//                if (rs != null) {
+//                    rs.close();
+//                }
+//                if (st != null) {
+//                    st.close();
+//                }
+//            } catch (SQLException e) {
+//                e.printStackTrace();
+//                JOptionPane.showMessageDialog(null, "Error al cerrar recursos: " + e.getMessage());
+//            }
+//        }
+//
+//        return 0; // Valor predeterminado si no se encuentra
+//    }
+    public boolean editar(Dempleado dts) throws SQLException {
+        String sSQL = "UPDATE persona SET nombres=?,apellidos=?,tipodocumento=?,numdocumento=?,"
                 + "telefono=?, direccion=?,email=?,pais=?,ciudad=? WHERE idpersona=?";
 
-        sSQL2 = "UPDATE empleado SET acceso=?,login=?,password=?,estado=?,eps=?,arl=?"
+        String sSQL2 = "UPDATE empleado SET acceso=?,login=?,password=?,estado=?,eps=?,arl=?"
                 + " WHERE idpersona=?";
-        try {
 
-            PreparedStatement pst = cn.prepareStatement(sSQL);
-            PreparedStatement pst2 = cn.prepareStatement(sSQL2);
+        PreparedStatement pst = null;
+        PreparedStatement pst2 = null;
+
+        try {
+            pst = cn.prepareStatement(sSQL);
+            pst2 = cn.prepareStatement(sSQL2);
 
             pst.setString(1, dts.getNombres());
             pst.setString(2, dts.getApellidos());
@@ -218,20 +254,30 @@ public class Fempleado {
                 return false;
             }
 
-        } catch (SQLException e) {
-            JOptionPane.showConfirmDialog(null, e);
-            return false;
+        } finally {
+            try {
+                if (pst != null) {
+                    pst.close();
+                }
+                if (pst2 != null) {
+                    pst2.close();
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error al cerrar recursos: " + e.getMessage());
+            }
         }
     }
 
-    public boolean eliminar(Dempleado dts) {
+    public boolean eliminar(Dempleado dts) throws SQLException {
         sSQL = "delete from empleado where idpersona=?";
         sSQL2 = "delete from persona where idpersona=?";
 
+        PreparedStatement pst = null;
+        PreparedStatement pst2 = null;
         try {
 
-            PreparedStatement pst = cn.prepareStatement(sSQL);
-            PreparedStatement pst2 = cn.prepareStatement(sSQL2);
+            pst = cn.prepareStatement(sSQL);
+            pst2 = cn.prepareStatement(sSQL2);
 
             pst.setInt(1, dts.getIdpersona());
 
@@ -248,21 +294,36 @@ public class Fempleado {
                 return false;
             }
 
-        } catch (SQLException e) {
-            JOptionPane.showConfirmDialog(null, e);
-            return false;
+        } finally {
+            try {
+                if (pst != null) {
+                    pst.close();
+                }
+                if (pst2 != null) {
+                    pst2.close();
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error al cerrar recursos: " + e.getMessage());
+            }
         }
+
     }
+
+    public Dempleado login(String login, String password) throws SQLException {
+    String sSQL = "SELECT p.idpersona, p.nombres, p.apellidos, "
+                + "e.acceso, e.login, e.password, e.estado, e.eps, e.arl FROM persona p "
+                + "INNER JOIN empleado e ON p.idpersona = e.idpersona "
+                + "WHERE e.login = ? AND e.password = ? AND e.estado = 'A'";
     
-    public Dempleado login(String login, String password) {
-     sSQL = "select p.idpersona,p.nombres,p.apellidos,"
-                + "e.acceso,e.login,e.password,e.estado,e.eps,e.arl from persona p inner join empleado e "
-                + "on p.idpersona= e.idpersona WHERE e.login='"
-                + login + "' and e.password='" + password + "' and e.estado='A'";
+    PreparedStatement pst = null;
+    ResultSet rs = null;
 
     try {
-        Statement st = cn.createStatement();
-        ResultSet rs = st.executeQuery(sSQL);
+        pst = cn.prepareStatement(sSQL);
+        pst.setString(1, login);
+        pst.setString(2, password);
+
+        rs = pst.executeQuery();
 
         if (rs.next()) {
             int id = rs.getInt("idpersona");
@@ -273,15 +334,21 @@ public class Fempleado {
             String passwordUsuario = rs.getString("password");
             String estado = rs.getString("estado");
 
-            Dempleado empleado = new Dempleado(id, nombres, apellidos, acceso, loginUsuario, passwordUsuario, estado);
-            return empleado;
+            return new Dempleado(id, nombres, apellidos, acceso, loginUsuario, passwordUsuario, estado);
         } else {
-            // Si no se encuentra el usuario
-            return null;
+            return null; // Si no se encuentra el usuario
         }
     } catch (SQLException e) {
         JOptionPane.showMessageDialog(null, e);
         return null;
+    } finally {
+        try {
+            if (rs != null) rs.close();
+            if (pst != null) pst.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al cerrar recursos: " + e.getMessage());
+        }
     }
 }
+
 }

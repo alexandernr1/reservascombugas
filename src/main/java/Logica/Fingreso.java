@@ -5,13 +5,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-/**
- * @author Alexander Nieves
- */
 public class Fingreso {
 
     private final Cconexion mysql = new Cconexion();
@@ -22,60 +18,64 @@ public class Fingreso {
     public DefaultTableModel mostrar(String buscar) {
         DefaultTableModel modelo;
 
-        String[] titulos = {"Idingreso", "Idhabitacion", "Numero", "Idcliente", "Cliente", "clientete", "Documento",
-            "Fecha ingreso", "Numero personas", "tipo cliente", "Costoalojamiento", "Motivo viaje", "Estado", "Ciudad Recidencia", "Ciudad Procedencia"};
+        String[] titulos = {"Idingreso", "Idhabitacion", "Numero", "Idcliente", "Cliente", "Telefono", "Documento",
+            "Fecha ingreso", "Numero personas", "Tipo cliente", "Costo alojamiento", "Motivo viaje", "Estado", "Ciudad Recidencia", "Ciudad Procedencia"};
 
         String[] registro = new String[15];
 
         totalregistros = 0;
         modelo = new DefaultTableModel(null, titulos);
 
-        sSQL = "select i.idingreso,i.idhabitacion,h.numero,i.idcliente,"
-                + "(select nombres from cliente where idcliente=i.idcliente)as clienten,"
-                + "(select apellidos from cliente where idcliente=i.idcliente)as clienteap,"
-                + "(SELECT numdocumento FROM cliente WHERE idcliente = i.idcliente)AS clientenu,"
-                + "(select telefono from cliente where idcliente= i.idcliente)as clientete,"
-                + "i.fecha_hora_ingreso,i.num_personas,i.tipo_cliente,i.motivo_viaje,i.estado,i.ciudad_de_recidencia, i.ciudad_de_procedencia,"
-                + "i.costoalojamiento from ingreso i inner join habitacion h on i.idhabitacion=h.idhabitacion where (SELECT numdocumento FROM cliente WHERE idcliente = i.idcliente) like '%" + buscar + "%' order by idingreso desc";
+        sSQL = "SELECT i.idingreso, i.idhabitacion, h.numero, i.idcliente, "
+                + "(SELECT nombres FROM cliente WHERE idcliente=i.idcliente) AS clienten, "
+                + "(SELECT apellidos FROM cliente WHERE idcliente=i.idcliente) AS clienteap, "
+                + "(SELECT numdocumento FROM cliente WHERE idcliente=i.idcliente) AS clientenu, "
+                + "(SELECT telefono FROM cliente WHERE idcliente=i.idcliente) AS clientete, "
+                + "i.fecha_hora_ingreso, i.num_personas, i.tipo_cliente, i.costoalojamiento, "
+                + "i.motivo_viaje, i.estado, i.ciudad_de_recidencia, i.ciudad_de_procedencia "
+                + "FROM ingreso i "
+                + "INNER JOIN habitacion h ON i.idhabitacion=h.idhabitacion "
+                + "WHERE (SELECT numdocumento FROM cliente WHERE idcliente=i.idcliente) LIKE ? "
+                + "ORDER BY idingreso DESC";
 
-        try {
-            Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery(sSQL);
+        try (PreparedStatement pst = cn.prepareStatement(sSQL)) {
+            pst.setString(1, "%" + buscar + "%");
+            try (ResultSet rs = pst.executeQuery()) {
+                while (rs.next()) {
+                    registro[0] = rs.getString("idingreso");
+                    registro[1] = rs.getString("idhabitacion");
+                    registro[2] = rs.getString("numero");
+                    registro[3] = rs.getString("idcliente");
+                    registro[4] = rs.getString("clienten") + " " + rs.getString("clienteap");
+                    registro[5] = rs.getString("clientete");
+                    registro[6] = rs.getString("clientenu");
+                    registro[7] = rs.getString("fecha_hora_ingreso");
+                    registro[8] = rs.getString("num_personas");
+                    registro[9] = rs.getString("tipo_cliente");
+                    registro[10] = rs.getString("costoalojamiento");
+                    registro[11] = rs.getString("motivo_viaje");
+                    registro[12] = rs.getString("estado");
+                    registro[13] = rs.getString("ciudad_de_recidencia");
+                    registro[14] = rs.getString("ciudad_de_procedencia");
 
-            while (rs.next()) {
-                registro[0] = rs.getString("idingreso");
-                registro[1] = rs.getString("idhabitacion");
-                registro[2] = rs.getString("numero");
-                registro[3] = rs.getString("idcliente");
-                registro[4] = rs.getString("clienten") + " " + rs.getString("clienteap");
-                registro[5] = rs.getString("clientete");
-                registro[6] = rs.getString("clientenu");
-                registro[7] = rs.getString("fecha_hora_ingreso");
-                registro[8] = rs.getString("num_personas");
-                registro[9] = rs.getString("tipo_cliente");
-                registro[10] = rs.getString("costoalojamiento");
-                registro[11] = rs.getString("motivo_viaje");
-                registro[12] = rs.getString("estado");
-                registro[13] = rs.getString("ciudad_de_recidencia");
-                registro[14] = rs.getString("ciudad_de_procedencia");
-
-                totalregistros = totalregistros + 1;
-                modelo.addRow(registro);
-
+                    totalregistros++;
+                    modelo.addRow(registro);
+                }
             }
-            return modelo;
-
         } catch (SQLException e) {
-            JOptionPane.showConfirmDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Error al mostrar los ingresos: " + e.getMessage());
             return null;
         }
-
+        return modelo;
     }
 
     public boolean insertar(Dingreso dts) {
-        sSQL = "INSERT INTO ingreso (idhabitacion, idcliente, fecha_hora_ingreso, num_personas, tipo_cliente, costoalojamiento, motivo_viaje,estado,ciudad_de_recidencia,ciudad_de_procedencia,num_habitacion)"
-                + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        try ( PreparedStatement pst = cn.prepareStatement(sSQL)) {
+        sSQL = "INSERT INTO ingreso (idhabitacion, idcliente, fecha_hora_ingreso, num_personas, tipo_cliente, "
+                + "costoalojamiento, motivo_viaje, estado, ciudad_de_recidencia, ciudad_de_procedencia, "
+                + "num_habitacion, documento, tipo_documento, tipo_habitacion) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        try (PreparedStatement pst = cn.prepareStatement(sSQL)) {
             pst.setInt(1, dts.getIdhabitacion());
             pst.setInt(2, dts.getIdcliente());
             pst.setString(3, dts.getFecha_hora_ingreso());
@@ -87,41 +87,40 @@ public class Fingreso {
             pst.setString(9, dts.getCiudad_de_recidencia());
             pst.setString(10, dts.getCiudad_de_procedencia());
             pst.setInt(11, dts.getNum_habitacion());
+            pst.setString(12, dts.getDocumento());
+            pst.setString(13, dts.getTipo_documento());
+            pst.setString(14, dts.getTipo_habitacion());
 
             int n = pst.executeUpdate();
-            // JOptionPane.showMessageDialog(null, "DATOS ALMACENADOS CORRECTAMENTE");
             return n != 0;
         } catch (SQLException e) {
-            JOptionPane.showConfirmDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Error al insertar el ingreso: " + e.getMessage());
             return false;
         }
     }
 
     public boolean eliminar(Dingreso dts) {
-        sSQL = "delete from ingreso where idingreso=?";
+        sSQL = "DELETE FROM ingreso WHERE idingreso = ?";
 
-        try {
-
-            PreparedStatement pst = cn.prepareStatement(sSQL);
-
+        try (PreparedStatement pst = cn.prepareStatement(sSQL)) {
             pst.setInt(1, dts.getIdingreso());
 
             int n = pst.executeUpdate();
-
             return n != 0;
-
         } catch (SQLException e) {
-            JOptionPane.showConfirmDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Error al eliminar el ingreso: " + e.getMessage());
             return false;
         }
     }
 
     public boolean editar(Dingreso dts) {
-        sSQL = "update ingreso set idhabitacion=?,idcliente=?,fecha_hora_ingreso=?,num_personas=?,tipo_cliente=?,costoalojamiento=?,motivo_viaje=?,estado=?,ciudad_de_recidencia=?,ciudad_de_procedencia=?,num_habitacion=?"
-                + " where idingreso=?";
+        sSQL = "UPDATE ingreso SET idhabitacion = ?, idcliente = ?, fecha_hora_ingreso = ?, num_personas = ?, "
+                + "tipo_cliente = ?, costoalojamiento = ?, motivo_viaje = ?, estado = ?, "
+                + "ciudad_de_recidencia = ?, ciudad_de_procedencia = ?, num_habitacion = ?, "
+                + "documento = ?, tipo_documento = ?, tipo_habitacion = ? "
+                + "WHERE idingreso = ?";
 
-        try {
-            PreparedStatement pst = cn.prepareStatement(sSQL);
+        try (PreparedStatement pst = cn.prepareStatement(sSQL)) {
             pst.setInt(1, dts.getIdhabitacion());
             pst.setInt(2, dts.getIdcliente());
             pst.setString(3, dts.getFecha_hora_ingreso());
@@ -133,77 +132,65 @@ public class Fingreso {
             pst.setString(9, dts.getCiudad_de_recidencia());
             pst.setString(10, dts.getCiudad_de_procedencia());
             pst.setInt(11, dts.getNum_habitacion());
+            pst.setString(12, dts.getDocumento());
+            pst.setString(13, dts.getTipo_documento());
+            pst.setString(14, dts.getTipo_habitacion());
 
-            pst.setInt(12, dts.getIdingreso());
+            pst.setInt(15, dts.getIdingreso());
 
             int n = pst.executeUpdate();
-
             return n != 0;
-
         } catch (SQLException e) {
-            JOptionPane.showConfirmDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Error al editar el ingreso: " + e.getMessage());
             return false;
         }
     }
 
     public boolean finalizar(Dingreso dts) {
-        sSQL = "update ingreso set estado='Finalizado'"
-                + " where idingreso=?";
-        //alt + 39
+        sSQL = "UPDATE ingreso SET estado = 'Finalizado' WHERE idingreso = ?";
 
-        try {
-            PreparedStatement pst = cn.prepareStatement(sSQL);
-
+        try (PreparedStatement pst = cn.prepareStatement(sSQL)) {
             pst.setInt(1, dts.getIdingreso());
 
             int n = pst.executeUpdate();
-
             return n != 0;
-
         } catch (SQLException e) {
-            JOptionPane.showConfirmDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Error al finalizar el ingreso: " + e.getMessage());
             return false;
         }
     }
 
     public boolean activar(Dingreso dts) {
-        sSQL = "update ingreso set estado='Activo'"
-                + " where idingreso=?";
-        //alt + 39
+        sSQL = "UPDATE ingreso SET estado = 'Activo' WHERE idingreso = ?";
 
-        try {
-            PreparedStatement pst = cn.prepareStatement(sSQL);
-
+        try (PreparedStatement pst = cn.prepareStatement(sSQL)) {
             pst.setInt(1, dts.getIdingreso());
 
             int n = pst.executeUpdate();
-
             return n != 0;
-
         } catch (SQLException e) {
-            JOptionPane.showConfirmDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Error al activar el ingreso: " + e.getMessage());
             return false;
         }
     }
 
     public int obtenerIdHabitacionAnterior(int idIngreso) {
         sSQL = "SELECT idhabitacion FROM ingreso WHERE idingreso = ?";
-        int idHabitacion = -1; // Valor predeterminado en caso de error o no encontrado
+        int idHabitacion = -1;
 
-        try {
-            PreparedStatement pst = cn.prepareStatement(sSQL);
+        try (PreparedStatement pst = cn.prepareStatement(sSQL)) {
             pst.setInt(1, idIngreso);
-            ResultSet rs = pst.executeQuery();
-
-            if (rs.next()) {
-                idHabitacion = rs.getInt("idhabitacion");
+            try (ResultSet rs = pst.executeQuery()) {
+                if (rs.next()) {
+                    idHabitacion = rs.getInt("idhabitacion");
+                }
             }
-            rs.close();
-            pst.close();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Error al obtener el ID de la habitación anterior: " + e.getMessage());
         }
 
         return idHabitacion;
     }
 }
+
+

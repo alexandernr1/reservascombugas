@@ -4,6 +4,9 @@ import Datos.Dempleado;
 import Logica.Fempleado;
 import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -23,18 +26,26 @@ public final class LoguinDeSistema extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        txtusuario = new javax.swing.JTextField();
-        txtpassword = new javax.swing.JPasswordField();
-        passwordLabel = new javax.swing.JLabel();
-        usuarioLabel = new javax.swing.JLabel();
-        btnIngresar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        usuarioLabel = new javax.swing.JLabel();
+        txtusuario = new javax.swing.JTextField();
+        passwordLabel = new javax.swing.JLabel();
+        txtpassword = new javax.swing.JPasswordField();
+        btnIngresar = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+
+        jLabel2.setText("jLabel2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(0, 102, 153));
+        jPanel1.setBackground(new java.awt.Color(0, 204, 204));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 260, 340));
+
+        usuarioLabel.setFont(new java.awt.Font("Serif", 1, 18)); // NOI18N
+        usuarioLabel.setText("Usuario:");
 
         txtusuario.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         txtusuario.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -43,7 +54,9 @@ public final class LoguinDeSistema extends javax.swing.JFrame {
                 txtusuarioActionPerformed(evt);
             }
         });
-        jPanel1.add(txtusuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 140, 160, 30));
+
+        passwordLabel.setFont(new java.awt.Font("Serif", 1, 18)); // NOI18N
+        passwordLabel.setText("Password:");
 
         txtpassword.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         txtpassword.addActionListener(new java.awt.event.ActionListener() {
@@ -56,39 +69,67 @@ public final class LoguinDeSistema extends javax.swing.JFrame {
                 txtpasswordKeyPressed(evt);
             }
         });
-        jPanel1.add(txtpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 190, 160, 30));
 
-        passwordLabel.setFont(new java.awt.Font("Serif", 1, 18)); // NOI18N
-        passwordLabel.setText("Password:");
-        jPanel1.add(passwordLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 190, -1, -1));
-
-        usuarioLabel.setFont(new java.awt.Font("Serif", 1, 18)); // NOI18N
-        usuarioLabel.setText("Usuario:");
-        jPanel1.add(usuarioLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, -1, -1));
-
+        btnIngresar.setBackground(new java.awt.Color(0, 204, 204));
         btnIngresar.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         btnIngresar.setText("Ingresar");
+        btnIngresar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnIngresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIngresarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnIngresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 260, -1, -1));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Desktop\\reservascombugas\\reservascombugas\\src\\main\\java\\File\\inicio de sesion.png")); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 382));
+        jLabel3.setFont(new java.awt.Font("Segoe UI Historic", 1, 36)); // NOI18N
+        jLabel3.setText("LOGIN");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addComponent(usuarioLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtusuario, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(passwordLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtpassword, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(77, 77, 77)
+                        .addComponent(jLabel3))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(82, 82, 82)
+                        .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtusuario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(usuarioLabel))
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtpassword, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(passwordLabel))
+                .addGap(57, 57, 57)
+                .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(83, 83, 83))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -140,7 +181,9 @@ public final class LoguinDeSistema extends javax.swing.JFrame {
     } catch (HeadlessException e) {
         System.out.println("ERROR DE LOGIN");
         JOptionPane.showMessageDialog(rootPane, "Ocurrió un error durante el login.", "Error", JOptionPane.ERROR_MESSAGE);
-    }
+    }   catch (SQLException ex) {
+            Logger.getLogger(LoguinDeSistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnIngresarActionPerformed
 
     private void txtpasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtpasswordKeyPressed
@@ -181,7 +224,9 @@ public final class LoguinDeSistema extends javax.swing.JFrame {
     } catch (HeadlessException e) {
         System.out.println("ERROR DE LOGIN");
         JOptionPane.showMessageDialog(rootPane, "Ocurrió un error durante el login.", "Error", JOptionPane.ERROR_MESSAGE);
-    }
+    }       catch (SQLException ex) {
+                Logger.getLogger(LoguinDeSistema.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_txtpasswordKeyPressed
 
@@ -222,6 +267,8 @@ public final class LoguinDeSistema extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnIngresar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel passwordLabel;
     private javax.swing.JPasswordField txtpassword;

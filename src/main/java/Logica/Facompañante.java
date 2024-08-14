@@ -16,22 +16,21 @@ public class Facompañante {
     private String sSQL = "";
     public Integer totalregistros;
 
-    public DefaultTableModel mostraracompañante(String buscar) {
+    public DefaultTableModel mostraracompañante(String buscar)  {
         DefaultTableModel modelo;
 
-        String[] titulos = {"idacompañante", "Idcliente", "Nombre Apellido", "Tipo documento", "Documento", "Parentesco", "Numero habita", "checkin", "Huesped Principal", "Residencia", "Procedencia"};
+        String[] titulos = {"idacompañante", "Idcliente", "Nombre Apellido", "Tipo documento", "Documento", "Parentesco", "Numero habita", "checkin", "Huesped Principal", "Residencia", "Procedencia", "Estado"};
 
-        String[] registro = new String[11];
+        String[] registro = new String[12];
 
         totalregistros = 0;
         modelo = new DefaultTableModel(null, titulos);
 
-        sSQL = "select * from acompañantes where documento like '%" + buscar + "%' order by idcliente";
+        sSQL = "select * from acompañantes where num_huesped_principal like '%" + buscar + "%' order by idcliente";
 
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sSQL);
-
             while (rs.next()) {
                 registro[0] = rs.getString("idacompañante");
                 registro[1] = rs.getString("idcliente");
@@ -44,6 +43,7 @@ public class Facompañante {
                 registro[8] = rs.getString("num_huesped_principal");
                 registro[9] = rs.getString("ciudad_de_residencia");
                 registro[10] = rs.getString("ciudad_de_procedencia");
+                registro[11] = rs.getString("estado");
 
                 totalregistros = totalregistros + 1;
                 modelo.addRow(registro);
@@ -54,15 +54,14 @@ public class Facompañante {
         } catch (SQLException e) {
             JOptionPane.showConfirmDialog(null, e);
             return null;
-        }
+        } 
     }
 
-    public boolean insertar(Dacompañante dts) {
-        sSQL = "insert into acompañantes (idcliente,nombre_apellido, tipo_documento, documento, parentesco, num_habitacion, checkin, num_huesped_principal, ciudad_de_residencia,ciudad_de_procedencia)"
-                + "values (?,?,?,?,?,?,?,?,?,?)";
-        try {
-
-            PreparedStatement pst = cn.prepareStatement(sSQL);
+    public boolean insertar(Dacompañante dts)  {
+        sSQL = "insert into acompañantes (idcliente,nombre_apellido, tipo_documento, documento, parentesco, num_habitacion, checkin, num_huesped_principal, ciudad_de_residencia,ciudad_de_procedencia, estado)"
+                + "values (?,?,?,?,?,?,?,?,?,?,?)";
+        
+        try {PreparedStatement pst = cn.prepareStatement(sSQL);
             pst.setInt(1, dts.getIdcliente());
             pst.setString(2, dts.getNombre_apellido());
             pst.setString(3, dts.getTipo_documento());
@@ -73,6 +72,7 @@ public class Facompañante {
             pst.setInt(8, dts.getNum_huesped_principal());
             pst.setString(9, dts.getCiudad_de_residencia());
             pst.setString(10, dts.getCiudad_de_procedencia());
+            pst.setString(11, dts.getEstado());
 
             int n = pst.executeUpdate();
 
@@ -81,15 +81,34 @@ public class Facompañante {
         } catch (SQLException e) {
             JOptionPane.showConfirmDialog(null, e);
             return false;
-        }
+        } 
+
+        
     }
 
     public boolean eliminar(Dacompañante dts) {
         sSQL = "delete from acompañantes where idacompañante=?";
 
-        try {
+       
+        try { PreparedStatement pst = cn.prepareStatement(sSQL);
+            pst.setInt(1, dts.getIdacompañante());
 
-            PreparedStatement pst = cn.prepareStatement(sSQL);
+            int n = pst.executeUpdate();
+
+            return n != 0;
+
+        } catch (SQLException e) {
+            JOptionPane.showConfirmDialog(null, e);
+            return false;
+        } 
+    }
+
+    public boolean SalidaAcompañante(Dacompañante dts)  {
+        sSQL = "UPDATE acompañantes SET estado = 'Finalizado' "
+                + "WHERE idacompañante = ?";
+
+       
+        try { PreparedStatement pst = cn.prepareStatement(sSQL);
 
             pst.setInt(1, dts.getIdacompañante());
 
@@ -100,6 +119,6 @@ public class Facompañante {
         } catch (SQLException e) {
             JOptionPane.showConfirmDialog(null, e);
             return false;
-        }
+        } 
     }
 }

@@ -516,7 +516,7 @@
               <Font name="Serif" size="14" style="1"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\Usuario\Desktop\reservascombugas\Images\nuevo.GIF"/>
+              <Image iconType="3" name="/Imagenes/nuevo.GIF"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Nuevo"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -538,7 +538,7 @@
               <Font name="Serif" size="14" style="1"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\Usuario\Desktop\reservascombugas\Images\guardar.png"/>
+              <Image iconType="3" name="/Imagenes/guardar.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Guardar"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -681,7 +681,7 @@
               <Font name="Serif" size="14" style="1"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\Usuario\Desktop\reservascombugas\Images\buscar.png"/>
+              <Image iconType="3" name="/Imagenes/buscar.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Buscar"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -703,7 +703,7 @@
               <Font name="Serif" size="14" style="1"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\Usuario\Desktop\reservascombugas\Images\eliminar.png"/>
+              <Image iconType="3" name="/Imagenes/eliminar.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Eliminar"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">

@@ -15,11 +15,12 @@ public class Dacompañante {
     public int num_huesped_principal;
     public String ciudad_de_residencia;
     public String ciudad_de_procedencia;
+    public String estado;
 
     public Dacompañante() {
     }
 
-    public Dacompañante(int idacompañante, int idcliente, String nombre_apellido, String tipo_documento, int documento, String parentesco, int num_habitacion, Date checkin, int num_huesped_principal, String ciudad_de_residencia, String ciudad_de_procedencia) {
+    public Dacompañante(int idacompañante, int idcliente, String nombre_apellido, String tipo_documento, int documento, String parentesco, int num_habitacion, Date checkin, int num_huesped_principal, String ciudad_de_residencia, String ciudad_de_procedencia, String estado) {
         this.idacompañante = idacompañante;
         this.idcliente = idcliente;
         this.nombre_apellido = nombre_apellido;
@@ -31,6 +32,7 @@ public class Dacompañante {
         this.num_huesped_principal = num_huesped_principal;
         this.ciudad_de_residencia = ciudad_de_residencia;
         this.ciudad_de_procedencia = ciudad_de_procedencia;
+        this.estado = estado;
                 
     }
 
@@ -120,6 +122,14 @@ public class Dacompañante {
 
     public void setCiudad_de_procedencia(String ciudad_de_procedencia) {
         this.ciudad_de_procedencia = ciudad_de_procedencia;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
 }

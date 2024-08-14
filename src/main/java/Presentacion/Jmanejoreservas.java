@@ -192,7 +192,7 @@ public final class Jmanejoreservas extends javax.swing.JFrame {
         txtnumnoches.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
         jLabel8.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
-        jLabel8.setText("Costo Alojameinto:");
+        jLabel8.setText("Costo Alojamiento:");
 
         txtcostoalojamiento.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
@@ -207,6 +207,11 @@ public final class Jmanejoreservas extends javax.swing.JFrame {
             }
         });
 
+        cajanumero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cajanumeroActionPerformed(evt);
+            }
+        });
         cajanumero.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 cajanumeroKeyPressed(evt);
@@ -425,19 +430,19 @@ public final class Jmanejoreservas extends javax.swing.JFrame {
             .addGroup(JpnreservaLayout.createSequentialGroup()
                 .addGroup(JpnreservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(JpnreservaLayout.createSequentialGroup()
-                        .addGroup(JpnreservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(JpnreservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(JpnreservaLayout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(dcfechareserva, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(dcfechareserva, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel10))
                             .addGroup(JpnreservaLayout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(jLabel3)))
-                        .addGap(6, 6, Short.MAX_VALUE)
-                        .addGroup(JpnreservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel20, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel20)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(JpnreservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(comtiporeserva, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(comestado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -462,23 +467,24 @@ public final class Jmanejoreservas extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(JpnreservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(JpnreservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel10)
-                        .addComponent(comestado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(comestado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel10))
                     .addGroup(JpnreservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(dcfechareserva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel2)))
                 .addGroup(JpnreservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(JpnreservaLayout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addGroup(JpnreservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel20)
-                            .addComponent(comtiporeserva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(JpnreservaLayout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addGroup(JpnreservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(dcfechaingreso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))))
-                .addGap(18, 18, 18)
+                            .addComponent(jLabel3))
+                        .addGap(34, 34, 34))
+                    .addGroup(JpnreservaLayout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addGroup(JpnreservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(comtiporeserva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel20))
+                        .addGap(18, 18, 18)))
                 .addGroup(JpnreservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(JpnreservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -531,7 +537,7 @@ public final class Jmanejoreservas extends javax.swing.JFrame {
 
         btnguardar.setBackground(new java.awt.Color(204, 204, 204));
         btnguardar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnguardar.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Desktop\\reservascombugas\\Images\\guardar.png")); // NOI18N
+        btnguardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/guardar.png"))); // NOI18N
         btnguardar.setText("GUARDAR");
         btnguardar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnguardar.addActionListener(new java.awt.event.ActionListener() {
@@ -542,7 +548,7 @@ public final class Jmanejoreservas extends javax.swing.JFrame {
 
         btnlimpiar.setBackground(new java.awt.Color(204, 204, 204));
         btnlimpiar.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
-        btnlimpiar.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Desktop\\reservascombugas\\Images\\nuevo.GIF")); // NOI18N
+        btnlimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/nuevo.GIF"))); // NOI18N
         btnlimpiar.setText("NUEVO");
         btnlimpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -568,8 +574,8 @@ public final class Jmanejoreservas extends javax.swing.JFrame {
                         .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 620, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jlnuevoLayout.createSequentialGroup()
-                        .addComponent(btnlimpiar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnlimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnguardar, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(7, Short.MAX_VALUE))
         );
@@ -806,6 +812,10 @@ public final class Jmanejoreservas extends javax.swing.JFrame {
 
 // TODO add your handling code here:
     }//GEN-LAST:event_cajanumeroKeyPressed
+
+    private void cajanumeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cajanumeroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cajanumeroActionPerformed
 
     /**
      * @param args the command line arguments

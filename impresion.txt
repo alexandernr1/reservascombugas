@@ -1,33 +1,33 @@
-                                
-          HOTEL COMBUGAS S.A.S  
-            NIT: 900139412-4    
-              TEL:3205417916    
-               CARTAGENA        
-        DG 31D N.32A-25B.TERNERA
-    -----------------------------------
-    Fecha Hora Inicio: 15-07-2024 12:08 PM
-    Fecha Hora Salida: 15-07-2024 12:08 PM
-    Habitaciones Ocupadas: 4    
-    Total Recibos: 0            
-    -----------------------------------
-    Total Recaudo: 0            
-    -----------------------------------
-          Detalle valores del turno
-    -----------------------------------
-    Base: 150000                
-    Tarjetas: 0                 
-    Efectivo: 0                 
-    Transferencias: 0           
-    Total Habitaciones: 240000.0
-    Total Abonos: 0             
-    Otros Ingresos: 0           
-    Entrega Admon: 0            
-    Total Efectivo: 0           
-    Observaciones:              
-    -----------------------------------
-    Empleado: Alexander   Nieves Romero
-    Turno: Turno 1 15/07/2024   
-    Numero Turno: 42            
-    -----------------------------------
-                                
+                                                                                
+          HOTEL COMBUGAS S.A.S                                                  
+            NIT: 900139412-4                                                    
+              TEL:3205417916                                                    
+               CARTAGENA                                                        
+        DG 31D N.32A-25B.TERNERA                                                
+    -----------------------------------                                         
+    Fecha Hora Inicio: 10-08-2024 10:54 AM                                      
+    Fecha Hora Salida: 10-08-2024 11:11 AM                                      
+                                                                                
+                                                                                
+    -----------------------------------                                         
+    Total Recaudo: 78540                                                        
+    -----------------------------------                                         
+          Detalle del recaudado                                                 
+    -----------------------------------                                         
+                                                                                
+    Tarjetas: 0                                                                 
+    Efectivo: 78540                                                             
+    Transferencias: 0                                                           
+                                                                                
+    Total Abonos: 0                                                             
+    Otros Ingresos: 0                                                           
+    Total cambio habitaciones: 0                                                
+    Efectivo Liquido: 78540                                                     
+    Observaciones:                                                              
+    -----------------------------------                                         
+    Empleado: alexander nieves romero                                           
+    Turno: Turno 1 10/08/2024                                                   
+    Numero Turno: 1                                                             
+    -----------------------------------                                         
+                                                                                
 VAVA

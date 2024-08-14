@@ -166,7 +166,7 @@ public class Jhabitaciones extends javax.swing.JInternalFrame {
 
         btnbuscar.setBackground(new java.awt.Color(153, 153, 153));
         btnbuscar.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
-        btnbuscar.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Desktop\\reservascombugas\\Images\\buscar.png")); // NOI18N
+        btnbuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/buscar.png"))); // NOI18N
         btnbuscar.setText("Buscar");
         btnbuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -176,7 +176,7 @@ public class Jhabitaciones extends javax.swing.JInternalFrame {
 
         btneliminar.setBackground(new java.awt.Color(153, 153, 153));
         btneliminar.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
-        btneliminar.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Desktop\\reservascombugas\\Images\\eliminar.png")); // NOI18N
+        btneliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/eliminar.png"))); // NOI18N
         btneliminar.setText("Eliminar");
         btneliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -294,7 +294,7 @@ public class Jhabitaciones extends javax.swing.JInternalFrame {
 
         btnnuevo.setBackground(new java.awt.Color(153, 153, 153));
         btnnuevo.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
-        btnnuevo.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Desktop\\reservascombugas\\Images\\nuevo.GIF")); // NOI18N
+        btnnuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/nuevo.GIF"))); // NOI18N
         btnnuevo.setText("Nuevo");
         btnnuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -304,7 +304,7 @@ public class Jhabitaciones extends javax.swing.JInternalFrame {
 
         btnguardar.setBackground(new java.awt.Color(153, 153, 153));
         btnguardar.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
-        btnguardar.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Desktop\\reservascombugas\\Images\\guardar.png")); // NOI18N
+        btnguardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/guardar.png"))); // NOI18N
         btnguardar.setText("Guardar");
         btnguardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -491,22 +491,24 @@ public class Jhabitaciones extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btneliminarActionPerformed
 
+//    private Connection connection = new Cconexion().establecerConexion();
+    
     private void btnReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteActionPerformed
-        /*   Map p=new HashMap();
-        JasperReport report;
-        JasperPrint print;
-
-        try {
-            report=JasperCompileManager.compileReport(new File("").getAbsolutePath()+
-                "/src/Reportes/rpHabitaciones.jrxml");
-            print=JasperFillManager.fillReport(report, p,connection);
-            JasperViewer view=new JasperViewer(print,false);
-            view.setTitle("Reporte de Habitaciones");
-            view.setVisible(true);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
+//          Map p=new HashMap();
+//        JasperReport report;
+//        JasperPrint print;
+//
+//        try {
+//            report=JasperCompileManager.compileReport(new File("").getAbsolutePath()+
+//                "/src/Reportes/rpHabitaciones.jrxml");
+//            print=JasperFillManager.fillReport(report, p,connection);
+//            JasperViewer view=new JasperViewer(print,false);
+//            view.setTitle("Reporte de Habitaciones");
+//            view.setVisible(true);
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
     }//GEN-LAST:event_btnReporteActionPerformed
 

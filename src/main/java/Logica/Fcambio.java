@@ -16,7 +16,7 @@ public class Fcambio {
     private String sSQL = "";
     public Integer totalregistros;
 
-    public DefaultTableModel mostrarcambio(String buscar) {
+    public DefaultTableModel mostrarcambio(String buscar)  {
         DefaultTableModel modelo;
 
         String[] titulos = {"idcambio", "idingreso", "Idhabitacion", "Empleado", "Fecha nuevoingreso", "Numero turno", "Numero habita", "Tipo habita", "Costoalojamoento", "Documento", "Cliente", "Telefono", "Tipo cliente", "Estado", "Numpersona", "Deuda anterior"};
@@ -32,10 +32,9 @@ public class Fcambio {
                 + "FROM cambio_habitacion c "
                 + "WHERE c.numero_habita LIKE '%" + buscar + "%' "
                 + "ORDER BY c.idcambio DESC";
-
-        try {
-            Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery(sSQL);
+       
+        try { Statement st = cn.createStatement();
+        ResultSet rs = st.executeQuery(sSQL);
 
             while (rs.next()) {
                 registro[0] = rs.getString("idcambio");
@@ -64,7 +63,7 @@ public class Fcambio {
         } catch (SQLException e) {
             JOptionPane.showConfirmDialog(null, e);
             return null;
-        }
+        } 
 
     }
 
@@ -73,8 +72,8 @@ public class Fcambio {
                 + "numero_habita, tipo_habita, costoalojamiento, documento, cliente, telefono, "
                 + "tipo_cliente, estado, numpersona, deuda_anterior)"
                 + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-        try ( PreparedStatement pst = cn.prepareStatement(sSQL)) {
+        
+        try {PreparedStatement pst = cn.prepareStatement(sSQL);
             pst.setInt(1, dts.getIdingreso());
             pst.setInt(2, dts.getIdhabitacion());
             pst.setString(3, dts.getEmpleado());
@@ -97,16 +96,17 @@ public class Fcambio {
         } catch (SQLException e) {
             JOptionPane.showConfirmDialog(null, e);
             return false;
-        }
-        
+        } 
+
     }
+
     public boolean finalizar(Dcambio dts) {
         sSQL = "update cambio_habitacion set estado='Finalizado'"
                 + " where numero_habita=?";
         //alt + 39
-
-        try {
-            PreparedStatement pst = cn.prepareStatement(sSQL);
+        
+        try {PreparedStatement pst = cn.prepareStatement(sSQL);
+            
 
             pst.setInt(1, dts.getNumero_habita());
 
@@ -117,53 +117,8 @@ public class Fcambio {
         } catch (SQLException e) {
             JOptionPane.showConfirmDialog(null, e);
             return false;
-        }
+        } 
     }
 
 
-//    public boolean eliminar(Dingreso dts) {
-//        sSQL = "delete from ingreso where idingreso=?";
-//
-//        try {
-//
-//            PreparedStatement pst = cn.prepareStatement(sSQL);
-//
-//            pst.setInt(1, dts.getIdingreso());
-//
-//            int n = pst.executeUpdate();
-//
-//            return n != 0;
-//
-//        } catch (SQLException e) {
-//            JOptionPane.showConfirmDialog(null, e);
-//            return false;
-//        }
-//    }
-//
-//    public boolean editar(Dingreso dts) {
-//        sSQL = "update ingreso set idhabitacion=?,idcliente=?,fecha_hora_ingreso=?,num_personas=?,tipo_cliente=?,costoalojamiento=?,motivo_viaje=?,estado=?"
-//                + " where idingreso=?";
-//
-//        try {
-//            PreparedStatement pst = cn.prepareStatement(sSQL);
-//            pst.setInt(1, dts.getIdhabitacion());
-//            pst.setInt(2, dts.getIdcliente());
-//            pst.setString(3, dts.getFecha_hora_ingreso());
-//            pst.setInt(4, dts.getNum_personas());
-//            pst.setString(5, dts.getTipo_cliente());
-//            pst.setDouble(6, dts.getCostoalojamiento());
-//            pst.setString(7, dts.getMotivo_viaje());
-//            pst.setString(8, dts.getEstado());
-//
-//            pst.setInt(9, dts.getIdingreso());
-//
-//            int n = pst.executeUpdate();
-//
-//            return n != 0;
-//
-//        } catch (SQLException e) {
-//            JOptionPane.showConfirmDialog(null, e);
-//            return false;
-//        }
-//    }
 }

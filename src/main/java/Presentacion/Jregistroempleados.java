@@ -2,6 +2,9 @@ package Presentacion;
 
 import Datos.Dempleado;
 import Logica.Fempleado;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -268,7 +271,7 @@ public final class Jregistroempleados extends javax.swing.JInternalFrame {
 
         btnnuevo.setBackground(new java.awt.Color(204, 204, 204));
         btnnuevo.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
-        btnnuevo.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Desktop\\reservascombugas\\Images\\nuevo.GIF")); // NOI18N
+        btnnuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/nuevo.GIF"))); // NOI18N
         btnnuevo.setText("Nuevo");
         btnnuevo.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnnuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -279,7 +282,7 @@ public final class Jregistroempleados extends javax.swing.JInternalFrame {
 
         btnguardar.setBackground(new java.awt.Color(204, 204, 204));
         btnguardar.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
-        btnguardar.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Desktop\\reservascombugas\\Images\\guardar.png")); // NOI18N
+        btnguardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/guardar.png"))); // NOI18N
         btnguardar.setText("Guardar");
         btnguardar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnguardar.addActionListener(new java.awt.event.ActionListener() {
@@ -505,7 +508,7 @@ public final class Jregistroempleados extends javax.swing.JInternalFrame {
 
         btnbuscar.setBackground(new java.awt.Color(204, 204, 204));
         btnbuscar.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
-        btnbuscar.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Desktop\\reservascombugas\\Images\\buscar.png")); // NOI18N
+        btnbuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/buscar.png"))); // NOI18N
         btnbuscar.setText("Buscar");
         btnbuscar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnbuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -516,7 +519,7 @@ public final class Jregistroempleados extends javax.swing.JInternalFrame {
 
         btneliminar.setBackground(new java.awt.Color(204, 204, 204));
         btneliminar.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
-        btneliminar.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Desktop\\reservascombugas\\Images\\eliminar.png")); // NOI18N
+        btneliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/eliminar.png"))); // NOI18N
         btneliminar.setText("Eliminar");
         btneliminar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btneliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -718,19 +721,27 @@ public final class Jregistroempleados extends javax.swing.JInternalFrame {
         dts.setEstado((String) cboestado.getItemAt(seleccionado));
 
         if (accion.equals("guardar")) {
-            if (func.insertar(dts)) {
-                JOptionPane.showMessageDialog(rootPane, "el empleado fue registrado satisfactoriamente");
-                mostrar("");
-                inhabilitar();
+            try {
+                if (func.insertar(dts)) {
+                    JOptionPane.showMessageDialog(rootPane, "el empleado fue registrado satisfactoriamente");
+                    mostrar("");
+                    inhabilitar();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(Jregistroempleados.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         } else if (accion.equals("editar")) {
             dts.setIdpersona(Integer.parseInt(txtidpersona.getText()));
 
-            if (func.editar(dts)) {
-                JOptionPane.showMessageDialog(rootPane, "El empleado fue Editado satisfactoriamente");
-                mostrar("");
-                inhabilitar();
+            try {
+                if (func.editar(dts)) {
+                    JOptionPane.showMessageDialog(rootPane, "El empleado fue Editado satisfactoriamente");
+                    mostrar("");
+                    inhabilitar();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(Jregistroempleados.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
@@ -755,7 +766,11 @@ public final class Jregistroempleados extends javax.swing.JInternalFrame {
                 Dempleado dts = new Dempleado();
 
                 dts.setIdpersona(Integer.parseInt(txtidpersona.getText()));
-                func.eliminar(dts);
+                try {
+                    func.eliminar(dts);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Jregistroempleados.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 mostrar("");
                 inhabilitar();
 

@@ -10,29 +10,33 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
 public final class Jpago extends javax.swing.JFrame {
-
+    
     Tiempopro time = new Tiempopro();
-
+    
     @SuppressWarnings("static-access")
     public Jpago() {
         initComponents();
         setLocationRelativeTo(null);
         setTitle("PAGOS");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        mostrar("");
+        
         inhabilitar();
         mostrarTiempo();
         generarnumero();
         txtefectivo.setText("0");
         txttarjeta.setText("0");
         txttransferencia.setText("0");
-
+        txtreten_35.setText("0");
+        txtreten4.setText("0");
+        
         Jsalidahuesped pago = new Jsalidahuesped();
-
-        txtcliente.setText(pago.cliente);
+        
+        txtcliente.setText(pago.razon_social);
+        txtdocumento.setText(pago.documento);
+        txtcorreo.setText(pago.correo);
+        txtnumero_noches.setText(pago.numero_noches);
         txthabitacion.setText(pago.habitacion);
         txtdescuentos.setText(pago.totaldescuentos);
         txtcobrosfraccion.setText(pago.cobros_extra);
@@ -40,73 +44,59 @@ public final class Jpago extends javax.swing.JFrame {
         txtempleado.setText(pago.empleado);
         txtnumero_turno.setText(pago.numero_turno);
         txtdeudaanterior.setText(pago.deuda_anterior);
-
+        txtidcliente.setText(pago.idcliente);
+        calulo19();
+        
     }
     private String accion = "guardar";
-
+    
     private void mostrarTiempo() {
-
+        
         txtfechaemision.setText(time.getFechacomp());
     }
-
+    
     public void generarnumero() {
         Fpago func = new Fpago();
         int numeroTurno = func.generarComprobante();
         String numero = Integer.toString(numeroTurno);
         txtnumcomprobante.setText(numero);
     }
-
-    void ocultar_columnas() {
-        tablalistado.getColumnModel().getColumn(0).setMaxWidth(0);
-        tablalistado.getColumnModel().getColumn(0).setMinWidth(0);
-        tablalistado.getColumnModel().getColumn(0).setPreferredWidth(0);
-
-        tablalistado.getColumnModel().getColumn(1).setMaxWidth(0);
-        tablalistado.getColumnModel().getColumn(1).setMinWidth(0);
-        tablalistado.getColumnModel().getColumn(1).setPreferredWidth(0);
-    }
-
+    
     void inhabilitar() {
         txtidpago.setVisible(false);
-
+        
     }
+    
     private void limpiarCajas() {
-    txtidpago.setText("");
+        txtidpago.setText("");
 //    txtidsalida.setText("");
-    txtcliente.setText("");
-    txthabitacion.setText("");
-    txtfechaemision.setText("");
-    cbotipocomprobante.setSelectedIndex(0); // Ajusta según cómo esté implementado tu JComboBox
-    txtnumcomprobante.setText("");
-    txtefectivo.setText("");
-    txttarjeta.setText("");
-    txttransferencia.setText("");
-    txtdescuentos.setText("");
-    txtcobrosfraccion.setText("");
-    txtvaloracobrar.setText("");
-    txtnetoapagar.setText("");
-    txtempleado.setText("");
-    txtnumero_turno.setText("");
-    txtdeudaanterior.setText("");
-    cboestado.setSelectedIndex(0); // Ajusta según cómo esté implementado tu JComboBox
-}
-
-
-    void mostrar(String buscar) {
-        try {
-            DefaultTableModel modelo;
-            Fpago func = new Fpago();
-            modelo = func.mostrar(buscar);
-
-            tablalistado.setModel(modelo);
-            ocultar_columnas();
-            lbltotalregistros.setText("Total Pagos " + Integer.toString(func.totalregistros));
-
-        } catch (Exception e) {
-            JOptionPane.showConfirmDialog(rootPane, e);
-        }
+        txtcliente.setText("");
+        txthabitacion.setText("");
+        txtfechaemision.setText("");
+        cbotipocomprobante.setSelectedIndex(0);
+        txtnumcomprobante.setText("");
+        txtefectivo.setText("");
+        txttarjeta.setText("");
+        txttransferencia.setText("");
+        txtdescuentos.setText("");
+        txtcobrosfraccion.setText("");
+        txtvaloracobrar.setText("");
+        txt_total_final.setText("");
+        txtempleado.setText("");
+        txtnumero_turno.setText("");
+        txtdeudaanterior.setText("");
+        cboestado.setSelectedIndex(0);
+        txtdocumento.setText(null);
+        txtcorreo.setText(null);
+        txtnumero_noches.setText(null);
     }
-
+    
+    public void calulo19() {
+        int valorCobrar = Integer.parseInt(txtvaloracobrar.getText());
+        int valorConIVA = (int) (valorCobrar * 0.19);
+        txtIVA_19.setText(String.valueOf(valorConIVA));
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -129,36 +119,51 @@ public final class Jpago extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         cboestado = new javax.swing.JComboBox<>();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        txtcorreo = new javax.swing.JTextField();
+        txtdocumento = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        txtnumero_noches = new javax.swing.JTextField();
+        txtidpago = new javax.swing.JTextField();
+        txtidcliente = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         txtdescuentos = new javax.swing.JTextField();
         txtcobrosfraccion = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        txtefectivo = new javax.swing.JTextField();
-        txttarjeta = new javax.swing.JTextField();
-        txttransferencia = new javax.swing.JTextField();
-        jLabel18 = new javax.swing.JLabel();
-        txtnetoapagar = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         txtdeudaanterior = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
         txtvaloracobrar = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        tablalistado = new javax.swing.JTable();
-        btneliminar = new javax.swing.JButton();
-        lbltotalregistros = new javax.swing.JLabel();
-        btnImprimirComprobante = new javax.swing.JButton();
-        txtidpago = new javax.swing.JTextField();
+        jLabel22 = new javax.swing.JLabel();
+        txtIVA_19 = new javax.swing.JTextField();
+        jLabel23 = new javax.swing.JLabel();
+        txtreten_35 = new javax.swing.JTextField();
+        txtreten4 = new javax.swing.JTextField();
+        calcular35 = new javax.swing.JButton();
+        calcular4 = new javax.swing.JButton();
+        jLabel26 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        txtsubtotal = new javax.swing.JTextField();
         Btnnuevo = new javax.swing.JButton();
         btnguardar = new javax.swing.JButton();
+        btnImprimirComprobante = new javax.swing.JButton();
+        btnvistapago = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        txtefectivo = new javax.swing.JTextField();
+        txttarjeta = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        txttransferencia = new javax.swing.JTextField();
+        jLabel18 = new javax.swing.JLabel();
+        txt_total_final = new javax.swing.JTextField();
+        jLabel25 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLayeredPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "DATOS DE PAGOS", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Serif", 1, 14))); // NOI18N
+        jLayeredPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "DATOS DEL PAGO", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Serif", 1, 14))); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         jLabel2.setText("Habitación:");
@@ -169,12 +174,16 @@ public final class Jpago extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         jLabel5.setText("N° Comprobante: ");
 
-        txthabitacion.setEditable(false);
         txthabitacion.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         txthabitacion.setText("\n");
         txthabitacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txthabitacionActionPerformed(evt);
+            }
+        });
+        txthabitacion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txthabitacionKeyPressed(evt);
             }
         });
 
@@ -194,7 +203,7 @@ public final class Jpago extends javax.swing.JFrame {
         jLabel8.setText("Fecha Emision:");
 
         cbotipocomprobante.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
-        cbotipocomprobante.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Recibo", "Factura", "Otros" }));
+        cbotipocomprobante.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Recibo", "Factura", "Otros" }));
 
         txtcliente.setEditable(false);
         txtcliente.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
@@ -236,6 +245,46 @@ public final class Jpago extends javax.swing.JFrame {
         cboestado.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         cboestado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pagado", "Pendiente" }));
 
+        jLabel10.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        jLabel10.setText("NIT/C.C:");
+
+        jLabel12.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        jLabel12.setText("Correo:");
+
+        txtcorreo.setEditable(false);
+        txtcorreo.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        txtcorreo.setText(" ");
+        txtcorreo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtcorreoActionPerformed(evt);
+            }
+        });
+
+        txtdocumento.setEditable(false);
+        txtdocumento.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        txtdocumento.setText(" ");
+        txtdocumento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtdocumentoActionPerformed(evt);
+            }
+        });
+
+        jLabel14.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        jLabel14.setText("Numero noches:");
+
+        txtnumero_noches.setEditable(false);
+        txtnumero_noches.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        txtnumero_noches.setText("\n");
+        txtnumero_noches.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtnumero_nochesActionPerformed(evt);
+            }
+        });
+
+        txtidpago.setText("IDP");
+
+        txtidcliente.setText("IDC");
+
         jLayeredPane1.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jLabel4, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jLabel5, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -252,6 +301,14 @@ public final class Jpago extends javax.swing.JFrame {
         jLayeredPane1.setLayer(jLabel7, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jLabel9, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(cboestado, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(jLabel10, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(jLabel12, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(txtcorreo, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(txtdocumento, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(jLabel14, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(txtnumero_noches, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(txtidpago, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(txtidcliente, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
@@ -260,64 +317,85 @@ public final class Jpago extends javax.swing.JFrame {
             .addGroup(jLayeredPane1Layout.createSequentialGroup()
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                        .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel19))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(32, 32, 32)
+                        .addComponent(jLabel7))
+                    .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                        .addGap(68, 68, 68)
                         .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtfechaemision, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbotipocomprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtcliente, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txthabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel19, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(31, 31, 31)
+                        .addComponent(jLabel20))
+                    .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                                .addGap(30, 30, 30)
+                                .addComponent(jLabel9)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cboestado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txthabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtnumero_noches, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtcorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtdocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtcliente, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jLayeredPane1Layout.createSequentialGroup()
                         .addComponent(txtnumero_turno, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cboestado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 88, Short.MAX_VALUE))
-            .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(7, 7, 7))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
-                        .addComponent(jLabel20)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                        .addComponent(txtempleado)
-                        .addGap(49, 49, 49))
-                    .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                        .addComponent(txtnumcomprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(txtidpago, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtidcliente, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtfechaemision, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbotipocomprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtnumcomprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtempleado, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jLayeredPane1Layout.setVerticalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPane1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel7)
                     .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtnumero_turno, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel7))
-                    .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel9)
-                        .addComponent(cboestado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtnumero_turno)
+                        .addComponent(txtidpago, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtidcliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel19)
                     .addComponent(txtcliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(2, 2, 2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel10)
+                    .addComponent(txtdocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(txtcorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(txtnumero_noches, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txthabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(cboestado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(txtfechaemision, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -329,14 +407,13 @@ public final class Jpago extends javax.swing.JFrame {
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txtnumcomprobante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtempleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel20))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel20)
+                    .addComponent(txtempleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "FORMA DE PAGO", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Serif", 1, 14))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "DETALLE DEL PAGO", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Serif", 1, 14))); // NOI18N
 
         jLabel15.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         jLabel15.setText("Descuentos:");
@@ -346,30 +423,6 @@ public final class Jpago extends javax.swing.JFrame {
 
         txtcobrosfraccion.setEditable(false);
         txtcobrosfraccion.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
-
-        jLabel1.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
-        jLabel1.setText("Transferencia:");
-
-        jLabel3.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
-        jLabel3.setText("Tarjeta:");
-
-        jLabel6.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
-        jLabel6.setText("Efectivo:");
-
-        jLabel18.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
-        jLabel18.setText("Neto a Pagar:");
-
-        txtnetoapagar.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
-        txtnetoapagar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtnetoapagarActionPerformed(evt);
-            }
-        });
-        txtnetoapagar.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtnetoapagarKeyPressed(evt);
-            }
-        });
 
         jLabel13.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         jLabel13.setText(" Cobros  fraccion:");
@@ -384,7 +437,76 @@ public final class Jpago extends javax.swing.JFrame {
         txtvaloracobrar.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
 
         jLabel17.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
-        jLabel17.setText("Valor a Cobrar:");
+        jLabel17.setText("Total antes de Inpuestos");
+
+        jLabel22.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        jLabel22.setText("IVA(19.00%):");
+
+        txtIVA_19.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        txtIVA_19.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtIVA_19ActionPerformed(evt);
+            }
+        });
+        txtIVA_19.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtIVA_19KeyPressed(evt);
+            }
+        });
+
+        jLabel23.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        jLabel23.setText("Descuento Reten (3.5%):");
+
+        txtreten_35.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        txtreten_35.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtreten_35ActionPerformed(evt);
+            }
+        });
+        txtreten_35.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtreten_35KeyPressed(evt);
+            }
+        });
+
+        txtreten4.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        txtreten4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtreten4ActionPerformed(evt);
+            }
+        });
+        txtreten4.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtreten4KeyPressed(evt);
+            }
+        });
+
+        calcular35.setText("Calcular");
+        calcular35.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                calcular35ActionPerformed(evt);
+            }
+        });
+
+        calcular4.setText("Calcular");
+        calcular4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                calcular4ActionPerformed(evt);
+            }
+        });
+
+        jLabel26.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        jLabel26.setText("Descuento Reten (4%):");
+
+        jLabel16.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        jLabel16.setText("Subtotal:");
+
+        txtsubtotal.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        txtsubtotal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtsubtotalKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -392,43 +514,38 @@ public final class Jpago extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel23)
+                    .addComponent(jLabel17)
+                    .addComponent(jLabel15)
+                    .addComponent(jLabel13)
+                    .addComponent(jLabel21)
+                    .addComponent(jLabel22)
+                    .addComponent(jLabel16)
+                    .addComponent(jLabel26))
                 .addGap(6, 6, 6)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(txtvaloracobrar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-                    .addComponent(txtdeudaanterior, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtcobrosfraccion, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtdescuentos, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txttransferencia, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txttarjeta, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtefectivo, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtnetoapagar))
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(txtIVA_19)
+                        .addComponent(txtvaloracobrar, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                        .addComponent(txtdeudaanterior)
+                        .addComponent(txtcobrosfraccion)
+                        .addComponent(txtdescuentos))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txtsubtotal, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtreten4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
+                            .addComponent(txtreten_35, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(calcular35)
+                            .addComponent(calcular4))))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(txtefectivo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txttarjeta))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txttransferencia))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel15)
                     .addComponent(txtdescuentos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -445,44 +562,45 @@ public final class Jpago extends javax.swing.JFrame {
                     .addComponent(txtvaloracobrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel17))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel22)
+                    .addComponent(txtIVA_19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtnetoapagar)
-                    .addComponent(jLabel18))
-                .addGap(29, 29, 29))
+                    .addComponent(jLabel23)
+                    .addComponent(txtreten_35, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(calcular35))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtreten4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(calcular4)
+                    .addComponent(jLabel26))
+                .addGap(5, 5, 5)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtsubtotal)
+                    .addComponent(jLabel16))
+                .addContainerGap())
         );
 
-        jPanel2.setBackground(new java.awt.Color(244, 244, 244));
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "LISTADO DE PAGOS", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Serif", 1, 14))); // NOI18N
-
-        tablalistado.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        tablalistado.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        tablalistado.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tablalistadoMouseClicked(evt);
-            }
-        });
-        jScrollPane3.setViewportView(tablalistado);
-
-        btneliminar.setBackground(new java.awt.Color(204, 204, 204));
-        btneliminar.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
-        btneliminar.setText("Eliminar");
-        btneliminar.addActionListener(new java.awt.event.ActionListener() {
+        Btnnuevo.setBackground(new java.awt.Color(204, 204, 204));
+        Btnnuevo.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        Btnnuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/nuevo.GIF"))); // NOI18N
+        Btnnuevo.setText("NUEVO");
+        Btnnuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btneliminarActionPerformed(evt);
+                BtnnuevoActionPerformed(evt);
             }
         });
 
-        lbltotalregistros.setText("Registros");
+        btnguardar.setBackground(new java.awt.Color(204, 204, 204));
+        btnguardar.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        btnguardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/guardar.png"))); // NOI18N
+        btnguardar.setText("GUARDAR");
+        btnguardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnguardarActionPerformed(evt);
+            }
+        });
 
         btnImprimirComprobante.setBackground(new java.awt.Color(204, 204, 204));
         btnImprimirComprobante.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
@@ -493,68 +611,83 @@ public final class Jpago extends javax.swing.JFrame {
             }
         });
 
-        txtidpago.setText("IDP");
-
-        Btnnuevo.setBackground(new java.awt.Color(204, 204, 204));
-        Btnnuevo.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
-        Btnnuevo.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Desktop\\reservascombugas\\reservascombugas\\src\\main\\java\\File\\nuevo.GIF")); // NOI18N
-        Btnnuevo.setText("NUEVO");
-        Btnnuevo.addActionListener(new java.awt.event.ActionListener() {
+        btnvistapago.setBackground(new java.awt.Color(204, 204, 204));
+        btnvistapago.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        btnvistapago.setText("Consultar");
+        btnvistapago.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnnuevoActionPerformed(evt);
+                btnvistapagoActionPerformed(evt);
             }
         });
 
-        btnguardar.setBackground(new java.awt.Color(204, 204, 204));
-        btnguardar.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
-        btnguardar.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Desktop\\reservascombugas\\reservascombugas\\src\\main\\java\\File\\guardar.png")); // NOI18N
-        btnguardar.setText("GUARDAR");
-        btnguardar.addActionListener(new java.awt.event.ActionListener() {
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "FORMAS DE PAGO", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Serif", 1, 14))); // NOI18N
+
+        jLabel3.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        jLabel3.setText("Tarjeta:");
+
+        jLabel1.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        jLabel1.setText("Transferencia:");
+
+        jLabel6.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        jLabel6.setText("Efectivo:");
+
+        jLabel18.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        jLabel18.setText("Total final:");
+
+        txt_total_final.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        txt_total_final.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnguardarActionPerformed(evt);
+                txt_total_finalActionPerformed(evt);
+            }
+        });
+        txt_total_final.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_total_finalKeyPressed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbltotalregistros, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(btnImprimirComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btneliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtidpago, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(39, 39, 39)
-                                .addComponent(Btnnuevo)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnguardar)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel18)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel1))
+                .addGap(6, 6, 6)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(txttransferencia, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
+                        .addComponent(txttarjeta)
+                        .addComponent(txtefectivo))
+                    .addComponent(txt_total_final, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnImprimirComprobante, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btneliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtidpago, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(Btnnuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnguardar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(txtefectivo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lbltotalregistros))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txttarjeta))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txttransferencia))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel18)
+                    .addComponent(txt_total_final, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
+
+        jLabel25.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        jLabel25.setText("Vista tabala pagos:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -563,23 +696,46 @@ public final class Jpago extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(Btnnuevo)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnguardar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnImprimirComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel25)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnvistapago)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLayeredPane1)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnImprimirComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnguardar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Btnnuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel25)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnvistapago)))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         pack();
@@ -590,61 +746,21 @@ public final class Jpago extends javax.swing.JFrame {
     }//GEN-LAST:event_txthabitacionActionPerformed
 
     private void txtnumcomprobanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnumcomprobanteActionPerformed
-
+        
 
     }//GEN-LAST:event_txtnumcomprobanteActionPerformed
 
-    private void tablalistadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablalistadoMouseClicked
+    private void btnvistapagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnvistapagoActionPerformed
 
-//        btnguardar.setText("Editar");
-//        // habilitar();
-//        btneliminar.setEnabled(true);
-//        accion = "editar";
-//
-//        int fila = tablalistado.rowAtPoint(evt.getPoint());
-//
-//        txtidpago.setText(tablalistado.getValueAt(fila, 0).toString());
-//        txtcliente.setText(tablalistado.getValueAt(fila, 2).toString());
-//        txthabitacion.setText(tablalistado.getValueAt(fila, 3).toString());
-//        txtfechaemision.setText(tablalistado.getValueAt(fila, 4).toString());
-//        cbotipocomprobante.setSelectedItem(tablalistado.getValueAt(fila, 5).toString());
-//        txtnumcomprobante.setText(tablalistado.getValueAt(fila, 6).toString());
-//        txtefectivo.setText(tablalistado.getValueAt(fila, 7).toString());
-//        txttarjeta.setText(tablalistado.getValueAt(fila, 8).toString());
-//        txttransferencia.setText(tablalistado.getValueAt(fila, 9).toString());
-//        txtdescuentos.setText(tablalistado.getValueAt(fila, 10).toString());
-//        txtcobrosfraccion.setText(tablalistado.getValueAt(fila, 11).toString());
-//        txtvaloracobrar.setText(tablalistado.getValueAt(fila, 12).toString());
-//        txtnetoapagar.setText(tablalistado.getValueAt(fila, 13).toString());
-//        txtempleado.setText(tablalistado.getValueAt(fila, 14).toString());
-//        txtnumero_turno.setText(tablalistado.getValueAt(fila, 15).toString());
-//        txtdeudaanterior.setText(tablalistado.getValueAt(fila, 16).toString());
-//        cboestado.setSelectedItem(tablalistado.getValueAt(fila, 17).toString());
-
-    }//GEN-LAST:event_tablalistadoMouseClicked
-
-    private void btneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarActionPerformed
-
-        if (!txtidpago.getText().equals("")) {
-            int confirmacion = JOptionPane.showConfirmDialog(rootPane, "Estás seguro de Eliminar el Pago seleccionado?", "Confirmar", 2);
-
-            if (confirmacion == 0) {
-                Fpago func = new Fpago();
-                Dpago dts = new Dpago();
-
-                dts.setIdpago(Integer.parseInt(txtidpago.getText()));
-                func.eliminar(dts);
-                mostrar("");
-                inhabilitar();
-
-            }
-
-        }
-    }//GEN-LAST:event_btneliminarActionPerformed
+        Jvistapago pago = new Jvistapago();
+        pago.toFront();
+        pago.setVisible(true);
+        
+    }//GEN-LAST:event_btnvistapagoActionPerformed
 
     private void btnImprimirComprobanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirComprobanteActionPerformed
-       
-        ImprimirPagos  imprimir = new ImprimirPagos();
+        
+        ImprimirPagos imprimir = new ImprimirPagos();
         try {
             imprimir.ImprimirFacturaPago();
         } catch (IOException ex) {
@@ -666,21 +782,27 @@ public final class Jpago extends javax.swing.JFrame {
 
     private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardarActionPerformed
         // TODO add your handling code here:
+        
+        if (cbotipocomprobante.getSelectedIndex() == 0) {
+            JOptionPane.showConfirmDialog(rootPane, "Debes seleccionar tipo comprobante");
+            cbotipocomprobante.requestFocus();
+            return;
+        }
         if (txtvaloracobrar.getText().length() == 0) {
             JOptionPane.showConfirmDialog(rootPane, "Debes ingresar el total de pago del comprobante");
             txtvaloracobrar.requestFocus();
             return;
         }
-
+        
         if (txtnumcomprobante.getText().length() == 0) {
             JOptionPane.showConfirmDialog(rootPane, "Debes ingresar un Número de Comprobante del Pago");
             txtnumcomprobante.requestFocus();
             return;
         }
-
+        
         Dpago dts = new Dpago();
         Fpago func = new Fpago();
-
+        
         dts.setCliente(txtcliente.getText());
         dts.setNumero(Integer.parseInt(txthabitacion.getText()));
         dts.setFechaemision(txtfechaemision.getText());
@@ -693,48 +815,46 @@ public final class Jpago extends javax.swing.JFrame {
         dts.setDescuentos(Integer.parseInt(txtdescuentos.getText()));
         dts.setCobrosfraccion(Integer.parseInt(txtcobrosfraccion.getText()));
         dts.setValorcobrar(Integer.parseInt(txtvaloracobrar.getText()));
-        dts.setNetoapagar(Integer.parseInt(txtnetoapagar.getText()));
+        dts.setNetoapagar(Integer.parseInt(txt_total_final.getText()));
         dts.setEmpleado(txtempleado.getText());
         dts.setNumero_turno(Integer.parseInt(txtnumero_turno.getText()));
         dts.setDeuda_anterior(Integer.parseInt(txtdeudaanterior.getText()));
         int estado = cboestado.getSelectedIndex();
         dts.setEstado((String) cboestado.getItemAt(estado));
-
+        dts.setDocumento(Integer.parseInt(txtdocumento.getText()));
+        dts.setCorreo(txtcorreo.getText());
+        dts.setNumero_noches(Integer.parseInt(txtnumero_noches.getText()));
+        dts.setIVA(Integer.parseInt(txtIVA_19.getText()));
+        dts.setRetencion35(Integer.parseInt(txtreten_35.getText()));
+        dts.setRetencion4(Integer.parseInt(txtreten4.getText()));
+        dts.setIdcliente(Integer.parseInt(txtidcliente.getText()));
+        
         if (accion.equals("guardar")) {
             if (func.insertar(dts)) {
-                JOptionPane.showMessageDialog(rootPane, " El pago por $. " + txtnetoapagar.getText()
+                JOptionPane.showMessageDialog(rootPane, " El pago por $. " + txt_total_final.getText()
                         + " del Sr. " + txtcliente.getText() + " Ha sido realizado con Éxito");
-                mostrar("");
+                
                 inhabilitar();
                 limpiarCajas();
-
-                //Cancelar o pagar
-//                Fpago func3 = new Fpago();
-//                Dpago dts3 = new Dpago();
-//
-//                dts3.setIdpago(Integer.parseInt(txtidpago.getText()));
-//                func3.pagar(dts3);
+                
+                ImprimirPagos imprimir = new ImprimirPagos();
+                try {
+                    imprimir.ImprimirFacturaPago();
+                } catch (IOException ex) {
+                    Logger.getLogger(Jpago.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
             }
-
-//        } else if (accion.equals("editar")) {
-//            dts.setIdpago(Integer.parseInt(txtidpago.getText()));
-//
-//            if (func.editar(dts)) {
-//                JOptionPane.showMessageDialog(rootPane, "El pago del Sr. "
-//                        + txtcliente.getText() + " Ha sido Modificado Correctamente");
-//                mostrar("");
-//                inhabilitar();
-//            }
         }
     }//GEN-LAST:event_btnguardarActionPerformed
 
-    private void txtnetoapagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnetoapagarActionPerformed
+    private void txt_total_finalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_total_finalActionPerformed
         // TODO add your handling code here:
 
 
-    }//GEN-LAST:event_txtnetoapagarActionPerformed
+    }//GEN-LAST:event_txt_total_finalActionPerformed
 
-    private void txtnetoapagarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnetoapagarKeyPressed
+    private void txt_total_finalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_total_finalKeyPressed
         // TODO add your handling code here:
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             try {
@@ -742,28 +862,104 @@ public final class Jpago extends javax.swing.JFrame {
                 int efectivo = Integer.parseInt(txtefectivo.getText());
                 int tarjeta = Integer.parseInt(txttarjeta.getText());
                 int transferencia = Integer.parseInt(txttransferencia.getText());
-                int deudaanterior = Integer.parseInt(txtdeudaanterior.getText());
-
-                // Sumar los valores
-                int totalPago = efectivo + tarjeta + transferencia + deudaanterior;
-
-                // Asignar el resultado al campo de texto txtTotalPago
-                txtnetoapagar.setText(String.valueOf(totalPago));
-
-                // Imprimir para verificar el valor que se asignó
-//                System.out.println("Valor asignado a txtTotalPago: " + txtnetoapagar.getText());
+                
+                int totalPago = efectivo + tarjeta + transferencia;
+                txt_total_final.setText(String.valueOf(totalPago));
+                
             } catch (NumberFormatException e) {
                 // Manejar la excepción si alguno de los campos de texto no contiene un número válido
                 System.err.println("Error: uno o más campos no contienen un número válido");
                 e.printStackTrace();
             }
-
+            
         }
-    }//GEN-LAST:event_txtnetoapagarKeyPressed
+    }//GEN-LAST:event_txt_total_finalKeyPressed
 
     private void txtnumero_turnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnumero_turnoActionPerformed
         // Generar el número de turno
     }//GEN-LAST:event_txtnumero_turnoActionPerformed
+
+    private void txtcorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtcorreoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtcorreoActionPerformed
+
+    private void txtdocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtdocumentoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtdocumentoActionPerformed
+
+    private void txtnumero_nochesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnumero_nochesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtnumero_nochesActionPerformed
+
+    private void txthabitacionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txthabitacionKeyPressed
+        
+
+    }//GEN-LAST:event_txthabitacionKeyPressed
+
+    private void txtIVA_19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIVA_19ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIVA_19ActionPerformed
+
+    private void txtIVA_19KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIVA_19KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIVA_19KeyPressed
+
+    private void txtreten_35ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtreten_35ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtreten_35ActionPerformed
+
+    private void txtreten_35KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtreten_35KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtreten_35KeyPressed
+
+    private void txtreten4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtreten4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtreten4ActionPerformed
+
+    private void txtreten4KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtreten4KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtreten4KeyPressed
+
+    private void calcular35ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcular35ActionPerformed
+        // TODO add your handling code here:
+        int valorcobrar = Integer.parseInt(txtvaloracobrar.getText());
+        int valorConIVA = Integer.parseInt(txtIVA_19.getText());
+        int Suma = (int) (valorcobrar + valorConIVA);
+        int Reten35 = (int) (Suma * 0.035);
+        txtreten_35.setText(String.valueOf(Reten35));
+    }//GEN-LAST:event_calcular35ActionPerformed
+
+    private void calcular4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcular4ActionPerformed
+        // TODO add your handling code here:
+        int valorcobrar = Integer.parseInt(txtvaloracobrar.getText());
+        int valorConIVA = Integer.parseInt(txtIVA_19.getText());
+        int Suma = (int) (valorcobrar + valorConIVA);
+        int reten4 = (int) (Suma * 0.04);
+        txtreten4.setText(String.valueOf(reten4));
+    }//GEN-LAST:event_calcular4ActionPerformed
+
+    private void txtsubtotalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtsubtotalKeyPressed
+      
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            try {
+                // Obtener los valores de los campos de texto y convertirlos a enteros
+                int valoracobrar = Integer.parseInt(txtvaloracobrar.getText());
+                int Iva19 = Integer.parseInt(txtIVA_19.getText());
+                int reten35 = Integer.parseInt(txtreten_35.getText());
+                int reten4 = Integer.parseInt(txtreten4.getText());
+                
+                int subtotal = valoracobrar + Iva19 - reten35 - reten4;
+                txtsubtotal.setText(String.valueOf(subtotal));
+                
+            } catch (NumberFormatException e) {
+                // Manejar la excepción si alguno de los campos de texto no contiene un número válido
+                System.err.println("Error: uno o más campos no contienen un número válido");
+                e.printStackTrace();
+            }
+            
+        }
+        
+    }//GEN-LAST:event_txtsubtotalKeyPressed
 
     /**
      * @param args the command line arguments
@@ -810,20 +1006,30 @@ public final class Jpago extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Btnnuevo;
     private javax.swing.JButton btnImprimirComprobante;
-    private javax.swing.JButton btneliminar;
     private javax.swing.JButton btnguardar;
+    private javax.swing.JButton btnvistapago;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton calcular35;
+    private javax.swing.JButton calcular4;
     private javax.swing.JComboBox<String> cboestado;
     private javax.swing.JComboBox<String> cbotipocomprobante;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -833,22 +1039,27 @@ public final class Jpago extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JLabel lbltotalregistros;
-    private javax.swing.JTable tablalistado;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JTextField txtIVA_19;
+    private javax.swing.JTextField txt_total_final;
     private javax.swing.JTextField txtcliente;
     private javax.swing.JTextField txtcobrosfraccion;
+    private javax.swing.JTextField txtcorreo;
     private javax.swing.JTextField txtdescuentos;
     private javax.swing.JTextField txtdeudaanterior;
+    private javax.swing.JTextField txtdocumento;
     private javax.swing.JTextField txtefectivo;
     private javax.swing.JTextField txtempleado;
     private javax.swing.JTextField txtfechaemision;
     private javax.swing.JTextField txthabitacion;
+    private javax.swing.JTextField txtidcliente;
     private javax.swing.JTextField txtidpago;
-    private javax.swing.JTextField txtnetoapagar;
     private javax.swing.JTextField txtnumcomprobante;
+    private javax.swing.JTextField txtnumero_noches;
     private javax.swing.JTextField txtnumero_turno;
+    private javax.swing.JTextField txtreten4;
+    private javax.swing.JTextField txtreten_35;
+    private javax.swing.JTextField txtsubtotal;
     private javax.swing.JTextField txttarjeta;
     private javax.swing.JTextField txttransferencia;
     private javax.swing.JTextField txtvaloracobrar;

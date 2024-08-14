@@ -8,7 +8,7 @@ public class Dabono {
     public int idingreso;
     public int idhabitacion;
     public int idcliente;
-    public Date fechaabono;
+    public String fechaabono;
     public int abonohabitacion;
     public String descuentos;
     public String conceptodescuento;
@@ -22,7 +22,7 @@ public class Dabono {
     public Dabono() {
     }
 
-    public Dabono(int idabono, int idingreso, int idhabitacion, int idcliente, Date fechaabono, int abonohabitacion, String descuentos, String conceptodescuento, String formaAbono, int totalAbonos, String privilegiosAdmon, String privilegiosrecepcion, int otroscobros, int numero_turno) {
+    public Dabono(int idabono, int idingreso, int idhabitacion, int idcliente, String fechaabono, int abonohabitacion, String descuentos, String conceptodescuento, String formaAbono, int totalAbonos, String privilegiosAdmon, String privilegiosrecepcion, int otroscobros, int numero_turno) {
         this.idabono = idabono;
         this.idingreso = idingreso;
         this.idhabitacion = idhabitacion;
@@ -71,11 +71,11 @@ public class Dabono {
         this.idcliente = idcliente;
     }
 
-    public Date getFechaabono() {
+    public String getFechaabono() {
         return fechaabono;
     }
 
-    public void setFechaabono(Date fechaabono) {
+    public void setFechaabono(String fechaabono) {
         this.fechaabono = fechaabono;
     }
 

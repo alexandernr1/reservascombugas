@@ -265,13 +265,13 @@ public class Fsalidaturno {
     public int sumatotales(int inicioturno2) {
         int netorecaudado = 0;
 
-        sSQL = "SELECT SUM(netoapagar) AS netoapagar from reserva1.pago where numero_turno = ?";
+        sSQL = "SELECT SUM(deuda_anterior) AS deuda_anterior from reserva1.pago where numero_turno = ?";
         try ( PreparedStatement pst = cn.prepareStatement(sSQL)) {
             pst.setInt(1, inicioturno2);
 
             try ( ResultSet rs = pst.executeQuery()) {
                 if (rs.next()) {
-                    netorecaudado = rs.getInt("netoapagar");
+                    netorecaudado = rs.getInt("deuda_anterior");
                 }
             }
         } catch (SQLException e) {

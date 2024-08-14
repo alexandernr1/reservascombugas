@@ -161,7 +161,7 @@ public class Jlimpieza extends javax.swing.JFrame {
         });
 
         butnuevo.setBackground(new java.awt.Color(204, 204, 204));
-        butnuevo.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Desktop\\reservascombugas\\Images\\nuevo.GIF")); // NOI18N
+        butnuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/nuevo.GIF"))); // NOI18N
         butnuevo.setText("NUEVO");
         butnuevo.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         butnuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -171,7 +171,7 @@ public class Jlimpieza extends javax.swing.JFrame {
         });
 
         btnguardar.setBackground(new java.awt.Color(204, 204, 204));
-        btnguardar.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Desktop\\reservascombugas\\Images\\guardar.png")); // NOI18N
+        btnguardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/guardar.png"))); // NOI18N
         btnguardar.setText("GUARDAR");
         btnguardar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnguardar.addActionListener(new java.awt.event.ActionListener() {
@@ -211,7 +211,7 @@ public class Jlimpieza extends javax.swing.JFrame {
 
         btnbuscar.setBackground(new java.awt.Color(204, 204, 204));
         btnbuscar.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
-        btnbuscar.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Desktop\\reservascombugas\\Images\\buscar.png")); // NOI18N
+        btnbuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/buscar.png"))); // NOI18N
         btnbuscar.setText("Buscar");
         btnbuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -221,7 +221,7 @@ public class Jlimpieza extends javax.swing.JFrame {
 
         btneliminar.setBackground(new java.awt.Color(204, 204, 204));
         btneliminar.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
-        btneliminar.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Desktop\\reservascombugas\\Images\\eliminar.png")); // NOI18N
+        btneliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/eliminar.png"))); // NOI18N
         btneliminar.setText("Eliminar");
         btneliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -343,7 +343,7 @@ public class Jlimpieza extends javax.swing.JFrame {
                                     .addComponent(txttipohabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(dcfecha, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addContainerGap(74, Short.MAX_VALUE))
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 491, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -37,9 +37,9 @@ public class ImprimirPagos {
 
         try ( Statement statement = cn.createStatement();  ResultSet resultSet = statement.executeQuery(sSQL)) {
 
-              String imagePath = "C:\\Users\\Usuario\\Desktop\\reservascombugas\\reservascombugas\\src\\main\\java\\Impresion\\IconoEmpresa.png";
-             addImageToPrintFile(imagePath); 
-             
+            String imagePath = "C:\\Users\\Usuario\\Desktop\\reservascombugas\\reservascombugas\\src\\main\\java\\Impresion\\IconoEmpresa.png";
+            addImageToPrintFile(imagePath);
+
             while (resultSet.next()) {
                 Dpago dts = new Dpago();
                 dts.setIdpago(resultSet.getInt("idpago"));
@@ -60,45 +60,82 @@ public class ImprimirPagos {
                 dts.setNumero_turno(resultSet.getInt("numero_turno"));
                 dts.setDeuda_anterior(resultSet.getInt("deuda_anterior"));
                 dts.setEstado(resultSet.getString("estado"));
+                dts.setDocumento(resultSet.getInt("documento"));
+                dts.setCorreo(resultSet.getString("correo"));
+                dts.setNumero_noches(resultSet.getInt("numero_noches"));
+                dts.setIVA(resultSet.getInt("IVA"));
+                dts.setRetencion35(resultSet.getInt("retencion35"));
+                dts.setRetencion4(resultSet.getInt("retencion4"));
 
                 // Imprimir los datos
                 Extenso extenso = new Extenso();
                 extenso.setNumber(101.85);
-                printer.setOutSize(25, 32);
+                printer.setOutSize(30, 32);
 
                 printer.printTextWrap(1, 2, 10, 32, "HOTEL COMBUGAS S.A.S ");
                 printer.printTextWrap(2, 3, 12, 80, "NIT: 900139412-4 ");
                 printer.printTextWrap(3, 3, 14, 80, "TEL:3205417916");
                 printer.printTextWrap(4, 3, 15, 80, "CARTAGENA");
                 printer.printTextWrap(5, 3, 8, 80, "DG 31D N.32A-25B.TERNERA");
+
                 printer.printTextWrap(6, 3, 4, 80, "-----------------------------------");
                 printer.printTextWrap(7, 3, 4, 80, "Fecha Emision: " + dts.getFechaemision());
                 printer.printTextWrap(8, 3, 4, 80, "Tipo Comprobante: " + dts.getTipocomprobante());
                 printer.printTextWrap(9, 3, 4, 80, "Numero Factura: " + dts.getNumcomprobante());
                 printer.printTextWrap(10, 3, 4, 80, "Numero Habitacion: " + dts.getNumero());
-                printer.printTextWrap(11, 3, 4, 80, "Cliente: " + dts.getCliente());
-                printer.printTextWrap(12, 3, 4, 80, "Efectivo: " + dts.getEfectivo());
-                printer.printTextWrap(13, 3, 4, 80, "Tarjeta: " + dts.getTarjeta());
-                printer.printTextWrap(14, 3, 4, 80, "Transferencia: " + dts.getTransferencia());
-                printer.printTextWrap(15, 3, 4, 80, "Descuentos: " + dts.getDescuentos());
-                printer.printTextWrap(16, 3, 4, 80, "Cobros Fraccion: " + dts.getCobrosfraccion());
-                printer.printTextWrap(17, 3, 4, 80, "Deuda Anterior: " + dts.getDeuda_anterior());
-                printer.printTextWrap(18, 3, 4, 80, "Neto a Pagar: " + dts.getNetoapagar());
-                printer.printTextWrap(19, 3, 4, 80, "-----------------------------------");
-                printer.printTextWrap(20, 3, 4, 80, "Empleado: " + dts.getEmpleado());
-                printer.printTextWrap(21, 3, 4, 80, "-----------------------------------");
+                printer.printTextWrap(11, 3, 4, 80, "Numero Noches:" + dts.getNumero_noches());
+
+                printer.printTextWrap(12, 3, 4, 80, "-----------------------------------");
+                printer.printTextWrap(13, 3, 4, 80, "Cliente: " + dts.getCliente());
+                printer.printTextWrap(14, 3, 4, 80, "NIT/C.C" + dts.getDocumento());
+                printer.printTextWrap(15, 3, 4, 80, "Correo" + dts.getCorreo());
+                printer.printTextWrap(16, 3, 4, 80, "-----------------------------------");
+
+                // Mostrar solo las formas de pago que tienen valor
+                if (dts.getEfectivo() > 0) {
+                    printer.printTextWrap(17, 3, 4, 80, "Efectivo: " + dts.getEfectivo());
+                }
+                if (dts.getTarjeta() > 0) {
+                    printer.printTextWrap(18, 3, 4, 80, "Tarjeta: " + dts.getTarjeta());
+                }
+                if (dts.getTransferencia() > 0) {
+                    printer.printTextWrap(19, 3, 4, 80, "Transferencia: " + dts.getTransferencia());
+                }
+                if (dts.getDescuentos() > 0) {
+                    printer.printTextWrap(20, 3, 4, 80, "Descuentos: " + dts.getDescuentos());
+                }
+                if (dts.getCobrosfraccion() > 0) {
+                    printer.printTextWrap(21, 3, 4, 80, "Cobros Fraccion: " + dts.getCobrosfraccion());
+                }
+                if (dts.getDeuda_anterior() > 0) {
+                    printer.printTextWrap(22, 3, 4, 80, "Deuda Anterior: " + dts.getDeuda_anterior());
+                }
+                printer.printTextWrap(23, 3, 4, 80, "IVA: " + dts.getIVA());
+
+                if (dts.getRetencion35() > 0) {
+                    printer.printTextWrap(24, 3, 4, 80, "Descuento 3.5%: " + dts.getRetencion35());
+                }
+                if (dts.getRetencion4() > 0) {
+                    printer.printTextWrap(25, 3, 4, 80, "Descuentoc4%: " + dts.getRetencion4());
+                }
+
+                printer.printTextWrap(26, 3, 4, 80, "Neto a Pagar: " + dts.getNetoapagar());
+
+                printer.printTextWrap(27, 3, 4, 80, "-----------------------------------");
+                printer.printTextWrap(28, 3, 4, 80, "Empleado: " + dts.getEmpleado());
+                printer.printTextWrap(29, 3, 4, 80, "-----------------------------------");
 
             }
 
             printer.toFile("impresion.txt");
-            
-           try (FileOutputStream fos = new FileOutputStream("impresion.txt", true)) {
-            byte[] cutCommand = new byte[]{0x1D, 0x56, 0x41}; // Comando ESC/POS para cortar el papel
-            fos.write(cutCommand);
-            fos.write(cutCommand);//PRUEBA CORTE DE IMPRESIÓN
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+            try ( FileOutputStream fos = new FileOutputStream("impresion.txt", true)) {
+                byte[] cutCommand = new byte[]{0x1D, 0x56, 0x41}; // Comando ESC/POS para cortar el papel
+                fos.write(cutCommand);
+                fos.write(cutCommand);//PRUEBA CORTE DE IMPRESIÓN
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
             FileInputStream inputStream = null;
             try {
@@ -132,19 +169,19 @@ public class ImprimirPagos {
         }
     }
 
-     // Método para convertir una imagen a un byte array
+    // Método para convertir una imagen a un byte array
     private byte[] convertImageToByteArray(String imagePath) throws IOException {
         BufferedImage bufferedImage = ImageIO.read(new File(imagePath));
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         ImageIO.write(bufferedImage, "png", byteArrayOutputStream);
         return byteArrayOutputStream.toByteArray();
     }
-    
+
     // Método para añadir la imagen al archivo de impresión
     private void addImageToPrintFile(String imagePath) {
         try {
             byte[] imageBytes = convertImageToByteArray(imagePath);
-            try (FileOutputStream fos = new FileOutputStream("impresion.txt", true)) {
+            try ( FileOutputStream fos = new FileOutputStream("impresion.txt", true)) {
                 fos.write(imageBytes);
             }
         } catch (IOException e) {

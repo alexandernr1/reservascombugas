@@ -1,5 +1,6 @@
 package Logica;
 
+import Datos.Dfactura_electronica;
 import Datos.Dsalida;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,7 +18,9 @@ public class Fsalida {
     private final Cconexion mysql = new Cconexion();
     private final Connection cn = mysql.establecerConexion();
     private String sSQL = "";
+    private String aSQL = "";
     public Integer totalregistros;
+    
 
     public DefaultTableModel mostrarsalida(String buscar) {
         DefaultTableModel modelo;
@@ -69,7 +72,7 @@ public class Fsalida {
             return modelo;
 
         } catch (SQLException e) {
-        JOptionPane.showMessageDialog(null, "NO SE PUEDE MOSTRAR LOS DATOS: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "NO SE PUEDE MOSTRAR LOS DATOS: " + e.getMessage());
             return null;
         }
     }
@@ -79,6 +82,7 @@ public class Fsalida {
                 + "numero, cliente, numnoches,costoalojamiento,fechaingreso,fechasalida,tipocliente,"
                 + "valor_noches,abonos,valor_total,descuentos,cobros_extra,otros_cobros,totalpago,numero_turno,deuda_anterior)"
                 + "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        
         try {
 
             PreparedStatement pst = cn.prepareStatement(sSQL);
@@ -115,7 +119,6 @@ public class Fsalida {
         }
     }
 
-    
     public ResultSet realizarConsulta(String numeroHabitacion) throws SQLException {
 
         // Preparar la consulta SQL con un JOIN y subconsultas para obtener información del cliente
@@ -195,7 +198,8 @@ public class Fsalida {
 
         return idcambio;
     }
-     public int otroscobros(int netocobros) {
+
+    public int otroscobros(int netocobros) {
         int cobros = 0;
         sSQL = "SELECT otroscobros FROM abono WHERE numero_turno=?";
         try {
@@ -211,6 +215,35 @@ public class Fsalida {
         }
 
         return cobros;
+    }
+     public Dfactura_electronica cleinteFacturar(int factura) {
+         Dfactura_electronica cliente = null;
+         
+        sSQL = "SELECT " +
+               "f.documento," +
+               "f.razon_social," +
+               "f.email," +
+               "f.idcliente " +
+               "FROM factura_electronica f " +
+               "JOIN ingreso i ON f.idcliente = i.idcliente where i.idcliente = ?";
+        try {
+
+            PreparedStatement pst = cn.prepareStatement(sSQL);
+            pst.setInt(1, factura);
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                int idCliente = rs.getInt("idcliente");
+                int documento = rs.getInt("documento");
+                String razonSocial = rs.getString("razon_social");
+                String email = rs.getString("email");
+                
+               cliente = new Dfactura_electronica(idCliente, documento, razonSocial, email);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al obtener IDcliente F: " + e.getMessage());
+        }
+
+        return cliente;
     }
 
 }

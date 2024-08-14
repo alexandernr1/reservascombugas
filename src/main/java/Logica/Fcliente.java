@@ -15,10 +15,9 @@ public class Fcliente {
     private final Connection cn = mysql.establecerConexion();
     private String sSQL = "";
 
-
     public Integer totalregistros;
 
-    public DefaultTableModel mostrar(String buscar) {
+    public DefaultTableModel mstrar(String buscar) {
         DefaultTableModel modelo;
 
         String[] titulos = {"ID", "Nombres", "Apelliodos", "TipoDocumeto", "NúmeoDocumento", "Teléfono", "Dirección", "Email", "Pais", "Ciudad"};
@@ -29,6 +28,7 @@ public class Fcliente {
         modelo = new DefaultTableModel(null, titulos);
 
         sSQL = "select * from cliente where numdocumento like '%" + buscar + "%' order by idcliente";
+
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sSQL);
@@ -54,6 +54,7 @@ public class Fcliente {
         } catch (SQLException e) {
             JOptionPane.showConfirmDialog(null, e);
             return null;
+
         }
     }
 
@@ -64,7 +65,6 @@ public class Fcliente {
 
         try {
             PreparedStatement pst = cn.prepareStatement(sSQL);
-
             pst.setString(1, dts.getNombres());
             pst.setString(2, dts.getApellidos());
             pst.setString(3, dts.getTipodocumento());
@@ -77,24 +77,19 @@ public class Fcliente {
 
             int n = pst.executeUpdate();
 
-            if (n != 0) {
-
-            } else {
-                return false;
-            }
+            return n != 0;
         } catch (SQLException e) {
             JOptionPane.showConfirmDialog(null, e);
             return false;
-        }
-        return false;
+        } 
+
     }
 
-    public boolean editar(Dcliente dts) {
+    public boolean editar(Dcliente dts) throws SQLException {
         sSQL = "UPDATE cliente SET nombres=?, apellidos=?, tipodocumento=?, numdocumento=?, "
                 + "telefono=?, direccion=?,  email=?,  pais=?, ciudad=? WHERE idcliente=?";
-
-        try {
-            PreparedStatement pst = cn.prepareStatement(sSQL);
+       
+        try { PreparedStatement pst = cn.prepareStatement(sSQL);
 
             pst.setString(1, dts.getNombres());
             pst.setString(2, dts.getApellidos());
@@ -105,44 +100,34 @@ public class Fcliente {
             pst.setString(7, dts.getEmail());
             pst.setString(8, dts.getPais());
             pst.setString(9, dts.getCiudad());
+
             pst.setInt(10, dts.getIdcliente());
 
             int n = pst.executeUpdate();
 
-            if (n != 0) {
-
-            } else {
-                return false;
-            }
+            return n != 0;
 
         } catch (SQLException e) {
             JOptionPane.showConfirmDialog(null, e);
             return false;
-        }
-        return false;
+        } 
+
     }
 
-    public boolean eliminar(Dcliente dts) {
+    public boolean eliminar(Dcliente dts)  {
         sSQL = "delete from cliente where idcliente=?";
-
-        try {
-
-            PreparedStatement pst = cn.prepareStatement(sSQL);
+       
+        try { PreparedStatement pst = cn.prepareStatement(sSQL);
 
             pst.setInt(1, dts.getIdcliente());
 
             int n = pst.executeUpdate();
 
-            if (n != 0) {
-
-            } else {
-                return false;
-            }
+            return n != 0;
 
         } catch (SQLException e) {
             JOptionPane.showConfirmDialog(null, e);
             return false;
-        }
-        return false;
+        } 
     }
 }

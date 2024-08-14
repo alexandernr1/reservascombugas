@@ -14,16 +14,15 @@ public class Fpago {
     private final Cconexion mysql = new Cconexion();
     private final Connection cn = mysql.establecerConexion();
     private String sSQL = "";
-//    private final String sSQL2 = "";
 
     public Integer totalregistros;
 
     public DefaultTableModel mostrar(String buscar) {
         DefaultTableModel modelo;
 
-        String[] titulos = {"ID", "Idsalida", "cliente", "numero", "fecha emision", "tipo Comprobante", "Número comprobante", "Efectivo", "Tarjeta", "Transferencias", "Descuentos", "Cobros Fraccion", "Valor a Cobrar", "Neto a Pagar", "Empleado", "Numero Turno", "Deuda Anterior", "Estado"};
+        String[] titulos = {"ID", "Idsalida", "cliente", "numero", "fecha emision", "tipo Comprobante", "Número comprobante", "Efectivo", "Tarjeta", "Transferencias", "Descuentos", "Cobros Fraccion", "Valor a Cobrar", "Neto a Pagar", "Empleado", "Numero Turno", "Deuda Anterior", "Estado", "Docuemnto", "correo", "Numero Noches", "IVA", "Reten3,5", "Reten 4"};
 
-        String[] registro = new String[18];
+        String[] registro = new String[24];
 
         totalregistros = 0;
         modelo = new DefaultTableModel(null, titulos);
@@ -53,6 +52,12 @@ public class Fpago {
                 registro[15] = rs.getString("numero_turno");
                 registro[16] = rs.getString("deuda_anterior");
                 registro[17] = rs.getString("estado");
+                registro[18] = rs.getString("documento");
+                registro[19] = rs.getString("correo");
+                registro[20] = rs.getString("numero_noches");
+                registro[21] = rs.getString("IVA");
+                registro[22] = rs.getString("retencion35");
+                registro[23] = rs.getString("retencion4");
 
                 totalregistros = totalregistros + 1;
                 modelo.addRow(registro);
@@ -68,8 +73,8 @@ public class Fpago {
     }
 
     public boolean insertar(Dpago dts) {
-        sSQL = "INSERT INTO pago (idsalida, cliente, numero, fechaemision,tipocomprobante,numcomprobante,efectivo, tarjeta,transferencia,descuentos,cobrosfraccion,valorcobrar,netoapagar,empleado,numero_turno,deuda_anterior,estado)"
-                + "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        sSQL = "INSERT INTO pago (idsalida, cliente, numero, fechaemision,tipocomprobante,numcomprobante,efectivo, tarjeta,transferencia,descuentos,cobrosfraccion,valorcobrar,netoapagar,empleado,numero_turno,deuda_anterior,estado,documento,correo,numero_noches,IVA,retencion35,retencion4,idcliente)"
+                + "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
 
             PreparedStatement pst = cn.prepareStatement(sSQL);
@@ -90,6 +95,13 @@ public class Fpago {
             pst.setInt(15, dts.getNumero_turno());
             pst.setInt(16, dts.getDeuda_anterior());
             pst.setString(17, dts.getEstado());
+            pst.setInt(18, dts.getDocumento());
+            pst.setString(19, dts.getCorreo());
+            pst.setInt(20, dts.getNumero_noches());
+            pst.setInt(21, dts.getIVA());
+            pst.setInt(22, dts.getRetencion35());
+            pst.setInt(23, dts.getRetencion4());
+            pst.setInt(24, dts.getIdcliente());
 
             int n = pst.executeUpdate();
 
@@ -102,7 +114,7 @@ public class Fpago {
     }
 
     public boolean editar(Dpago dts) {
-        sSQL = "UPDATE pago set idsalida=?,cliente=?, numero=?, fechaemision=?,tipocomprobante=?,numcomprobante=?,efectivo=?, tarjeta=?,transferencia=?,descuentos=?,cobrosfraccion=?,valorcobrar=?,netoapagar=?,empleado=?,numero_turno=?,deuda_anterior=?,estado=?)"
+        sSQL = "UPDATE pago set idsalida=?,cliente=?, numero=?, fechaemision=?,tipocomprobante=?,numcomprobante=?,efectivo=?, tarjeta=?,transferencia=?,descuentos=?,cobrosfraccion=?,valorcobrar=?,netoapagar=?,empleado=?,numero_turno=?,deuda_anterior=?,estado=?,IVA=?,retencion35=?,retencion4=?)"
                 + " where idpago=?";
 
         try {
@@ -124,8 +136,14 @@ public class Fpago {
             pst.setInt(15, dts.getNumero_turno());
             pst.setInt(16, dts.getDeuda_anterior());
             pst.setString(17, dts.getEstado());
+            pst.setInt(18, dts.getDocumento());
+            pst.setString(19, dts.getCorreo());
+            pst.setInt(20, dts.getNumero_noches());
+            pst.setInt(21, dts.getIVA());
+            pst.setInt(22, dts.getRetencion35());
+            pst.setInt(23, dts.getRetencion4());
 
-            pst.setInt(18, dts.getIdpago());
+            pst.setInt(21, dts.getIdpago());
 
             int n = pst.executeUpdate();
 
@@ -155,8 +173,6 @@ public class Fpago {
             return false;
         }
     }
-
-   
 
     public boolean pagar(Dpago dts) {
         sSQL = "UPDATE pago SET estado = 'Pagado'"
