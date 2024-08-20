@@ -163,7 +163,6 @@ public final class Jsalidahuesped extends javax.swing.JFrame {
         txtidempleado = new javax.swing.JTextField();
         jLabel22 = new javax.swing.JLabel();
         txtnumnoches = new javax.swing.JTextField();
-        btnrealizarpagos = new javax.swing.JButton();
         txtidhabitacion = new javax.swing.JTextField();
         txtidcliente = new javax.swing.JTextField();
         txtcajabuscar = new javax.swing.JTextField();
@@ -492,16 +491,6 @@ public final class Jsalidahuesped extends javax.swing.JFrame {
             }
         });
 
-        btnrealizarpagos.setBackground(new java.awt.Color(153, 153, 153));
-        btnrealizarpagos.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
-        btnrealizarpagos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/pagos.png"))); // NOI18N
-        btnrealizarpagos.setText("REALIZAR PAGOS");
-        btnrealizarpagos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnrealizarpagosActionPerformed(evt);
-            }
-        });
-
         txtidhabitacion.setText("DIH");
         txtidhabitacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -624,7 +613,6 @@ public final class Jsalidahuesped extends javax.swing.JFrame {
         jLayeredPane1.setLayer(txtidempleado, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jLabel22, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(txtnumnoches, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(btnrealizarpagos, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(txtidhabitacion, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(txtidcliente, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(txtcajabuscar, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -691,9 +679,7 @@ public final class Jsalidahuesped extends javax.swing.JFrame {
                                         .addComponent(jButton1)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(btnguardar)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnrealizarpagos)
-                                        .addGap(124, 124, 124)
+                                        .addGap(316, 316, 316)
                                         .addComponent(btncambiohabit))
                                     .addGroup(jLayeredPane1Layout.createSequentialGroup()
                                         .addComponent(jLabel15)
@@ -766,7 +752,6 @@ public final class Jsalidahuesped extends javax.swing.JFrame {
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnguardar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnrealizarpagos, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btncambiohabit, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(13, 13, 13))
         );
@@ -819,26 +804,6 @@ public final class Jsalidahuesped extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_txtvalor_nochesActionPerformed
-
-    private void btnrealizarpagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnrealizarpagosActionPerformed
-
-        razon_social = txtrazon_social.getText();
-        documento = txtDocumento.getText();
-        correo = txtcorreo.getText();
-        numero_noches = txtnumnoches.getText();
-        habitacion = txtnumero.getText();
-        totaldescuentos = txttotaldescuentos.getText();
-        cobros_extra = txtcobros_extra.getText();
-        pagototal = txttotal_pago.getText();
-        empleado = txtempleado.getText();
-        numero_turno = txtnumero_turno.getText();
-        deuda_anterior = txtdeudaanterior.getText();
-        idcliente  = txtidcliente.getText();
-        Jpago pago = new Jpago();
-        pago.toFront();
-        pago.setVisible(true);
-
-    }//GEN-LAST:event_btnrealizarpagosActionPerformed
 
     private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardarActionPerformed
 
@@ -1120,7 +1085,6 @@ public final class Jsalidahuesped extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btncambiohabit;
     private javax.swing.JButton btnguardar;
-    private javax.swing.JButton btnrealizarpagos;
     private javax.swing.JComboBox<String> cbotipo_cliente;
     private javax.swing.JLabel deudaanterior;
     private javax.swing.JButton jButton1;

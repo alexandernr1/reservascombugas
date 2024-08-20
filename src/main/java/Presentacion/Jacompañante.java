@@ -17,7 +17,7 @@ public final class Jacompañante extends javax.swing.JFrame {
 
     PreparedStatement pst;
     ResultSet rs;
-        private static Jacompañante instance;
+    private static Jacompañante instance;
 
     public Jacompañante() {
         initComponents();
@@ -26,13 +26,12 @@ public final class Jacompañante extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setTitle("INGRESO DE ACOMPAÑANTE");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        Jingreso ingreso = new Jingreso();
-        txtidcliente.setText(ingreso.idcliente1);
+        inhabilita();
 
     }
     private String accion = "guardar";
-    
-     public static Jacompañante getInstance() {
+
+    public static Jacompañante getInstance() {
         if (instance == null) {
             instance = new Jacompañante();
         }
@@ -45,11 +44,15 @@ public final class Jacompañante extends javax.swing.JFrame {
     }
 
     public void limpiarcampo() {
+        txtidcliente.setText("");
         txtacompañante.setText(null);
-        cbo_tipoDocumento.setSelectedItem(0);
+        cbo_tipoDocumento.setSelectedItem("Seleccionar");
         txtdocumentos.setText(null);
-        cboparentesco.setSelectedItem(0);
+        cboparentesco.setSelectedItem("Seleccionar");
         txtnumero_habitacion.setText(null);
+        txtciudad_procedencia.setText(null);
+        txtciudad_recidencia.setText(null);
+        
     }
 
     void ocultarcolumnas() {
@@ -105,6 +108,7 @@ public final class Jacompañante extends javax.swing.JFrame {
         txtidcliente = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
         cboestado = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane8 = new javax.swing.JScrollPane();
         tablalistadoacompañante = new javax.swing.JTable();
@@ -208,6 +212,15 @@ public final class Jacompañante extends javax.swing.JFrame {
         cboestado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Activo", "Finalizado" }));
         cboestado.setEnabled(false);
 
+        jButton1.setBackground(new java.awt.Color(204, 204, 255));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/nuevo.GIF"))); // NOI18N
+        jButton1.setText("Nuevo");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -247,8 +260,10 @@ public final class Jacompañante extends javax.swing.JFrame {
                                     .addComponent(txtidcliente, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(cboestado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(135, 135, 135)
-                        .addComponent(btnGuardarAcomp)))
+                        .addGap(82, 82, 82)
+                        .addComponent(btnGuardarAcomp)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -298,7 +313,9 @@ public final class Jacompañante extends javax.swing.JFrame {
                     .addComponent(jLabel18)
                     .addComponent(cboestado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(btnGuardarAcomp, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnGuardarAcomp, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -473,12 +490,12 @@ public final class Jacompañante extends javax.swing.JFrame {
         if (accion.equals("guardar")) {
             if (func.insertar(dts)) {
                 mostraracompañante("");
-                
+
                 int respuesta = JOptionPane.showConfirmDialog(rootPane, "ACOMPAÑANTE REGISTRADO.Deseas ingresar otro", "comfirmar", JOptionPane.YES_NO_OPTION);
                 if (respuesta == JOptionPane.YES_NO_OPTION) {
                     limpiarcampo();
                     this.dispose();
-                    
+
                 }
 
             }
@@ -538,7 +555,7 @@ public final class Jacompañante extends javax.swing.JFrame {
                 Connection conectar = conexion.establecerConexion();
 
                 // Primera consulta: obtener el idcliente basado en el numdocumento
-                PreparedStatement pst1 = conectar.prepareStatement("select idcliente from cliente where numdocumento=?");
+                PreparedStatement pst1 = conectar.prepareStatement("select idcliente from ingreso where documento = ? AND estado = 'Activo'");
                 pst1.setString(1, txtnum_principal.getText());
 
                 ResultSet rs1 = pst1.executeQuery();
@@ -571,6 +588,11 @@ public final class Jacompañante extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_txtnum_principalKeyPressed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        limpiarcampo();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -615,6 +637,7 @@ public final class Jacompañante extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cboestado;
     private javax.swing.JComboBox<String> cboparentesco;
     private com.toedter.calendar.JDateChooser dcCheckin;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel15;

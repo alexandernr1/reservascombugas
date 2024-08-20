@@ -29,7 +29,7 @@ public class Jregistro_factura_electronica extends javax.swing.JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
         Jingreso factura = new Jingreso();
-         txtidcliente.setText(factura.idcliente2);
+         txtidcliente.setText(factura.idcliente1);
         
     }
     private String accion = "guardar";

@@ -41,10 +41,10 @@ public class Dfactura_electronica {
         this.idcliente = idcliente;
     }
 
-    public Dfactura_electronica(int idCliente, int documento, String razonSocial, String email) {
+    public Dfactura_electronica(int idCliente, int documento, String razon_social, String email) {
         this.documento = documento;
         this.idcliente = idCliente;
-        this.razon_social = razonSocial;
+        this.razon_social = razon_social;
         this.email = email;
         
     }

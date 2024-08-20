@@ -19,6 +19,7 @@ Logica\Fhabitacion.class
 Presentacion\Jregistro_factura_electronica$12.class
 Presentacion\Jregistroempleados$16.class
 Presentacion\Jregistro_factura_electronica$8.class
+Presentacion\Jabono$16.class
 Presentacion\Jpago$14.class
 Presentacion\Jpago.class
 Presentacion\Jsalidaacompañante$3.class
@@ -29,6 +30,7 @@ Presentacion\Jabono$9.class
 Presentacion\Jingreso$10.class
 Presentacion\Jcliente$2.class
 Presentacion\Jvistareservas$1.class
+Presentacion\Jabono$24.class
 Datos\Dvehiculo.class
 Presentacion\Jsalidaturno$2.class
 Presentacion\Jhabitaciones$4.class
@@ -52,12 +54,14 @@ Presentacion\Jabono$4.class
 Presentacion\JcambioHabit$17.class
 Presentacion\Jvistasalida.class
 Presentacion\Jcliente$7.class
+Presentacion\Jpago$27.class
 Presentacion\Jmanejoreservas.class
 Datos\Dconsumo.class
 Presentacion\Jingreso$5.class
 Presentacion\Jmanejoreservas$4.class
 Presentacion\Jsalidahuesped$16.class
 Presentacion\Jvistareservas$6.class
+Presentacion\Jabono$22.class
 Presentacion\JcambioHabit$6.class
 Presentacion\Jpago$20.class
 Presentacion\JcambioHabit$10.class
@@ -75,6 +79,8 @@ Presentacion\Jregistro_factura_electronica$19.class
 Presentacion\Jlistaespera$4.class
 Presentacion\Jhabitaciones$12.class
 Presentacion\Jpago$12.class
+Presentacion\Jabono$14.class
+Presentacion\Jingreso$21.class
 Presentacion\Jsalidaturno$5.class
 Presentacion\Jmanejoreservas$2.class
 Presentacion\Jabono$7.class
@@ -115,6 +121,8 @@ Presentacion\JcambioHabit$2.class
 Presentacion\Jabono$6.class
 Presentacion\Jacompañante$10.class
 Presentacion\Jreportes$4.class
+Presentacion\Jabono$19.class
+Presentacion\Jabono$21.class
 Presentacion\Jpago$17.class
 Presentacion\Jregistroempleados$7.class
 Presentacion\LoguinDeAdmin$5.class
@@ -137,6 +145,7 @@ Presentacion\Jregistro_factura_electronica$10.class
 Presentacion\Jproducto$5.class
 Datos\Dpago.class
 Presentacion\Jinicioturno$4.class
+Presentacion\Jabono$18.class
 Presentacion\Jmenuprin$1.class
 Impresion\ImprimirPagos.class
 Presentacion\Jingreso$12.class
@@ -145,6 +154,7 @@ Presentacion\Jpago$5.class
 Logica\FsalidaAcompañante.class
 Presentacion\Jregistro_factura_electronica$11.class
 Presentacion\Jpago$2.class
+Presentacion\Jsalidaturno$1$1.class
 Presentacion\Jinicioturno$3.class
 Presentacion\Jcliente$10.class
 Presentacion\Jabono$2.class
@@ -153,8 +163,10 @@ Presentacion\Jingreso$8.class
 Logica\HotelC.class
 Presentacion\Jpago$23.class
 Presentacion\JcambioHabit$13.class
+Presentacion\Jabono$25.class
 Presentacion\Jvistasalida$2.class
 Presentacion\Jlistaespera$1.class
+Presentacion\Jabono$28.class
 Presentacion\JcambioHabit$20.class
 Presentacion\Jlimpieza$6.class
 Presentacion\Jsalidaturno$9.class
@@ -166,6 +178,7 @@ Presentacion\Jvistasalida$5.class
 Datos\Dlimpieza.class
 Presentacion\Jpago$25.class
 Presentacion\Jproducto$1.class
+Presentacion\Jabono$27.class
 Presentacion\JcambioHabit$15.class
 Presentacion\Jpago$19.class
 Presentacion\Jpago$1.class
@@ -179,6 +192,7 @@ Presentacion\Jvistapago.class
 Presentacion\Jpago$18.class
 Presentacion\Jregistro_factura_electronica$14.class
 Presentacion\Jpago$24.class
+Presentacion\Jabono$26.class
 Presentacion\Jregistro_factura_electronica.class
 Presentacion\JcambioHabit$14.class
 Datos\Tiempopro.class
@@ -222,7 +236,10 @@ Datos\Dcliente.class
 Presentacion\JcambioHabit$11.class
 Presentacion\Jabono$3.class
 Logica\Fsalidaturno.class
+Presentacion\Jabono$17.class
 Presentacion\Jabono$10.class
+Presentacion\Jpago$26.class
+Presentacion\Jabono$23.class
 Presentacion\Jpago$21.class
 Presentacion\Jregistroempleados$15.class
 Presentacion\Jpago$15.class
@@ -236,6 +253,7 @@ Presentacion\Jacompañante$8.class
 Presentacion\Jabono$12.class
 Presentacion\Jhabitaciones$3.class
 Presentacion\Jpago$10.class
+Presentacion\Jsalidaturno$14.class
 Presentacion\Jingreso$2.class
 Presentacion\Jproducto$6.class
 Presentacion\Jreportes$3.class
@@ -247,10 +265,12 @@ Presentacion\Jmenuhotel$9.class
 Presentacion\Jpago$13.class
 Presentacion\Jabono$5.class
 Presentacion\Jregistroempleados$3.class
+Presentacion\Jabono$15.class
 Datos\Dinicioturno.class
 Datos\Dlistaespera.class
 Presentacion\Jcliente$6.class
 Presentacion\Jmenuhotel$12.class
+Presentacion\Jpago$28.class
 Presentacion\Jregistro_factura_electronica$4.class
 Presentacion\Jhabitaciones$13.class
 Presentacion\Jlimpieza$9.class
@@ -264,6 +284,7 @@ Presentacion\Jlistaespera$7.class
 Presentacion\Jpago$7.class
 Presentacion\Jcliente.class
 Presentacion\Jregistroempleados$17.class
+Presentacion\Jabono$20.class
 Presentacion\Jcliente$15.class
 Presentacion\Jcliente$3.class
 Presentacion\Jregistro_factura_electronica$2.class
@@ -271,6 +292,7 @@ Presentacion\Jvistaempleado.class
 Presentacion\Jvistareservas$5.class
 Logica\Fingreso.class
 Presentacion\Jingreso$14.class
+Presentacion\Jacompañante$13.class
 Presentacion\Jhabitaciones$11.class
 Logica\Fempleado.class
 Presentacion\Jmanejoreservas$1.class

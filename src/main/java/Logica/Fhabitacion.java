@@ -247,5 +247,8 @@ public class Fhabitacion {
 
         return estados;
     }
-
+// public boolean cambioprecio(){
+//     
+//     
+// }
 }

@@ -5,29 +5,29 @@
                CARTAGENA                                                        
         DG 31D N.32A-25B.TERNERA                                                
     -----------------------------------                                         
-    Fecha Hora Inicio: 10-08-2024 10:54 AM                                      
-    Fecha Hora Salida: 10-08-2024 11:11 AM                                      
+    Fecha Hora Inicio: 15-08-2024 05:34 PM                                      
+    Fecha Hora Salida: 15-08-2024 05:39 PM                                      
                                                                                 
                                                                                 
     -----------------------------------                                         
-    Total Recaudo: 78540                                                        
+    Total Recaudo: 0                                                            
     -----------------------------------                                         
           Detalle del recaudado                                                 
     -----------------------------------                                         
                                                                                 
     Tarjetas: 0                                                                 
-    Efectivo: 78540                                                             
+    Efectivo: 0                                                                 
     Transferencias: 0                                                           
                                                                                 
     Total Abonos: 0                                                             
     Otros Ingresos: 0                                                           
     Total cambio habitaciones: 0                                                
-    Efectivo Liquido: 78540                                                     
+    Efectivo Liquido: 0                                                         
     Observaciones:                                                              
     -----------------------------------                                         
-    Empleado: alexander nieves romero                                           
-    Turno: Turno 1 10/08/2024                                                   
-    Numero Turno: 1                                                             
+    Empleado: DARLYS VALDES                                                     
+    Turno: Turno 1 15/08/2024                                                   
+    Numero Turno: 25                                                            
     -----------------------------------                                         
                                                                                 
 VAVA

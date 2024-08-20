@@ -4,17 +4,16 @@ import Datos.Dinicioturno;
 import Datos.Dsalidaturno;
 import Datos.Tiempopro;
 import Impresion.ImprimirCierreTurno;
-import Logica.Cconexion;
 import Logica.Finicioturno;
 import Logica.Fsalidaturno;
 import java.awt.HeadlessException;
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 public class Jsalidaturno extends javax.swing.JFrame {
 
@@ -24,18 +23,40 @@ public class Jsalidaturno extends javax.swing.JFrame {
 
     public Jsalidaturno() {
         initComponents();
+        iniciarHiloMostrarnumeroturno();
         setTitle("CAMBIO DE TURNOS");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         fechacbo();
         mostrarTiempo();
         txtbase.setText("0");
-        mostrarnumeroturno();
+//        mostrarnumeroturno();
         inhabilitar();
         txtotros_ingresos.setText("0");
         txttotal_recibos.setText("0");
 
     }
+    
+        private void iniciarHiloMostrarnumeroturno() {
+        Thread hilo = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Fsalidaturno func = new Fsalidaturno();
+                String numeroturno = func.numeroturno();
+
+                // Actualizar la interfaz de usuario desde el hilo principal
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        txtnumero_turno.setText(numeroturno);
+                    }
+                });
+            }
+        });
+
+        hilo.start();
+    }
+
     public static int idusuario;
     private String accion = "guardar";
 
@@ -44,12 +65,53 @@ public class Jsalidaturno extends javax.swing.JFrame {
         txtidempleado.setVisible(false);
 
     }
+     public void limpiarcajas(){
+         txtbase.setText("0");
+         txtefectivo.setText(null);
+         txtentrega_admon.setText(null);
+         txtfecha_hora_inicio.setText(null);
+//         txtfecha_hora_salida.setText(null);
+         txthabitaciones_ocupadas.setText(null);
+//         txtempleado.setText(null);
+         txtidempleado.setText(null);
+         txtidinicioturno.setText(null);
+         txtidturnos.setText(null);
+//         txtnumero_turno.setText(null);
+         txtobservaciones.setText(null);
+         txtotros_ingresos.setText("0");
+         txttarjeta.setText(null);
+         txttotal_abonos.setText(null);
+         txttotal_efectivo.setText("0");
+         txtotros_ingresos.setText("0");
+        txttotal_recibos.setText("0");
+         txttotalhabitaciones.setText(null);
+         txttransferencia.setText(null);
+         
+     }
 
-    public void mostrarnumeroturno() {
-        Fsalidaturno func = new Fsalidaturno();
-        String numeroturno = func.numeroturno();
-        txtnumero_turno.setText(numeroturno);
-    }
+//    private void mostrarnumeroturno() {
+//    // Crear un nuevo hilo
+//    Thread hilo = new Thread(new Runnable() {
+//        @Override
+//        public void run() {
+//            // Lógica del método dentro del hilo
+//            Fsalidaturno func = new Fsalidaturno();
+//            String numeroturno = func.numeroturno();
+//
+//            // Actualizar la interfaz de usuario (Swing) desde el hilo principal
+//            SwingUtilities.invokeLater(new Runnable() {
+//                @Override
+//                public void run() {
+//                    txtnumero_turno.setText(numeroturno);
+//                }
+//            });
+//        }
+//    });
+//
+//    // Iniciar el hilo
+//    hilo.start();
+//}
+
 
     public static Jsalidaturno getInstance() {
         if (instance == null) {
@@ -87,6 +149,7 @@ public class Jsalidaturno extends javax.swing.JFrame {
 
         dts1.setNumero_turno(Integer.parseInt(txtnumero_turno.getText()));
         func1.finalizarturno(dts1);
+        limpiarcajas();
         JOptionPane.showMessageDialog(this, "Turno cerrado");
         this.setVisible(false); // Oculta el formulario
         this.dispose(); // Libera los recursos
@@ -676,11 +739,15 @@ public class Jsalidaturno extends javax.swing.JFrame {
                 txtnumero_turno.setText(String.valueOf(rs.getString("numero_turno")));
                 txtfecha_hora_inicio.setText(rs.getString("fecha_hora_inicio"));
                 txtempleado.setText(String.valueOf(rs.getString("empleado")));
+            
+                String turnos = rs.getString("turno");
+                cboturnos.setSelectedItem(turnos);
                 String estado = rs.getString("estado");
                 cboestado.setSelectedItem(estado);
                 // Actualizar los JLabel en Jmenuhotel
+                
                 Jmenuhotel.actualizarFecha(txtfecha_hora_inicio.getText());
-                Jmenuhotel.actualizarTurno(txtnumero_turno.getText());
+                Jmenuhotel.actualizarTurno((String) cboturnos.getSelectedItem());
                 Jmenuhotel.actualizarEmpleado(txtempleado.getText());
                 Jmenuhotel.actualizarEstado((String) cboestado.getSelectedItem());
 
