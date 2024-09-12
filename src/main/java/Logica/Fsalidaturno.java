@@ -142,6 +142,18 @@ public class Fsalidaturno {
 
         return totalOcupadas;
     }
+    
+      public ResultSet Consultapago(int pago) throws SQLException {
+
+        sSQL = "select *from pago where numero_turno=?";
+
+        PreparedStatement pst = cn.prepareStatement(sSQL);
+        pst.setInt(1, pago);
+
+        return pst.executeQuery();
+    }
+
+   
 
     public double obtenerCostoTotalAlojamiento() {
         double totalCosto = 0.0;
@@ -178,16 +190,16 @@ public class Fsalidaturno {
         return estado;
     }
 
-    public String numeroturno() {
-        String numeroturno = "";
-        String sSQL = "SELECT numero_turno FROM inicioturno WHERE estado = 'Activo' ORDER BY numero_turno DESC LIMIT 1";
+    public int numeroturno() {
+        int numeroturno = 0;
+         sSQL = "SELECT numero_turno FROM inicioturno WHERE estado = 'Activo' ORDER BY numero_turno DESC LIMIT 1";
         try {
 
             PreparedStatement pst = cn.prepareStatement(sSQL);
             ResultSet rs = pst.executeQuery();
 
             if (rs.next()) {
-                numeroturno = rs.getString("numero_turno");
+                numeroturno = rs.getInt("numero_turno");
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al obtener el numero del turno: " + e.getMessage());
@@ -201,7 +213,7 @@ public class Fsalidaturno {
 
         // Consulta SQL para obtener los totales de medios de pago durante un turno activo
         String sSQL = "SELECT SUM(efectivo) AS efectivo, SUM(tarjeta) AS tarjeta, SUM(transferencia) AS transferencia "
-                + "FROM pago WHERE numero_turno = ?";
+                + "FROM abono WHERE numero_turno = ?";
 
         try ( PreparedStatement pst = cn.prepareStatement(sSQL)) {
             pst.setInt(1, numeroturno);
@@ -214,11 +226,32 @@ public class Fsalidaturno {
                 }
             }
 
-//            // Aquí puedes hacer algo con los totales obtenidos, por ejemplo, mostrarlos o almacenarlos
-//            System.out.println("Total en efectivo: " + mediosDePago[0]);
-//            System.out.println("Total en tarjeta: " + mediosDePago[1]);
-//            System.out.println("Total en transferencia: " + mediosDePago[2]);
             return mediosDePago; // Retornar el array con los totales
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al obtener totales en medios de pago: " + e.getMessage());
+            return new int[]{0, 0, 0}; // En caso de error, retornar un array con valores 0
+        }
+    }
+    
+    public int[] totalmedio_pagos_pago(int numeroturno) {
+        int[] mediosDePago_pago = new int[3]; // Un array para almacenar los totales de efectivo, tarjeta y transferencia
+
+        // Consulta SQL para obtener los totales de medios de pago durante un turno activo
+        String sSQL = "SELECT SUM(efectivo) AS efectivo, SUM(tarjeta) AS tarjeta, SUM(transferencia) AS transferencia "
+                + "FROM pago WHERE numero_turno = ?";
+
+        try ( PreparedStatement pst = cn.prepareStatement(sSQL)) {
+            pst.setInt(1, numeroturno);
+
+            try ( ResultSet rs = pst.executeQuery()) {
+                if (rs.next()) {
+                    mediosDePago_pago[0] = rs.getInt("efectivo"); // Total en efectivo
+                    mediosDePago_pago[1] = rs.getInt("tarjeta");  // Total en tarjeta
+                    mediosDePago_pago[2] = rs.getInt("transferencia"); // Total en transferencia
+                }
+            }
+
+            return mediosDePago_pago; // Retornar el array con los totales
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al obtener totales en medios de pago: " + e.getMessage());
             return new int[]{0, 0, 0}; // En caso de error, retornar un array con valores 0
@@ -227,28 +260,28 @@ public class Fsalidaturno {
 
     public int totalAbonos(int numero) {
         int numeroturno = 0;
-        String sSQL = "select sum(abonohabitacion) AS abonohabitacion from abono where numero_turno = ?";
+        String sSQL = "SELECT SUM(totalapagar) AS totalapagar from abono where numero_turno = ?";
 
         try ( PreparedStatement pst = cn.prepareStatement(sSQL)) {
             pst.setInt(1, numero);
             try ( ResultSet rs = pst.executeQuery()) {
                 if (rs.next()) {
-                    numeroturno = rs.getInt("abonohabitacion");
+                    numeroturno = rs.getInt("totalapagar");
                 }
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al obtener el número del turno: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al obtener la suma de toteles a pagar: " + e.getMessage());
         }
 
         return numeroturno;
     }
 
-    public String Consultaempleado(int inicioturno1) throws SQLException {
+    public String Consultaempleado(int idEmpleado) throws SQLException {
         String empleado1 = "";
-        String sSQL = "SELECT empleado FROM inicioturno WHERE numero_turno = ? AND estado = 'Activo'";
+        String sSQL = "SELECT empleado FROM inicioturno WHERE idinicioturno =? AND estado ='Activo';";
 
         try ( PreparedStatement pst = cn.prepareStatement(sSQL)) {
-            pst.setInt(1, inicioturno1);
+            pst.setInt(1, idEmpleado);
 
             try ( ResultSet rs = pst.executeQuery()) {
                 if (rs.next()) {
@@ -256,7 +289,7 @@ public class Fsalidaturno {
                 }
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al obtener el número del turno: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al obtener el dato del empleado: " + e.getMessage());
         }
 
         return empleado1;
@@ -275,14 +308,14 @@ public class Fsalidaturno {
                 }
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al obtener la suma de totales: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al obtener la suma de deudas anterior: " + e.getMessage());
         }
          return netorecaudado;
     }
    public int sumaDeudaAnterior(int inicioturno3) {
         int deuda_anterior = 0;
 
-        sSQL = "SELECT SUM(deuda_anterior) AS deuda_anterior from reserva1.pago where numero_turno = ?";
+        sSQL = "SELECT SUM(deuda_anterior) AS deuda_anterior from pago where numero_turno = ?";
         try ( PreparedStatement pst = cn.prepareStatement(sSQL)) {
             pst.setInt(1, inicioturno3);
 
@@ -296,5 +329,7 @@ public class Fsalidaturno {
         }
          return deuda_anterior;
     }
+
+    
 
 }

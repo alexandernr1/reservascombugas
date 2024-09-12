@@ -20,7 +20,6 @@ public class Fsalida {
     private String sSQL = "";
     private String aSQL = "";
     public Integer totalregistros;
-    
 
     public DefaultTableModel mostrarsalida(String buscar) {
         DefaultTableModel modelo;
@@ -82,7 +81,7 @@ public class Fsalida {
                 + "numero, cliente, numnoches,costoalojamiento,fechaingreso,fechasalida,tipocliente,"
                 + "valor_noches,abonos,valor_total,descuentos,cobros_extra,otros_cobros,totalpago,numero_turno,deuda_anterior)"
                 + "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-        
+
         try {
 
             PreparedStatement pst = cn.prepareStatement(sSQL);
@@ -129,7 +128,7 @@ public class Fsalida {
                 + "(SELECT numdocumento FROM cliente WHERE idcliente = i.idcliente)AS clientenu,"
                 + "(SELECT telefono FROM cliente WHERE idcliente = i.idcliente) AS clientete, "
                 + "(SELECT totalabonos FROM abono WHERE idabono = a.idabono)AS totalabonos,"
-                + "a.idabono, a.descuentos, a.totalabonos, a.abonohabitacion,"
+                + "a.idabono, a.descuentos, a.totalabonos, a.abonohabitacion, a.totalapagar,"
                 + "i.fecha_hora_ingreso, i.num_personas, i.tipo_cliente, i.motivo_viaje, i.estado,"
                 + "i.costoalojamiento "
                 + "FROM ingreso i INNER JOIN habitacion h ON i.idhabitacion = h.idhabitacion "
@@ -216,16 +215,17 @@ public class Fsalida {
 
         return cobros;
     }
-     public Dfactura_electronica cleinteFacturar(int factura) {
-         Dfactura_electronica cliente = null;
-         
-        sSQL = "SELECT " +
-               "f.documento," +
-               "f.razon_social," +
-               "f.email," +
-               "f.idcliente " +
-               "FROM factura_electronica f " +
-               "JOIN ingreso i ON f.idcliente = i.idcliente where i.idcliente = ?";
+
+    public Dfactura_electronica cleinteFacturar(int factura) {
+        Dfactura_electronica cliente = null;
+
+        sSQL = "SELECT "
+                + "f.documento,"
+                + "f.razon_social,"
+                + "f.email,"
+                + "f.idcliente "
+                + "FROM factura_electronica f "
+                + "JOIN ingreso i ON f.idcliente = i.idcliente where i.idcliente = ?";
         try {
 
             PreparedStatement pst = cn.prepareStatement(sSQL);
@@ -236,8 +236,8 @@ public class Fsalida {
                 int documento = rs.getInt("documento");
                 String razonSocial = rs.getString("razon_social");
                 String email = rs.getString("email");
-                
-               cliente = new Dfactura_electronica(idCliente, documento, razonSocial, email);
+
+                cliente = new Dfactura_electronica(idCliente, documento, razonSocial, email);
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al obtener IDcliente F: " + e.getMessage());
@@ -246,4 +246,27 @@ public class Fsalida {
         return cliente;
     }
 
+    public int sumaAbono(int numero) {
+        
+        int suma = 0;
+        sSQL = "SELECT SUM(a.abonohabitacion) AS abonohabitacion "
+                + "FROM abono a "
+                + "INNER JOIN ingreso i ON a.idhabitacion = i.idhabitacion "
+                + "WHERE i.num_habitacion = ? AND i.estado = 'Activo' ";
+        
+         try {
+
+            PreparedStatement pst = cn.prepareStatement(sSQL);
+            pst.setInt(1, numero);
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                suma = rs.getInt("abonohabitacion");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al obtener la SUMA: " + e.getMessage());
+        }
+
+        return suma;
+    }
+    
 }

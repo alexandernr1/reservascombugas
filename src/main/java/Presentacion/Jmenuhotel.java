@@ -4,9 +4,7 @@ import Logica.ActualizadorColores;
 import Logica.Fhabitacion;
 import Logica.Finicioturno;
 import static Presentacion.Jmenuprin.lblacceso;
-import static Presentacion.Jmenuprin.lblapellidos;
 import static Presentacion.Jmenuprin.lblidpersona;
-import static Presentacion.Jmenuprin.lblnombres;
 import java.awt.Color;
 import java.awt.Component;
 import java.util.regex.Pattern;
@@ -111,18 +109,19 @@ public final class Jmenuhotel extends javax.swing.JInternalFrame {
 
                     switch (estadoHabitacion) {
                         case "Disponible" ->
-                            boton.setBackground(Color.green);
+                            boton.setBackground(new Color(144, 238, 144)); // Light green
                         case "Ocupado" ->
-                            boton.setBackground(Color.RED);
+                            boton.setBackground(new Color(255, 99, 71)); // Light coral (soft red)
                         case "Reserva" ->
-                            boton.setBackground(Color.YELLOW);
+                            boton.setBackground(new Color(255, 255, 224)); // Light yellow
                         case "Mantenimiento" ->
-                            boton.setBackground(Color.orange);
+                            boton.setBackground(new Color(255, 165, 79)); // Light orange
                         case "Limpieza" ->
-                            boton.setBackground(Color.BLUE);
+                            boton.setBackground(new Color(173, 216, 230)); // Light sky blue
                         default ->
                             boton.setBackground(Color.WHITE);
                     }
+
                 }
             }
         }
@@ -200,7 +199,6 @@ public final class Jmenuhotel extends javax.swing.JInternalFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
 
-        setBorder(javax.swing.BorderFactory.createEtchedBorder());
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
@@ -214,7 +212,7 @@ public final class Jmenuhotel extends javax.swing.JInternalFrame {
         jpmenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btncambioturno.setBackground(new java.awt.Color(0, 204, 204));
-        btncambioturno.setFont(new java.awt.Font("Serif", 1, 12)); // NOI18N
+        btncambioturno.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         btncambioturno.setForeground(new java.awt.Color(0, 0, 102));
         btncambioturno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/rotacion.png"))); // NOI18N
         btncambioturno.setText("CAMBIO DE TURNO");
@@ -228,7 +226,7 @@ public final class Jmenuhotel extends javax.swing.JInternalFrame {
         jpmenu.add(btncambioturno, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 180, 40));
 
         btnlistaespera.setBackground(new java.awt.Color(0, 204, 204));
-        btnlistaespera.setFont(new java.awt.Font("Serif", 1, 12)); // NOI18N
+        btnlistaespera.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         btnlistaespera.setForeground(new java.awt.Color(0, 0, 102));
         btnlistaespera.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/gestion_del_tiempo.png"))); // NOI18N
         btnlistaespera.setText("LISTA DE ESPERA");
@@ -242,7 +240,7 @@ public final class Jmenuhotel extends javax.swing.JInternalFrame {
         jpmenu.add(btnlistaespera, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 180, 40));
 
         btnlimpieza.setBackground(new java.awt.Color(0, 204, 204));
-        btnlimpieza.setFont(new java.awt.Font("Serif", 1, 12)); // NOI18N
+        btnlimpieza.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         btnlimpieza.setForeground(new java.awt.Color(0, 0, 102));
         btnlimpieza.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/limpieza.png"))); // NOI18N
         btnlimpieza.setText("LiMPIEZA");
@@ -256,7 +254,7 @@ public final class Jmenuhotel extends javax.swing.JInternalFrame {
         jpmenu.add(btnlimpieza, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 450, 180, 40));
 
         btnsalidahuesped.setBackground(new java.awt.Color(0, 204, 204));
-        btnsalidahuesped.setFont(new java.awt.Font("Serif", 1, 12)); // NOI18N
+        btnsalidahuesped.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         btnsalidahuesped.setForeground(new java.awt.Color(0, 0, 102));
         btnsalidahuesped.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/salida-de-emergencia.png"))); // NOI18N
         btnsalidahuesped.setText("SALIDA HUESPED");
@@ -270,7 +268,7 @@ public final class Jmenuhotel extends javax.swing.JInternalFrame {
         jpmenu.add(btnsalidahuesped, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 180, 40));
 
         btningresohuesped.setBackground(new java.awt.Color(0, 204, 204));
-        btningresohuesped.setFont(new java.awt.Font("Serif", 1, 12)); // NOI18N
+        btningresohuesped.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         btningresohuesped.setForeground(new java.awt.Color(0, 0, 102));
         btningresohuesped.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/entrada_del_metro.png"))); // NOI18N
         btningresohuesped.setText("INGRESO HUESPED");
@@ -284,7 +282,7 @@ public final class Jmenuhotel extends javax.swing.JInternalFrame {
         jpmenu.add(btningresohuesped, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 180, 40));
 
         btnregistro.setBackground(new java.awt.Color(0, 204, 204));
-        btnregistro.setFont(new java.awt.Font("Serif", 1, 12)); // NOI18N
+        btnregistro.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         btnregistro.setForeground(new java.awt.Color(0, 0, 102));
         btnregistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/registro.png"))); // NOI18N
         btnregistro.setText("REGISTRO");
@@ -300,7 +298,7 @@ public final class Jmenuhotel extends javax.swing.JInternalFrame {
         jpmenu.add(btnregistro, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 180, 40));
 
         btnreservas.setBackground(new java.awt.Color(0, 204, 204));
-        btnreservas.setFont(new java.awt.Font("Serif", 1, 12)); // NOI18N
+        btnreservas.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         btnreservas.setForeground(new java.awt.Color(0, 0, 102));
         btnreservas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/reserva.png"))); // NOI18N
         btnreservas.setText("RESERVAS");
@@ -314,7 +312,7 @@ public final class Jmenuhotel extends javax.swing.JInternalFrame {
         jpmenu.add(btnreservas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 180, 40));
 
         btnsalidaAcompañante.setBackground(new java.awt.Color(0, 204, 204));
-        btnsalidaAcompañante.setFont(new java.awt.Font("Serif", 1, 12)); // NOI18N
+        btnsalidaAcompañante.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         btnsalidaAcompañante.setForeground(new java.awt.Color(0, 0, 102));
         btnsalidaAcompañante.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/amistoso.png"))); // NOI18N
         btnsalidaAcompañante.setText("SALIDA ACOMPAÑANTE");
@@ -328,7 +326,7 @@ public final class Jmenuhotel extends javax.swing.JInternalFrame {
         jpmenu.add(btnsalidaAcompañante, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 180, 40));
 
         btnpagos.setBackground(new java.awt.Color(0, 204, 204));
-        btnpagos.setFont(new java.awt.Font("Serif", 1, 12)); // NOI18N
+        btnpagos.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         btnpagos.setForeground(new java.awt.Color(0, 0, 102));
         btnpagos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/tarjeta_de_debito.png"))); // NOI18N
         btnpagos.setText("ABONOS");
@@ -498,23 +496,24 @@ public final class Jmenuhotel extends javax.swing.JInternalFrame {
         jLabel5.setText("TERCER PISO");
         pnlBotones.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(156, 257, 103, 28));
 
-        jToggleButtonrojo.setBackground(new java.awt.Color(255, 0, 0));
-        jToggleButtonrojo.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        jToggleButtonrojo.setBackground(new java.awt.Color(255, 99, 71));
+        jToggleButtonrojo.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jToggleButtonrojo.setText("OCUPADA");
 
-        jToggleButtonamarillo.setBackground(new java.awt.Color(255, 255, 0));
-        jToggleButtonamarillo.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        jToggleButtonamarillo.setBackground(new java.awt.Color(255, 255, 224));
+        jToggleButtonamarillo.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jToggleButtonamarillo.setText("RESERVADA");
 
-        jToggleButtonnaranja.setBackground(new java.awt.Color(255, 102, 0));
-        jToggleButtonnaranja.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        jToggleButtonnaranja.setBackground(new java.awt.Color(255, 165, 79));
+        jToggleButtonnaranja.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jToggleButtonnaranja.setText("MANTENIMIENTO");
 
-        jToggleButtonverde.setBackground(new java.awt.Color(0, 204, 0));
-        jToggleButtonverde.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        jToggleButtonverde.setBackground(new java.awt.Color(144, 238, 144));
+        jToggleButtonverde.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jToggleButtonverde.setText("DISPONIBLE");
 
-        jToggleButtonazul.setBackground(new java.awt.Color(51, 0, 255));
+        jToggleButtonazul.setBackground(new java.awt.Color(173, 216, 230));
+        jToggleButtonazul.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jToggleButtonazul.setForeground(new java.awt.Color(255, 255, 255));
         jToggleButtonazul.setText("LIMPIEZA");
 
@@ -600,8 +599,8 @@ public final class Jmenuhotel extends javax.swing.JInternalFrame {
         lblestado.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblestado.setText("estado");
 
-        cboinformes.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
-        cboinformes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Reservas", "Salidas", " ", " " }));
+        cboinformes.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        cboinformes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Reservas", "Salidas", "Abonos", " " }));
         cboinformes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 cboinformesMouseClicked(evt);
@@ -613,7 +612,7 @@ public final class Jmenuhotel extends javax.swing.JInternalFrame {
             }
         });
 
-        btnconsultas.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        btnconsultas.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         btnconsultas.setText("CONSULTAR");
         btnconsultas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -675,7 +674,7 @@ public final class Jmenuhotel extends javax.swing.JInternalFrame {
                         .addComponent(jLabel1))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pnlBotones, javax.swing.GroupLayout.DEFAULT_SIZE, 871, Short.MAX_VALUE))))
+                        .addComponent(pnlBotones, javax.swing.GroupLayout.DEFAULT_SIZE, 863, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -708,7 +707,7 @@ public final class Jmenuhotel extends javax.swing.JInternalFrame {
                             .addComponent(lblestado)
                             .addComponent(jLabel9))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlBotones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(pnlBotones, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
@@ -822,9 +821,9 @@ public final class Jmenuhotel extends javax.swing.JInternalFrame {
         if (sesionIniciada) {
             // Si la sesión no está iniciada, mostrar el formulario de inicio de sesión
 
-//            Jsalidaturno formTurnos = Jsalidaturno.getInstance();
-//            formTurnos.toFront();
-//            formTurnos.setVisible(true);
+            Jsalidaturno formTurnos = Jsalidaturno.getInstance();
+            formTurnos.toFront();
+            formTurnos.setVisible(true);
             if (salidaturno == null || !salidaturno.isVisible()) {
                 // Si no está abierto, crea una nueva instancia o usa el Singleton
                 salidaturno = Jsalidaturno.getInstance(); // Usando Singleton
@@ -835,9 +834,7 @@ public final class Jmenuhotel extends javax.swing.JInternalFrame {
                 salidaturno.toFront(); // Traer al frente
                 salidaturno.requestFocus(); // Solicitar foco
             }
-            Jsalidaturno.txtidempleado.setText(lblidpersona.getText());
-            Jsalidaturno.txtempleado.setText(lblnombres.getText() + " " + lblapellidos.getText());
-            // Si la sesión ya está iniciada, mostrar el formulario Jsalidaturno
+
             metodoDondeSeNecesitaFormLogin();
         } else {
             if (finicio.hayTurnoActivo()) {
@@ -845,14 +842,14 @@ public final class Jmenuhotel extends javax.swing.JInternalFrame {
                 Jsalidaturno formTurnos = Jsalidaturno.getInstance();
                 formTurnos.toFront();
                 formTurnos.setVisible(true);
-                Jsalidaturno.txtidempleado.setText(lblidpersona.getText());
-                Jsalidaturno.txtempleado.setText(lblnombres.getText() + " " + lblapellidos.getText());
+
             } else {
                 Jinicioturno formLogin = new Jinicioturno();
                 formLogin.toFront();
                 formLogin.setVisible(true);
             }
         }
+
 
     }//GEN-LAST:event_btncambioturnoActionPerformed
 
@@ -899,9 +896,9 @@ public final class Jmenuhotel extends javax.swing.JInternalFrame {
                 framereservas.setVisible(true);
 
             } else if (selectedItem.equals("Abonos")) {
-
-                JOptionPane.showMessageDialog(this, "Seleccione una opción válida", "Error", JOptionPane.ERROR_MESSAGE);
-            } else if (selectedItem.equals("")) {
+                JVistaAbonos form = new JVistaAbonos();
+                form.toFront();
+                form.setVisible(true);
 
             }
         }

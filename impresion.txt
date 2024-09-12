@@ -1,33 +1,33 @@
-                                                                                
-          HOTEL COMBUGAS S.A.S                                                  
-            NIT: 900139412-4                                                    
-              TEL:3205417916                                                    
-               CARTAGENA                                                        
-        DG 31D N.32A-25B.TERNERA                                                
-    -----------------------------------                                         
-    Fecha Hora Inicio: 15-08-2024 05:34 PM                                      
-    Fecha Hora Salida: 15-08-2024 05:39 PM                                      
-                                                                                
-                                                                                
-    -----------------------------------                                         
-    Total Recaudo: 0                                                            
-    -----------------------------------                                         
-          Detalle del recaudado                                                 
-    -----------------------------------                                         
-                                                                                
-    Tarjetas: 0                                                                 
-    Efectivo: 0                                                                 
-    Transferencias: 0                                                           
-                                                                                
-    Total Abonos: 0                                                             
-    Otros Ingresos: 0                                                           
-    Total cambio habitaciones: 0                                                
-    Efectivo Liquido: 0                                                         
-    Observaciones:                                                              
-    -----------------------------------                                         
-    Empleado: DARLYS VALDES                                                     
-    Turno: Turno 1 15/08/2024                                                   
-    Numero Turno: 25                                                            
-    -----------------------------------                                         
-                                                                                
+                                
+          HOTEL COMBUGAS S.A.S  
+            NIT: 900139412-4    
+              TEL:3205417916    
+               CARTAGENA        
+        DG 31D N.32A-25B.TERNERA
+    -----------------------------------
+    Fecha Hora Inicio: 05-09-2024 08:02 PM
+    Fecha Hora Salida: 07-09-2024 11:13 AM
+                                
+                                
+    -----------------------------------
+    Total Recaudo: 0            
+    -----------------------------------
+          Detalle del recaudado 
+    -----------------------------------
+                                
+    Tarjetas: 0                 
+    Efectivo: 0                 
+    Transferencias: 0           
+                                
+    Total Abonos: 0             
+    Otros Ingresos: 0           
+    Total cambio habitaciones: 0
+    Efectivo Liquido: 0         
+    Observaciones:              
+    -----------------------------------
+    Empleado: DARLYS VALDES     
+    Turno: Turno 1 07/09/2024   
+    Numero Turno: 59            
+    -----------------------------------
+                                
 VAVA

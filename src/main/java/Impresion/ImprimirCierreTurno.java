@@ -66,7 +66,7 @@ public class ImprimirCierreTurno {
                 // Imprimir los datos
                 Extenso extenso = new Extenso();
                 extenso.setNumber(101.85);
-                printer.setOutSize(32, 80);
+                printer.setOutSize(32, 32);
 
                 printer.printTextWrap(1, 2, 10, 80, "HOTEL COMBUGAS S.A.S ");
                 printer.printTextWrap(2, 3, 12, 80, "NIT: 900139412-4 ");

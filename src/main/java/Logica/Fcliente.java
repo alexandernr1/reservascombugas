@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -130,4 +132,20 @@ public class Fcliente {
             return false;
         } 
     }
+    public boolean existeCliente(String numdocumento) {
+//    Connection cn = Conexion.getConnection();
+    sSQL = "SELECT COUNT(*) FROM cliente WHERE numdocumento = ?";
+    try {
+        PreparedStatement pst = cn.prepareStatement(sSQL);
+        pst.setString(1, numdocumento);
+        ResultSet rs = pst.executeQuery();
+        if (rs.next()) {
+            return rs.getInt(1) > 0; // Retorna true si existe el cliente
+        }
+    } catch (SQLException e) {
+        Logger.getLogger(Fcliente.class.getName()).log(Level.SEVERE, null, e);
+    } 
+    return false;
+}
+
 }

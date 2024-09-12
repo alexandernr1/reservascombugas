@@ -125,4 +125,23 @@ public class Flimpieza {
             return false;
         }
     }
+    public boolean existe(Dlimpieza dts) {
+    String sql = "SELECT COUNT(*) FROM limpieza WHERE idempleado = ? AND numero = ? AND fecha = ?";
+
+    try (PreparedStatement pst = cn.prepareStatement(sql)) {
+        pst.setInt(1, dts.getIdempleado());
+        pst.setInt(2, dts.getNumero());
+        pst.setDate(3, new java.sql.Date(dts.getFecha().getTime()));
+        
+        ResultSet rs = pst.executeQuery();
+        if (rs.next()) {
+            return rs.getInt(1) > 0;
+        }
+        return false;
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, e);
+        return false;
+    }
+}
+
 }

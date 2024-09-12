@@ -2,20 +2,33 @@ package Presentacion;
 
 import Datos.Dabono;
 import Datos.Dfactura_electronica;
+import Datos.DvalorCongelado;
 import Datos.Tiempopro;
+import Impresion.ImpresionAbono;
 import Logica.Cconexion;
+import Logica.Fabonocongelado;
 import Logica.Fabonos;
 import Logica.Fsalida;
-import java.awt.HeadlessException;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowFocusListener;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 public class Jabono extends javax.swing.JFrame {
 
@@ -25,17 +38,16 @@ public class Jabono extends javax.swing.JFrame {
     public Jabono() {
         initComponents();
         setLocationRelativeTo(null);
-        setTitle("");
+        setTitle("ABONOS");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         mostrar("");
+        configurarTabla();
         inhabilitar();
         mostrarTiempo();
-        mostrarnumeroturno();
+        agregarWindowFocusListener();
         generarnumero();
-        txtabonohabitacion.setText("0");
-        txtdescuentos.setText("0");
-        txtotroscobros.setText("0");
-        txttotalapagar.setText("0");
+        iniciosenceros();
+
     }
     private String accion = "guardar";
 
@@ -46,11 +58,30 @@ public class Jabono extends javax.swing.JFrame {
         return instance;
     }
 
+    private void iniciosenceros() {
+
+        txtnumeronoches.setText("0");
+        txtvalordescuento.setText("0");
+        txtcostoalojamiento.setText("0");
+        txtabonohabitacion.setText("0");
+        txtdescuentos.setText("0");
+        txtotroscobros.setText("0");
+        txtvalorbruto.setText("");
+        txtsubtotal.setText("");
+        txtbruto.setText("0");
+        txtIVA_19.setText("0");
+        txtreten_35.setText("0");
+        txtreten4.setText("0");
+
+        txtefectivo.setText("0");
+        txttarjeta.setText("0");
+        txttransferencia.setText("0");
+    }
+
     public void generarnumero() {
         Fabonos func = new Fabonos();
-        int numerocomparobante = func.generarComprobante();
-      
-        txtnumcomprobante.setText(String.valueOf(numerocomparobante));
+        int numero = func.generarComprobante();
+        txtnumcomprobante.setText(String.valueOf(numero));
     }
 
     private void mostrarTiempo() {
@@ -58,15 +89,50 @@ public class Jabono extends javax.swing.JFrame {
         txtfecha_abono.setText(time.getFechacomp());
     }
 
-    public void mostrarnumeroturno() {
+    private void mostrarnumeroturno() {
         Fsalida func = new Fsalida();
         String numeroturno = func.numeroturno();
         txtnumero_turno.setText(numeroturno);
     }
 
+    private void agregarWindowFocusListener() {
+        this.addWindowFocusListener(new WindowFocusListener() {
+            @Override
+            public void windowGainedFocus(WindowEvent e) {
+                mostrarnumeroturno();  // Actualiza el número de turno cuando la ventana recibe el foco
+            }
+
+            @Override
+            public void windowLostFocus(WindowEvent e) {
+                // No hacer nada cuando la ventana pierde el foco
+            }
+        });
+    }
+
     public void limpiarTabla(JTable tablalistadosabonos) {
         DefaultTableModel model = (DefaultTableModel) tablalistadosabonos.getModel();
         model.setRowCount(0);
+    }
+
+    private void imprimir() {
+        int confirmacion = JOptionPane.showConfirmDialog(rootPane, "Deseas imprimir?", "Confirmar", 2);
+
+        if (confirmacion == 0) {
+
+            ImpresionAbono imprimir = new ImpresionAbono();
+            try {
+                try {
+                    imprimir.ImprimirFacturaAbono();
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(Jabono.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Jabono.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            } catch (IOException ex) {
+                Logger.getLogger(Jabono.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     void ocultar_columnas() {
@@ -85,38 +151,92 @@ public class Jabono extends javax.swing.JFrame {
         tablalistadosabonos.getColumnModel().getColumn(4).setMaxWidth(0);
         tablalistadosabonos.getColumnModel().getColumn(4).setMinWidth(0);
         tablalistadosabonos.getColumnModel().getColumn(4).setPreferredWidth(0);
-        
-         tablalistadosabonos.getColumnModel().getColumn(10).setMaxWidth(0);
+
+        tablalistadosabonos.getColumnModel().getColumn(10).setMaxWidth(0);
         tablalistadosabonos.getColumnModel().getColumn(10).setMinWidth(0);
         tablalistadosabonos.getColumnModel().getColumn(10).setPreferredWidth(0);
-        
-         tablalistadosabonos.getColumnModel().getColumn(12).setMaxWidth(0);
+
+        tablalistadosabonos.getColumnModel().getColumn(12).setMaxWidth(0);
         tablalistadosabonos.getColumnModel().getColumn(12).setMinWidth(0);
         tablalistadosabonos.getColumnModel().getColumn(12).setPreferredWidth(0);
-        
-         tablalistadosabonos.getColumnModel().getColumn(13).setMaxWidth(0);
+
+        tablalistadosabonos.getColumnModel().getColumn(13).setMaxWidth(0);
         tablalistadosabonos.getColumnModel().getColumn(13).setMinWidth(0);
         tablalistadosabonos.getColumnModel().getColumn(13).setPreferredWidth(0);
-        
-         tablalistadosabonos.getColumnModel().getColumn(15).setMaxWidth(0);
+
+        tablalistadosabonos.getColumnModel().getColumn(15).setMaxWidth(0);
         tablalistadosabonos.getColumnModel().getColumn(15).setMinWidth(0);
         tablalistadosabonos.getColumnModel().getColumn(15).setPreferredWidth(0);
-        
-         tablalistadosabonos.getColumnModel().getColumn(19).setMaxWidth(0);
+
+        tablalistadosabonos.getColumnModel().getColumn(19).setMaxWidth(0);
         tablalistadosabonos.getColumnModel().getColumn(19).setMinWidth(0);
         tablalistadosabonos.getColumnModel().getColumn(19).setPreferredWidth(0);
-        
-         tablalistadosabonos.getColumnModel().getColumn(20).setMaxWidth(0);
+
+        tablalistadosabonos.getColumnModel().getColumn(20).setMaxWidth(0);
         tablalistadosabonos.getColumnModel().getColumn(20).setMinWidth(0);
         tablalistadosabonos.getColumnModel().getColumn(20).setPreferredWidth(0);
     }
 
+    private void configurarTabla() {
+        // Aquí configuras el comportamiento y el estilo de la tabla
+        tablalistadosabonos.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tablalistadosabonos.setRowHeight(25); // Ajusta la altura de las filas
+        tablalistadosabonos.setRowMargin(5); // Espacio entre filas
+
+        // Cambiar color del encabezado usando un renderer personalizado
+        JTableHeader header = tablalistadosabonos.getTableHeader();
+        header.setDefaultRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                Component cell = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                cell.setBackground(new Color(135, 206, 235));
+                cell.setForeground(Color.WHITE); // Texto blanco para encabezado
+                cell.setFont(new Font("SansSerif", Font.BOLD, 14)); // Fuente personalizada
+                return cell;
+            }
+        });
+
+        // Establecer colores alternos en las filas
+        tablalistadosabonos.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                Component cell = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+                // Color de las filas alternas
+                if (!isSelected) {
+                    if (row % 2 == 0) {
+                        cell.setBackground(Color.LIGHT_GRAY); // Filas pares
+                    } else {
+                        cell.setBackground(Color.WHITE); // Filas impares
+                    }
+                } else {
+                    cell.setBackground(Color.CYAN); // Color para fila seleccionada
+                }
+
+                return cell;
+            }
+        });
+    }
+
     public void limpiarcajas() {
-        txtnumero.setText( "");
+        txtnumero.setText("");
         txtcliente.setText("");
-        txtclientenu.setText( "");
+        txtclientenu.setText("");
         cajanumero.setText("");
-        txtfecha_abono.setText("");
+        txtrazon_social.setText("");
+        txtdocumento.setText("");
+        txtemail.setText("");
+        txtcostoalojamiento.setText("");
+        txtnumeronoches.setText("");
+        txtvalordescuento.setText("");
+        txtbruto.setText("");
+        txtefectivo.setText("");
+        txttarjeta.setText("");
+        txttransferencia.setText("");
+        txtIVA_19.setText("");
+        txtreten4.setText("");
+        txtreten_35.setText("");
+        txtbruto.setText("");
         txtabonohabitacion.setText("");
         txtdescuentos.setText("");
         txtconcepto.setText("");
@@ -211,6 +331,8 @@ public class Jabono extends javax.swing.JFrame {
         txtnumeronoches = new javax.swing.JTextField();
         jLabel27 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        txtbruto = new javax.swing.JTextField();
+        jLabel30 = new javax.swing.JLabel();
         cboprivilegiosadmon = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -219,17 +341,18 @@ public class Jabono extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         txtnumcomprobante = new javax.swing.JTextField();
         jLabel29 = new javax.swing.JLabel();
-        cbotipocomprobante = new javax.swing.JComboBox<>();
-        jLabel28 = new javax.swing.JLabel();
         btnnuevo = new javax.swing.JButton();
         btnguardar = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        btneliminar = new javax.swing.JButton();
-        lbltotalregistros = new javax.swing.JLabel();
-        btnbuscar = new javax.swing.JButton();
-        txtbuscar = new javax.swing.JTextField();
+        btnimprimir = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
         jScrollPane7 = new javax.swing.JScrollPane();
         tablalistadosabonos = new javax.swing.JTable();
+        txtbuscar = new javax.swing.JTextField();
+        btnbuscar = new javax.swing.JButton();
+        btneliminar = new javax.swing.JButton();
+        lbltotalregistros = new javax.swing.JLabel();
+        cbotipocomprobante = new javax.swing.JComboBox<>();
+        jLabel28 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -273,6 +396,9 @@ public class Jabono extends javax.swing.JFrame {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 cajanumeroKeyPressed(evt);
             }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                cajanumeroKeyReleased(evt);
+            }
         });
 
         jLabel12.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -289,6 +415,7 @@ public class Jabono extends javax.swing.JFrame {
             }
         });
 
+        txtfecha_abono.setEditable(false);
         txtfecha_abono.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -389,7 +516,7 @@ public class Jabono extends javax.swing.JFrame {
                         .addContainerGap(12, Short.MAX_VALUE))))
         );
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "DATOS DE FACTURA LEECTRONICA", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Serif", 1, 14))); // NOI18N
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "DATOS DE FACTURA ELECTRONICA", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Serif", 1, 14))); // NOI18N
 
         jLabel14.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel14.setText("NIT/C.C:");
@@ -439,8 +566,8 @@ public class Jabono extends javax.swing.JFrame {
                     .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtdocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtemail, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtdocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtrazon_social, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -519,20 +646,40 @@ public class Jabono extends javax.swing.JFrame {
         jLabel18.setText("Ttransferencia:");
 
         txtefectivo.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        txtefectivo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtefectivoKeyPressed(evt);
+            }
+        });
 
         txttarjeta.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        txttarjeta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txttarjetaKeyPressed(evt);
+            }
+        });
 
         txttransferencia.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        txttransferencia.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txttransferenciaKeyPressed(evt);
+            }
+        });
 
-        txtvalordescuento.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        txtvalordescuento.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
 
         jLabel20.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel20.setText("valor del descuento:");
+        jLabel20.setText("valor descuento:");
 
         jLabel22.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel22.setText("Total Bruto:");
+        jLabel22.setText("Total:");
 
         txtvalorbruto.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        txtvalorbruto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtvalorbrutoActionPerformed(evt);
+            }
+        });
         txtvalorbruto.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtvalorbrutoKeyPressed(evt);
@@ -621,6 +768,11 @@ public class Jabono extends javax.swing.JFrame {
                 txtnumeronochesActionPerformed(evt);
             }
         });
+        txtnumeronoches.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtnumeronochesKeyPressed(evt);
+            }
+        });
 
         jLabel27.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel27.setText("# Noches:");
@@ -633,6 +785,11 @@ public class Jabono extends javax.swing.JFrame {
             }
         });
 
+        txtbruto.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+
+        jLabel30.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel30.setText("Valor antes de IVA:");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -640,39 +797,42 @@ public class Jabono extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel27, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel20, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel22, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txtdescuentos, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
-                        .addComponent(txtotroscobros)
-                        .addComponent(txtvalorbruto)
-                        .addComponent(txtabonohabitacion))
-                    .addComponent(txtcostoalojamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtnumeronoches, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtvalordescuento, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel23, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel24, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel25, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel26, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(txtIVA_19, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel20, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel22, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtdescuentos, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
+                                .addComponent(txtotroscobros)
+                                .addComponent(txtvalorbruto)
+                                .addComponent(txtabonohabitacion))
+                            .addComponent(txtcostoalojamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtvalordescuento, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel23, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel24, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel25, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel26, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel27)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtnumeronoches, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(99, 99, 99)
+                        .addComponent(jLabel30)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtreten_35, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
@@ -685,13 +845,25 @@ public class Jabono extends javax.swing.JFrame {
                             .addComponent(calcular4)))
                     .addComponent(txttarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txttransferencia, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txttotalapagar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txttotalapagar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txtbruto, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtIVA_19, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtbruto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel30)
+                    .addComponent(txtnumeronoches, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel27))
+                .addGap(10, 10, 10)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -699,31 +871,42 @@ public class Jabono extends javax.swing.JFrame {
                             .addComponent(jButton1))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel23)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel23)
+                            .addComponent(txtvalordescuento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel20))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel24)
                             .addComponent(txtreten_35, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(calcular35))
+                            .addComponent(calcular35)
+                            .addComponent(txtcostoalojamiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel21))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel26)
                             .addComponent(txtreten4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(calcular4))
+                            .addComponent(calcular4)
+                            .addComponent(txtabonohabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel25)
-                            .addComponent(txtsubtotal))
+                            .addComponent(txtsubtotal)
+                            .addComponent(txtdescuentos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel16)
-                            .addComponent(txtefectivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtefectivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtotroscobros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel11))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel17)
                             .addComponent(txttarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtotroscobros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel11))
+                            .addComponent(txtvalorbruto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel22))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel18)
@@ -731,32 +914,8 @@ public class Jabono extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
-                            .addComponent(txttotalapagar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtvalorbruto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel22))
-                        .addGap(41, 41, 41))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtnumeronoches, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel27))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtvalordescuento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel20))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel21)
-                            .addComponent(txtcostoalojamiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel9)
-                            .addComponent(txtabonohabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtdescuentos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addGap(137, 137, 137))))
+                            .addComponent(txttotalapagar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(8, 8, 8))))
         );
 
         cboprivilegiosadmon.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -788,15 +947,9 @@ public class Jabono extends javax.swing.JFrame {
         jLabel29.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel29.setText("N° Comprobante: ");
 
-        cbotipocomprobante.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        cbotipocomprobante.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Recibo", "Factura", "Otros" }));
-
-        jLabel28.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel28.setText("Tipo Comprobante:");
-
         btnnuevo.setBackground(new java.awt.Color(204, 204, 204));
         btnnuevo.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        btnnuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/nuevo.GIF"))); // NOI18N
+        btnnuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/lista-de-verificacion.png"))); // NOI18N
         btnnuevo.setText("Nuevo");
         btnnuevo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnnuevo.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
@@ -820,36 +973,20 @@ public class Jabono extends javax.swing.JFrame {
             }
         });
 
-        jPanel2.setForeground(new java.awt.Color(51, 153, 255));
-
-        btneliminar.setBackground(new java.awt.Color(204, 204, 204));
-        btneliminar.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        btneliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/eliminar.png"))); // NOI18N
-        btneliminar.setText("Eliminar");
-        btneliminar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        btneliminar.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        btneliminar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btneliminar.addActionListener(new java.awt.event.ActionListener() {
+        btnimprimir.setBackground(new java.awt.Color(204, 204, 204));
+        btnimprimir.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        btnimprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/facturacion.png"))); // NOI18N
+        btnimprimir.setText("Inprimir");
+        btnimprimir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnimprimir.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        btnimprimir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnimprimir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btneliminarActionPerformed(evt);
+                btnimprimirActionPerformed(evt);
             }
         });
 
-        lbltotalregistros.setText("Registros");
-
-        btnbuscar.setBackground(new java.awt.Color(204, 204, 204));
-        btnbuscar.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        btnbuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/buscar.png"))); // NOI18N
-        btnbuscar.setText("Buscar");
-        btnbuscar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        btnbuscar.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        btnbuscar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnbuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnbuscarActionPerformed(evt);
-            }
-        });
-
+        tablalistadosabonos.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         tablalistadosabonos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
@@ -868,38 +1005,41 @@ public class Jabono extends javax.swing.JFrame {
         });
         jScrollPane7.setViewportView(tablalistadosabonos);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnbuscar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btneliminar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lbltotalregistros, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(59, 59, 59))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 1255, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(btneliminar)
-                        .addComponent(btnbuscar)
-                        .addComponent(txtbuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lbltotalregistros, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+        jScrollPane1.setViewportView(jScrollPane7);
+
+        btnbuscar.setBackground(new java.awt.Color(204, 204, 204));
+        btnbuscar.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        btnbuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/buscar.png"))); // NOI18N
+        btnbuscar.setText("Buscar");
+        btnbuscar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnbuscar.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        btnbuscar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnbuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnbuscarActionPerformed(evt);
+            }
+        });
+
+        btneliminar.setBackground(new java.awt.Color(204, 204, 204));
+        btneliminar.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        btneliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/eliminar.png"))); // NOI18N
+        btneliminar.setText("Eliminar");
+        btneliminar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btneliminar.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        btneliminar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btneliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btneliminarActionPerformed(evt);
+            }
+        });
+
+        lbltotalregistros.setText("Registros");
+
+        cbotipocomprobante.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        cbotipocomprobante.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Recibo", "Factura", "Otros" }));
+
+        jLabel28.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel28.setText("Tipo Comprobante:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -908,43 +1048,55 @@ public class Jabono extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel5)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(cboprivilegiosadmon, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                                .addComponent(jLabel4)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(txtconcepto))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                                .addComponent(jLabel6)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(cboprivilegiosrecep, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel29)
+                                            .addComponent(jLabel28))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtnumcomprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(cbotipocomprobante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(18, 18, 18)
+                                .addComponent(btnnuevo)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cboprivilegiosadmon, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(jLabel4)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtconcepto))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(jLabel6)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(cboprivilegiosrecep, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(23, 23, 23)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel28)
-                            .addComponent(jLabel29))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(cbotipocomprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(62, 62, 62)
                                 .addComponent(btnguardar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnnuevo))
-                            .addComponent(txtnumcomprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(btnimprimir))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnbuscar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btneliminar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lbltotalregistros, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(2, 2, 2)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -970,21 +1122,31 @@ public class Jabono extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(cbotipocomprobante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel28))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(txtnumcomprobante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel29)))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(btnnuevo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnguardar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btnnuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnguardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnimprimir, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(7, 7, 7)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnbuscar)
+                            .addComponent(btneliminar)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lbltotalregistros)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(11, 11, 11))
         );
 
         pack();
@@ -1008,10 +1170,28 @@ public class Jabono extends javax.swing.JFrame {
         txtabonohabitacion.setText(tablalistadosabonos.getValueAt(fila, 8).toString());
         txtdescuentos.setText(tablalistadosabonos.getValueAt(fila, 9).toString());
         txtconcepto.setText(tablalistadosabonos.getValueAt(fila, 10).toString());
-        txttotalapagar.setText(tablalistadosabonos.getValueAt(fila, 12).toString());
-        cboprivilegiosadmon.setSelectedItem(tablalistadosabonos.getValueAt(fila, 13).toString());
-        cboprivilegiosrecep.setSelectedItem(tablalistadosabonos.getValueAt(fila, 14).toString());
-        txtotroscobros.setText(tablalistadosabonos.getValueAt(fila, 15).toString());
+//        txttotalapagar.setText(tablalistadosabonos.getValueAt(fila, 11).toString());
+        cboprivilegiosadmon.setSelectedItem(tablalistadosabonos.getValueAt(fila, 12).toString());
+        cboprivilegiosrecep.setSelectedItem(tablalistadosabonos.getValueAt(fila, 13).toString());
+        txtotroscobros.setText(tablalistadosabonos.getValueAt(fila, 14).toString());
+        txtnumero_turno.setText(tablalistadosabonos.getValueAt(fila, 15).toString());
+        txtdocumento.setText(tablalistadosabonos.getValueAt(fila, 16).toString());
+        txtrazon_social.setText(tablalistadosabonos.getValueAt(fila, 17).toString());
+        txtemail.setText(tablalistadosabonos.getValueAt(fila, 18).toString());
+        txtnumeronoches.setText(tablalistadosabonos.getValueAt(fila, 19).toString());
+        txtvalordescuento.setText(tablalistadosabonos.getValueAt(fila, 20).toString());
+        cbotipocomprobante.setSelectedItem(tablalistadosabonos.getValueAt(fila, 21).toString());
+        txtnumcomprobante.setText(tablalistadosabonos.getValueAt(fila, 22).toString());
+        txtIVA_19.setText(tablalistadosabonos.getValueAt(fila, 23).toString());
+        txtreten_35.setText(tablalistadosabonos.getValueAt(fila, 24).toString());
+        txtreten4.setText(tablalistadosabonos.getValueAt(fila, 25).toString());
+        txtsubtotal.setText(tablalistadosabonos.getValueAt(fila, 26).toString());
+        txtefectivo.setText(tablalistadosabonos.getValueAt(fila, 27).toString());
+        txttarjeta.setText(tablalistadosabonos.getValueAt(fila, 28).toString());
+        txttransferencia.setText(tablalistadosabonos.getValueAt(fila, 29).toString());
+        txttotalapagar.setText(tablalistadosabonos.getValueAt(fila, 30).toString());
+        txtvalorbruto.setText(tablalistadosabonos.getValueAt(fila, 31).toString());
+        txtbruto.setText(tablalistadosabonos.getValueAt(fila, 32).toString());
 
     }//GEN-LAST:event_tablalistadosabonosMouseClicked
 
@@ -1036,78 +1216,105 @@ public class Jabono extends javax.swing.JFrame {
 
     private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardarActionPerformed
 
-       Dabono dts = new Dabono();
-    Fabonos func = new Fabonos();
-
-    // Establecer datos básicos
-    dts.setIdingreso(Integer.parseInt(txtidingreso.getText()));
-    dts.setIdhabitacion(Integer.parseInt(txtidhabitacion.getText()));
-    dts.setIdcliente(Integer.parseInt(txtidcliente.getText()));
-    dts.setFechaabono(txtfecha_abono.getText());
-
-    // Establecer datos adicionales
-    dts.setConceptodescuento(txtconcepto.getText());
-
-    int abonohabitacion = Integer.parseInt(txtabonohabitacion.getText());
-    dts.setAbonohabitacion(abonohabitacion);
-    txtabonohabitacion.setText(String.valueOf(abonohabitacion));
-
-    int seleccionadoAdmon = cboprivilegiosadmon.getSelectedIndex();
-    int seleccionadoRecep = cboprivilegiosrecep.getSelectedIndex();
-    dts.setPrivilegiosAdmon(String.valueOf(seleccionadoAdmon));
-    dts.setPrivilegiosrecepcion(String.valueOf(seleccionadoRecep));
-
-    int descuentos = Integer.parseInt(txtdescuentos.getText());
-    dts.setDescuentos(String.valueOf(descuentos));
-    txtdescuentos.setText(String.valueOf(descuentos));
-
-    int totalAbonos = Integer.parseInt(txttotalapagar.getText());
-    dts.setTotalAbonos(totalAbonos);
-    txttotalapagar.setText(String.valueOf(totalAbonos));
-
-    int otrosCobros = Integer.parseInt(txtotroscobros.getText());
-    dts.setOtroscobros(otrosCobros);
-    txtotroscobros.setText(String.valueOf(otrosCobros));
-
-    dts.setNumero_turno(Integer.parseInt(txtnumero_turno.getText()));
-
-    // Establecer los nuevos campos
-    dts.setHabitacion(Integer.parseInt(txtnumero.getText())); 
-    dts.setCliente(txtcliente.getText()); 
-    dts.setDocumento(txtdocumento.getText()); 
-    dts.setRazon_social(txtrazon_social.getText()); 
-    dts.setEmail(txtemail.getText()); // Asegúrate de que txtemail existe
-    dts.setNumeronoches(Integer.parseInt(txtnumeronoches.getText())); 
-    dts.setValordescuento(Integer.parseInt(txtvalordescuento.getText()));
-    int tipocomprobante = cbotipocomprobante.getSelectedIndex();
-    dts.setTipocomprobante(String.valueOf(tipocomprobante)); 
-    dts.setNumerocomprobante(txtnumcomprobante.getText()); 
-    dts.setIva19(Integer.parseInt(txtIVA_19.getText())); 
-    dts.setRetencion35(Integer.parseInt(txtreten_35.getText())); 
-    dts.setRetencion4(Integer.parseInt(txtreten4.getText())); 
-    dts.setSubtotal(Integer.parseInt(txtsubtotal.getText()));
-    dts.setEfectivo(Integer.parseInt(txtefectivo.getText())); 
-    dts.setTarjeta(Integer.parseInt(txttarjeta.getText()));
-    dts.setTransferencia(Integer.parseInt(txttransferencia.getText())); 
-    dts.setTotalapagar(Integer.parseInt(txttotalapagar.getText())); 
-
-    if (accion.equals("guardar")) {
-        if (func.insertar(dts)) {
-            JOptionPane.showMessageDialog(rootPane, "El abono fue registrado satisfactoriamente");
-            mostrar("");
-            inhabilitar();
-            this.dispose();
+        if (cbotipocomprobante.getSelectedIndex() == 0) {
+            JOptionPane.showConfirmDialog(rootPane, "Seleciona el tipo de comprobante");
+            cbotipocomprobante.requestFocus();
+            return;
         }
-    } else if (accion.equals("editar")) {
-        dts.setIdabono(Integer.parseInt(txtidabono.getText()));
-
-        if (func.editar(dts)) {
-            JOptionPane.showMessageDialog(rootPane, "El abono del Sr. " + txtcliente.getText() + " ha sido modificado correctamente");
-            mostrar("");
-            inhabilitar();
-            this.dispose();
+        if (txtvalorbruto.getText().length() == 0) {
+            JOptionPane.showConfirmDialog(rootPane, "presiona enter para obtener el total en el cuadro");
+            cbotipocomprobante.requestFocus();
+            return;
         }
-    }
+        if (txtsubtotal.getText().length() == 0) {
+            JOptionPane.showConfirmDialog(rootPane, "presiona enter para obtener el subtotal en el cuadro");
+            cbotipocomprobante.requestFocus();
+            return;
+        }
+        if (txttotalapagar.getText().length() == 0) {
+            JOptionPane.showConfirmDialog(rootPane, "presiona enter para obtener el total a pagar en el cuadro");
+            cbotipocomprobante.requestFocus();
+            return;
+        }
+
+        Dabono dts = new Dabono();
+        Fabonos func = new Fabonos();
+
+        // Establecer datos básicos
+        dts.setIdingreso(Integer.parseInt(txtidingreso.getText()));
+        dts.setIdhabitacion(Integer.parseInt(txtidhabitacion.getText()));
+        dts.setIdcliente(Integer.parseInt(txtidcliente.getText()));
+        dts.setFechaabono(txtfecha_abono.getText());
+
+        // Establecer datos adicionales
+        dts.setConceptodescuento(txtconcepto.getText());
+
+        int abonohabitacion = Integer.parseInt(txtabonohabitacion.getText());
+        dts.setAbonohabitacion(abonohabitacion);
+        txtabonohabitacion.setText(String.valueOf(abonohabitacion));
+
+        int seleccionadoAdmon = cboprivilegiosadmon.getSelectedIndex();
+        int seleccionadoRecep = cboprivilegiosrecep.getSelectedIndex();
+        dts.setPrivilegiosAdmon(String.valueOf(seleccionadoAdmon));
+        dts.setPrivilegiosrecepcion(String.valueOf(seleccionadoRecep));
+
+        int descuentos = Integer.parseInt(txtdescuentos.getText());
+        dts.setDescuentos(String.valueOf(descuentos));
+        txtdescuentos.setText(String.valueOf(descuentos));
+
+        int totalAbonos = Integer.parseInt(txttotalapagar.getText());
+        dts.setTotalAbonos(totalAbonos);
+        txttotalapagar.setText(String.valueOf(totalAbonos));
+
+        int otrosCobros = Integer.parseInt(txtotroscobros.getText());
+        dts.setOtroscobros(otrosCobros);
+        txtotroscobros.setText(String.valueOf(otrosCobros));
+
+        dts.setNumero_turno(Integer.parseInt(txtnumero_turno.getText()));
+
+        // Establecer los nuevos campos
+        dts.setHabitacion(Integer.parseInt(txtnumero.getText()));
+        dts.setCliente(txtcliente.getText());
+        dts.setDocumento(txtdocumento.getText());
+        dts.setRazon_social(txtrazon_social.getText());
+        dts.setEmail(txtemail.getText()); // Asegúrate de que txtemail existe
+        dts.setNumeronoches(Integer.parseInt(txtnumeronoches.getText()));
+        dts.setValordescuento(Integer.parseInt(txtvalordescuento.getText()));
+
+        int tipocomprobante = cbotipocomprobante.getSelectedIndex();
+        dts.setTipocomprobante((String) cbotipocomprobante.getItemAt(tipocomprobante));
+
+        dts.setNumerocomprobante(txtnumcomprobante.getText());
+        dts.setValor_bruto(Integer.parseInt(txtvalorbruto.getText()));
+        dts.setIva19(Integer.parseInt(txtIVA_19.getText()));
+        dts.setRetencion35(Integer.parseInt(txtreten_35.getText()));
+        dts.setRetencion4(Integer.parseInt(txtreten4.getText()));
+        dts.setSubtotal(Integer.parseInt(txtsubtotal.getText()));
+        dts.setEfectivo(Integer.parseInt(txtefectivo.getText()));
+        dts.setTarjeta(Integer.parseInt(txttarjeta.getText()));
+        dts.setTransferencia(Integer.parseInt(txttransferencia.getText()));
+        dts.setTotalapagar(Integer.parseInt(txttotalapagar.getText()));
+        dts.setAntesIVA(Integer.parseInt(txtbruto.getText()));
+        dts.setCostoalojamiento(Integer.parseInt(txtcostoalojamiento.getText()));
+
+        if (accion.equals("guardar")) {
+            if (func.insertar(dts)) {
+                JOptionPane.showMessageDialog(rootPane, "El abono fue registrado satisfactoriamente");
+                mostrar("");
+                inhabilitar();
+                imprimir();
+                this.dispose();
+            }
+        } else if (accion.equals("editar")) {
+            dts.setIdabono(Integer.parseInt(txtidabono.getText()));
+
+            if (func.editar(dts)) {
+                JOptionPane.showMessageDialog(rootPane, "El abono del Sr. " + txtcliente.getText() + " ha sido modificado correctamente");
+                mostrar("");
+                inhabilitar();
+                this.dispose();
+            }
+        }
     }//GEN-LAST:event_btnguardarActionPerformed
 
     private void txtidabonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtidabonoActionPerformed
@@ -1123,7 +1330,14 @@ public class Jabono extends javax.swing.JFrame {
     }//GEN-LAST:event_txtclienteActionPerformed
 
     private void btnnuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnuevoActionPerformed
-        limpiarcajas();        // TODO add your handling code here:
+
+        limpiarcajas();
+        iniciosenceros();
+        mostrarTiempo();
+        btnguardar.setText("Guardar");
+        accion = "guardar";
+
+
     }//GEN-LAST:event_btnnuevoActionPerformed
 
     private void cajanumeroKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajanumeroKeyPressed
@@ -1132,7 +1346,7 @@ public class Jabono extends javax.swing.JFrame {
             Cconexion conexion = new Cconexion();
 
             try ( Connection conectar = conexion.establecerConexion()) {
-                String consultaSQL = "SELECT i.idingreso, i.idhabitacion, h.numero, h.precio, i.idcliente, "
+                String consultaSQL = "SELECT i.idingreso, i.idhabitacion, h.numero,i.costoalojamiento, i.idcliente, "
                         + "(SELECT nombres FROM cliente WHERE idcliente = i.idcliente) AS clienten, "
                         + "(SELECT apellidos FROM cliente WHERE idcliente = i.idcliente) AS clienteap, "
                         + "(SELECT numdocumento FROM cliente WHERE idcliente = i.idcliente) AS clientenu "
@@ -1150,7 +1364,7 @@ public class Jabono extends javax.swing.JFrame {
                             txtidhabitacion.setText(String.valueOf(rs.getInt("idhabitacion")));
                             txtidcliente.setText(String.valueOf(rs.getInt("idcliente")));
                             txtcliente.setText(rs.getString("clienten") + " " + rs.getString("clienteap"));
-                            txtcostoalojamiento.setText(String.valueOf(rs.getInt("precio")));
+                            txtcostoalojamiento.setText(String.valueOf(rs.getInt("costoalojamiento")));
                             txtnumero.setText(String.valueOf(rs.getInt("numero")));
                             txtclientenu.setText(String.valueOf(rs.getString("clientenu")));
 //                            txtdeudaanterior.setText(String.valueOf(rs.getInt("deuda_anterior")));
@@ -1161,6 +1375,24 @@ public class Jabono extends javax.swing.JFrame {
                                 txtrazon_social.setText(clienteF.getRazon_social());
                                 txtemail.setText(clienteF.getEmail());
                                 txtdocumento.setText(String.valueOf(clienteF.getDocumento()));
+                            }
+
+                            int idcliente = Integer.parseInt(txtidcliente.getText());
+                            Fabonocongelado congelado = new Fabonocongelado();
+                            DvalorCongelado datos = new DvalorCongelado();
+                            int valorcongelado = congelado.obtenerSaldoCongelado(idcliente);
+//                            System.out.print("el valor congelado es"+valorcongelado);
+                            if (valorcongelado > 0) {
+
+                                int accion = JOptionPane.showConfirmDialog(rootPane, "El Cliente tiene un saldo POR USAR desea aplicarlo a la nueva habitacion", "confirmación", JOptionPane.YES_NO_OPTION);
+
+                                if (accion == JOptionPane.YES_NO_OPTION) {
+
+                                    txtdescuentos.setText(String.valueOf(valorcongelado));
+                                    
+                                     datos.setIdcliente(Integer.parseInt(txtidcliente.getText()));
+                                     congelado.cambiarestado(datos);
+                                }
                             }
 
                         } else {
@@ -1205,6 +1437,31 @@ public class Jabono extends javax.swing.JFrame {
 
     private void txtIVA_19KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIVA_19KeyPressed
         // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            try {
+                int costoalojamiento = Integer.parseInt(txtvalorbruto.getText());
+//                int numeronoches = Integer.parseInt(txtnumeronoches.getText());
+
+                int valorsinIVA = (int) (costoalojamiento / 1.19);
+
+                txtbruto.setText(String.valueOf(valorsinIVA));
+                int valorConIVA = (int) (valorsinIVA * 0.19);
+                txtIVA_19.setText(String.valueOf(valorConIVA));
+                // Obtener los valores de los campos de texto y convertirlos a enteros
+                int valosiIVA = Integer.parseInt(txtbruto.getText());
+                int Iva19 = Integer.parseInt(txtIVA_19.getText());
+                int reten35 = Integer.parseInt(txtreten_35.getText());
+                int reten4 = Integer.parseInt(txtreten4.getText());
+
+                int subtotal = valosiIVA + Iva19 - reten35 - reten4 + 1;
+                txtsubtotal.setText(String.valueOf(subtotal));
+
+            } catch (NumberFormatException e) {
+
+            }
+
+        }
+
     }//GEN-LAST:event_txtIVA_19KeyPressed
 
     private void txtreten4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtreten4ActionPerformed
@@ -1225,19 +1482,22 @@ public class Jabono extends javax.swing.JFrame {
 
     private void calcular35ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcular35ActionPerformed
         // TODO add your handling code here:
-        int valorcobrar = Integer.parseInt(txtvalorbruto.getText());
-        int valorConIVA = Integer.parseInt(txtIVA_19.getText());
-        int Suma = (int) (valorcobrar + valorConIVA);
-        int Reten35 = (int) (Suma * 0.035);
+        int costoalojamiento = Integer.parseInt(txtcostoalojamiento.getText());
+        int numeronoches = Integer.parseInt(txtnumeronoches.getText());
+
+        int valorsinIVA = (int) (costoalojamiento * numeronoches / 1.19);
+
+        int Reten35 = (int) (valorsinIVA * 0.035);
         txtreten_35.setText(String.valueOf(Reten35));
     }//GEN-LAST:event_calcular35ActionPerformed
 
     private void calcular4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcular4ActionPerformed
         // TODO add your handling code here:
-        int valorcobrar = Integer.parseInt(txtvalorbruto.getText());
-        int valorConIVA = Integer.parseInt(txtIVA_19.getText());
-        int Suma = (int) (valorcobrar + valorConIVA);
-        int reten4 = (int) (Suma * 0.04);
+        int costoalojamiento = Integer.parseInt(txtcostoalojamiento.getText());
+        int numeronoches = Integer.parseInt(txtnumeronoches.getText());
+
+        int valorsinIVA = (int) (costoalojamiento * numeronoches / 1.19);
+        int reten4 = (int) (valorsinIVA * 0.04);
         txtreten4.setText(String.valueOf(reten4));
     }//GEN-LAST:event_calcular4ActionPerformed
 
@@ -1246,18 +1506,19 @@ public class Jabono extends javax.swing.JFrame {
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             try {
                 // Obtener los valores de los campos de texto y convertirlos a enteros
-                int valoracobrar = Integer.parseInt(txtvalorbruto.getText());
+                int valosiIVA = Integer.parseInt(txtbruto.getText());
                 int Iva19 = Integer.parseInt(txtIVA_19.getText());
                 int reten35 = Integer.parseInt(txtreten_35.getText());
                 int reten4 = Integer.parseInt(txtreten4.getText());
 
-                int subtotal = valoracobrar + Iva19 - reten35 - reten4;
-                txtsubtotal.setText(String.valueOf(subtotal));
+                int subtotal = valosiIVA + Iva19 - reten35 - reten4 + 1;
+                // Redondea al múltiplo de 1000 más cercano
+                int subtotalRedondeado = ((subtotal + 500) / 1000) * 1000;
+
+                txtsubtotal.setText(String.valueOf(subtotalRedondeado));
 
             } catch (NumberFormatException e) {
-                // Manejar la excepción si alguno de los campos de texto no contiene un número válido
-                System.err.println("Error: uno o más campos no contienen un número válido");
-                e.printStackTrace();
+
             }
 
         }
@@ -1273,24 +1534,7 @@ public class Jabono extends javax.swing.JFrame {
     }//GEN-LAST:event_txtotroscobrosActionPerformed
 
     private void txtdescuentosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtdescuentosKeyPressed
-//         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-//            try {
-//                
-//                int valordescuento = Integer.parseInt(txtvalordescuento.getText());
-//                int numeronoches = Integer.parseInt(txtnumeronoches.getText());
-//
-//                // Validación adicional para evitar cálculos negativos
-//                if (valordescuento < 0 || numeronoches < 0) {
-//                    JOptionPane.showMessageDialog(null, "El número de noches y el valor del descuento deben ser positivos.");
-//                    return;
-//                }
-//
-//                int calculo = valordescuento * numeronoches;
-//                txtdescuentos.setText(String.valueOf(calculo));
-//            } catch (NumberFormatException e) {
-//                JOptionPane.showMessageDialog(null, "Por favor, ingresa números válidos.");
-//            }
-//        }
+
     }//GEN-LAST:event_txtdescuentosKeyPressed
 
     private void txtdescuentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtdescuentosActionPerformed
@@ -1304,10 +1548,27 @@ public class Jabono extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
 
-        int valorCobrar = Integer.parseInt(txtvalorbruto.getText());
-        int valorConIVA = (int) (valorCobrar * 0.19);
-        txtIVA_19.setText(String.valueOf(valorConIVA));
+        try {
+            int costoalojamiento = Integer.parseInt(txtvalorbruto.getText());
+//                int numeronoches = Integer.parseInt(txtnumeronoches.getText());
 
+            int valorsinIVA = (int) (costoalojamiento / 1.19);
+
+            txtbruto.setText(String.valueOf(valorsinIVA));
+            int valorConIVA = (int) (valorsinIVA * 0.19);
+            txtIVA_19.setText(String.valueOf(valorConIVA));
+            // Obtener los valores de los campos de texto y convertirlos a enteros
+            int valosiIVA = Integer.parseInt(txtbruto.getText());
+            int Iva19 = Integer.parseInt(txtIVA_19.getText());
+            int reten35 = Integer.parseInt(txtreten_35.getText());
+            int reten4 = Integer.parseInt(txtreten4.getText());
+
+            int subtotal = valosiIVA + Iva19 - reten35 - reten4 + 1;
+            txtsubtotal.setText(String.valueOf(subtotal));
+
+        } catch (NumberFormatException e) {
+
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void txtvalorbrutoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtvalorbrutoKeyPressed
@@ -1323,8 +1584,8 @@ public class Jabono extends javax.swing.JFrame {
                     return;
                 }
 
-                int calculo1 = costoalojamiento * numeronoches;
                 int calculo = valordescuento * numeronoches;
+                int calculo1 = costoalojamiento * numeronoches;
                 txtabonohabitacion.setText(String.valueOf(calculo1));
                 txtdescuentos.setText(String.valueOf(calculo));
 
@@ -1366,6 +1627,112 @@ public class Jabono extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txttotalapagarKeyPressed
 
+    private void txtvalorbrutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtvalorbrutoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtvalorbrutoActionPerformed
+
+    private void btnimprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnimprimirActionPerformed
+        // TODO add your handling code here:
+        imprimir();
+
+    }//GEN-LAST:event_btnimprimirActionPerformed
+
+    private void txtnumeronochesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnumeronochesKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            try {
+                int costoalojamiento = Integer.parseInt(txtcostoalojamiento.getText());
+                int numeronoches = Integer.parseInt(txtnumeronoches.getText());
+                int valordescuento = Integer.parseInt(txtvalordescuento.getText());
+
+                // Validación adicional para evitar cálculos negativos
+                if (costoalojamiento < 0 || numeronoches < 0) {
+                    JOptionPane.showMessageDialog(null, "El número de noches y el valor del descuento deben ser positivos.");
+                    return;
+                }
+
+                int calculo = valordescuento * numeronoches;
+                int calculo1 = costoalojamiento * numeronoches;
+                txtabonohabitacion.setText(String.valueOf(calculo1));
+                txtdescuentos.setText(String.valueOf(calculo));
+
+                int nuevoabono = Integer.parseInt(txtabonohabitacion.getText());
+                int nuevodescuent = Integer.parseInt(txtdescuentos.getText());
+                int otroscobros = Integer.parseInt(txtotroscobros.getText());
+
+                int nuevocalculo = nuevoabono - nuevodescuent + otroscobros;
+                txtvalorbruto.setText(String.valueOf(nuevocalculo));
+
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Por favor, ingresa números válidos.");
+            }
+        }
+    }//GEN-LAST:event_txtnumeronochesKeyPressed
+
+    private void txtefectivoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtefectivoKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            try {
+                // Obtener los valores de los campos de texto y convertirlos a enteros
+                int efectivo = Integer.parseInt(txtefectivo.getText());
+                int tarjeta = Integer.parseInt(txttarjeta.getText());
+                int transferencia = Integer.parseInt(txttransferencia.getText());
+
+                int totalPago = efectivo + tarjeta + transferencia;
+                txttotalapagar.setText(String.valueOf(totalPago));
+
+            } catch (NumberFormatException e) {
+                // Manejar la excepción si alguno de los campos de texto no contiene un número válido
+                JOptionPane.showMessageDialog(null, "Error: uno o más campos no contienen un número válido");
+            }
+
+        }
+    }//GEN-LAST:event_txtefectivoKeyPressed
+
+    private void txttarjetaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttarjetaKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            try {
+                // Obtener los valores de los campos de texto y convertirlos a enteros
+                int efectivo = Integer.parseInt(txtefectivo.getText());
+                int tarjeta = Integer.parseInt(txttarjeta.getText());
+                int transferencia = Integer.parseInt(txttransferencia.getText());
+
+                int totalPago = efectivo + tarjeta + transferencia;
+                txttotalapagar.setText(String.valueOf(totalPago));
+
+            } catch (NumberFormatException e) {
+                // Manejar la excepción si alguno de los campos de texto no contiene un número válido
+                JOptionPane.showMessageDialog(null, "Error: uno o más campos no contienen un número válido");
+            }
+
+        }
+    }//GEN-LAST:event_txttarjetaKeyPressed
+
+    private void txttransferenciaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttransferenciaKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            try {
+                // Obtener los valores de los campos de texto y convertirlos a enteros
+                int efectivo = Integer.parseInt(txtefectivo.getText());
+                int tarjeta = Integer.parseInt(txttarjeta.getText());
+                int transferencia = Integer.parseInt(txttransferencia.getText());
+
+                int totalPago = efectivo + tarjeta + transferencia;
+                txttotalapagar.setText(String.valueOf(totalPago));
+
+            } catch (NumberFormatException e) {
+                // Manejar la excepción si alguno de los campos de texto no contiene un número válido
+                JOptionPane.showMessageDialog(null, "Error: uno o más campos no contienen un número válido");
+            }
+
+        }
+    }//GEN-LAST:event_txttransferenciaKeyPressed
+
+    private void cajanumeroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajanumeroKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cajanumeroKeyReleased
+
     /**
      * @param args the command line arguments
      */
@@ -1395,6 +1762,7 @@ public class Jabono extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new Jabono().setVisible(true);
             }
@@ -1405,6 +1773,7 @@ public class Jabono extends javax.swing.JFrame {
     private javax.swing.JButton btnbuscar;
     private javax.swing.JButton btneliminar;
     private javax.swing.JButton btnguardar;
+    private javax.swing.JButton btnimprimir;
     private javax.swing.JButton btnnuevo;
     private javax.swing.JTextField cajanumero;
     private javax.swing.JButton calcular35;
@@ -1436,6 +1805,7 @@ public class Jabono extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1443,14 +1813,15 @@ public class Jabono extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JLabel lbltotalregistros;
     private javax.swing.JTable tablalistadosabonos;
     private javax.swing.JTextField txtIVA_19;
     public static javax.swing.JTextField txtabonohabitacion;
+    private javax.swing.JTextField txtbruto;
     private javax.swing.JTextField txtbuscar;
     private javax.swing.JTextField txtcliente;
     public static javax.swing.JTextField txtclientenu;

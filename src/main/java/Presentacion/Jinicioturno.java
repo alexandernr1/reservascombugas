@@ -94,6 +94,7 @@ public class Jinicioturno extends javax.swing.JFrame {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String fechaActual = LocalDate.now().format(formatter);
+        cboturnos.addItem("Seleccionar");
         cboturnos.addItem("Turno 1" + " " + fechaActual);
         cboturnos.addItem("Turno 2" + " " + fechaActual);
         cboturnos.addItem("Turno 3" + " " + fechaActual);
@@ -138,7 +139,7 @@ public class Jinicioturno extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(0, 153, 204));
+        jPanel1.setBackground(new java.awt.Color(0, 204, 204));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "INICIO TURNOS", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Black", 0, 14))); // NOI18N
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -213,9 +214,7 @@ public class Jinicioturno extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         jLabel6.setText("Turno:");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 300, -1, -1));
-
-        jLabel9.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Desktop\\reservascombugas\\reservascombugas\\src\\main\\java\\File\\inicio de sesion.png")); // NOI18N
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 490, 470));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 490, 460));
 
         ingresoTurno.setText("Ingreso");
         ingresoTurno.addActionListener(new java.awt.event.ActionListener() {
@@ -257,74 +256,78 @@ public class Jinicioturno extends javax.swing.JFrame {
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
 
             if (cboempleados.getSelectedIndex() == 0) {
-        JOptionPane.showMessageDialog(this, "DEBE SELECCIONAR UN NOMBRE DE EMPLEADO", "Error", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
-
-    Finicioturno func1 = new Finicioturno();
-    Dinicioturno dts1 = new Dinicioturno();
-
-    dts1.setFecha_hora_inicio(txtfecha_hora_inicio.getText());
-
-    int selecturno = cboturnos.getSelectedIndex();
-    dts1.setTurno((String) cboturnos.getItemAt(selecturno));
-
-    int estado = cboestado.getSelectedIndex();
-    dts1.setEstado((String) cboestado.getItemAt(estado));
-
-    int trabajador = cboempleados.getSelectedIndex();
-    dts1.setEmpleado((String) cboempleados.getItemAt(trabajador));
-
-    dts1.setNumero_turno(Integer.parseInt(txtnumero_turno.getText()));
-
-    if (accion.equals("guardar")) {
-        if (func1.insertar(dts1)) {
-            // Turno registrado
-        }
-    }
-
-    try {
-        Fempleado func = new Fempleado();
-
-        // Obtener el usuario y contraseña ingresados
-        String login = txtusuario.getText();
-        String password = txtpassword.getText();
-
-        Dempleado empleado = func.login(login, password);
-
-        if (empleado != null) {
-            Jmenuhotel.sesionIniciada = true; // Cambiar el estado de la sesión
-
-            this.dispose();
-
-            // Establecer los valores en Jmenuhotel
-            Jmenuhotel.actualizarDatosUsuario1(
-                    txtfecha_hora_inicio.getText(),
-                    (String) cboturnos.getItemAt(selecturno),
-                    (String) cboempleados.getItemAt(trabajador),
-                    (String) cboestado.getItemAt(estado)
-            );
-
-            // Mostrar Jsalidaturno solo si la sesión ya estaba iniciada
-            if (Jmenuhotel.sesionIniciada) {
-                Jsalidaturno form = new Jsalidaturno();
-                form.toFront();
-                form.setVisible(false);
-                form.actualizarTurno(
-                        txtfecha_hora_inicio.getText(),
-                        (String) cboturnos.getItemAt(selecturno)
-                );
-
-                Jsalidaturno.txtempleado.setText(empleado.getNombres() + " " + empleado.getApellidos());
+                JOptionPane.showMessageDialog(this, "DEBE SELECCIONAR UN NOMBRE DE EMPLEADO", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
             }
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "Acceso Denegado", "Error de Login", JOptionPane.ERROR_MESSAGE);
-        }
-    } catch (HeadlessException e) {
-        JOptionPane.showMessageDialog(rootPane, "Ocurrió un error durante el login.", "Error", JOptionPane.ERROR_MESSAGE);
-    } catch (SQLException ex) {
-        Logger.getLogger(Jinicioturno.class.getName()).log(Level.SEVERE, null, ex);
-    }
+            if (cboturnos.getSelectedIndex() == 0) {
+                JOptionPane.showMessageDialog(this, "DEBE SELECCIONAR UN TURNO", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            Finicioturno func1 = new Finicioturno();
+            Dinicioturno dts1 = new Dinicioturno();
+
+            dts1.setFecha_hora_inicio(txtfecha_hora_inicio.getText());
+
+            int selecturno = cboturnos.getSelectedIndex();
+            dts1.setTurno((String) cboturnos.getItemAt(selecturno));
+
+            int estado = cboestado.getSelectedIndex();
+            dts1.setEstado((String) cboestado.getItemAt(estado));
+
+            int trabajador = cboempleados.getSelectedIndex();
+            dts1.setEmpleado((String) cboempleados.getItemAt(trabajador));
+
+            dts1.setNumero_turno(Integer.parseInt(txtnumero_turno.getText()));
+
+            if (accion.equals("guardar")) {
+                if (func1.insertar(dts1)) {
+                    // Turno registrado
+                }
+            }
+
+            try {
+                Fempleado func = new Fempleado();
+
+                // Obtener el usuario y contraseña ingresados
+                String login = txtusuario.getText();
+                String password = txtpassword.getText();
+
+                Dempleado empleado = func.login(login, password);
+
+                if (empleado != null) {
+                    Jmenuhotel.sesionIniciada = true; // Cambiar el estado de la sesión
+
+                    this.dispose();
+
+                    // Establecer los valores en Jmenuhotel
+                    Jmenuhotel.actualizarDatosUsuario1(
+                            txtfecha_hora_inicio.getText(),
+                            (String) cboturnos.getItemAt(selecturno),
+                            (String) cboempleados.getItemAt(trabajador),
+                            (String) cboestado.getItemAt(estado)
+                    );
+
+                    // Mostrar Jsalidaturno solo si la sesión ya estaba iniciada
+                    if (Jmenuhotel.sesionIniciada) {
+                        Jsalidaturno form = new Jsalidaturno();
+                        form.toFront();
+                        form.setVisible(false);
+                        form.actualizarTurno(
+                                txtfecha_hora_inicio.getText(),
+                                (String) cboturnos.getItemAt(selecturno)
+                        );
+
+//                        Jsalidaturno.txtempleado.setText(empleado.getNombres() + " " + empleado.getApellidos());
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Acceso Denegado", "Error de Login", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (HeadlessException e) {
+                JOptionPane.showMessageDialog(rootPane, "Ocurrió un error durante el login.", "Error", JOptionPane.ERROR_MESSAGE);
+            } catch (SQLException ex) {
+                Logger.getLogger(Jinicioturno.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_txtpasswordKeyPressed
 
@@ -339,6 +342,11 @@ public class Jinicioturno extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "DEBE SELECCIONAR UN NOMBRE DE EMPLEADO", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+         if (cboturnos.getSelectedIndex() == 0) {
+                JOptionPane.showMessageDialog(this, "DEBE SELECCIONAR UN TURNO", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
 
         Finicioturno func1 = new Finicioturno();
         Dinicioturno dts1 = new Dinicioturno();
@@ -394,7 +402,7 @@ public class Jinicioturno extends javax.swing.JFrame {
                             (String) cboturnos.getItemAt(selecturno)
                     );
 
-                    Jsalidaturno.txtempleado.setText(empleado.getNombres() + " " + empleado.getApellidos());
+//                    Jsalidaturno.txtempleado.setText(empleado.getNombres() + " " + empleado.getApellidos());
                 }
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Acceso Denegado", "Error de Login", JOptionPane.ERROR_MESSAGE);

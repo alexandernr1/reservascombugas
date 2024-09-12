@@ -1,7 +1,6 @@
 package Logica;
 
 import Datos.Dabono;
-import Datos.Dfactura_electronica;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,92 +17,162 @@ public class Fabonos {
 
     public Integer totalregistros;
 
-   public DefaultTableModel mostrar(String buscar) {
-    DefaultTableModel modelo;
-    String[] titulos = {
-        "Idabono", "Idingreso", "Idhabitacion", "Numero", "idcliente", "Cliente", 
-        "Identificación", "Fecha Abono", "Abono habitacion", "Descuentos", 
-        "Conceptos Descuentos", "Total Abonos", "Privilegios Admon", 
-        "Privilegios Recep", "Otros Cobros", "Numero Turno", "Documento", 
-        "Razon Social", "Email", "Numero Noches", "Valor Descuento", 
-        "Tipo Comprobante", "Numero Comprobante", "IVA 19", "Retencion 35", 
-        "Retencion 4", "Subtotal", "Efectivo", "Tarjeta", "Transferencia", 
-        "Total a Pagar"
-    };
-    String[] registro = new String[titulos.length];
-    totalregistros = 0;
-    modelo = new DefaultTableModel(null, titulos);
+    public DefaultTableModel mostrar(String buscar) {
+        DefaultTableModel modelo;
+        String[] titulos = {
+            "Idabono", "Idingreso", "Idhabitacion", "Numero", "idcliente", "Cliente",
+            "Identificación", "Fecha Abono", "Abono habitacion", "Descuentos",
+            "Conceptos Descuentos", "Total Abonos", "Privilegios Admon",
+            "Privilegios Recep", "Otros Cobros", "Numero Turno", "Documento",
+            "Razon Social", "Email", "Numero Noches", "Valor Descuento",
+            "Tipo Comprobante", "Numero Comprobante", "IVA 19", "Retencion 35",
+            "Retencion 4", "Subtotal", "Efectivo", "Tarjeta", "Transferencia",
+            "Total a Pagar", "valor_bruto", "antesIVA"
+        };
+        String[] registro = new String[33];
+        totalregistros = 0;
+        modelo = new DefaultTableModel(null, titulos);
 
-    sSQL = "SELECT a.idabono, a.idingreso, a.idhabitacion, h.numero, a.idcliente, "
-            + "(SELECT nombres FROM cliente WHERE idcliente = a.idcliente) AS clienten, "
-            + "(SELECT apellidos FROM cliente WHERE idcliente = a.idcliente) AS clienteap, "
-            + "(SELECT numdocumento FROM cliente WHERE idcliente = a.idcliente) AS clientenu, "
-            + "a.fechaabono, a.abonohabitacion, a.descuentos, a.conceptodescuento, "
-            + "a.totalabonos, a.privilegiosadmon, a.privilegiosrecepcion, a.otroscobros, a.numero_turno, "
-            + "a.documento, a.razon_social, a.email, a.numeronoches, a.valordescuento, "
-            + "a.tipocomprobante, a.numerocomprobante, a.iva19, a.retencion35, a.retencion4, "
-            + "a.subtotal, a.efectivo, a.tarjeta, a.transferencia, a.totalapagar "
-            + "FROM abono a "
-            + "INNER JOIN habitacion h ON a.idhabitacion = h.idhabitacion "
-            + "WHERE h.numero LIKE ? "
-            + "ORDER BY a.idabono DESC";
+        sSQL = "SELECT a.idabono, a.idingreso, a.idhabitacion, h.numero, a.idcliente, "
+                + "(SELECT nombres FROM cliente WHERE idcliente = a.idcliente) AS clienten, "
+                + "(SELECT apellidos FROM cliente WHERE idcliente = a.idcliente) AS clienteap, "
+                + "(SELECT numdocumento FROM cliente WHERE idcliente = a.idcliente) AS clientenu, "
+                + "a.fechaabono, a.abonohabitacion, a.descuentos, a.conceptodescuento, "
+                + "a.totalabonos, a.privilegiosadmon, a.privilegiosrecepcion, a.otroscobros, a.numero_turno, "
+                + "a.documento, a.razon_social, a.email, a.numeronoches, a.valordescuento, "
+                + "a.tipocomprobante, a.numerocomprobante, a.iva19, a.retencion35, a.retencion4, "
+                + "a.subtotal, a.efectivo, a.tarjeta, a.transferencia, a.totalapagar, a.valor_bruto,  a.valor_bruto, a.antesIVA "
+                + "FROM abono a "
+                + "INNER JOIN habitacion h ON a.idhabitacion = h.idhabitacion "
+                + "WHERE h.numero LIKE ? "
+                + "ORDER BY a.idabono DESC";
 
-    try (PreparedStatement pst = cn.prepareStatement(sSQL)) {
-        pst.setString(1, "%" + buscar + "%");
+        try ( PreparedStatement pst = cn.prepareStatement(sSQL)) {
+            pst.setString(1, "%" + buscar + "%");
 
-        try (ResultSet rs = pst.executeQuery()) {
+            try ( ResultSet rs = pst.executeQuery()) {
+                while (rs.next()) {
+                    registro[0] = rs.getString("idabono");
+                    registro[1] = rs.getString("idingreso");
+                    registro[2] = rs.getString("idhabitacion");
+                    registro[3] = rs.getString("numero");
+                    registro[4] = rs.getString("idcliente");
+                    registro[5] = rs.getString("clienten") + " " + rs.getString("clienteap");
+                    registro[6] = rs.getString("clientenu");
+                    registro[7] = rs.getString("fechaabono");
+                    registro[8] = rs.getString("abonohabitacion");
+                    registro[9] = rs.getString("descuentos");
+                    registro[10] = rs.getString("conceptodescuento");
+                    registro[11] = rs.getString("totalabonos");
+                    registro[12] = rs.getString("privilegiosadmon");
+                    registro[13] = rs.getString("privilegiosrecepcion");
+                    registro[14] = rs.getString("otroscobros");
+                    registro[15] = rs.getString("numero_turno");
+                    registro[16] = rs.getString("documento");
+                    registro[17] = rs.getString("razon_social");
+                    registro[18] = rs.getString("email");
+                    registro[19] = rs.getString("numeronoches");
+                    registro[20] = rs.getString("valordescuento");
+                    registro[21] = rs.getString("tipocomprobante");
+                    registro[22] = rs.getString("numerocomprobante");
+                    registro[23] = rs.getString("iva19");
+                    registro[24] = rs.getString("retencion35");
+                    registro[25] = rs.getString("retencion4");
+                    registro[26] = rs.getString("subtotal");
+                    registro[27] = rs.getString("efectivo");
+                    registro[28] = rs.getString("tarjeta");
+                    registro[29] = rs.getString("transferencia");
+                    registro[30] = rs.getString("totalapagar");
+                    registro[31] = rs.getString("valor_bruto");
+                    registro[32] = rs.getString("antesIVA");
+
+                    totalregistros++;
+                    modelo.addRow(registro);
+                }
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "NO SE PUEDE MOSTRAR LOS DATOS: " + e.getMessage());
+        }
+
+        return modelo;
+    }
+
+    public Object[] mostrarVistaAbono(String buscar, String turnoActivo) throws SQLException {
+        DefaultTableModel modelo;
+        String[] titulos = {
+            "idabono", "idingreso", "idhabitacion", "N° Habitacion",
+            "Fecha Abono", "Precio habitacion", "Descuentos", "Otros Cobros", "N° turno",
+            "Documento", "Razon Social", "Email", "N° Noches", "valor Descuento",
+            "Efectivo", "Tarjeta", "Transferencia", "Total Apagar"
+        };
+        String[] registro = new String[18];
+        totalregistros = 0;
+        modelo = new DefaultTableModel(null, titulos);
+        sSQL = "SELECT a.idabono, a.idingreso, a.idhabitacion, h.numero,"
+                + "a.fechaabono, a.abonohabitacion, a.descuentos, a.otroscobros, a.numero_turno,"
+                + "a.documento, a.razon_social, a.email, a.numeronoches, a.valordescuento,"
+                + "a.efectivo, a.tarjeta, a.transferencia, a.totalapagar,"
+                + "SUM(a.efectivo) AS totalEfectivo, "
+                + "SUM(a.tarjeta) AS totalTarjeta, "
+                + "SUM(a.transferencia) AS totalTransferencia "
+                + "FROM abono a "
+                + "INNER JOIN habitacion h ON a.idhabitacion = h.idhabitacion "
+                + "INNER JOIN cliente c ON a.idcliente = c.idcliente "
+                + "INNER JOIN inicioturno t ON a.numero_turno = t.numero_turno "
+                + "WHERE c.numdocumento LIKE '%" + buscar + "%' "
+                + "AND t.estado = 'Activo' "
+                + "GROUP BY a.idabono "
+                + "ORDER BY a.idabono DESC";
+
+        Statement st = cn.createStatement();
+        ResultSet rs = st.executeQuery(sSQL);
+
+        int totalEfectivo = 0;
+        int totalTarjeta = 0;
+        int totalTransferencia = 0;
+
+        try {
             while (rs.next()) {
                 registro[0] = rs.getString("idabono");
                 registro[1] = rs.getString("idingreso");
                 registro[2] = rs.getString("idhabitacion");
                 registro[3] = rs.getString("numero");
-                registro[4] = rs.getString("idcliente");
-                registro[5] = rs.getString("clienten") + " " + rs.getString("clienteap");
-                registro[6] = rs.getString("clientenu");
-                registro[7] = rs.getString("fechaabono");
-                registro[8] = rs.getString("abonohabitacion");
-                registro[9] = rs.getString("descuentos");
-                registro[10] = rs.getString("conceptodescuento");
-                registro[11] = rs.getString("totalabonos");
-                registro[12] = rs.getString("privilegiosadmon");
-                registro[13] = rs.getString("privilegiosrecepcion");
-                registro[14] = rs.getString("otroscobros");
-                registro[15] = rs.getString("numero_turno");
-                registro[16] = rs.getString("documento");
-                registro[17] = rs.getString("razon_social");
-                registro[18] = rs.getString("email");
-                registro[19] = rs.getString("numeronoches");
-                registro[20] = rs.getString("valordescuento");
-                registro[21] = rs.getString("tipocomprobante");
-                registro[22] = rs.getString("numerocomprobante");
-                registro[23] = rs.getString("iva19");
-                registro[24] = rs.getString("retencion35");
-                registro[25] = rs.getString("retencion4");
-                registro[26] = rs.getString("subtotal");
-                registro[27] = rs.getString("efectivo");
-                registro[28] = rs.getString("tarjeta");
-                registro[29] = rs.getString("transferencia");
-                registro[30] = rs.getString("totalapagar");
+                registro[4] = rs.getString("fechaabono");
+                registro[5] = rs.getString("abonohabitacion");
+                registro[6] = rs.getString("descuentos");
+                registro[7] = rs.getString("otroscobros");
+                registro[8] = rs.getString("numero_turno");
+                registro[9] = rs.getString("documento");
+                registro[10] = rs.getString("razon_social");
+                registro[11] = rs.getString("email");
+                registro[12] = rs.getString("numeronoches");
+                registro[13] = rs.getString("valordescuento");
+                registro[14] = rs.getString("efectivo");
+                registro[15] = rs.getString("tarjeta");
+                registro[16] = rs.getString("transferencia");
+                registro[17] = rs.getString("totalapagar");
+
+                totalEfectivo += rs.getInt("totalEfectivo");
+                totalTarjeta += rs.getInt("totalTarjeta");
+                totalTransferencia += rs.getInt("totalTransferencia");
 
                 totalregistros++;
                 modelo.addRow(registro);
             }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "NO SE PUEDE MOSTRAR LOS DATOS: " + e.getMessage());
         }
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(null, "NO SE PUEDE MOSTRAR LOS DATOS: " + e.getMessage());
+
+        return new Object[]{modelo, totalEfectivo, totalTarjeta, totalTransferencia};
     }
-
-    return modelo;
-}
-
 
     public boolean insertar(Dabono dts) {
         sSQL = "INSERT INTO abono (idingreso, idhabitacion, idcliente, fechaabono, abonohabitacion, descuentos, conceptodescuento,"
                 + " totalabonos, privilegiosadmon, privilegiosrecepcion, otroscobros, numero_turno,"
                 + " habitacion, cliente, documento, razon_social, email, numeronoches, valordescuento,"
                 + " tipocomprobante, numerocomprobante, iva19, retencion35, retencion4,"
-                + " subtotal, efectivo, tarjeta, transferencia, totalapagar)"
-                + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                + " subtotal, efectivo, tarjeta, transferencia, totalapagar, valor_bruto, antesIVA, costoalojamiento)"
+                + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try ( PreparedStatement pst = cn.prepareStatement(sSQL)) {
             pst.setInt(1, dts.getIdingreso());
@@ -135,6 +204,9 @@ public class Fabonos {
             pst.setInt(27, dts.getTarjeta());
             pst.setInt(28, dts.getTransferencia());
             pst.setInt(29, dts.getTotalapagar());
+            pst.setInt(30, dts.getValor_bruto());
+            pst.setInt(31, dts.getAntesIVA());
+            pst.setInt(32,dts.getCostoalojamiento());
 
             int n = pst.executeUpdate();
             return n != 0;
@@ -144,8 +216,54 @@ public class Fabonos {
         }
     }
 
+    public DefaultTableModel mostrarAbonoCongelado(String buscar) {
+        DefaultTableModel modelo;
+        String[] titulos = {
+            "Idabono", "Numero", "idcliente", "Cliente",
+            "Identificación", "Fecha Abono", "Abono habitacion", "Descuentos", "N° Noches", "Costo"};
+        String[] registro = new String[10];
+        totalregistros = 0;
+        modelo = new DefaultTableModel(null, titulos);
+
+        sSQL = "select idabono, habitacion, idcliente, cliente, documento, fechaabono, abonohabitacion, descuentos, numeronoches, costoalojamiento "
+                + "from reserva1.abono  "
+                + "WHERE documento LIKE ? ";
+
+
+        try ( PreparedStatement pst = cn.prepareStatement(sSQL)) {
+            pst.setString(1, "%" + buscar + "%");
+
+            try ( ResultSet rs = pst.executeQuery()) {
+                while (rs.next()) {
+                    registro[0] = rs.getString("idabono");
+                    registro[1] = rs.getString("habitacion");
+                    registro[2] = rs.getString("idcliente");
+                    registro[3] = rs.getString("cliente");
+                    registro[4] = rs.getString("documento");
+                    registro[5] = rs.getString("fechaabono");
+                    registro[6] = rs.getString("abonohabitacion");
+                    registro[7] = rs.getString("descuentos");
+                    registro[8] = rs.getString("numeronoches");
+                    registro[9] = rs.getString("costoalojamiento");
+                 
+                    totalregistros++;
+                    modelo.addRow(registro);
+                }
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "NO SE PUEDE MOSTRAR LOS DATOS: " + e.getMessage());
+        }
+
+        return modelo;
+    }
+
     public boolean editar(Dabono dts) {
-        sSQL = "UPDATE abono SET idingreso=?, idhabitacion=?, idcliente=?, fechaabono=?, abonohabitacion=?, descuentos=?, conceptodescuento=?, formaabono=?, totalabonos=?, privilegiosadmon=?, privilegiosrecepcion=?, otroscobros=?, numero_turno=? WHERE idabono=?";
+        sSQL = "UPDATE abono SET idingreso=?, idhabitacion=?, idcliente=?, fechaabono=?, abonohabitacion=?, descuentos=?, conceptodescuento=?, "
+                + "totalabonos=?, privilegiosadmon=?, privilegiosrecepcion=?, otroscobros=?, numero_turno=?, "
+                + "habitacion=?, cliente=?, documento=?, razon_social=?, email=?, numeronoches=?, valordescuento=?, "
+                + "tipocomprobante=?, numerocomprobante=?, iva19=?, retencion35=?, retencion4=?, "
+                + "subtotal=?, efectivo=?, tarjeta=?, transferencia=?, totalapagar=?, valor_bruto=?, antesIVA=? "
+                + "WHERE idabono=?";
 
         try ( PreparedStatement pst = cn.prepareStatement(sSQL)) {
             pst.setInt(1, dts.getIdingreso());
@@ -177,6 +295,9 @@ public class Fabonos {
             pst.setInt(27, dts.getTarjeta());
             pst.setInt(28, dts.getTransferencia());
             pst.setInt(29, dts.getTotalapagar());
+            pst.setInt(30, dts.getValor_bruto());
+            pst.setInt(31, dts.getAntesIVA());
+            pst.setInt(32, dts.getIdabono()); // Este es el parámetro para el WHERE
 
             int n = pst.executeUpdate();
             return n != 0;
@@ -202,7 +323,7 @@ public class Fabonos {
 
     public int generarComprobante() {
         String serie = "";
-        String sSQL = "SELECT MAX(numerocomprobante) FROM abono";
+        sSQL = "SELECT MAX(numerocomprobante) FROM abono";
 
         try {
             PreparedStatement pst = cn.prepareStatement(sSQL);

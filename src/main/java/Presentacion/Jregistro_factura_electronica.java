@@ -17,44 +17,44 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Jregistro_factura_electronica extends javax.swing.JFrame {
-    
+
     PreparedStatement pst;
     ResultSet rs;
     private static Jregistro_factura_electronica instance;
-    
+
+    @SuppressWarnings("static-access")
     public Jregistro_factura_electronica() {
         initComponents();
         setLocationRelativeTo(null);
         setTitle("REGISTRO FACTURACION ELECTRINOCA");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        
-        Jingreso factura = new Jingreso();
-         txtidcliente.setText(factura.idcliente1);
-        
+
     }
     private String accion = "guardar";
-    
-     public static Jregistro_factura_electronica getInstance() {
+
+    public static Jregistro_factura_electronica getInstance() {
         if (instance == null) {
             instance = new Jregistro_factura_electronica();
         }
         return instance;
     }
-    
+
     void limpiarcajas() {
-        txtdocumento.setText(null);
-        txtdv.setText(null);
-        txtrazon_social.setText(null);
+        txtcajabuscar.setText("");
+        txtidcliente.setText("");
+        txtdocumento.setText("");
+        txtdv.setText("");
+        txtrazon_social.setText("");
         cbotipo_persona.setSelectedItem("Seleccionar");
         cbotipo_documento.setSelectedItem("Seleccionar");
         cbodepartamento.setSelectedItem("Seleccionar");
         cbomunicipio.setSelectedItem("Seleccionar");
-        txtdireccion.setText(null);
-        txttelefono.setText(null);
-        txtemail.setText(null);
-        
+        txtdireccion.setText("");
+        txttelefono.setText("");
+        txtemail.setText("");
+
     }
-    
+
     private void limpiarCheckboxes() {
         chbagente_retencion_iva.setSelected(false);
         chbautoretenedor.setSelected(false);
@@ -66,7 +66,7 @@ public class Jregistro_factura_electronica extends javax.swing.JFrame {
         chbregimencomunpersonajuridica.setSelected(false);
         chbNoResponsableIva.setSelected(false);
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -109,6 +109,8 @@ public class Jregistro_factura_electronica extends javax.swing.JFrame {
         chbregimencomunpersonajuridica = new javax.swing.JCheckBox();
         chbNoResponsableIva = new javax.swing.JCheckBox();
         jButton1 = new javax.swing.JButton();
+        jLabel14 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
 
         jTextField4.setText("jTextField4");
 
@@ -116,46 +118,52 @@ public class Jregistro_factura_electronica extends javax.swing.JFrame {
 
         jLayeredPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "CLIENTES FACTURA ELECTRONICA", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Serif", 1, 12))); // NOI18N
 
-        jLabel1.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
-        jLabel1.setText("Documento:");
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel1.setText("Documento a quien se factura:");
 
-        txtdocumento.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        txtdocumento.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         txtdocumento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtdocumentoActionPerformed(evt);
             }
         });
+        txtdocumento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtdocumentoKeyPressed(evt);
+            }
+        });
 
-        jLabel2.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel2.setText("Razon social/Nombre:");
 
-        jLabel3.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel3.setText("Tipo Persona:");
 
-        jLabel4.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel4.setText("Tipo Documento:");
 
-        jLabel5.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel5.setText("Departamento:");
 
-        jLabel6.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel6.setText("Municipio:");
 
-        jLabel7.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel7.setText("Direccion:");
 
-        jLabel8.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel8.setText("Telelfono:");
 
-        jLabel9.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel9.setText("Email:");
 
-        jLabel10.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel10.setText("Regimen Fiscal:");
 
-        jLabel11.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel11.setText("Responsabilidades Fiscales:");
 
+        jLabel12.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel12.setText("D.V");
 
         txtdv.addActionListener(new java.awt.event.ActionListener() {
@@ -164,14 +172,14 @@ public class Jregistro_factura_electronica extends javax.swing.JFrame {
             }
         });
 
-        txtrazon_social.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        txtrazon_social.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         txtrazon_social.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtrazon_socialActionPerformed(evt);
             }
         });
 
-        cbotipo_documento.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        cbotipo_documento.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         cbotipo_documento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Cedula De Ciudadania", "Cedula De Extrageria", "NIT", "Pasaporte" }));
         cbotipo_documento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -179,7 +187,7 @@ public class Jregistro_factura_electronica extends javax.swing.JFrame {
             }
         });
 
-        cbotipo_persona.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        cbotipo_persona.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         cbotipo_persona.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Natural", "Juridica" }));
         cbotipo_persona.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -187,7 +195,7 @@ public class Jregistro_factura_electronica extends javax.swing.JFrame {
             }
         });
 
-        cbodepartamento.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        cbodepartamento.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         cbodepartamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Antioquia", "Arauca", "Atlántico", "Bolívar ", "Boyacá", "Caldas", "Caquetá", "Casanare", "Cauca", "Cesar", "Chocó", "Córdoba", "Cundinamarca", "Guainía", "Guaviare", "Huila", "La Guajira", "Magdalena", "Meta", "Nariño", "Norte de Santander", "Putumayo", "Quindío", "Risaralda", "San Andrés y Providencia", "Santander", "Sucre", "Tolima", "Valle del Cauca", "Vaupés", "Vichada" }));
         cbodepartamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -195,7 +203,7 @@ public class Jregistro_factura_electronica extends javax.swing.JFrame {
             }
         });
 
-        cbomunicipio.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        cbomunicipio.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         cbomunicipio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Medellín", " Arauca", " Barranquilla", " Cartagena", " Tunja", " Manizales", " Florencia", " Yopal", " Popayán", " Valledupar", " Quibdó", " Montería", " Bogotá", " Puerto Inírida", " San José del Guaviare", " Neiva", " Riohacha", " Santa Marta", " Villavicencio", " Pasto", " Cúcuta", " Mocoa", " Armenia", " Pereira", " San Andrés", " Bucaramanga", " Sincelejo", " Ibagué", " Cali", "Mitú", "Puerto Carreño" }));
         cbomunicipio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -203,27 +211,28 @@ public class Jregistro_factura_electronica extends javax.swing.JFrame {
             }
         });
 
-        txtdireccion.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        txtdireccion.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         txtdireccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtdireccionActionPerformed(evt);
             }
         });
 
-        txttelefono.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        txttelefono.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         txttelefono.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txttelefonoActionPerformed(evt);
             }
         });
 
-        txtemail.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        txtemail.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         txtemail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtemailActionPerformed(evt);
             }
         });
 
+        chbgrancontribuyente.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         chbgrancontribuyente.setText("Gran Contribuyente");
         chbgrancontribuyente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -231,34 +240,42 @@ public class Jregistro_factura_electronica extends javax.swing.JFrame {
             }
         });
 
+        chbregimen_simple_tributario.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         chbregimen_simple_tributario.setText("Regimen simple de tributacion");
 
+        chbautoretenedor.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         chbautoretenedor.setText("Autoretenedor");
 
+        chbagente_retencion_iva.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         chbagente_retencion_iva.setText("Agente de Retencion IVA");
 
+        chbnoresponsable.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         chbnoresponsable.setText("No responsable");
 
         btnregistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/guardar.png"))); // NOI18N
-        btnregistrar.setText("REGISTRAR");
+        btnregistrar.setText("Ingresar");
+        btnregistrar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnregistrar.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        btnregistrar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnregistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnregistrarActionPerformed(evt);
             }
         });
 
-        jLabel13.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
-        jLabel13.setText("Caja Buscar:");
+        jLabel13.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel13.setText("N° huesped principal:");
 
-        txtcajabuscar.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        txtcajabuscar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         txtcajabuscar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtcajabuscarKeyPressed(evt);
             }
         });
 
-        txtidcliente.setText("IDC");
+        txtidcliente.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
+        chbautoretenedores.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         chbautoretenedores.setText("Auto Retenedores");
         chbautoretenedores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -266,6 +283,7 @@ public class Jregistro_factura_electronica extends javax.swing.JFrame {
             }
         });
 
+        chbGrancontribuyente.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         chbGrancontribuyente.setText("Gran Contribuyente");
         chbGrancontribuyente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -273,6 +291,7 @@ public class Jregistro_factura_electronica extends javax.swing.JFrame {
             }
         });
 
+        chbregimencomunpersonajuridica.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         chbregimencomunpersonajuridica.setText("Regimen Comun Persona Juridica");
         chbregimencomunpersonajuridica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -280,6 +299,7 @@ public class Jregistro_factura_electronica extends javax.swing.JFrame {
             }
         });
 
+        chbNoResponsableIva.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         chbNoResponsableIva.setText("No Responsable de Iva");
         chbNoResponsableIva.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -288,10 +308,23 @@ public class Jregistro_factura_electronica extends javax.swing.JFrame {
         });
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/nuevo.GIF"))); // NOI18N
-        jButton1.setText("NUEVO");
+        jButton1.setText("Nuevo");
+        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        jLabel14.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel14.setText("Relacion:");
+
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/buscar.png"))); // NOI18N
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
             }
         });
 
@@ -331,6 +364,8 @@ public class Jregistro_factura_electronica extends javax.swing.JFrame {
         jLayeredPane1.setLayer(chbregimencomunpersonajuridica, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(chbNoResponsableIva, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(jLabel14, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(jButton2, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
@@ -339,44 +374,6 @@ public class Jregistro_factura_electronica extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                        .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel8)
-                                    .addComponent(jLabel7))
-                                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING))
-                            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtrazon_social)
-                            .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cbotipo_documento, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cbodepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cbomunicipio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtdireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txttelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtemail, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cbotipo_persona, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                                        .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                                                .addComponent(txtdocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(42, 42, 42)
-                                                .addComponent(jLabel12))
-                                            .addComponent(txtcajabuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtdv, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtidcliente, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGap(0, 112, Short.MAX_VALUE))))
                     .addGroup(jLayeredPane1Layout.createSequentialGroup()
                         .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jLayeredPane1Layout.createSequentialGroup()
@@ -397,20 +394,66 @@ public class Jregistro_factura_electronica extends javax.swing.JFrame {
                                     .addComponent(chbregimencomunpersonajuridica)
                                     .addComponent(chbGrancontribuyente)))
                             .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                                .addComponent(btnregistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnregistrar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                                .addComponent(jButton1)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                        .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel7))
+                                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtrazon_social)
+                            .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cbotipo_documento, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cbodepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cbomunicipio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txttelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtemail, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                                        .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                                                .addComponent(txtdocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(42, 42, 42)
+                                                .addComponent(jLabel12))
+                                            .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                                                .addComponent(txtcajabuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jLabel14)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(txtdv, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
+                                            .addComponent(txtidcliente))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(cbotipo_persona, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtdireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addContainerGap())))))
         );
         jLayeredPane1Layout.setVerticalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPane1Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel13)
-                    .addComponent(txtcajabuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtidcliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel13)
+                        .addComponent(txtcajabuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtidcliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel14))
+                    .addComponent(jButton2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -474,11 +517,11 @@ public class Jregistro_factura_electronica extends javax.swing.JFrame {
                         .addComponent(chbregimencomunpersonajuridica)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(chbNoResponsableIva)))
-                .addGap(29, 29, 29)
-                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnregistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnregistrar, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(12, 12, 12))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -500,53 +543,63 @@ public class Jregistro_factura_electronica extends javax.swing.JFrame {
     }//GEN-LAST:event_chbgrancontribuyenteActionPerformed
 
     private void btnregistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregistrarActionPerformed
-        
+        // Validaciones iniciales
         if (txtdocumento.getText().length() == 0) {
             JOptionPane.showConfirmDialog(rootPane, "Debes ingresar Documento");
             txtdocumento.requestFocus();
             return;
-            
         }
         if (txtrazon_social.getText().length() == 0) {
             JOptionPane.showConfirmDialog(rootPane, "Debes ingresar una Razon social/Nombre");
             txtrazon_social.requestFocus();
             return;
-            
         }
         if (cbotipo_persona.getSelectedIndex() == 0) {
             JOptionPane.showConfirmDialog(rootPane, "Debes seleccionar un TIPO PERSONA");
             cbotipo_persona.requestFocus();
             return;
-            
         }
         if (cbotipo_documento.getSelectedIndex() == 0) {
             JOptionPane.showConfirmDialog(rootPane, "Debes seleccionar un TIPO DOCUMENTO");
             cbotipo_documento.requestFocus();
             return;
-            
         }
+        if (txtcajabuscar.getText().length() == 0) {
+            JOptionPane.showConfirmDialog(rootPane, "Debes ingresar el DOCUMENTO DEL HUESPED PRINCIPAL");
+            txtcajabuscar.requestFocus();
+            return;
+        }
+        if (txtidcliente.getText().length() == 0) {
+            JOptionPane.showConfirmDialog(rootPane, "Porfavor presione enter en el N° HUESPED PRINCIPAL 0 (BOTON DEBUSQUEDA)"+ 
+                    "para relacionar con el CLIENTE");
+            txtidcliente.requestFocus();
+            return;
+
+        }
+         if (txtdv.getText().length() == 0) {
+            JOptionPane.showConfirmDialog(rootPane, "Porfavor ingrese el Digito de verificacion (D.V)");
+            txtdv.requestFocus();
+            return;
+
+        }
+
         Dfactura_electronica dts = new Dfactura_electronica();
         Ffactura_electronica fnc = new Ffactura_electronica();
-        
-        dts.setDocumento(Integer.parseInt(txtdocumento.getText()));
-        dts.setDv(Integer.parseInt(txtdv.getText()));
-        dts.setRazon_social(txtrazon_social.getText());
-        
-        int tipo_persona = cbotipo_persona.getSelectedIndex();
-        dts.setTipo_persona((String) cbotipo_persona.getItemAt(tipo_persona));
-        int tipo_documento = cbotipo_documento.getSelectedIndex();
-        dts.setTipo_documento((String) cbotipo_documento.getItemAt(tipo_documento));
-        int departamento = cbodepartamento.getSelectedIndex();
-        dts.setDepartamento((String) cbodepartamento.getItemAt(departamento));
-        int municipio = cbomunicipio.getSelectedIndex();
-        dts.setMunicipio((String) cbomunicipio.getItemAt(municipio));
-        
-        dts.setDireccion(txtdireccion.getText());
-        dts.setTelefono(txttelefono.getText());
-        dts.setEmail(txtemail.getText());
-        
+
+        dts.setDocumento(Integer.parseInt(txtdocumento.getText().trim()));
+        dts.setDv(Integer.parseInt(txtdv.getText().trim()));
+        dts.setRazon_social(txtrazon_social.getText().trim());
+
+        dts.setTipo_persona((String) cbotipo_persona.getSelectedItem());
+        dts.setTipo_documento((String) cbotipo_documento.getSelectedItem());
+        dts.setDepartamento((String) cbodepartamento.getSelectedItem());
+        dts.setMunicipio((String) cbomunicipio.getSelectedItem());
+
+        dts.setDireccion(txtdireccion.getText().trim());
+        dts.setTelefono(txttelefono.getText().trim());
+        dts.setEmail(txtemail.getText().trim());
+
         List<String> responsabilidadesFiscales = new ArrayList<>();
-        
         if (chbagente_retencion_iva.isSelected()) {
             responsabilidadesFiscales.add("Agente Retención IVA");
         }
@@ -562,45 +615,62 @@ public class Jregistro_factura_electronica extends javax.swing.JFrame {
         if (chbnoresponsable.isSelected()) {
             responsabilidadesFiscales.add("No Responsable");
         }
-        String responsabilidadesFiscalesString = String.join(",", responsabilidadesFiscales);
+        dts.setResponsabilidades_fiscales(String.join(",", responsabilidadesFiscales));
 
-// Pasar la lista de responsabilidades fiscales al método setResponsabilidades_fiscales
-        dts.setResponsabilidades_fiscales(responsabilidadesFiscalesString);
-        
-         List<String> RegimenFiscal = new ArrayList<>();
-        
+        List<String> RegimenFiscal = new ArrayList<>();
         if (chbautoretenedores.isSelected()) {
-             RegimenFiscal.add("Auto Retenedores");
+            RegimenFiscal.add("Auto Retenedores");
         }
         if (chbGrancontribuyente.isSelected()) {
-             RegimenFiscal.add("Gran Contribuyente");
+            RegimenFiscal.add("Gran Contribuyente");
         }
         if (chbregimencomunpersonajuridica.isSelected()) {
-             RegimenFiscal.add("Regimen Comun Persona Juridica");
+            RegimenFiscal.add("Regimen Comun Persona Juridica");
         }
-        if (chbregimencomunpersonajuridica.isSelected()) {
-             RegimenFiscal.add("No Responsable de Iva");
+        if (chbNoResponsableIva.isSelected()) {
+            RegimenFiscal.add("No Responsable de Iva");
         }
-        
-        String  regimenFiscal = String.join(",",  RegimenFiscal);
+        dts.setRegimen_fiscal(String.join(",", RegimenFiscal));
 
-        dts.setRegimen_fiscal( regimenFiscal);
-        
-        dts.setIdcliente(Integer.parseInt(txtidcliente.getText()));
-        
-        if (accion.equals("guardar")) {
-            try {
-                if (fnc.insertar(dts)) {
-                    
-                    JOptionPane.showMessageDialog(rootPane, " Se Registro Satisfactoriamente");
-                    limpiarcajas();
-                    limpiarCheckboxes();
-                    this.dispose();
+        dts.setIdcliente(Integer.parseInt(txtidcliente.getText().trim()));
+
+        try {
+            // Verificar si el cliente ya existe en la base de datos
+            if (fnc.existeCliente(dts.getDocumento())) { // Implementa este método en Ffactura_electronica
+                int opcion = JOptionPane.showConfirmDialog(rootPane, "El cliente ya existe. ¿Desea actualizar la información?", "Cliente Existente", JOptionPane.YES_NO_OPTION);
+
+                if (opcion == JOptionPane.YES_OPTION) {
+                    // Actualizar la información del cliente
+                    if (fnc.actualizar(dts)) { // Implementa este método en Ffactura_electronica
+                        int opcion1 = JOptionPane.showConfirmDialog(rootPane, "Cliente actualizado con éxito. ¿Desea realizar un abono?", "Confirmación", JOptionPane.YES_NO_OPTION);
+
+                        if (opcion1 == JOptionPane.YES_OPTION) {
+                            limpiarcajas();
+                            limpiarCheckboxes();
+//                    this.dispose();
+                            Jabono formularioAbono = new Jabono();
+                            formularioAbono.setVisible(true);
+                        }
+                    }
                 }
-            } catch (SQLException ex) {
-                Logger.getLogger(Jregistro_factura_electronica.class.getName()).log(Level.SEVERE, null, ex);
+            } else {
+                // Insertar un nuevo cliente
+                if (fnc.insertar(dts)) {
+                    int opcion1 = JOptionPane.showConfirmDialog(rootPane, "Cliente registrado con éxito. ¿Desea realizar un abono?", "Confirmación", JOptionPane.YES_NO_OPTION);
+
+                    if (opcion1 == JOptionPane.YES_OPTION) {
+                        limpiarcajas();
+                        limpiarCheckboxes();
+//                    this.dispose();
+                        Jabono formularioAbono = new Jabono();
+                        formularioAbono.setVisible(true);
+                    }
+                }
             }
+        } catch (SQLException ex) {
+            Logger.getLogger(Jregistro_factura_electronica.class.getName()).log(Level.SEVERE, null, ex);
         }
+
 
     }//GEN-LAST:event_btnregistrarActionPerformed
 
@@ -655,17 +725,84 @@ public class Jregistro_factura_electronica extends javax.swing.JFrame {
     }//GEN-LAST:event_txtemailActionPerformed
 
     private void txtcajabuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcajabuscarKeyPressed
+//      
+        // TODO add your handling code here:
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             Cconexion conexion = new Cconexion();
-            
+
             try {
                 Connection conectar = conexion.establecerConexion();
-                
+
+                // Primera consulta: obtener el idcliente basado en el numdocumento
+                PreparedStatement pst1 = conectar.prepareStatement("select idcliente from ingreso where documento = ? AND estado = 'Activo'");
+                pst1.setString(1, txtcajabuscar.getText());
+
+                ResultSet rs1 = pst1.executeQuery();
+
+                if (rs1.next()) {
+                    int idCliente = rs1.getInt("idcliente");
+
+                    // Segunda consulta: obtener el num_habitacion basado en el idcliente
+                    PreparedStatement pst2 = conectar.prepareStatement("select num_habitacion from ingreso where idcliente=?  and estado = 'Activo'");
+                    pst2.setInt(1, idCliente);
+
+                    ResultSet rs2 = pst2.executeQuery();
+
+                    if (rs2.next()) {
+                        txtidcliente.setText(String.valueOf(idCliente));
+//                        txtnumero_habitacion.setText(rs2.getString("num_habitacion"));
+//                txtcliente.setText(rs1.getString("nombres") + " " + rs1.getString("apellidos"));
+
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No se encontró la habitación para el CLIENTE solicitado");
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se encontró el CLIENTE solicitado");
+                }
+
+            } catch (Exception ex) {
+                System.err.println("Error: " + ex);
+            }
+        }
+
+    }//GEN-LAST:event_txtcajabuscarKeyPressed
+
+    private void chbautoretenedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbautoretenedoresActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_chbautoretenedoresActionPerformed
+
+    private void chbGrancontribuyenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbGrancontribuyenteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_chbGrancontribuyenteActionPerformed
+
+    private void chbregimencomunpersonajuridicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbregimencomunpersonajuridicaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_chbregimencomunpersonajuridicaActionPerformed
+
+    private void chbNoResponsableIvaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbNoResponsableIvaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_chbNoResponsableIvaActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        limpiarcajas();
+        limpiarCheckboxes();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txtdocumentoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtdocumentoKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            Cconexion conexion = new Cconexion();
+
+            try {
+                Connection conectar = conexion.establecerConexion();
+
                 pst = conectar.prepareStatement("select * from factura_electronica where documento=?");
-                pst.setString(1, txtcajabuscar.getText());
-                
+                pst.setString(1, txtdocumento.getText());
+
                 rs = pst.executeQuery();
-                
+
                 if (rs.next()) {
                     txtdocumento.setText(String.valueOf(rs.getInt("documento")));
                     txtdv.setText(rs.getString("DV"));
@@ -689,14 +826,19 @@ public class Jregistro_factura_electronica extends javax.swing.JFrame {
                     // Dividir la cadena de responsabilidades fiscales y marcar los checkboxes correspondientes
                     if (responsabilidadesFiscales != null && !responsabilidadesFiscales.isEmpty()) {
                         String[] responsabilidadesArray = responsabilidadesFiscales.split(",");
-                        
+
                         for (String responsabilidad : responsabilidadesArray) {
                             switch (responsabilidad.trim()) {
-                                case "Agente Retención IVA" -> chbagente_retencion_iva.setSelected(true);
-                                case "Autoretenedor" -> chbautoretenedor.setSelected(true);
-                                case "Gran Contribuyente" -> chbgrancontribuyente.setSelected(true);
-                                case "Régimen Simple Tributario" -> chbregimen_simple_tributario.setSelected(true);
-                                case "No Responsable" -> chbnoresponsable.setSelected(true);
+                                case "Agente Retención IVA" ->
+                                    chbagente_retencion_iva.setSelected(true);
+                                case "Autoretenedor" ->
+                                    chbautoretenedor.setSelected(true);
+                                case "Gran Contribuyente" ->
+                                    chbgrancontribuyente.setSelected(true);
+                                case "Régimen Simple Tributario" ->
+                                    chbregimen_simple_tributario.setSelected(true);
+                                case "No Responsable" ->
+                                    chbnoresponsable.setSelected(true);
                             }
                         }
                     }
@@ -707,57 +849,78 @@ public class Jregistro_factura_electronica extends javax.swing.JFrame {
                     chbGrancontribuyente.setSelected(false);
                     chbregimencomunpersonajuridica.setSelected(false);
                     chbNoResponsableIva.setSelected(false);
-                   
 
                     // Dividir la cadena de responsabilidades fiscales y marcar los checkboxes correspondientes
                     if (Regimenfiscal != null && !Regimenfiscal.isEmpty()) {
                         String[] regimenArray = Regimenfiscal.split(",");
-                        
+
                         for (String regimen : regimenArray) {
-                            switch (regimen .trim()) {
-                                case "Agente Retención IVA" -> chbautoretenedores.setSelected(true);
-                                case "Autoretenedor" -> chbGrancontribuyente.setSelected(true);
-                                case "Gran Contribuyente" -> chbregimencomunpersonajuridica.setSelected(true);
-                                case "Régimen Simple Tributario" -> chbNoResponsableIva.setSelected(true);
-                                
+                            switch (regimen.trim()) {
+                                case "Agente Retención IVA" ->
+                                    chbautoretenedores.setSelected(true);
+                                case "Autoretenedor" ->
+                                    chbGrancontribuyente.setSelected(true);
+                                case "Gran Contribuyente" ->
+                                    chbregimencomunpersonajuridica.setSelected(true);
+                                case "Régimen Simple Tributario" ->
+                                    chbNoResponsableIva.setSelected(true);
+
                             }
                         }
                     }
-                
-             
 
                 } else {
                     JOptionPane.showMessageDialog(null, "No se encontró el documento solicitado");
                 }
-                conectar.close();                
-                
+                conectar.close();
+
             } catch (HeadlessException | SQLException ex) {
                 System.err.println("Error: " + ex);
             }
         }
-    }//GEN-LAST:event_txtcajabuscarKeyPressed
+    }//GEN-LAST:event_txtdocumentoKeyPressed
 
-    private void chbautoretenedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbautoretenedoresActionPerformed
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_chbautoretenedoresActionPerformed
+         
+            Cconexion conexion = new Cconexion();
 
-    private void chbGrancontribuyenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbGrancontribuyenteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chbGrancontribuyenteActionPerformed
+            try {
+                Connection conectar = conexion.establecerConexion();
 
-    private void chbregimencomunpersonajuridicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbregimencomunpersonajuridicaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chbregimencomunpersonajuridicaActionPerformed
+                // Primera consulta: obtener el idcliente basado en el numdocumento
+                PreparedStatement pst1 = conectar.prepareStatement("select idcliente from ingreso where documento = ? AND estado = 'Activo'");
+                pst1.setString(1, txtcajabuscar.getText());
 
-    private void chbNoResponsableIvaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbNoResponsableIvaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chbNoResponsableIvaActionPerformed
+                ResultSet rs1 = pst1.executeQuery();
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-         limpiarcajas();
-         limpiarCheckboxes();
-    }//GEN-LAST:event_jButton1ActionPerformed
+                if (rs1.next()) {
+                    int idCliente = rs1.getInt("idcliente");
+
+                    // Segunda consulta: obtener el num_habitacion basado en el idcliente
+                    PreparedStatement pst2 = conectar.prepareStatement("select num_habitacion from ingreso where idcliente=?  and estado = 'Activo'");
+                    pst2.setInt(1, idCliente);
+
+                    ResultSet rs2 = pst2.executeQuery();
+
+                    if (rs2.next()) {
+                        txtidcliente.setText(String.valueOf(idCliente));
+//                        txtnumero_habitacion.setText(rs2.getString("num_habitacion"));
+//                txtcliente.setText(rs1.getString("nombres") + " " + rs1.getString("apellidos"));
+
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No se encontró la habitación para el CLIENTE solicitado");
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se encontró el CLIENTE solicitado");
+                }
+
+            } catch (Exception ex) {
+                System.err.println("Error: " + ex);
+            }
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -810,11 +973,13 @@ public class Jregistro_factura_electronica extends javax.swing.JFrame {
     private javax.swing.JCheckBox chbregimen_simple_tributario;
     private javax.swing.JCheckBox chbregimencomunpersonajuridica;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

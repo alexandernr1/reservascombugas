@@ -121,4 +121,17 @@ public class Facompañante {
             return false;
         } 
     }
+     public boolean desocuparacompañante(Dacompañante dts) {
+        sSQL = "UPDATE acompañantes SET estado='Finalizado' WHERE idcliente=?";
+
+        try (PreparedStatement pst = cn.prepareStatement(sSQL)) {
+            pst.setInt(1, dts.getIdcliente());
+
+            int n = pst.executeUpdate();
+            return n != 0;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al finalizar acompañante: " + e.getMessage());
+            return false;
+        }
+    }
 }

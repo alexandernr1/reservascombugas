@@ -5,15 +5,17 @@ import Datos.Dsalidaturno;
 import Datos.Tiempopro;
 import Impresion.ImprimirCierreTurno;
 import Logica.Finicioturno;
+import Logica.Fsalida;
 import Logica.Fsalidaturno;
 import java.awt.HeadlessException;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowFocusListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
 
 public class Jsalidaturno extends javax.swing.JFrame {
 
@@ -23,41 +25,20 @@ public class Jsalidaturno extends javax.swing.JFrame {
 
     public Jsalidaturno() {
         initComponents();
-        iniciarHiloMostrarnumeroturno();
         setTitle("CAMBIO DE TURNOS");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         fechacbo();
         mostrarTiempo();
-        txtbase.setText("0");
-//        mostrarnumeroturno();
+        agregarWindowFocusListener();
         inhabilitar();
+        txtbase.setText("0");
         txtotros_ingresos.setText("0");
         txttotal_recibos.setText("0");
 
     }
-    
-        private void iniciarHiloMostrarnumeroturno() {
-        Thread hilo = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Fsalidaturno func = new Fsalidaturno();
-                String numeroturno = func.numeroturno();
 
-                // Actualizar la interfaz de usuario desde el hilo principal
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        txtnumero_turno.setText(numeroturno);
-                    }
-                });
-            }
-        });
-
-        hilo.start();
-    }
-
-    public static int idusuario;
+//    public static int idusuario;
     private String accion = "guardar";
 
     static void inhabilitar() {
@@ -65,52 +46,47 @@ public class Jsalidaturno extends javax.swing.JFrame {
         txtidempleado.setVisible(false);
 
     }
-     public void limpiarcajas(){
-         txtbase.setText("0");
-         txtefectivo.setText(null);
-         txtentrega_admon.setText(null);
-         txtfecha_hora_inicio.setText(null);
-//         txtfecha_hora_salida.setText(null);
-         txthabitaciones_ocupadas.setText(null);
-//         txtempleado.setText(null);
-         txtidempleado.setText(null);
-         txtidinicioturno.setText(null);
-         txtidturnos.setText(null);
-//         txtnumero_turno.setText(null);
-         txtobservaciones.setText(null);
-         txtotros_ingresos.setText("0");
-         txttarjeta.setText(null);
-         txttotal_abonos.setText(null);
-         txttotal_efectivo.setText("0");
-         txtotros_ingresos.setText("0");
-        txttotal_recibos.setText("0");
-         txttotalhabitaciones.setText(null);
-         txttransferencia.setText(null);
-         
-     }
 
-//    private void mostrarnumeroturno() {
-//    // Crear un nuevo hilo
-//    Thread hilo = new Thread(new Runnable() {
-//        @Override
-//        public void run() {
-//            // Lógica del método dentro del hilo
-//            Fsalidaturno func = new Fsalidaturno();
-//            String numeroturno = func.numeroturno();
-//
-//            // Actualizar la interfaz de usuario (Swing) desde el hilo principal
-//            SwingUtilities.invokeLater(new Runnable() {
-//                @Override
-//                public void run() {
-//                    txtnumero_turno.setText(numeroturno);
-//                }
-//            });
-//        }
-//    });
-//
-//    // Iniciar el hilo
-//    hilo.start();
-//}
+    public void mostrarnumeroturno() {
+        Fsalida func = new Fsalida();
+        String numeroturno = func.numeroturno();
+        txtnumero_turno.setText(numeroturno);
+    }
+
+    private void agregarWindowFocusListener() {
+        this.addWindowFocusListener(new WindowFocusListener() {
+            @Override
+            public void windowGainedFocus(WindowEvent e) {
+                mostrarnumeroturno();  // Actualiza el número de turno cuando la ventana recibe el foco
+            }
+
+            @Override
+            public void windowLostFocus(WindowEvent e) {
+                // No hacer nada cuando la ventana pierde el foco
+            }
+        });
+    }
+
+    public void limpiarcajas() {
+        txtbase.setText("0");
+        txtefectivo.setText("");
+        txtentrega_admon.setText("");
+        txtfecha_hora_inicio.setText("");
+        txthabitaciones_ocupadas.setText("");
+        txtidempleado.setText("");
+        txtidinicioturno.setText("");
+        txtidturnos.setText("");
+        txtobservaciones.setText("");
+        txtotros_ingresos.setText("0");
+        txttarjeta.setText("");
+        txttotal_abonos.setText("");
+        txttotal_efectivo.setText("0");
+        txtotros_ingresos.setText("0");
+        txttotal_recibos.setText("0");
+        txttotalhabitaciones.setText("");
+        txttransferencia.setText("");
+
+    }
 
 
     public static Jsalidaturno getInstance() {
@@ -151,8 +127,8 @@ public class Jsalidaturno extends javax.swing.JFrame {
         func1.finalizarturno(dts1);
         limpiarcajas();
         JOptionPane.showMessageDialog(this, "Turno cerrado");
-        this.setVisible(false); // Oculta el formulario
-        this.dispose(); // Libera los recursos
+        this.setVisible(false);
+        this.dispose();
 
         Jinicioturno inicio = new Jinicioturno();
         inicio.setVisible(true);
@@ -222,22 +198,22 @@ public class Jsalidaturno extends javax.swing.JFrame {
         jLayeredPane1.setBackground(new java.awt.Color(204, 204, 204));
         jLayeredPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "CIERRE DE TURNO", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Serif", 1, 14))); // NOI18N
 
-        jLabel2.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel2.setText("Turno:");
 
-        jLabel3.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel3.setText("Responsable:");
 
-        jLabel4.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel4.setText("Fecha y hora de inicio:");
 
-        jLabel5.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel5.setText("Fecha y hora de salida:");
 
-        jLabel7.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel7.setText("Hbitaciones ocupadas:");
 
-        txthabitaciones_ocupadas.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        txthabitaciones_ocupadas.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         txthabitaciones_ocupadas.setText("\n");
         txthabitaciones_ocupadas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -245,11 +221,11 @@ public class Jsalidaturno extends javax.swing.JFrame {
             }
         });
 
-        txtempleado.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        txtempleado.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
 
-        txtfecha_hora_salida.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        txtfecha_hora_salida.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
 
-        txtfecha_hora_inicio.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        txtfecha_hora_inicio.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
 
         cboturnos.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -265,7 +241,7 @@ public class Jsalidaturno extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel6.setText("Numero Turno:");
 
         cboestado.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
@@ -277,7 +253,7 @@ public class Jsalidaturno extends javax.swing.JFrame {
             }
         });
 
-        jLabel10.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel10.setText("Estado:");
 
         buscarnumeroturno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/buscar.png"))); // NOI18N
@@ -288,8 +264,10 @@ public class Jsalidaturno extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel1.setText("Total Recibos");
+
+        txttotal_recibos.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
 
         jLayeredPane1.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -393,29 +371,29 @@ public class Jsalidaturno extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "FORMA DE PAGO", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Serif", 1, 14))); // NOI18N
 
-        txtbase.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        txtbase.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         txtbase.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtbaseActionPerformed(evt);
             }
         });
 
-        jLabel8.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel8.setText("Base:");
 
-        jLabel9.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel9.setText("Transferencias:");
 
-        jLabel11.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel11.setText("Tarjetas:");
 
-        txttransferencia.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        txttransferencia.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
 
-        txttarjeta.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        txttarjeta.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
 
-        txtefectivo.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        txtefectivo.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
 
-        jLabel19.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        jLabel19.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel19.setText("Efectivo:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -461,32 +439,32 @@ public class Jsalidaturno extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "VALORES", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Serif", 1, 14))); // NOI18N
 
-        txttotal_abonos.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        txttotal_abonos.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
 
-        jLabel12.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel12.setText("Total habitaciones:");
 
-        jLabel13.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel13.setText("Total abonos:");
 
-        jLabel14.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel14.setText("Otros ingresos:");
 
-        jLabel15.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        jLabel15.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel15.setText("Total recaudado:");
 
-        jLabel16.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        jLabel16.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel16.setText("Efectivo liquido:");
 
-        jLabel17.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        jLabel17.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel17.setText("Total cambio habit:");
 
-        jLabel18.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        jLabel18.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel18.setText("Observaciones:");
 
-        txttotalhabitaciones.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        txttotalhabitaciones.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
 
-        txttotal_efectivo.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        txttotal_efectivo.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         txttotal_efectivo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txttotal_efectivoActionPerformed(evt);
@@ -494,15 +472,19 @@ public class Jsalidaturno extends javax.swing.JFrame {
         });
 
         txtotros_ingresos.setEditable(false);
-        txtotros_ingresos.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        txtotros_ingresos.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
 
-        txttotal_recaudo.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        txttotal_recaudo.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
 
-        txtobservaciones.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        txtobservaciones.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
 
         jButton1.setBackground(new java.awt.Color(204, 204, 204));
+        jButton1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/nuevo.GIF"))); // NOI18N
-        jButton1.setText("NUEVO");
+        jButton1.setText("Nuevo");
+        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -510,15 +492,19 @@ public class Jsalidaturno extends javax.swing.JFrame {
         });
 
         jButton2.setBackground(new java.awt.Color(204, 204, 204));
+        jButton2.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/guardar.png"))); // NOI18N
-        jButton2.setText("GUARDAR");
+        jButton2.setText("Guardar");
+        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton2.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
 
-        txtentrega_admon.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        txtentrega_admon.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         txtentrega_admon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtentrega_admonActionPerformed(evt);
@@ -727,81 +713,74 @@ public class Jsalidaturno extends javax.swing.JFrame {
     }//GEN-LAST:event_cboestadoActionPerformed
 
     private void buscarnumeroturnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarnumeroturnoActionPerformed
+      
+                try {
+                    Fsalidaturno func = new Fsalidaturno();
 
-        try {
-            Fsalidaturno func = new Fsalidaturno();
+                    ResultSet rs = func.realizarConsulta(txtnumero_turno.getText());
+                    if (rs.next()) {
+                        // Obtener datos inicio de turno.
+                        txtidinicioturno.setText(String.valueOf(rs.getInt("idinicioturno")));
+                        txtnumero_turno.setText(rs.getString("numero_turno"));
+                        txtfecha_hora_inicio.setText(rs.getString("fecha_hora_inicio"));
+                        txtempleado.setText(rs.getString("empleado"));
 
-            ResultSet rs = new Fsalidaturno().realizarConsulta(txtnumero_turno.getText());
-            if (rs.next()) {
-                //obtener datos inicio de turno.
+                        String turnos = rs.getString("turno");
+                        cboturnos.setSelectedItem(turnos);
+                        String estado = rs.getString("estado");
+                        cboestado.setSelectedItem(estado);
 
-                txtidinicioturno.setText(String.valueOf(rs.getInt("idinicioturno")));
-                txtnumero_turno.setText(String.valueOf(rs.getString("numero_turno")));
-                txtfecha_hora_inicio.setText(rs.getString("fecha_hora_inicio"));
-                txtempleado.setText(String.valueOf(rs.getString("empleado")));
-            
-                String turnos = rs.getString("turno");
-                cboturnos.setSelectedItem(turnos);
-                String estado = rs.getString("estado");
-                cboestado.setSelectedItem(estado);
-                // Actualizar los JLabel en Jmenuhotel
-                
-                Jmenuhotel.actualizarFecha(txtfecha_hora_inicio.getText());
-                Jmenuhotel.actualizarTurno((String) cboturnos.getSelectedItem());
-                Jmenuhotel.actualizarEmpleado(txtempleado.getText());
-                Jmenuhotel.actualizarEstado((String) cboestado.getSelectedItem());
+                        // Actualizar los JLabel en Jmenuhotel
+                        Jmenuhotel.actualizarFecha(txtfecha_hora_inicio.getText());
+                        Jmenuhotel.actualizarTurno((String) cboturnos.getSelectedItem());
+                        Jmenuhotel.actualizarEmpleado(txtempleado.getText());
+                        Jmenuhotel.actualizarEstado((String) cboestado.getSelectedItem());
 
-                estado = func.estadoturno();
-                cboestado.setSelectedItem(estado);
+                        estado = func.estadoturno();
+                        cboestado.setSelectedItem(estado);
 
-                //obtener numero de habitaciones ocupadas.
-                int totalHabitacionesOcupadas = func.obtenerTotalHabitacionesOcupadas();
-                txthabitaciones_ocupadas.setText(String.valueOf(totalHabitacionesOcupadas));
+                        // Obtener número de habitaciones ocupadas.
+                        int totalHabitacionesOcupadas = func.obtenerTotalHabitacionesOcupadas();
+                        txthabitaciones_ocupadas.setText(String.valueOf(totalHabitacionesOcupadas));
 
-                //obtener precio de habitaciones ocupadas.
-                double preciohabitacionesocupadas = func.obtenerCostoTotalAlojamiento();
-                txttotalhabitaciones.setText(String.valueOf(preciohabitacionesocupadas));
+                        // Obtener precio de habitaciones ocupadas.
+                        double preciohabitacionesocupadas = func.obtenerCostoTotalAlojamiento();
+                        txttotalhabitaciones.setText(String.valueOf(preciohabitacionesocupadas));
 
-                String numeroTurnoActualizado = func.numeroturno();
-                txtnumero_turno.setText(numeroTurnoActualizado);
+                        int numeroTurnoActualizado = func.numeroturno();
+                        txtnumero_turno.setText(String.valueOf(numeroTurnoActualizado));
 
-                int numeroturno = Integer.parseInt(txtnumero_turno.getText());
-                int[] totalesMediosPago = func.totalmedio_pagos(numeroturno);
-                txtefectivo.setText(String.valueOf(totalesMediosPago[0]));
-                txttarjeta.setText(String.valueOf(totalesMediosPago[1]));
-                txttransferencia.setText(String.valueOf(totalesMediosPago[2]));
+                        int numeroturno = Integer.parseInt(txtnumero_turno.getText());
+                        int[] totalesMediosPago = func.totalmedio_pagos(numeroturno);
+                        txtefectivo.setText(String.valueOf(totalesMediosPago[0]));
+                        txttarjeta.setText(String.valueOf(totalesMediosPago[1]));
+                        txttransferencia.setText(String.valueOf(totalesMediosPago[2]));
 
-                int entregaadmon = Integer.parseInt(txtefectivo.getText());
-                txtentrega_admon.setText((String.valueOf(entregaadmon)));
+                        int entregaadmon = Integer.parseInt(txtefectivo.getText());
+                        txtentrega_admon.setText(String.valueOf(entregaadmon));
 
-                int numero = Integer.parseInt(txtnumero_turno.getText());
+                        int totalAbono = func.totalAbonos(numeroturno);
+                        txttotal_abonos.setText(String.valueOf(totalAbono));
 
-                int totalAbono = func.totalAbonos(numero);
-                txttotal_abonos.setText((String.valueOf(totalAbono)));
+//                        int otrosCobros = Integer.parseInt(txtotros_ingresos.getText());
+                        int deuda_anterior = func.sumaDeudaAnterior(numeroturno);
+                        txttotal_efectivo.setText(String.valueOf(deuda_anterior));
 
-                int otrosCobros = Integer.parseInt(txtotros_ingresos.getText());
+//                        int netorecaudado = func.sumatotales(numeroturno);
+                        
+                        
+                        int totalrecaudo = totalesMediosPago[0] + totalesMediosPago[1] + totalesMediosPago[2] ;
+                        txttotal_recaudo.setText(String.valueOf(totalrecaudo));
 
-                int inicioturno3 = Integer.parseInt(txtnumero_turno.getText());
-                int deuda_anterior = func.sumaDeudaAnterior(inicioturno3);
-                txttotal_efectivo.setText((String.valueOf(deuda_anterior)));
-                
-                // calculo de suma de toteles deuda anterior
-                int inicioturno2 = Integer.parseInt(txtnumero_turno.getText());
-                int netorecaudado = func.sumatotales(inicioturno2);
-
-                int totalrecaudo = (totalesMediosPago[0] + totalesMediosPago[1] + totalesMediosPago[2] + totalAbono + otrosCobros + netorecaudado);
-                txttotal_recaudo.setText((String.valueOf(totalrecaudo)));
-
-                int inicioturno1 = Integer.parseInt(txtnumero_turno.getText());
-                String empleado1 = func.Consultaempleado(inicioturno1);
-                txtempleado.setText((String.valueOf(empleado1)));
-
-            }
-
-        } catch (HeadlessException | SQLException ex) {
-            System.err.println("Error: " + ex.getMessage());
-        }
-
+                        int idEmpleado = rs.getInt("idinicioturno");
+                        String empleado1 = func.Consultaempleado(idEmpleado);
+                        System.out.println("Empleado obtenido: " + empleado1);
+                      txtempleado.setText(empleado1);
+                    }
+                } catch (HeadlessException | SQLException ex) {
+                    System.err.println("Error: " + ex.getMessage());
+                }
+        // Ejecuta el SwingWorker
     }//GEN-LAST:event_buscarnumeroturnoActionPerformed
 
     private void txtidempleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtidempleadoActionPerformed
@@ -811,8 +790,6 @@ public class Jsalidaturno extends javax.swing.JFrame {
     private void txttotal_efectivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txttotal_efectivoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txttotal_efectivoActionPerformed
-
-
 
     /**
      * @param args the command line arguments
@@ -878,7 +855,7 @@ public class Jsalidaturno extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField txtbase;
     private javax.swing.JTextField txtefectivo;
-    public static javax.swing.JTextField txtempleado;
+    private javax.swing.JTextField txtempleado;
     private javax.swing.JTextField txtentrega_admon;
     private javax.swing.JTextField txtfecha_hora_inicio;
     private javax.swing.JTextField txtfecha_hora_salida;

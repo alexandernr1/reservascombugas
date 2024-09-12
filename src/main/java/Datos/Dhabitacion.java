@@ -91,8 +91,5 @@ public class Dhabitacion {
         this.tipohabitacion = tipohabitacion;
     }
 
-  
-
    
-    
 }

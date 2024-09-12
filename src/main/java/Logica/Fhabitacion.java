@@ -95,7 +95,7 @@ public class Fhabitacion {
             pst.setString(2, dts.getPiso());
             pst.setString(3, dts.getDescripcion());
             pst.setString(4, dts.getCaracteristicas());
-            pst.setDouble(5, dts.getPrecio());
+            pst.setInt(5, dts.getPrecio());
             pst.setString(6, dts.getEstado());
             pst.setString(7, dts.getTipohabitacion());
 
@@ -116,7 +116,7 @@ public class Fhabitacion {
             pst.setString(2, dts.getPiso());
             pst.setString(3, dts.getDescripcion());
             pst.setString(4, dts.getCaracteristicas());
-            pst.setDouble(5, dts.getPrecio());
+            pst.setInt(5, dts.getPrecio());
             pst.setString(6, dts.getEstado());
             pst.setString(7, dts.getTipohabitacion());
             pst.setInt(8, dts.getIdhabitacion());
