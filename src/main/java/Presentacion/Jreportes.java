@@ -72,7 +72,7 @@ public class Jreportes extends javax.swing.JInternalFrame {
             }
         });
         jPanel1.add(btnBuscarReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 40, -1, 40));
-        jPanel1.add(txtnumero_turno, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 50, 60, 30));
+        jPanel1.add(txtnumero_turno, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, 60, -1));
 
         jLabel1.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         jLabel1.setText("Reporte con Numero Turno:");

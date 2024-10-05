@@ -35,11 +35,13 @@ public class Dabono {
     public int transferencia;
     public int totalapagar;
     public int costoalojamiento;
+    public int idinicioturno;
+    public String turno;
 
     public Dabono() {
     }
 
-    public Dabono(int idabono, int idingreso, int idhabitacion, int idcliente, String fechaabono, int abonohabitacion, String descuentos, String conceptodescuento, int totalAbonos, String privilegiosAdmon, String privilegiosrecepcion, int otroscobros, int numero_turno, int habitacion, String cliente, String documento, String razon_social, String email, int numeronoches, int valordescuento, String tipocomprobante, String numerocomprobante, int valor_bruto, int antesIVA, int iva19, int retencion35, int retencion4, int subtotal, int efectivo, int tarjeta, int transferencia, int totalapagar, int costoalojamiento) {
+    public Dabono(int idabono, int idingreso, int idhabitacion, int idcliente, String fechaabono, int abonohabitacion, String descuentos, String conceptodescuento, int totalAbonos, String privilegiosAdmon, String privilegiosrecepcion, int otroscobros, int numero_turno, int habitacion, String cliente, String documento, String razon_social, String email, int numeronoches, int valordescuento, String tipocomprobante, String numerocomprobante, int valor_bruto, int antesIVA, int iva19, int retencion35, int retencion4, int subtotal, int efectivo, int tarjeta, int transferencia, int totalapagar, int costoalojamiento, int idinicioturno, String turno) {
         this.idabono = idabono;
         this.idingreso = idingreso;
         this.idhabitacion = idhabitacion;
@@ -73,9 +75,10 @@ public class Dabono {
         this.transferencia = transferencia;
         this.totalapagar = totalapagar;
         this.costoalojamiento = costoalojamiento;
+        this.idinicioturno = idinicioturno;
+        this.turno = turno;
     }
 
-   
     public int getIdabono() {
         return idabono;
     }
@@ -140,7 +143,6 @@ public class Dabono {
         this.conceptodescuento = conceptodescuento;
     }
 
-   
     public int getTotalAbonos() {
         return totalAbonos;
     }
@@ -253,6 +255,22 @@ public class Dabono {
         this.numerocomprobante = numerocomprobante;
     }
 
+    public int getValor_bruto() {
+        return valor_bruto;
+    }
+
+    public void setValor_bruto(int valor_bruto) {
+        this.valor_bruto = valor_bruto;
+    }
+
+    public int getAntesIVA() {
+        return antesIVA;
+    }
+
+    public void setAntesIVA(int antesIVA) {
+        this.antesIVA = antesIVA;
+    }
+
     public int getIva19() {
         return iva19;
     }
@@ -317,22 +335,6 @@ public class Dabono {
         this.totalapagar = totalapagar;
     }
 
-    public int getValor_bruto() {
-        return valor_bruto;
-    }
-
-    public void setValor_bruto(int valor_bruto) {
-        this.valor_bruto = valor_bruto;
-    }
-
-    public int getAntesIVA() {
-        return antesIVA;
-    }
-
-    public void setAntesIVA(int antesIVA) {
-        this.antesIVA = antesIVA;
-    }
-
     public int getCostoalojamiento() {
         return costoalojamiento;
     }
@@ -340,6 +342,24 @@ public class Dabono {
     public void setCostoalojamiento(int costoalojamiento) {
         this.costoalojamiento = costoalojamiento;
     }
+
+    public int getIdinicioturno() {
+        return idinicioturno;
+    }
+
+    public void setIdinicioturno(int idinicioturno) {
+        this.idinicioturno = idinicioturno;
+    }
+
+    public String getTurno() {
+        return turno;
+    }
+
+    public void setTurno(String turno) {
+        this.turno = turno;
+    }
+
+  
 
     
 }

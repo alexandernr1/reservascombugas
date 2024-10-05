@@ -2,6 +2,7 @@ package Logica;
 
 import Datos.Dempleado;
 import Datos.Dinicioturno;
+import Datos.Dsalidaturno;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,55 +15,59 @@ public class Finicioturno {
     private final Cconexion mysql = new Cconexion();
     private final Connection cn = mysql.establecerConexion();
     private String sSQL = "";
-    
 
-    ArrayList<Dempleado>listaEMpleado = new ArrayList<>();
+    ArrayList<Dempleado> listaEMpleado = new ArrayList<>();
 
-    
-    public void agregarEmpleados(Dempleado empleado){
+    public void agregarEmpleados(Dempleado empleado) {
         listaEMpleado.add(empleado);
     }
-    
-   public boolean insertar(Dinicioturno dts) {
-    sSQL = "INSERT INTO inicioturno (fecha_hora_inicio, turno, numero_turno, estado, empleado) VALUES (?,?,?,?,?)";
-    try (PreparedStatement pst = cn.prepareStatement(sSQL)) {
-        pst.setString(1, dts.getFecha_hora_inicio());
-        pst.setString(2, dts.getTurno());
-        pst.setInt(3, dts.getNumero_turno());
-        pst.setString(4, dts.getEstado());
-        pst.setString(5, dts.getEmpleado());
-        
-        int n = pst.executeUpdate();
-        return n != 0;
-    } catch (SQLException e) {
-        JOptionPane.showConfirmDialog(null, e);
-        return false;
+    ArrayList<Dinicioturno> listaturno = new ArrayList<>();
+
+    public void agregarturno(Dinicioturno turno) {
+        listaturno.add(turno);
     }
-}
+    ArrayList<Dsalidaturno> listaturnofin = new ArrayList<>();
 
+    public void agregarturnofin(Dsalidaturno turnofin) {
+        listaturnofin.add(turnofin);
+    }
 
-   public int generarNumeroTurno() {
-    String serie = "";
-    sSQL = "SELECT MAX(numero_turno) FROM inicioturno";
-    try (PreparedStatement pst = cn.prepareStatement(sSQL);
-         ResultSet rs = pst.executeQuery()) {
-        if (rs.next()) {
-            serie = rs.getString(1);
-            return (serie != null) ? Integer.parseInt(serie) + 1 : 1;
-        } else {
-            return 1;
+    public boolean insertar(Dinicioturno dts) {
+        sSQL = "INSERT INTO inicioturno (fecha_hora_inicio, turno, numero_turno, estado, empleado) VALUES (?,?,?,?,?)";
+        try ( PreparedStatement pst = cn.prepareStatement(sSQL)) {
+            pst.setString(1, dts.getFecha_hora_inicio());
+            pst.setString(2, dts.getTurno());
+            pst.setInt(3, dts.getNumero_turno());
+            pst.setString(4, dts.getEstado());
+            pst.setString(5, dts.getEmpleado());
+
+            int n = pst.executeUpdate();
+            return n != 0;
+        } catch (SQLException e) {
+            JOptionPane.showConfirmDialog(null, e);
+            return false;
         }
-    } catch (SQLException | NumberFormatException e) {
-        JOptionPane.showMessageDialog(null, "Error al generar el número de turno: " + e.getMessage());
-        return 0;
     }
-}
 
+    public int generarNumeroTurno() {
+        String serie = "";
+        sSQL = "SELECT MAX(numero_turno) FROM inicioturno";
+        try ( PreparedStatement pst = cn.prepareStatement(sSQL);  ResultSet rs = pst.executeQuery()) {
+            if (rs.next()) {
+                serie = rs.getString(1);
+                return (serie != null) ? Integer.parseInt(serie) + 1 : 1;
+            } else {
+                return 1;
+            }
+        } catch (SQLException | NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Error al generar el número de turno: " + e.getMessage());
+            return 0;
+        }
+    }
 
     public boolean finalizarturno(Dinicioturno dts) {
         sSQL = "update inicioturno set estado='Finalizado'"
                 + " where numero_turno=?";
-
 
         try {
             PreparedStatement pst = cn.prepareStatement(sSQL);
@@ -108,7 +113,7 @@ public class Finicioturno {
         }
         return false;
     }
-    
+
     public boolean asignardatos() {
         String sSQL = "select idinicioturno from inicioturno where numero_turno = ?";
         try {

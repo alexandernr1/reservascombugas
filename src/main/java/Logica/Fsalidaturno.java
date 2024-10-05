@@ -237,8 +237,8 @@ public class Fsalidaturno {
         int[] mediosDePago_pago = new int[3]; // Un array para almacenar los totales de efectivo, tarjeta y transferencia
 
         // Consulta SQL para obtener los totales de medios de pago durante un turno activo
-        String sSQL = "SELECT SUM(efectivo) AS efectivo, SUM(tarjeta) AS tarjeta, SUM(transferencia) AS transferencia "
-                + "FROM pago WHERE numero_turno = ?";
+        String sSQL = "SELECT SUM(efectivo) AS efectivo, SUM(tarjeta) AS tarjeta, SUM(transferencias) AS transferencias "
+                + "FROM salida WHERE numero_turno = ?";
 
         try ( PreparedStatement pst = cn.prepareStatement(sSQL)) {
             pst.setInt(1, numeroturno);
@@ -247,7 +247,7 @@ public class Fsalidaturno {
                 if (rs.next()) {
                     mediosDePago_pago[0] = rs.getInt("efectivo"); // Total en efectivo
                     mediosDePago_pago[1] = rs.getInt("tarjeta");  // Total en tarjeta
-                    mediosDePago_pago[2] = rs.getInt("transferencia"); // Total en transferencia
+                    mediosDePago_pago[2] = rs.getInt("transferencias"); // Total en transferencia
                 }
             }
 

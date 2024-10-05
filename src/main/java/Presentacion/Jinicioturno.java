@@ -214,7 +214,7 @@ public class Jinicioturno extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         jLabel6.setText("Turno:");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 300, -1, -1));
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 490, 460));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 440, 80, 30));
 
         ingresoTurno.setText("Ingreso");
         ingresoTurno.addActionListener(new java.awt.event.ActionListener() {
@@ -390,6 +390,7 @@ public class Jinicioturno extends javax.swing.JFrame {
                         (String) cboturnos.getItemAt(selecturno),
                         (String) cboempleados.getItemAt(trabajador),
                         (String) cboestado.getItemAt(estado)
+                       
                 );
 
                 // Mostrar Jsalidaturno solo si la sesión ya estaba iniciada

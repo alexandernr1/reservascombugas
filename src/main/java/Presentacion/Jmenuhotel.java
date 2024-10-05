@@ -729,7 +729,7 @@ public final class Jmenuhotel extends javax.swing.JInternalFrame {
         }
 
         Jsalidahuesped.txtempleado.setText(lblempleado.getText());
-
+        Jsalidahuesped.lbturno.setText(lblturnos.getText());
     }//GEN-LAST:event_btnsalidahuespedActionPerformed
 
     private void btnregistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregistroActionPerformed
@@ -761,7 +761,7 @@ public final class Jmenuhotel extends javax.swing.JInternalFrame {
         }
 
         Jmanejoreservas.txtempleado.setText(lblempleado.getText());
-
+        Jmanejoreservas.lbturno.setText(lblturnos.getText());
 
     }//GEN-LAST:event_btnreservasActionPerformed
 
@@ -779,7 +779,7 @@ public final class Jmenuhotel extends javax.swing.JInternalFrame {
         }
 
         Jingreso.txtempleado.setText(lblempleado.getText());
-
+        Jingreso.lbturnos.setText(lblturnos.getText());
 
     }//GEN-LAST:event_btningresohuespedActionPerformed
 
@@ -795,6 +795,7 @@ public final class Jmenuhotel extends javax.swing.JInternalFrame {
             abonoFormulario.toFront(); // Traer al frente
             abonoFormulario.requestFocus(); // Solicitar foco
         }
+        Jabono.lbturno.setText(lblturnos.getText());
     }//GEN-LAST:event_btnpagosActionPerformed
 
     private void btnlistaesperaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlistaesperaActionPerformed

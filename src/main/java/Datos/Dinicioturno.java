@@ -21,6 +21,19 @@ public class Dinicioturno {
         this.empleado = empleado;
     }
 
+    public Dinicioturno(int numeroturno, int idinicioturno) {
+        this.numero_turno = numeroturno;
+        this.idturno = idinicioturno;
+    }
+
+    public int getNumeroTurno() {
+        return this.numero_turno;
+    }
+
+    public int getIdInicioTurno() {
+        return this.idturno;
+    }
+
     public int getIdturno() {
         return idturno;
     }
@@ -68,7 +81,5 @@ public class Dinicioturno {
     public void setEmpleado(String empleado) {
         this.empleado = empleado;
     }
-
-   
 
 }

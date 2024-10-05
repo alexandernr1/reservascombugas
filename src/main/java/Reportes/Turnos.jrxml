@@ -441,11 +441,11 @@ WHERE numero_turno =  $P{numero_turno}]]>
 	<detail>
 		<band height="207">
 			<textField>
-				<reportElement x="0" y="50" width="170" height="30" uuid="c705aabc-dde1-48c0-97e7-ed2e14a56e94"/>
+				<reportElement x="0" y="50" width="170" height="20" uuid="c705aabc-dde1-48c0-97e7-ed2e14a56e94"/>
 				<box>
-					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
@@ -454,11 +454,11 @@ WHERE numero_turno =  $P{numero_turno}]]>
 				<textFieldExpression><![CDATA[$F{empleado}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="170" y="50" width="61" height="30" uuid="5a0a2940-7178-47e9-8e9f-347337d9b83f"/>
+				<reportElement x="170" y="50" width="61" height="20" uuid="5a0a2940-7178-47e9-8e9f-347337d9b83f"/>
 				<box>
-					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
@@ -467,11 +467,11 @@ WHERE numero_turno =  $P{numero_turno}]]>
 				<textFieldExpression><![CDATA[$F{turno}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="319" y="50" width="121" height="30" uuid="57c2acab-03a4-416f-9ddf-1129b85a3693"/>
+				<reportElement x="319" y="50" width="121" height="20" uuid="57c2acab-03a4-416f-9ddf-1129b85a3693"/>
 				<box>
-					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
@@ -480,11 +480,11 @@ WHERE numero_turno =  $P{numero_turno}]]>
 				<textFieldExpression><![CDATA[$F{fecha_hora_inicio}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="440" y="50" width="120" height="30" uuid="6dc469a9-2e6c-4f4d-b1a0-854d5d7caaf5"/>
+				<reportElement x="440" y="50" width="120" height="20" uuid="6dc469a9-2e6c-4f4d-b1a0-854d5d7caaf5"/>
 				<box>
-					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
@@ -495,9 +495,9 @@ WHERE numero_turno =  $P{numero_turno}]]>
 			<textField>
 				<reportElement x="0" y="160" width="90" height="30" uuid="55a1ef2f-7870-49a1-86fc-eb5397c926b9"/>
 				<box>
-					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
@@ -508,9 +508,9 @@ WHERE numero_turno =  $P{numero_turno}]]>
 			<textField>
 				<reportElement x="89" y="160" width="74" height="30" uuid="8840385c-0789-410f-8788-50a6e523c4e2"/>
 				<box>
-					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
@@ -521,9 +521,9 @@ WHERE numero_turno =  $P{numero_turno}]]>
 			<textField>
 				<reportElement x="163" y="160" width="117" height="30" uuid="6f10e311-1c78-4702-b798-07ee76d6ba8f"/>
 				<box>
-					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
@@ -534,9 +534,9 @@ WHERE numero_turno =  $P{numero_turno}]]>
 			<textField>
 				<reportElement x="280" y="160" width="66" height="30" uuid="b2c1c09c-732e-4674-b011-f6e1071d4baa"/>
 				<box>
-					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
@@ -545,11 +545,11 @@ WHERE numero_turno =  $P{numero_turno}]]>
 				<textFieldExpression><![CDATA[$F{total_abonos}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="346" y="160" width="84" height="30" uuid="599c92ab-7a04-4989-8358-41fdc3d7fb5e"/>
+				<reportElement x="346" y="160" width="86" height="30" uuid="599c92ab-7a04-4989-8358-41fdc3d7fb5e"/>
 				<box>
-					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
@@ -560,9 +560,9 @@ WHERE numero_turno =  $P{numero_turno}]]>
 			<textField>
 				<reportElement x="522" y="160" width="80" height="30" uuid="81388adb-a017-4957-9455-032aa0c73c7e"/>
 				<box>
-					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
@@ -573,9 +573,9 @@ WHERE numero_turno =  $P{numero_turno}]]>
 			<textField>
 				<reportElement x="432" y="160" width="90" height="30" uuid="763d3a52-956d-47d2-92d8-96410076995c"/>
 				<box>
-					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
@@ -584,11 +584,11 @@ WHERE numero_turno =  $P{numero_turno}]]>
 				<textFieldExpression><![CDATA[$F{entrega_admon}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="231" y="50" width="88" height="30" uuid="18bfd80d-f31c-4718-a93e-ab67179587f1"/>
+				<reportElement x="231" y="50" width="88" height="20" uuid="18bfd80d-f31c-4718-a93e-ab67179587f1"/>
 				<box>
-					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">

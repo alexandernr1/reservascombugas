@@ -18,11 +18,14 @@ public class Dingreso {
     public String documento;
     public String tipo_documento;
     public String tipo_habitacion;
+    public int idinicioturno;
+    public String turno;
+    public int num_turno;
 
     public Dingreso() {
     }
 
-    public Dingreso(int idingreso, int idhabitacion, int idcliente, String fecha_hora_ingreso, int num_personas, String tipo_cliente, int costoalojamiento, String motivo_viaje, String estado, String ciudad_de_recidencia, String ciudad_de_procedencia, int num_habitacion, String documento, String tipo_documento, String tipo_habitacion) {
+    public Dingreso(int idingreso, int idhabitacion, int idcliente, String fecha_hora_ingreso, int num_personas, String tipo_cliente, int costoalojamiento, String motivo_viaje, String estado, String ciudad_de_recidencia, String ciudad_de_procedencia, int num_habitacion, String documento, String tipo_documento, String tipo_habitacion, int idinicioturno, String turno, int num_turno) {
         this.idingreso = idingreso;
         this.idhabitacion = idhabitacion;
         this.idcliente = idcliente;
@@ -38,6 +41,9 @@ public class Dingreso {
         this.documento = documento;
         this.tipo_documento = tipo_documento;
         this.tipo_habitacion = tipo_habitacion;
+        this.idinicioturno = idinicioturno;
+        this.turno = turno;
+        this.num_turno = num_turno;
     }
 
     
@@ -162,9 +168,32 @@ public class Dingreso {
         this.tipo_habitacion = tipo_habitacion;
     }
 
+    public int getIdinicioturno() {
+        return idinicioturno;
+    }
+
+    public void setIdinicioturno(int idinicioturno) {
+        this.idinicioturno = idinicioturno;
+    }
+
+    public String getTurno() {
+        return turno;
+    }
+
+    public void setTurno(String turno) {
+        this.turno = turno;
+    }
+
+  
+
+    public int getNum_turno() {
+        return num_turno;
+    }
+
+    public void setNum_turno(int num_turno) {
+        this.num_turno = num_turno;
+    }
+
    
-
-
-    
 
 }

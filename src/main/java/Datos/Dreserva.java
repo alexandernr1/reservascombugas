@@ -6,34 +6,49 @@ public class Dreserva {
 
     public int idreserva;
     public int idhabitacion;
-    public int idcliente;
-    public int idempleado;
-    public String tiporeserva;
     public Date fechareserva;
     public Date fechaingreso;
     public Date fechasalida;
-    public Double costoalojamiento;
+    public String estado;
     public int numnoches;
     public int numpersonas;
-    public String estado;
+    public String cliente;
+    public int documento;
+    public int telefono;
+    public int numhabitacion;
+    public int costoalojamiento;
+    public String tipohabitacion;
+    public String empleado;
+    public int idinicioturno;
+    public int num_turno;
+    public String turno;
+    
 
     public Dreserva() {
     }
 
-    public Dreserva(int idreserva, int idhabitacion, int idcliente, int idempleado, String tiporeserva, Date fechareserva, Date fechaingreso, Date fechasalida, Double costoalojamiento, int numnoches, int numpersonas, String estado) {
+    public Dreserva(int idreserva, int idhabitacion, Date fechareserva, Date fechaingreso, Date fechasalida, String estado, int numnoches, int numpersonas, String cliente, int documento, int telefono, int numhabitacion, int costoalojamiento, String tipohabitacion, String empleado, int idinicioturno, int num_turno, String turno) {
         this.idreserva = idreserva;
         this.idhabitacion = idhabitacion;
-        this.idcliente = idcliente;
-        this.idempleado = idempleado;
-        this.tiporeserva = tiporeserva;
         this.fechareserva = fechareserva;
         this.fechaingreso = fechaingreso;
         this.fechasalida = fechasalida;
-        this.costoalojamiento = costoalojamiento;
+        this.estado = estado;
         this.numnoches = numnoches;
         this.numpersonas = numpersonas;
-        this.estado = estado;
+        this.cliente = cliente;
+        this.documento = documento;
+        this.telefono = telefono;
+        this.numhabitacion = numhabitacion;
+        this.costoalojamiento = costoalojamiento;
+        this.tipohabitacion = tipohabitacion;
+        this.empleado = empleado;
+        this.idinicioturno = idinicioturno;
+        this.num_turno = num_turno;
+        this.turno = turno;
     }
+
+   
 
     public int getIdreserva() {
         return idreserva;
@@ -49,30 +64,6 @@ public class Dreserva {
 
     public void setIdhabitacion(int idhabitacion) {
         this.idhabitacion = idhabitacion;
-    }
-
-    public int getIdcliente() {
-        return idcliente;
-    }
-
-    public void setIdcliente(int idcliente) {
-        this.idcliente = idcliente;
-    }
-
-    public int getIdempleado() {
-        return idempleado;
-    }
-
-    public void setIdempleado(int idempleado) {
-        this.idempleado = idempleado;
-    }
-
-    public String getTiporeserva() {
-        return tiporeserva;
-    }
-
-    public void setTiporeserva(String tiporeserva) {
-        this.tiporeserva = tiporeserva;
     }
 
     public Date getFechareserva() {
@@ -99,12 +90,12 @@ public class Dreserva {
         this.fechasalida = fechasalida;
     }
 
-    public Double getCostoalojamiento() {
-        return costoalojamiento;
+    public String getEstado() {
+        return estado;
     }
 
-    public void setCostoalojamiento(Double costoalojamiento) {
-        this.costoalojamiento = costoalojamiento;
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
     public int getNumnoches() {
@@ -123,12 +114,86 @@ public class Dreserva {
         this.numpersonas = numpersonas;
     }
 
-    public String getEstado() {
-        return estado;
+    public String getCliente() {
+        return cliente;
     }
 
-    public void setEstado(String estado) {
-        this.estado = estado;
+    public void setCliente(String cliente) {
+        this.cliente = cliente;
     }
+
+    public int getDocumento() {
+        return documento;
+    }
+
+    public void setDocumento(int documento) {
+        this.documento = documento;
+    }
+
+    public int getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(int telefono) {
+        this.telefono = telefono;
+    }
+
+    public int getNumhabitacion() {
+        return numhabitacion;
+    }
+
+    public void setNumhabitacion(int numhabitacion) {
+        this.numhabitacion = numhabitacion;
+    }
+
+    public int getCostoalojamiento() {
+        return costoalojamiento;
+    }
+
+    public void setCostoalojamiento(int costoalojamiento) {
+        this.costoalojamiento = costoalojamiento;
+    }
+
+    public String getTipohabitacion() {
+        return tipohabitacion;
+    }
+
+    public void setTipohabitacion(String tipohabitacion) {
+        this.tipohabitacion = tipohabitacion;
+    }
+
+    public String getEmpleado() {
+        return empleado;
+    }
+
+    public void setEmpleado(String empleado) {
+        this.empleado = empleado;
+    }
+
+    public int getIdinicioturno() {
+        return idinicioturno;
+    }
+
+    public void setIdinicioturno(int idinicioturno) {
+        this.idinicioturno = idinicioturno;
+    }
+
+    public int getNum_turno() {
+        return num_turno;
+    }
+
+    public void setNum_turno(int num_turno) {
+        this.num_turno = num_turno;
+    }
+
+    public String getTurno() {
+        return turno;
+    }
+
+    public void setTurno(String turno) {
+        this.turno = turno;
+    }
+
+    
 
 }

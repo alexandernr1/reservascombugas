@@ -1,8 +1,7 @@
-
 package Datos;
 
-
 public class DvalorCongelado {
+
     public int idabonocongelado;
     public int idabono;
     public int idcliente;
@@ -36,6 +35,26 @@ public class DvalorCongelado {
         this.nochesusadas = nochesusadas;
         this.valorcongelado = valorcongelado;
         this.estado = estado;
+    }
+
+    // Constructor para saldoCongelado y totalNoches
+    public DvalorCongelado(int saldoCongelado, int totalNoches, int NochesUsadas) {
+        this.valorcongelado = saldoCongelado;
+        this.numeronoches = totalNoches;
+        this.nochesusadas = NochesUsadas;
+    }
+
+    // Getters
+    public int getSaldoCongelado() {
+        return valorcongelado;
+    }
+
+    public int getTotalNoches() {
+        return numeronoches;
+    }
+
+    public int getNochesUsadas() {
+        return nochesusadas;
     }
 
     public int getIdabonocongelado() {
@@ -149,7 +168,5 @@ public class DvalorCongelado {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-    
-    
-    
+
 }

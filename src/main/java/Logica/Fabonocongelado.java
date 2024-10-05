@@ -20,20 +20,26 @@ public class Fabonocongelado {
         String[] titulos = {
             "Idabono", "HABITACION", "idcliente", "CLIENTE",
             "DOCUMENTO", "FECHA ABONO", "FECHA CONGELADO", "ABONO HABITACION", "DESCUENTO", "N° NOCHES", "NOCHES USADAS", "VALOR CONGELADO", "ESTADO"};
-        String[] registro = new String[13];
-        totalregistros = 0;
-        modelo = new DefaultTableModel(null, titulos);
 
-        sSQL = "select idabono, habitacion, idcliente, cliente, documento, fechaabono, fechacongelado, abonohabitacion, descuentos, numeronoches, "
+        modelo = new DefaultTableModel(null, titulos);
+        totalregistros = 0;
+
+        // Consulta SQL corregida
+        sSQL = "SELECT idabono, habitacion, idcliente, cliente, documento, fechaabono, fechacongelado, abonohabitacion, descuentos, numeronoches, "
                 + "nochesusadas, valorcongelado, estado "
-                + "from abonocongelado  "
-                + "WHERE documento LIKE ? ";
+                + "FROM abonocongelado "
+                + "WHERE documento LIKE ? "
+                + "ORDER BY idabonoCongelado DESC LIMIT 60"; // Cambiar MILIT a LIMIT
 
         try ( PreparedStatement pst = cn.prepareStatement(sSQL)) {
+            // Asignar el parámetro para buscar
             pst.setString(1, "%" + buscar + "%");
 
             try ( ResultSet rs = pst.executeQuery()) {
                 while (rs.next()) {
+                    // Crear un nuevo arreglo en cada iteración
+                    String[] registro = new String[13];
+
                     registro[0] = rs.getString("idabono");
                     registro[1] = rs.getString("habitacion");
                     registro[2] = rs.getString("idcliente");
@@ -49,7 +55,7 @@ public class Fabonocongelado {
                     registro[12] = rs.getString("estado");
 
                     totalregistros++;
-                    modelo.addRow(registro);
+                    modelo.addRow(registro); // Agregar la fila al modelo
                 }
             }
         } catch (SQLException e) {
@@ -87,29 +93,38 @@ public class Fabonocongelado {
             return false;
         }
     }
-    public int obtenerSaldoCongelado(int idcliente) throws SQLException {
-    int saldoCongelado = 0;
-    
-    // Consulta SQL para obtener los abonos congelados del cliente
-     sSQL = "SELECT valorcongelado, numeronoches FROM abonocongelado WHERE idcliente = ? AND estado = 'Congelado'";
-    
-    try (PreparedStatement ps = cn.prepareStatement(sSQL)) {
-        ps.setInt(1, idcliente); // Pasar el id del cliente
-        ResultSet rs = ps.executeQuery();
-        
-        if (rs.next()) {
-            saldoCongelado = rs.getInt("valorcongelado"); // Obtener el saldo congelado
-           
-             
+
+    public DvalorCongelado obtenerSaldoCongelado(int idcliente) throws SQLException {
+        int saldoCongelado = 0;
+        int totalNoches = 0;
+        int NochesUsadas = 0;
+
+        // Consulta SQL para obtener los abonos congelados del cliente
+        String sSQL = "SELECT valorcongelado, numeronoches, nochesusadas FROM abonocongelado WHERE idcliente = ? AND estado = 'Congelado'";
+
+        try ( PreparedStatement ps = cn.prepareStatement(sSQL)) {
+            ps.setInt(1, idcliente); // Pasar el id del cliente
+            ResultSet rs = ps.executeQuery();
+
+            // Iterar sobre los resultados y sumar tanto los saldos congelados como las noches
+            while (rs.next()) {
+                saldoCongelado += rs.getInt("valorcongelado");
+                totalNoches += rs.getInt("numeronoches");
+                NochesUsadas += rs.getInt("nochesusadas");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e; // Lanza la excepción si algo sale mal
         }
+
+        // Retornar un objeto que contiene el saldo total y el número total de noches
+        return new DvalorCongelado(saldoCongelado, totalNoches, NochesUsadas);
     }
-    
-    return saldoCongelado;
-}
-public boolean cambiarestado(DvalorCongelado dts) {
+
+    public boolean cambiarestado(DvalorCongelado dts) {
         sSQL = "update abonocongelado set estado = 'Usado' where idcliente  = ?";
 
-        try (PreparedStatement pst = cn.prepareStatement(sSQL)) {
+        try ( PreparedStatement pst = cn.prepareStatement(sSQL)) {
             pst.setInt(1, dts.getIdcliente());
 
             int n = pst.executeUpdate();

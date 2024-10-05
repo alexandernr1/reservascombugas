@@ -47,10 +47,12 @@ public class Jsalidaturno extends javax.swing.JFrame {
 
     }
 
-    public void mostrarnumeroturno() {
+   private void mostrarnumeroturno() {
         Fsalida func = new Fsalida();
-        String numeroturno = func.numeroturno();
-        txtnumero_turno.setText(numeroturno);
+        Dinicioturno numeroturno = func.numeroturno();
+
+        txtnumero_turno.setText(String.valueOf(numeroturno.getNumeroTurno()));
+//        txtidinicioturno.setText(String.valueOf(numeroturno.getIdInicioTurno()));
     }
 
     private void agregarWindowFocusListener() {
@@ -87,7 +89,6 @@ public class Jsalidaturno extends javax.swing.JFrame {
         txttransferencia.setText("");
 
     }
-
 
     public static Jsalidaturno getInstance() {
         if (instance == null) {
@@ -713,73 +714,81 @@ public class Jsalidaturno extends javax.swing.JFrame {
     }//GEN-LAST:event_cboestadoActionPerformed
 
     private void buscarnumeroturnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarnumeroturnoActionPerformed
-      
-                try {
-                    Fsalidaturno func = new Fsalidaturno();
 
-                    ResultSet rs = func.realizarConsulta(txtnumero_turno.getText());
-                    if (rs.next()) {
-                        // Obtener datos inicio de turno.
-                        txtidinicioturno.setText(String.valueOf(rs.getInt("idinicioturno")));
-                        txtnumero_turno.setText(rs.getString("numero_turno"));
-                        txtfecha_hora_inicio.setText(rs.getString("fecha_hora_inicio"));
-                        txtempleado.setText(rs.getString("empleado"));
+        try {
+            Fsalidaturno func = new Fsalidaturno();
 
-                        String turnos = rs.getString("turno");
-                        cboturnos.setSelectedItem(turnos);
-                        String estado = rs.getString("estado");
-                        cboestado.setSelectedItem(estado);
+            ResultSet rs = func.realizarConsulta(txtnumero_turno.getText());
+            if (rs.next()) {
+                // Obtener datos inicio de turno.
+                txtidinicioturno.setText(String.valueOf(rs.getInt("idinicioturno")));
+                txtnumero_turno.setText(rs.getString("numero_turno"));
+                txtfecha_hora_inicio.setText(rs.getString("fecha_hora_inicio"));
+                txtempleado.setText(rs.getString("empleado"));
 
-                        // Actualizar los JLabel en Jmenuhotel
-                        Jmenuhotel.actualizarFecha(txtfecha_hora_inicio.getText());
-                        Jmenuhotel.actualizarTurno((String) cboturnos.getSelectedItem());
-                        Jmenuhotel.actualizarEmpleado(txtempleado.getText());
-                        Jmenuhotel.actualizarEstado((String) cboestado.getSelectedItem());
+                String turnos = rs.getString("turno");
+                cboturnos.setSelectedItem(turnos);
+                String estado = rs.getString("estado");
+                cboestado.setSelectedItem(estado);
 
-                        estado = func.estadoturno();
-                        cboestado.setSelectedItem(estado);
+                // Actualizar los JLabel en Jmenuhotel
+                Jmenuhotel.actualizarFecha(txtfecha_hora_inicio.getText());
+                Jmenuhotel.actualizarTurno((String) cboturnos.getSelectedItem());
+                Jmenuhotel.actualizarEmpleado(txtempleado.getText());
+                Jmenuhotel.actualizarEstado((String) cboestado.getSelectedItem());
 
-                        // Obtener número de habitaciones ocupadas.
-                        int totalHabitacionesOcupadas = func.obtenerTotalHabitacionesOcupadas();
-                        txthabitaciones_ocupadas.setText(String.valueOf(totalHabitacionesOcupadas));
+                estado = func.estadoturno();
+                cboestado.setSelectedItem(estado);
 
-                        // Obtener precio de habitaciones ocupadas.
-                        double preciohabitacionesocupadas = func.obtenerCostoTotalAlojamiento();
-                        txttotalhabitaciones.setText(String.valueOf(preciohabitacionesocupadas));
+                // Obtener número de habitaciones ocupadas.
+                int totalHabitacionesOcupadas = func.obtenerTotalHabitacionesOcupadas();
+                txthabitaciones_ocupadas.setText(String.valueOf(totalHabitacionesOcupadas));
 
-                        int numeroTurnoActualizado = func.numeroturno();
-                        txtnumero_turno.setText(String.valueOf(numeroTurnoActualizado));
+                // Obtener precio de habitaciones ocupadas.
+                double preciohabitacionesocupadas = func.obtenerCostoTotalAlojamiento();
+                txttotalhabitaciones.setText(String.valueOf(preciohabitacionesocupadas));
 
-                        int numeroturno = Integer.parseInt(txtnumero_turno.getText());
-                        int[] totalesMediosPago = func.totalmedio_pagos(numeroturno);
-                        txtefectivo.setText(String.valueOf(totalesMediosPago[0]));
-                        txttarjeta.setText(String.valueOf(totalesMediosPago[1]));
-                        txttransferencia.setText(String.valueOf(totalesMediosPago[2]));
+                int numeroTurnoActualizado = func.numeroturno();
+                txtnumero_turno.setText(String.valueOf(numeroTurnoActualizado));
 
-                        int entregaadmon = Integer.parseInt(txtefectivo.getText());
-                        txtentrega_admon.setText(String.valueOf(entregaadmon));
+                int numeroturno = Integer.parseInt(txtnumero_turno.getText());
+                int[] totalesMediosPago = func.totalmedio_pagos(numeroturno);
 
-                        int totalAbono = func.totalAbonos(numeroturno);
-                        txttotal_abonos.setText(String.valueOf(totalAbono));
+                int numeroturno1 = Integer.parseInt(txtnumero_turno.getText());
+                int[] totalesMediosPago_pagos = func.totalmedio_pagos_pago(numeroturno1);
+
+               // Sumar los valores correspondientes de cada arreglo
+                int totalEfectivo = totalesMediosPago[0] + totalesMediosPago_pagos[0];
+                int totalTarjeta = totalesMediosPago[1] + totalesMediosPago_pagos[1];
+                int totalTransferencia = totalesMediosPago[2] + totalesMediosPago_pagos[2];
+
+                // Asignar los valores sumados a los campos de texto
+                txtefectivo.setText(String.valueOf(totalEfectivo));
+                txttarjeta.setText(String.valueOf(totalTarjeta));
+                txttransferencia.setText(String.valueOf(totalTransferencia));
+
+                int entregaadmon = Integer.parseInt(txtefectivo.getText());
+                txtentrega_admon.setText(String.valueOf(entregaadmon));
+
+                int totalAbono = func.totalAbonos(numeroturno);
+                txttotal_abonos.setText(String.valueOf(totalAbono));
 
 //                        int otrosCobros = Integer.parseInt(txtotros_ingresos.getText());
-                        int deuda_anterior = func.sumaDeudaAnterior(numeroturno);
-                        txttotal_efectivo.setText(String.valueOf(deuda_anterior));
+                int deuda_anterior = func.sumaDeudaAnterior(numeroturno);
+                txttotal_efectivo.setText(String.valueOf(deuda_anterior));
 
 //                        int netorecaudado = func.sumatotales(numeroturno);
-                        
-                        
-                        int totalrecaudo = totalesMediosPago[0] + totalesMediosPago[1] + totalesMediosPago[2] ;
-                        txttotal_recaudo.setText(String.valueOf(totalrecaudo));
+                int totalrecaudo = totalEfectivo + totalTarjeta + totalTransferencia;
+                txttotal_recaudo.setText(String.valueOf(totalrecaudo));
 
-                        int idEmpleado = rs.getInt("idinicioturno");
-                        String empleado1 = func.Consultaempleado(idEmpleado);
-                        System.out.println("Empleado obtenido: " + empleado1);
-                      txtempleado.setText(empleado1);
-                    }
-                } catch (HeadlessException | SQLException ex) {
-                    System.err.println("Error: " + ex.getMessage());
-                }
+                int idEmpleado = rs.getInt("idinicioturno");
+                String empleado1 = func.Consultaempleado(idEmpleado);
+                System.out.println("Empleado obtenido: " + empleado1);
+                txtempleado.setText(empleado1);
+            }
+        } catch (HeadlessException | SQLException ex) {
+            System.err.println("Error: " + ex.getMessage());
+        }
         // Ejecuta el SwingWorker
     }//GEN-LAST:event_buscarnumeroturnoActionPerformed
 

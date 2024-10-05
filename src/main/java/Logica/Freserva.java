@@ -19,21 +19,13 @@ public class Freserva {
     public DefaultTableModel mostrar(String buscar) {
         DefaultTableModel modelo;
 
-        String[] titulos = {"Idreserva", "Idhabitacion", "Numero Hbit", "idcliente", "Cliente", "Documento", "Telefono", "Idempleado", "Empleado", "TipoReserva", "FechaReserva", "FechaIngreso", "FechaSalida", "Costo", "Numnoches", "Numpersonas", "Estado"};
-        String[] registro = new String[17];
+        String[] titulos = {"Idreserva", "Idhabitacion", "FechaReserva", "FechaIngreso", "FechaSalida", "Estado", "Numnoches", "Numpersonas", "cliente", "Documento", "Telefono", "Numero Hbit", "Costo", "Tipo", "Empleado"};
+        String[] registro = new String[15];
 
         totalregistros = 0;
         modelo = new DefaultTableModel(null, titulos);
 
-        sSQL = "select r.idreserva,r.idhabitacion,h.numero,r.idcliente,"
-                + "(select nombres from cliente where idcliente=r.idcliente)as clienten,"
-                + "(select apellidos from cliente where idcliente=r.idcliente)as clienteap,"
-                + "(select numdocumento from cliente where idcliente=r.idcliente)as clientenu,"
-                + "(select telefono from cliente where idcliente=r.idcliente)as clientet,"
-                + "r.idempleado,(select nombres from persona where idpersona = r.idempleado)as empleadon,"
-                + "(select apellidos from persona where idpersona = r.idempleado)as empleadoap,"
-                + "r.tiporeserva,r.fechareserva,r.fechaingreso,r.fechasalida,"
-                + "r.costoalojamiento,r.estado,r.numnoches,r.numpersonas from reserva r inner join habitacion h on r.idhabitacion=h.idhabitacion where r.fechareserva like '%" + buscar + "%' order by idreserva desc";
+        sSQL = "select * from reserva  where documento like '%" + buscar + "%' order by idreserva desc";
 
         try {
             Statement st = cn.createStatement();
@@ -42,54 +34,57 @@ public class Freserva {
             while (rs.next()) {
                 registro[0] = rs.getString("idreserva");
                 registro[1] = rs.getString("idhabitacion");
-                registro[2] = rs.getString("numero");
-                registro[3] = rs.getString("idcliente");
-                registro[4] = rs.getString("clienten") + " " + rs.getString("clienteap");
-                registro[5] = rs.getString("clientenu");
-                registro[6] = rs.getString("clientet");
-                registro[7] = rs.getString("idempleado");
-                registro[8] = rs.getString("empleadon") + " " + rs.getString("empleadoap");
-                registro[9] = rs.getString("tiporeserva");
-                registro[10] = rs.getString("fechareserva");
-                registro[11] = rs.getString("fechaingreso");
-                registro[12] = rs.getString("fechasalida");
-                registro[13] = rs.getString("costoalojamiento");
-                registro[14] = rs.getString("numnoches");
-                registro[15] = rs.getString("numpersonas");
-                registro[16] = rs.getString("estado");
+                registro[2] = rs.getString("fechareserva");
+                registro[3] = rs.getString("fechaingreso");
+                registro[4] = rs.getString("fechasalida");
+                registro[5] = rs.getString("estado");
+                registro[6] = rs.getString("numnoches");
+                registro[7] = rs.getString("numpersonas");
+                registro[8] = rs.getString("cliente");
+                registro[9] = rs.getString("documento");
+                registro[10] = rs.getString("telefono");
+                registro[11] = rs.getString("numhabitacion");
+                registro[12] = rs.getString("costoalojamiento");
+                registro[13] = rs.getString("tipohabitacion");
+                registro[14] = rs.getString("empleado");
 
                 totalregistros = totalregistros + 1;
                 modelo.addRow(registro);
 
             }
-
             return modelo;
 
         } catch (SQLException e) {
-            JOptionPane.showConfirmDialog(null, "NO SE PUEDE MOSTRAR LOS DATOS");
+            JOptionPane.showConfirmDialog(null, e);
             return null;
         }
 
     }
 
     public boolean insertar(Dreserva dts) {
-        sSQL = "insert into reserva (idhabitacion,idcliente,"
-                + "idempleado,tiporeserva,fechareserva,fechaingreso,fechasalida,costoalojamiento,numnoches,numpersonas,estado)"
-                + "values (?,?,?,?,?,?,?,?,?,?,?)";
+        sSQL = "insert into reserva (idhabitacion,fechareserva,fechaingreso,fechasalida,estado,numnoches,numpersonas,cliente,documento,telefono,numhabitacion,costoalojamiento,tipohabitacion,empleado,idinicioturno,num_turno,turno)"
+                + "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
 
             PreparedStatement pst = cn.prepareStatement(sSQL);
             pst.setInt(1, dts.getIdhabitacion());
-            pst.setInt(2, dts.getIdcliente());
-            pst.setInt(3, dts.getIdempleado());
-            pst.setString(4, dts.getTiporeserva());
-            pst.setDate(5, dts.getFechareserva());
-            pst.setDate(6, dts.getFechaingreso());
-            pst.setDate(7, dts.getFechasalida());
-            pst.setDouble(8, dts.getCostoalojamiento());
-            pst.setInt(9, dts.getNumnoches());
-            pst.setInt(10, dts.getNumpersonas());
-            pst.setString(11, dts.getEstado());
+            pst.setDate(2, dts.getFechareserva());
+            pst.setDate(3, dts.getFechaingreso());
+            pst.setDate(4, dts.getFechasalida());
+            pst.setString(5, dts.getEstado());
+            pst.setInt(6, dts.getNumnoches());
+            pst.setInt(7, dts.getNumpersonas());
+            pst.setString(8, dts.getCliente());
+            pst.setInt(9, dts.getDocumento());
+            pst.setInt(10, dts.getTelefono());
+            pst.setInt(11, dts.getNumhabitacion());
+            pst.setInt(12, dts.getCostoalojamiento());
+            pst.setString(13, dts.getTipohabitacion());
+            pst.setString(14, dts.getEmpleado());
+            pst.setInt(15, dts.getIdinicioturno());
+            pst.setInt(16, dts.getNum_turno());
+            pst.setString(17, dts.getTurno());
+
 
             int n = pst.executeUpdate();
 
@@ -121,43 +116,30 @@ public class Freserva {
     }
 
     public boolean editar(Dreserva dts) {
-        sSQL = "update reserva set idhabitacion=?,idcliente=?,idempleado=?,tiporeserva=?,fechareserva=?,fechaingreso=?,fechasalida=?,costoalojamiento=?, numnoches=?, numpersonas=?, estado=?"
+        sSQL = "update reserva set idhabitacion=?,fechareserva=?,fechaingreso=?,fechasalida=?,estado=?,numnoches=?,numpersonas=?,cliente=?,documento=?,telefono=?,numhabitacion=?,costoalojamiento=?,tipohabitacion=?,empleado=?,idinicioturno=?,num_turno=?,turno=?"
                 + " where idreserva=?";
 
         try {
             PreparedStatement pst = cn.prepareStatement(sSQL);
             pst.setInt(1, dts.getIdhabitacion());
-            pst.setInt(2, dts.getIdcliente());
-            pst.setInt(3, dts.getIdempleado());
-            pst.setString(4, dts.getTiporeserva());
-            pst.setDate(5, dts.getFechareserva());
-            pst.setDate(6, dts.getFechaingreso());
-            pst.setDate(7, dts.getFechasalida());
-            pst.setDouble(8, dts.getCostoalojamiento());
-            pst.setInt(9, dts.getNumnoches());
-            pst.setInt(10, dts.getNumpersonas());
-            pst.setString(11, dts.getEstado());
+            pst.setDate(2, dts.getFechareserva());
+            pst.setDate(3, dts.getFechaingreso());
+            pst.setDate(4, dts.getFechasalida());
+            pst.setString(5, dts.getEstado());
+            pst.setInt(6, dts.getNumnoches());
+            pst.setInt(7, dts.getNumpersonas());
+            pst.setString(8, dts.getCliente());
+            pst.setInt(9, dts.getDocumento());
+            pst.setInt(10, dts.getTelefono());
+            pst.setInt(11, dts.getNumhabitacion());
+            pst.setInt(12, dts.getCostoalojamiento());
+            pst.setString(13, dts.getTipohabitacion());
+            pst.setString(14, dts.getEmpleado());
+             pst.setInt(15, dts.getIdinicioturno());
+            pst.setInt(16, dts.getNum_turno());
+            pst.setString(17, dts.getTurno());
 
-            pst.setInt(12, dts.getIdreserva());
-
-            int n = pst.executeUpdate();
-
-            return n != 0;
-
-        } catch (SQLException e) {
-            JOptionPane.showConfirmDialog(null, e);
-            return false;
-        }
-    }
-
-    public boolean pagar(Dreserva dts) {
-        sSQL = "update reserva set estado='Pagada'"
-                + " where idreserva=?";
-
-        try {
-            PreparedStatement pst = cn.prepareStatement(sSQL);
-
-            pst.setInt(1, dts.getIdreserva());
+            pst.setInt(18, dts.getIdreserva());
 
             int n = pst.executeUpdate();
 

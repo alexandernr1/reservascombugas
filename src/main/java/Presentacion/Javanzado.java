@@ -27,7 +27,8 @@ public class Javanzado extends javax.swing.JFrame {
         btnproducto = new javax.swing.JButton();
         lblacceso = new javax.swing.JLabel();
         btnCongelado = new javax.swing.JButton();
-        btnReportes1 = new javax.swing.JButton();
+        btnInformes = new javax.swing.JButton();
+        btnReportes2 = new javax.swing.JButton();
         jdmenu = new javax.swing.JDesktopPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -77,6 +78,7 @@ public class Javanzado extends javax.swing.JFrame {
         btnCongelado.setBackground(new java.awt.Color(0, 204, 204));
         btnCongelado.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         btnCongelado.setForeground(new java.awt.Color(0, 0, 102));
+        btnCongelado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/congelador.png"))); // NOI18N
         btnCongelado.setText("CONGELAR SALDO");
         btnCongelado.setBorderPainted(false);
         btnCongelado.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -87,17 +89,31 @@ public class Javanzado extends javax.swing.JFrame {
             }
         });
 
-        btnReportes1.setBackground(new java.awt.Color(0, 204, 204));
-        btnReportes1.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
-        btnReportes1.setForeground(new java.awt.Color(0, 0, 102));
-        btnReportes1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Reservas.png"))); // NOI18N
-        btnReportes1.setText("REPORTES");
-        btnReportes1.setBorderPainted(false);
-        btnReportes1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnReportes1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        btnReportes1.addActionListener(new java.awt.event.ActionListener() {
+        btnInformes.setBackground(new java.awt.Color(0, 204, 204));
+        btnInformes.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
+        btnInformes.setForeground(new java.awt.Color(0, 0, 102));
+        btnInformes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/informe-seo.png"))); // NOI18N
+        btnInformes.setText("INFORMES");
+        btnInformes.setBorderPainted(false);
+        btnInformes.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnInformes.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnInformes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReportes1ActionPerformed(evt);
+                btnInformesActionPerformed(evt);
+            }
+        });
+
+        btnReportes2.setBackground(new java.awt.Color(0, 204, 204));
+        btnReportes2.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
+        btnReportes2.setForeground(new java.awt.Color(0, 0, 102));
+        btnReportes2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/inmigracion.png"))); // NOI18N
+        btnReportes2.setText("REPORTES");
+        btnReportes2.setBorderPainted(false);
+        btnReportes2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnReportes2.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnReportes2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReportes2ActionPerformed(evt);
             }
         });
 
@@ -108,17 +124,17 @@ public class Javanzado extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnCongelado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnInformes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnReportes2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnhabitaciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnempleados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGap(94, 94, 94)
-                                    .addComponent(lblacceso, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(btnproducto, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(btnReportes1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(lblacceso, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(28, 28, 28))
+                            .addComponent(btnproducto))))
                 .addGap(59, 59, 59))
         );
         jPanel1Layout.setVerticalGroup(
@@ -135,7 +151,9 @@ public class Javanzado extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCongelado, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnReportes1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnReportes2, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnInformes, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -202,13 +220,21 @@ public class Javanzado extends javax.swing.JFrame {
         conelado.setVisible(true);
     }//GEN-LAST:event_btnCongeladoActionPerformed
 
-    private void btnReportes1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportes1ActionPerformed
+    private void btnInformesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInformesActionPerformed
         // TODO add your handling code here:
-         Jreportes reportes = new Jreportes();
+        Jreportefecha reporte = new Jreportefecha();
+        jdmenu.add(reporte);
+        reporte.toFront();
+        reporte.setVisible(true);
+    }//GEN-LAST:event_btnInformesActionPerformed
+
+    private void btnReportes2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportes2ActionPerformed
+        // TODO add your handling code here:
+        Jreportes reportes = new Jreportes();
         jdmenu.add(reportes);
         reportes.toFront();
         reportes.setVisible(true);
-    }//GEN-LAST:event_btnReportes1ActionPerformed
+    }//GEN-LAST:event_btnReportes2ActionPerformed
 
     public static void main(String args[]) {
 
@@ -222,7 +248,8 @@ public class Javanzado extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCongelado;
-    private javax.swing.JButton btnReportes1;
+    private javax.swing.JButton btnInformes;
+    private javax.swing.JButton btnReportes2;
     private javax.swing.JButton btnempleados;
     private javax.swing.JButton btnhabitaciones;
     private javax.swing.JButton btnproducto;

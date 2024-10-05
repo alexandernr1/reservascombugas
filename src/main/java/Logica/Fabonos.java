@@ -171,8 +171,8 @@ public class Fabonos {
                 + " totalabonos, privilegiosadmon, privilegiosrecepcion, otroscobros, numero_turno,"
                 + " habitacion, cliente, documento, razon_social, email, numeronoches, valordescuento,"
                 + " tipocomprobante, numerocomprobante, iva19, retencion35, retencion4,"
-                + " subtotal, efectivo, tarjeta, transferencia, totalapagar, valor_bruto, antesIVA, costoalojamiento)"
-                + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                + " subtotal, efectivo, tarjeta, transferencia, totalapagar, valor_bruto, antesIVA, costoalojamiento, idinicioturno,turno)"
+                + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try ( PreparedStatement pst = cn.prepareStatement(sSQL)) {
             pst.setInt(1, dts.getIdingreso());
@@ -206,7 +206,9 @@ public class Fabonos {
             pst.setInt(29, dts.getTotalapagar());
             pst.setInt(30, dts.getValor_bruto());
             pst.setInt(31, dts.getAntesIVA());
-            pst.setInt(32,dts.getCostoalojamiento());
+            pst.setInt(32, dts.getCostoalojamiento());
+            pst.setInt(33, dts.getIdinicioturno());
+            pst.setString(34, dts.getTurno());
 
             int n = pst.executeUpdate();
             return n != 0;
@@ -227,8 +229,8 @@ public class Fabonos {
 
         sSQL = "select idabono, habitacion, idcliente, cliente, documento, fechaabono, abonohabitacion, descuentos, numeronoches, costoalojamiento "
                 + "from reserva1.abono  "
-                + "WHERE documento LIKE ? ";
-
+                + "WHERE documento LIKE ? "
+                + "ORDER BY idabono DESC LIMIT 60"; // Cambiar MILIT a LIMIT
 
         try ( PreparedStatement pst = cn.prepareStatement(sSQL)) {
             pst.setString(1, "%" + buscar + "%");
@@ -245,7 +247,7 @@ public class Fabonos {
                     registro[7] = rs.getString("descuentos");
                     registro[8] = rs.getString("numeronoches");
                     registro[9] = rs.getString("costoalojamiento");
-                 
+
                     totalregistros++;
                     modelo.addRow(registro);
                 }
@@ -262,7 +264,7 @@ public class Fabonos {
                 + "totalabonos=?, privilegiosadmon=?, privilegiosrecepcion=?, otroscobros=?, numero_turno=?, "
                 + "habitacion=?, cliente=?, documento=?, razon_social=?, email=?, numeronoches=?, valordescuento=?, "
                 + "tipocomprobante=?, numerocomprobante=?, iva19=?, retencion35=?, retencion4=?, "
-                + "subtotal=?, efectivo=?, tarjeta=?, transferencia=?, totalapagar=?, valor_bruto=?, antesIVA=? "
+                + "subtotal=?, efectivo=?, tarjeta=?, transferencia=?, totalapagar=?, valor_bruto=?, antesIVA=?, idinicioturno = ?, turno = ? "
                 + "WHERE idabono=?";
 
         try ( PreparedStatement pst = cn.prepareStatement(sSQL)) {
@@ -297,7 +299,10 @@ public class Fabonos {
             pst.setInt(29, dts.getTotalapagar());
             pst.setInt(30, dts.getValor_bruto());
             pst.setInt(31, dts.getAntesIVA());
-            pst.setInt(32, dts.getIdabono()); // Este es el parámetro para el WHERE
+            pst.setInt(33, dts.getIdinicioturno());
+            pst.setString(34, dts.getTurno());
+
+            pst.setInt(35, dts.getIdabono()); // Este es el parámetro para el WHERE
 
             int n = pst.executeUpdate();
             return n != 0;

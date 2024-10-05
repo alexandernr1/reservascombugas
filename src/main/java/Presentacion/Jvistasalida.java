@@ -2,28 +2,70 @@ package Presentacion;
 
 import javax.swing.JFrame;
 import Logica.Fsalida;
-import java.awt.Dimension;
-import java.awt.Toolkit;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 public final class Jvistasalida extends javax.swing.JFrame {
 
     public Jvistasalida() {
         initComponents();
         setTitle("REGISTRO DE SALIDAS");
-        mostrar("");
-//        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-//        setSize(screenSize.width, screenSize.height);
-//        setLocationRelativeTo(null);
+        mostrar1("", "");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
+        setLocationRelativeTo(null);
+         configurarTabla();
     }
 
     public void limpiarTabla(JTable tablalistadosalida) {
         DefaultTableModel model = (DefaultTableModel) tablalistadosalida.getModel();
         model.setRowCount(0);
+    }
+
+    private void configurarTabla() {
+        // Aquí configuras el comportamiento y el estilo de la tabla
+        tablalistadosalida.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tablalistadosalida.setRowHeight(25); // Ajusta la altura de las filas
+        tablalistadosalida.setRowMargin(5); // Espacio entre filas
+
+        // Cambiar color del encabezado usando un renderer personalizado
+        JTableHeader header = tablalistadosalida.getTableHeader();
+        header.setDefaultRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                Component cell = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                cell.setBackground(new Color(135, 206, 235));
+                cell.setForeground(Color.WHITE); // Texto blanco para encabezado
+                cell.setFont(new Font("SansSerif", Font.BOLD, 14)); // Fuente personalizada
+                return cell;
+            }
+        });
+
+        // Establecer colores alternos en las filas
+        tablalistadosalida.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                Component cell = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+                // Color de las filas alternas
+                if (!isSelected) {
+                    if (row % 2 == 0) {
+                        cell.setBackground(Color.LIGHT_GRAY); // Filas pares
+                    } else {
+                        cell.setBackground(Color.WHITE); // Filas impares
+                    }
+                } else {
+                    cell.setBackground(Color.CYAN); // Color para fila seleccionada
+                }
+
+                return cell;
+            }
+        });
     }
 
     void ocultar_columnas() {
@@ -47,17 +89,75 @@ public final class Jvistasalida extends javax.swing.JFrame {
         tablalistadosalida.getColumnModel().getColumn(4).setMinWidth(0);
         tablalistadosalida.getColumnModel().getColumn(4).setPreferredWidth(0);
 
+        tablalistadosalida.getColumnModel().getColumn(5).setMaxWidth(0);
+        tablalistadosalida.getColumnModel().getColumn(5).setMinWidth(0);
+        tablalistadosalida.getColumnModel().getColumn(5).setPreferredWidth(0);
+
+        tablalistadosalida.getColumnModel().getColumn(8).setMaxWidth(0);
+        tablalistadosalida.getColumnModel().getColumn(8).setMinWidth(0);
+        tablalistadosalida.getColumnModel().getColumn(8).setPreferredWidth(0);
+
+        tablalistadosalida.getColumnModel().getColumn(9).setMaxWidth(0);
+        tablalistadosalida.getColumnModel().getColumn(9).setMinWidth(0);
+        tablalistadosalida.getColumnModel().getColumn(9).setPreferredWidth(0);
+
+        tablalistadosalida.getColumnModel().getColumn(13).setMaxWidth(0);
+        tablalistadosalida.getColumnModel().getColumn(13).setMinWidth(0);
+        tablalistadosalida.getColumnModel().getColumn(13).setPreferredWidth(0);
+
+        tablalistadosalida.getColumnModel().getColumn(16).setMaxWidth(0);
+        tablalistadosalida.getColumnModel().getColumn(16).setMinWidth(0);
+        tablalistadosalida.getColumnModel().getColumn(16).setPreferredWidth(0);
+
+        tablalistadosalida.getColumnModel().getColumn(17).setMaxWidth(0);
+        tablalistadosalida.getColumnModel().getColumn(17).setMinWidth(0);
+        tablalistadosalida.getColumnModel().getColumn(17).setPreferredWidth(0);
+
+        tablalistadosalida.getColumnModel().getColumn(25).setMaxWidth(0);
+        tablalistadosalida.getColumnModel().getColumn(25).setMinWidth(0);
+        tablalistadosalida.getColumnModel().getColumn(25).setPreferredWidth(0);
+
+        tablalistadosalida.getColumnModel().getColumn(26).setMaxWidth(0);
+        tablalistadosalida.getColumnModel().getColumn(26).setMinWidth(0);
+        tablalistadosalida.getColumnModel().getColumn(26).setPreferredWidth(0);
+
+        tablalistadosalida.getColumnModel().getColumn(27).setMaxWidth(0);
+        tablalistadosalida.getColumnModel().getColumn(27).setMinWidth(0);
+        tablalistadosalida.getColumnModel().getColumn(27).setPreferredWidth(0);
+
+        tablalistadosalida.getColumnModel().getColumn(28).setMaxWidth(0);
+        tablalistadosalida.getColumnModel().getColumn(28).setMinWidth(0);
+        tablalistadosalida.getColumnModel().getColumn(28).setPreferredWidth(0);
+
+        tablalistadosalida.getColumnModel().getColumn(29).setMaxWidth(0);
+        tablalistadosalida.getColumnModel().getColumn(29).setMinWidth(0);
+        tablalistadosalida.getColumnModel().getColumn(29).setPreferredWidth(0);
+
+        tablalistadosalida.getColumnModel().getColumn(33).setMaxWidth(0);
+        tablalistadosalida.getColumnModel().getColumn(33).setMinWidth(0);
+        tablalistadosalida.getColumnModel().getColumn(33).setPreferredWidth(0);
+
     }
 
-    void mostrar(String buscar) {
+    void mostrar1(String buscar, String turnoActivo) {
         try {
-            DefaultTableModel modelo;
+
             Fsalida func = new Fsalida();
-            modelo = func.mostrarsalida(buscar);
+            Object[] resultado = func.mostrarsalida(buscar, turnoActivo);
+            DefaultTableModel modelo = (DefaultTableModel) resultado[0];
+            int totalEfectivo = (int) resultado[1];
+            int totalTarjeta = (int) resultado[2];
+            int totalTransferencia = (int) resultado[3];
 
             tablalistadosalida.setModel(modelo);
             ocultar_columnas();
             lbltotalregistro.setText("Total Registros " + Integer.toString(func.totalregistros));
+
+            txtTotalEfectivo.setText(Integer.toString(totalEfectivo));
+            txtTotalTarjeta.setText(Integer.toString(totalTarjeta));
+            txtTotalTransferencia.setText(Integer.toString(totalTransferencia));
+            int total = totalEfectivo + totalTarjeta + totalTransferencia;
+            txtTotal.setText(Integer.toString(total));
 
         } catch (Exception e) {
             JOptionPane.showConfirmDialog(rootPane, e);
@@ -76,12 +176,18 @@ public final class Jvistasalida extends javax.swing.JFrame {
         tablalistadosalida = new javax.swing.JTable();
         lbltotalregistro = new javax.swing.JLabel();
         btnbuscar = new javax.swing.JButton();
-        btnlimpiar = new javax.swing.JButton();
+        txtTotalEfectivo = new javax.swing.JTextField();
+        txtTotalTarjeta = new javax.swing.JTextField();
+        txtTotalTransferencia = new javax.swing.JTextField();
+        txtTotal = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel2.setBackground(new java.awt.Color(244, 244, 244));
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("LISTA EMPLEADO"));
 
         jLabel4.setText("Buscar:");
 
@@ -124,7 +230,8 @@ public final class Jvistasalida extends javax.swing.JFrame {
         lbltotalregistro.setText("Total registro");
 
         btnbuscar.setBackground(new java.awt.Color(204, 204, 204));
-        btnbuscar.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        btnbuscar.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        btnbuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/buscar.png"))); // NOI18N
         btnbuscar.setText("Buscar");
         btnbuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -132,14 +239,25 @@ public final class Jvistasalida extends javax.swing.JFrame {
             }
         });
 
-        btnlimpiar.setBackground(new java.awt.Color(204, 204, 204));
-        btnlimpiar.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
-        btnlimpiar.setText("Limpiar");
-        btnlimpiar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnlimpiarActionPerformed(evt);
-            }
-        });
+        txtTotalEfectivo.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+
+        txtTotalTarjeta.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+
+        txtTotalTransferencia.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+
+        txtTotal.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel1.setText("Total Efectivo:");
+
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel2.setText("Total Tarjeta:");
+
+        jLabel3.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel3.setText("Total Transferencia:");
+
+        jLabel5.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel5.setText("Total:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -150,19 +268,30 @@ public final class Jvistasalida extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnlimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(lbltotalregistro)))
-                        .addContainerGap(569, Short.MAX_VALUE))))
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(21, 21, 21)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtTotalEfectivo, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtTotalTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtTotalTransferencia, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lbltotalregistro)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,12 +301,23 @@ public final class Jvistasalida extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnlimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                        .addComponent(btnbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(txtTotalEfectivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(txtTotalTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(txtTotalTransferencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbltotalregistro))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE)
-                .addGap(39, 39, 39)
-                .addComponent(lbltotalregistro)
                 .addContainerGap())
         );
 
@@ -212,14 +352,9 @@ public final class Jvistasalida extends javax.swing.JFrame {
     }//GEN-LAST:event_txtbuscarActionPerformed
 
     private void btnbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarActionPerformed
-        // TODO add your handling code here:
-        mostrar(txtbuscar.getText());
+        String turnoActivo = "turnoActivo"; // Reemplaza con el valor real del turno activo
+        mostrar1(txtbuscar.getText(), turnoActivo);
     }//GEN-LAST:event_btnbuscarActionPerformed
-
-    private void btnlimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlimpiarActionPerformed
-        // TODO add your handling code here:
-        limpiarTabla(tablalistadosalida);
-    }//GEN-LAST:event_btnlimpiarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -257,12 +392,19 @@ public final class Jvistasalida extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnbuscar;
-    private javax.swing.JButton btnlimpiar;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbltotalregistro;
     private javax.swing.JTable tablalistadosalida;
+    private javax.swing.JTextField txtTotal;
+    private javax.swing.JTextField txtTotalEfectivo;
+    private javax.swing.JTextField txtTotalTarjeta;
+    private javax.swing.JTextField txtTotalTransferencia;
     private javax.swing.JTextField txtbuscar;
     // End of variables declaration//GEN-END:variables
 }

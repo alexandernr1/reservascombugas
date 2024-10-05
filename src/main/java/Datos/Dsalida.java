@@ -1,7 +1,5 @@
 package Datos;
 
-import java.sql.Date;
-
 /**
  * @author Alexander nieves romero
  */
@@ -13,9 +11,13 @@ public class Dsalida {
     public int idhabitacion;
     public int idabono;
     public String empleado;
+    public int numero_turno;
     public int numero;
     public String cliente;
     public int numnoches;
+    public String razon_social;
+    public int documento;
+    public String email;
     public int costoalojamiento;
     public String fechaingreso;
     public String fechasalida;
@@ -26,23 +28,38 @@ public class Dsalida {
     public int descuentos;
     public int cobros_extra;
     public int otros_cobros;
-    public Double totalpago;
-    public int numero_turno;
     public int deuda_anterior;
+    public int total;
+    public int antesIVA;
+    public int IVA19;
+    public int reten35;
+    public int reten4;
+    public int subtotal;
+    public int efectivo;
+    public int tarjeta;
+    public int transferencias;
+    public int totalpago;
+    public int idinicioturno;
+    public String turno;
+    
 
     public Dsalida() {
     }
 
-    public Dsalida(int idsalida, int idingreso, int idcliente, int idhabitacion, int idabono, String empleado, int numero, String cliente, int numnoches, int costoalojamiento, String fechaingreso, String fechasalida, String tipocliente, int valor_noches, int abonos, int valor_total, int descuentos, int cobros_extra, int otros_cobros, Double totalpago, int numero_turno,int deuda_anterior) {
+    public Dsalida(int idsalida, int idingreso, int idcliente, int idhabitacion, int idabono, String empleado, int numero_turno, int numero, String cliente, int numnoches, String razon_social, int documento, String email, int costoalojamiento, String fechaingreso, String fechasalida, String tipocliente, int valor_noches, int abonos, int valor_total, int descuentos, int cobros_extra, int otros_cobros, int deuda_anterior, int total, int antesIVA, int IVA19, int reten35, int reten4, int subtotal, int efectivo, int tarjeta, int transferencias, int totalpago, int idinicioturno, String turno) {
         this.idsalida = idsalida;
         this.idingreso = idingreso;
         this.idcliente = idcliente;
         this.idhabitacion = idhabitacion;
         this.idabono = idabono;
         this.empleado = empleado;
+        this.numero_turno = numero_turno;
         this.numero = numero;
         this.cliente = cliente;
         this.numnoches = numnoches;
+        this.razon_social = razon_social;
+        this.documento = documento;
+        this.email = email;
         this.costoalojamiento = costoalojamiento;
         this.fechaingreso = fechaingreso;
         this.fechasalida = fechasalida;
@@ -53,12 +70,22 @@ public class Dsalida {
         this.descuentos = descuentos;
         this.cobros_extra = cobros_extra;
         this.otros_cobros = otros_cobros;
-        this.totalpago = totalpago;
-        this.numero_turno = numero_turno;
         this.deuda_anterior = deuda_anterior;
-    
-    
+        this.total = total;
+        this.antesIVA = antesIVA;
+        this.IVA19 = IVA19;
+        this.reten35 = reten35;
+        this.reten4 = reten4;
+        this.subtotal = subtotal;
+        this.efectivo = efectivo;
+        this.tarjeta = tarjeta;
+        this.transferencias = transferencias;
+        this.totalpago = totalpago;
+        this.idinicioturno = idinicioturno;
+        this.turno = turno;
     }
+
+    
 
     
 
@@ -108,6 +135,14 @@ public class Dsalida {
 
     public void setEmpleado(String empleado) {
         this.empleado = empleado;
+    }
+
+    public int getNumero_turno() {
+        return numero_turno;
+    }
+
+    public void setNumero_turno(int numero_turno) {
+        this.numero_turno = numero_turno;
     }
 
     public int getNumero() {
@@ -210,24 +245,8 @@ public class Dsalida {
         return otros_cobros;
     }
 
-    public void setOtros_cobros(int otrso_cobros) {
-        this.otros_cobros = otrso_cobros;
-    }
-
-    public Double getTotalpago() {
-        return totalpago;
-    }
-
-    public void setTotalpago(Double totalpago) {
-        this.totalpago = totalpago;
-    }
-
-    public int getNumero_turno() {
-        return numero_turno;
-    }
-
-    public void setNumero_turno(int numero_turno) {
-        this.numero_turno = numero_turno;
+    public void setOtros_cobros(int otros_cobros) {
+        this.otros_cobros = otros_cobros;
     }
 
     public int getDeuda_anterior() {
@@ -236,6 +255,126 @@ public class Dsalida {
 
     public void setDeuda_anterior(int deuda_anterior) {
         this.deuda_anterior = deuda_anterior;
+    }
+
+    public int getTotal() {
+        return total;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
+    }
+
+    public int getAntesIVA() {
+        return antesIVA;
+    }
+
+    public void setAntesIVA(int antesIVA) {
+        this.antesIVA = antesIVA;
+    }
+
+    public int getIVA19() {
+        return IVA19;
+    }
+
+    public void setIVA19(int IVA19) {
+        this.IVA19 = IVA19;
+    }
+
+    public int getReten35() {
+        return reten35;
+    }
+
+    public void setReten35(int reten35) {
+        this.reten35 = reten35;
+    }
+
+    public int getReten4() {
+        return reten4;
+    }
+
+    public void setReten4(int reten4) {
+        this.reten4 = reten4;
+    }
+
+    public int getSubtotal() {
+        return subtotal;
+    }
+
+    public void setSubtotal(int subtotal) {
+        this.subtotal = subtotal;
+    }
+
+    public int getEfectivo() {
+        return efectivo;
+    }
+
+    public void setEfectivo(int efectivo) {
+        this.efectivo = efectivo;
+    }
+
+    public int getTarjeta() {
+        return tarjeta;
+    }
+
+    public void setTarjeta(int tarjeta) {
+        this.tarjeta = tarjeta;
+    }
+
+    public int getTransferencias() {
+        return transferencias;
+    }
+
+    public void setTransferencias(int transferencias) {
+        this.transferencias = transferencias;
+    }
+
+    public int getTotalpago() {
+        return totalpago;
+    }
+
+    public void setTotalpago(int totalpago) {
+        this.totalpago = totalpago;
+    }
+
+    public String getRazon_social() {
+        return razon_social;
+    }
+
+    public void setRazon_social(String razon_social) {
+        this.razon_social = razon_social;
+    }
+
+    public int getDocumento() {
+        return documento;
+    }
+
+    public void setDocumento(int documento) {
+        this.documento = documento;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public int getIdinicioturno() {
+        return idinicioturno;
+    }
+
+    public void setIdinicioturno(int idinicioturno) {
+        this.idinicioturno = idinicioturno;
+    }
+
+    public String getTurno() {
+        return turno;
+    }
+
+    public void setTurno(String turno) {
+        this.turno = turno;
     }
 
 }

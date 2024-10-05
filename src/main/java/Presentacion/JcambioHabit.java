@@ -41,6 +41,7 @@ public final class JcambioHabit extends javax.swing.JFrame {
 
     private String acion = "guardar";
     private String accionGuardar = "guardarCambio";
+    public static String saldo = "";
 
     public static int idusuario;
 
@@ -950,6 +951,7 @@ public final class JcambioHabit extends javax.swing.JFrame {
 
                     int respuesta = JOptionPane.showConfirmDialog(rootPane, "¿Desea modificar el abono también?", "Modificar Abono", JOptionPane.YES_NO_OPTION);
                     if (respuesta == JOptionPane.YES_OPTION) {
+                        saldo = txtpago_total.getText();
                         // Abrir el formulario de modificación de abono
                         Jabono formularioAbono = new Jabono();
                         formularioAbono.setVisible(true);
@@ -985,7 +987,7 @@ public final class JcambioHabit extends javax.swing.JFrame {
         comestado.setSelectedItem(tablalistadoingreso.getValueAt(fila, 12).toString());
         txtCiudadRecidencia.setText(tablalistadoingreso.getValueAt(fila, 13).toString());
         txtCiudadProcedencia.setText(tablalistadoingreso.getValueAt(fila, 14).toString());
-       
+
 
     }//GEN-LAST:event_tablalistadoingresoMouseClicked
 
