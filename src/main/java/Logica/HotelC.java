@@ -13,11 +13,11 @@ public static void main(String[] args) {
         if (opcion.equals("hotel")) {
             Cconexion conexionHotel = new Cconexion();
             conexionHotel.establecerConexion();
-            System.out.println("Conectado a la base de datos del hotel");
+//            System.out.println("Conectado a la base de datos del hotel");
         } else if (opcion.equals("parquedero")) {
             Cconexionp conexionParquedero = new Cconexionp();
-            conexionParquedero.establecerConexion();
-            System.out.println("Conectado a la base de datos del parquedero");
+            conexionParquedero.establecerConexionp();
+//            System.out.println("Conectado a la base de datos del parquedero");
         }
     }
 //    public static void main(String[] args) {

@@ -6,7 +6,7 @@ public class Dinicioturnop {
     
     
     public int idturno;
-    public String fecha_hora_inicio;
+    public String fecha_inicio;
     public String turno;
     public int numero_turno;
     public String estado;
@@ -15,9 +15,9 @@ public class Dinicioturnop {
     public Dinicioturnop() {
     }
 
-    public Dinicioturnop(int idturno, String fecha_hora_inicio, String turno, int numero_turno, String estado, String empleado) {
+    public Dinicioturnop(int idturno, String fecha_inicio, String turno, int numero_turno, String estado, String empleado) {
         this.idturno = idturno;
-        this.fecha_hora_inicio = fecha_hora_inicio;
+        this.fecha_inicio = fecha_inicio;
         this.turno = turno;
         this.numero_turno = numero_turno;
         this.estado = estado;
@@ -32,12 +32,12 @@ public class Dinicioturnop {
         this.idturno = idturno;
     }
 
-    public String getFecha_hora_inicio() {
-        return fecha_hora_inicio;
+    public String getFecha_inicio() {
+        return fecha_inicio;
     }
 
-    public void setFecha_hora_inicio(String fecha_hora_inicio) {
-        this.fecha_hora_inicio = fecha_hora_inicio;
+    public void setFecha_inicio(String fecha_inicio) {
+        this.fecha_inicio = fecha_inicio;
     }
 
     public String getTurno() {

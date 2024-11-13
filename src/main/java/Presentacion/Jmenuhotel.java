@@ -140,7 +140,6 @@ public final class Jmenuhotel extends javax.swing.JInternalFrame {
         btningresohuesped = new javax.swing.JButton();
         btnregistro = new javax.swing.JButton();
         btnreservas = new javax.swing.JButton();
-        btnsalidaAcompañante = new javax.swing.JButton();
         btnpagos = new javax.swing.JButton();
         pnlBotones = new javax.swing.JPanel();
         jToggleButton1 = new javax.swing.JToggleButton();
@@ -187,25 +186,26 @@ public final class Jmenuhotel extends javax.swing.JInternalFrame {
         jToggleButton35 = new javax.swing.JToggleButton();
         jToggleButton34 = new javax.swing.JToggleButton();
         jToggleButton37 = new javax.swing.JToggleButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         lblfecha = new javax.swing.JLabel();
         lblturnos = new javax.swing.JLabel();
-        lblempleado = new javax.swing.JLabel();
-        lblestado = new javax.swing.JLabel();
-        cboinformes = new javax.swing.JComboBox<>();
-        btnconsultas = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        lblestado = new javax.swing.JLabel();
+        lblempleado = new javax.swing.JLabel();
+        cboinformes = new javax.swing.JComboBox<>();
+        btnconsultas = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
 
+        setBorder(null);
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
         setVisible(true);
 
         jPanel2.setBackground(new java.awt.Color(0, 204, 204));
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         jPanel2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jpmenu.setBackground(new java.awt.Color(0, 204, 204));
@@ -223,7 +223,7 @@ public final class Jmenuhotel extends javax.swing.JInternalFrame {
                 btncambioturnoActionPerformed(evt);
             }
         });
-        jpmenu.add(btncambioturno, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 180, 40));
+        jpmenu.add(btncambioturno, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 180, 40));
 
         btnlistaespera.setBackground(new java.awt.Color(0, 204, 204));
         btnlistaespera.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
@@ -237,7 +237,7 @@ public final class Jmenuhotel extends javax.swing.JInternalFrame {
                 btnlistaesperaActionPerformed(evt);
             }
         });
-        jpmenu.add(btnlistaespera, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 180, 40));
+        jpmenu.add(btnlistaespera, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 180, 40));
 
         btnlimpieza.setBackground(new java.awt.Color(0, 204, 204));
         btnlimpieza.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
@@ -251,7 +251,7 @@ public final class Jmenuhotel extends javax.swing.JInternalFrame {
                 btnlimpiezaActionPerformed(evt);
             }
         });
-        jpmenu.add(btnlimpieza, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 450, 180, 40));
+        jpmenu.add(btnlimpieza, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 180, 40));
 
         btnsalidahuesped.setBackground(new java.awt.Color(0, 204, 204));
         btnsalidahuesped.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
@@ -265,7 +265,7 @@ public final class Jmenuhotel extends javax.swing.JInternalFrame {
                 btnsalidahuespedActionPerformed(evt);
             }
         });
-        jpmenu.add(btnsalidahuesped, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 180, 40));
+        jpmenu.add(btnsalidahuesped, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 180, 40));
 
         btningresohuesped.setBackground(new java.awt.Color(0, 204, 204));
         btningresohuesped.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
@@ -279,7 +279,7 @@ public final class Jmenuhotel extends javax.swing.JInternalFrame {
                 btningresohuespedActionPerformed(evt);
             }
         });
-        jpmenu.add(btningresohuesped, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 180, 40));
+        jpmenu.add(btningresohuesped, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 180, 40));
 
         btnregistro.setBackground(new java.awt.Color(0, 204, 204));
         btnregistro.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
@@ -295,7 +295,7 @@ public final class Jmenuhotel extends javax.swing.JInternalFrame {
                 btnregistroActionPerformed(evt);
             }
         });
-        jpmenu.add(btnregistro, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 180, 40));
+        jpmenu.add(btnregistro, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 180, 40));
 
         btnreservas.setBackground(new java.awt.Color(0, 204, 204));
         btnreservas.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
@@ -309,21 +309,7 @@ public final class Jmenuhotel extends javax.swing.JInternalFrame {
                 btnreservasActionPerformed(evt);
             }
         });
-        jpmenu.add(btnreservas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 180, 40));
-
-        btnsalidaAcompañante.setBackground(new java.awt.Color(0, 204, 204));
-        btnsalidaAcompañante.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        btnsalidaAcompañante.setForeground(new java.awt.Color(0, 0, 102));
-        btnsalidaAcompañante.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/amistoso.png"))); // NOI18N
-        btnsalidaAcompañante.setText("SALIDA ACOMPAÑANTE");
-        btnsalidaAcompañante.setBorder(null);
-        btnsalidaAcompañante.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnsalidaAcompañante.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnsalidaAcompañanteActionPerformed(evt);
-            }
-        });
-        jpmenu.add(btnsalidaAcompañante, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 180, 40));
+        jpmenu.add(btnreservas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 180, 40));
 
         btnpagos.setBackground(new java.awt.Color(0, 204, 204));
         btnpagos.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
@@ -337,7 +323,7 @@ public final class Jmenuhotel extends javax.swing.JInternalFrame {
                 btnpagosActionPerformed(evt);
             }
         });
-        jpmenu.add(btnpagos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 410, 180, 40));
+        jpmenu.add(btnpagos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 180, 40));
 
         pnlBotones.setBackground(new java.awt.Color(225, 238, 247));
         pnlBotones.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -499,23 +485,27 @@ public final class Jmenuhotel extends javax.swing.JInternalFrame {
         jToggleButtonrojo.setBackground(new java.awt.Color(255, 99, 71));
         jToggleButtonrojo.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jToggleButtonrojo.setText("OCUPADA");
+        jToggleButtonrojo.setBorder(null);
 
         jToggleButtonamarillo.setBackground(new java.awt.Color(255, 255, 224));
         jToggleButtonamarillo.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jToggleButtonamarillo.setText("RESERVADA");
+        jToggleButtonamarillo.setBorder(null);
 
         jToggleButtonnaranja.setBackground(new java.awt.Color(255, 165, 79));
         jToggleButtonnaranja.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jToggleButtonnaranja.setText("MANTENIMIENTO");
+        jToggleButtonnaranja.setBorder(null);
 
         jToggleButtonverde.setBackground(new java.awt.Color(144, 238, 144));
         jToggleButtonverde.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jToggleButtonverde.setText("DISPONIBLE");
+        jToggleButtonverde.setBorder(null);
 
         jToggleButtonazul.setBackground(new java.awt.Color(173, 216, 230));
         jToggleButtonazul.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jToggleButtonazul.setForeground(new java.awt.Color(255, 255, 255));
         jToggleButtonazul.setText("LIMPIEZA");
+        jToggleButtonazul.setBorder(null);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -544,10 +534,10 @@ public final class Jmenuhotel extends javax.swing.JInternalFrame {
                 .addComponent(jToggleButtonnaranja)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jToggleButtonazul)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        pnlBotones.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(729, 268, -1, -1));
+        pnlBotones.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 230, -1, 140));
 
         jToggleButton32.setFont(new java.awt.Font("Serif", 1, 24)); // NOI18N
         jToggleButton32.setText("32");
@@ -587,20 +577,35 @@ public final class Jmenuhotel extends javax.swing.JInternalFrame {
         jToggleButton37.setText("37");
         pnlBotones.add(jToggleButton37, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 343, 66, 60));
 
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Logo luci.png"))); // NOI18N
+
+        jLabel6.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel6.setText("Fecha:");
+
         lblfecha.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblfecha.setText("fecha");
 
         lblturnos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblturnos.setText("turnos");
 
-        lblempleado.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblempleado.setText("empleado");
+        jLabel10.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel10.setText("Turno:");
+
+        jLabel8.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel8.setText("Empleado:");
+
+        jLabel9.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel9.setText("Estado:");
 
         lblestado.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblestado.setText("estado");
 
+        lblempleado.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblempleado.setText("empleado");
+
+        cboinformes.setBackground(new java.awt.Color(0, 204, 204));
         cboinformes.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        cboinformes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Reservas", "Salidas", "Abonos", " " }));
+        cboinformes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Reservas", "Ingreso", "Salidas", "Abonos", "Habitaciones Ocupadas", " " }));
         cboinformes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 cboinformesMouseClicked(evt);
@@ -612,105 +617,96 @@ public final class Jmenuhotel extends javax.swing.JInternalFrame {
             }
         });
 
+        btnconsultas.setBackground(new java.awt.Color(0, 204, 204));
         btnconsultas.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         btnconsultas.setText("CONSULTAR");
+        btnconsultas.setBorder(null);
         btnconsultas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnconsultasActionPerformed(evt);
             }
         });
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\HotelC\\src\\main\\java\\File\\logo combugas.png")); // NOI18N
-
-        jLabel6.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        jLabel6.setText("Fecha:");
-
-        jLabel8.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        jLabel8.setText("Empleado:");
-
-        jLabel9.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        jLabel9.setText("Estado:");
-
-        jLabel10.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        jLabel10.setText("Turno:");
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/IconoCombugas.png"))); // NOI18N
+        jLabel7.setText("jLabel7");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jpmenu, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel9)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addGap(6, 6, 6)
-                                    .addComponent(jLabel10))
-                                .addComponent(jLabel6)))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(lblempleado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGap(280, 280, 280))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(lblfecha, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(lblturnos, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                .addComponent(cboinformes, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnconsultas))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(lblestado, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel1))
+                        .addGap(30, 30, 30)
+                        .addComponent(jLabel6))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pnlBotones, javax.swing.GroupLayout.DEFAULT_SIZE, 863, Short.MAX_VALUE))))
+                        .addGap(30, 30, 30)
+                        .addComponent(jLabel10))
+                    .addComponent(jLabel8)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel9)))
+                .addGap(6, 6, 6)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblfecha, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblturnos, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblempleado, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblestado, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(57, 57, 57)
+                        .addComponent(cboinformes, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnconsultas, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 295, Short.MAX_VALUE)
+                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jpmenu, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnlBotones, javax.swing.GroupLayout.DEFAULT_SIZE, 934, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jpmenu, javax.swing.GroupLayout.PREFERRED_SIZE, 538, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cboinformes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnconsultas)))
-                    .addComponent(jLabel1)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblfecha)
-                            .addComponent(jLabel6))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel10)
-                            .addComponent(lblturnos))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblempleado)
-                            .addComponent(jLabel8))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblestado)
-                            .addComponent(jLabel9))))
+                        .addGap(20, 20, 20)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addGap(2, 2, 2)
+                                .addComponent(jLabel10)
+                                .addGap(2, 2, 2)
+                                .addComponent(jLabel8)
+                                .addGap(2, 2, 2)
+                                .addComponent(jLabel9))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(lblfecha)
+                                .addGap(0, 0, 0)
+                                .addComponent(lblturnos)
+                                .addGap(0, 0, 0)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(lblempleado)
+                                        .addGap(0, 0, 0)
+                                        .addComponent(lblestado))
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(cboinformes, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btnconsultas, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlBotones, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnlBotones, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jpmenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
 
-        getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
+        getContentPane().add(jPanel2, java.awt.BorderLayout.PAGE_START);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -719,7 +715,7 @@ public final class Jmenuhotel extends javax.swing.JInternalFrame {
 
         if (salidaFormulario == null || !salidaFormulario.isVisible()) {
             // Si no está abierto, crea una nueva instancia o usa el Singleton
-            salidaFormulario = Jsalidahuesped.getInstance(); // Usando Singleton
+           Jsalidahuesped salidaFormulario = new Jsalidahuesped(); // Usando Singleton
             salidaFormulario.setVisible(true);
         } else {
             // Si ya está abierto, enfócalo
@@ -736,7 +732,7 @@ public final class Jmenuhotel extends javax.swing.JInternalFrame {
 
         if (clienteFormulario == null || !clienteFormulario.isVisible()) {
             // Si no está abierto, crea una nueva instancia o usa el Singleton
-            clienteFormulario = Jcliente.getInstance(); // Usando Singleton
+             Jcliente clienteFormulario = new Jcliente(); // Usando Singleton
             clienteFormulario.setVisible(true);
         } else {
             // Si ya está abierto, enfócalo
@@ -751,7 +747,7 @@ public final class Jmenuhotel extends javax.swing.JInternalFrame {
 
         if (reservaFormulario == null || !reservaFormulario.isVisible()) {
             // Si no está abierto, crea una nueva instancia o usa el Singleton
-            reservaFormulario = Jmanejoreservas.getInstance(); // Usando Singleton
+             Jmanejoreservas reservaFormulario = new Jmanejoreservas(); // Usando Singleton
             reservaFormulario.setVisible(true);
         } else {
             // Si ya está abierto, enfócalo
@@ -769,7 +765,7 @@ public final class Jmenuhotel extends javax.swing.JInternalFrame {
 
         if (ingresoFormulario == null || !ingresoFormulario.isVisible()) {
             // Si no está abierto, crea una nueva instancia o usa el Singleton
-            ingresoFormulario = Jingreso.getInstance(); // Usando Singleton
+             Jingreso ingresoFormulario = new Jingreso(); // Usando Singleton
             ingresoFormulario.setVisible(true);
         } else {
             // Si ya está abierto, enfócalo
@@ -787,7 +783,7 @@ public final class Jmenuhotel extends javax.swing.JInternalFrame {
 
         if (abonoFormulario == null || !abonoFormulario.isVisible()) {
             // Si no está abierto, crea una nueva instancia o usa el Singleton
-            abonoFormulario = Jabono.getInstance(); // Usando Singleton
+             Jabono abonoFormulario = new Jabono(); // Usando Singleton
             abonoFormulario.setVisible(true);
         } else {
             // Si ya está abierto, enfócalo
@@ -802,7 +798,7 @@ public final class Jmenuhotel extends javax.swing.JInternalFrame {
 
         if (esperaFormulario == null || !esperaFormulario.isVisible()) {
             // Si no está abierto, crea una nueva instancia o usa el Singleton
-            esperaFormulario = Jlistaespera.getInstance(); // Usando Singleton
+             Jlistaespera esperaFormulario = new Jlistaespera(); // Usando Singleton
             esperaFormulario.setVisible(true);
         } else {
             // Si ya está abierto, enfócalo
@@ -858,7 +854,7 @@ public final class Jmenuhotel extends javax.swing.JInternalFrame {
 
         if (limpiezaFormulario == null || !limpiezaFormulario.isVisible()) {
             // Si no está abierto, crea una nueva instancia o usa el Singleton
-            limpiezaFormulario = Jlimpieza.getInstance(); // Usando Singleton
+             Jlimpieza limpiezaFormulario = new Jlimpieza(); // Usando Singleton
             limpiezaFormulario.setVisible(true);
         } else {
             // Si ya está abierto, enfócalo
@@ -886,10 +882,10 @@ public final class Jmenuhotel extends javax.swing.JInternalFrame {
                 frameSalida.toFront();
                 frameSalida.setVisible(true);
 
-            } else if (selectedItem.equals("Ingresos")) {
-//                Jvistaingreso frameingreso = new Jvistaingreso();
-//                frameingreso.toFront();
-//                frameingreso.setVisible(true);
+            } else if (selectedItem.equals("Ingreso")) {
+                Jvistaingreso frameingreso = new Jvistaingreso();
+                frameingreso.toFront();
+                frameingreso.setVisible(true);
 
             } else if (selectedItem.equals("Reservas")) {
                 Jvistareservas framereservas = new Jvistareservas();
@@ -898,6 +894,11 @@ public final class Jmenuhotel extends javax.swing.JInternalFrame {
 
             } else if (selectedItem.equals("Abonos")) {
                 JVistaAbonos form = new JVistaAbonos();
+                form.toFront();
+                form.setVisible(true);
+
+            }else if (selectedItem.equals("Habitaciones Ocupadas")) {
+                JvistaHbitacionesOcupadas form = new JvistaHbitacionesOcupadas();
                 form.toFront();
                 form.setVisible(true);
 
@@ -933,12 +934,6 @@ public final class Jmenuhotel extends javax.swing.JInternalFrame {
     private void jToggleButton39ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton39ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jToggleButton39ActionPerformed
-
-    private void btnsalidaAcompañanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsalidaAcompañanteActionPerformed
-        Jsalidaacompañante salida = new Jsalidaacompañante();
-        salida.toFront();
-        salida.setVisible(true);
-    }//GEN-LAST:event_btnsalidaAcompañanteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -990,15 +985,15 @@ public final class Jmenuhotel extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnpagos;
     private javax.swing.JButton btnregistro;
     private javax.swing.JButton btnreservas;
-    private javax.swing.JButton btnsalidaAcompañante;
     private javax.swing.JButton btnsalidahuesped;
     private javax.swing.JComboBox<String> cboinformes;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;

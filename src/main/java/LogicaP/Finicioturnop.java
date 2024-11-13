@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 public class Finicioturnop {
     
      private final Cconexionp mysql = new Cconexionp();
-    private final Connection cn = mysql.establecerConexion();
+    private final Connection cn = mysql.establecerConexionp();
     private String sSQL = "";
     
 
@@ -27,9 +27,9 @@ public class Finicioturnop {
     }
     
    public boolean insertar(Dinicioturnop dts) {
-    sSQL = "INSERT INTO inicioturno (fecha_hora_inicio, turno, numero_turno, estado, empleado) VALUES (?,?,?,?,?)";
+    sSQL = "INSERT INTO inicio_turno (fecha_inicio, turno, numero_turno, estado, empleado) VALUES (?,?,?,?,?)";
     try (PreparedStatement pst = cn.prepareStatement(sSQL)) {
-        pst.setString(1, dts.getFecha_hora_inicio());
+        pst.setString(1, dts.getFecha_inicio());
         pst.setString(2, dts.getTurno());
         pst.setInt(3, dts.getNumero_turno());
         pst.setString(4, dts.getEstado());
@@ -46,7 +46,7 @@ public class Finicioturnop {
 
    public int generarNumeroTurno() {
     String serie = "";
-    sSQL = "SELECT MAX(numero_turno) FROM inicioturno";
+    sSQL = "SELECT MAX(numero_turno) FROM inicio_turno";
     try (PreparedStatement pst = cn.prepareStatement(sSQL);
          ResultSet rs = pst.executeQuery()) {
         if (rs.next()) {
@@ -63,7 +63,7 @@ public class Finicioturnop {
 
 
     public boolean finalizarturno(Dinicioturnop dts) {
-        sSQL = "update inicioturno set estado='Finalizado'"
+        sSQL = "update inicio_turno set estado='Finalizado'"
                 + " where numero_turno=?";
 
 
@@ -83,7 +83,7 @@ public class Finicioturnop {
     }
 
     public boolean hayTurnoActivo() {
-        String sSQL = "SELECT COUNT(*) AS total FROM inicioturno WHERE estado = 'Activo'";
+      sSQL = "SELECT COUNT(*) AS total FROM inicio_turno WHERE estado = 'Activo'";
         try {
             PreparedStatement pst = cn.prepareStatement(sSQL);
             ResultSet rs = pst.executeQuery();
@@ -98,7 +98,7 @@ public class Finicioturnop {
     }
 
     public boolean llenarcboempleado() {
-        String sSQL = "select idpersona from empleado where idpersona = ?";
+        sSQL = "select idempleado from empleado where idempleado = ?";
         try {
             PreparedStatement pst = cn.prepareStatement(sSQL);
             ResultSet rs = pst.executeQuery();
@@ -113,7 +113,7 @@ public class Finicioturnop {
     }
     
     public boolean asignardatos() {
-        String sSQL = "select idinicioturno from inicioturno where numero_turno = ?";
+        sSQL = "select idturno from inicio_turno where numero_turno = ?";
         try {
             PreparedStatement pst = cn.prepareStatement(sSQL);
             ResultSet rs = pst.executeQuery();

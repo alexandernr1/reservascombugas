@@ -6,7 +6,7 @@ public class Dreserva {
 
     public int idreserva;
     public int idhabitacion;
-    public Date fechareserva;
+    public String fechareserva;
     public Date fechaingreso;
     public Date fechasalida;
     public String estado;
@@ -14,7 +14,7 @@ public class Dreserva {
     public int numpersonas;
     public String cliente;
     public int documento;
-    public int telefono;
+    public String telefono;
     public int numhabitacion;
     public int costoalojamiento;
     public String tipohabitacion;
@@ -22,12 +22,13 @@ public class Dreserva {
     public int idinicioturno;
     public int num_turno;
     public String turno;
+    public int idcliente;
     
 
     public Dreserva() {
     }
 
-    public Dreserva(int idreserva, int idhabitacion, Date fechareserva, Date fechaingreso, Date fechasalida, String estado, int numnoches, int numpersonas, String cliente, int documento, int telefono, int numhabitacion, int costoalojamiento, String tipohabitacion, String empleado, int idinicioturno, int num_turno, String turno) {
+    public Dreserva(int idreserva, int idhabitacion, String fechareserva, Date fechaingreso, Date fechasalida, String estado, int numnoches, int numpersonas, String cliente, int documento, String telefono, int numhabitacion, int costoalojamiento, String tipohabitacion, String empleado, int idinicioturno, int num_turno, String turno, int idcliente) {
         this.idreserva = idreserva;
         this.idhabitacion = idhabitacion;
         this.fechareserva = fechareserva;
@@ -46,7 +47,10 @@ public class Dreserva {
         this.idinicioturno = idinicioturno;
         this.num_turno = num_turno;
         this.turno = turno;
+        this.idcliente = idcliente;
     }
+
+    
 
    
 
@@ -66,11 +70,11 @@ public class Dreserva {
         this.idhabitacion = idhabitacion;
     }
 
-    public Date getFechareserva() {
+    public String getFechareserva() {
         return fechareserva;
     }
 
-    public void setFechareserva(Date fechareserva) {
+    public void setFechareserva(String fechareserva) {
         this.fechareserva = fechareserva;
     }
 
@@ -130,11 +134,11 @@ public class Dreserva {
         this.documento = documento;
     }
 
-    public int getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 
@@ -192,6 +196,14 @@ public class Dreserva {
 
     public void setTurno(String turno) {
         this.turno = turno;
+    }
+
+    public int getIdcliente() {
+        return idcliente;
+    }
+
+    public void setIdcliente(int idcliente) {
+        this.idcliente = idcliente;
     }
 
     

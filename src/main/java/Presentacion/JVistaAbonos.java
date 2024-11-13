@@ -5,6 +5,8 @@ import Logica.Fabonos;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.text.NumberFormat;
+import java.util.Locale;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -83,6 +85,7 @@ public class JVistaAbonos extends javax.swing.JFrame {
     }
 
     public void mostrar(String buscar, String turnoActivo) {
+        NumberFormat formatoMiles = NumberFormat.getNumberInstance(Locale.US);
        try {
         Fabonos func = new Fabonos();
         Object[] resultado = func.mostrarVistaAbono(buscar, turnoActivo);
@@ -96,11 +99,11 @@ public class JVistaAbonos extends javax.swing.JFrame {
         lbltotalregistros.setText("Total Pagos: " + Integer.toString(func.totalregistros));
         
         // Assuming you have JTextFields named txtTotalEfectivo, txtTotalTarjeta, txtTotalTransferencia
-        txtTotalEfectivo.setText(Integer.toString(totalEfectivo));
-        txtTotalTarjeta.setText(Integer.toString(totalTarjeta));
-        txtTotalTransferencia.setText(Integer.toString(totalTransferencia));
+        txtTotalEfectivo.setText(formatoMiles.format(totalEfectivo));
+        txtTotalTarjeta.setText(formatoMiles.format(totalTarjeta));
+        txtTotalTransferencia.setText(formatoMiles.format(totalTransferencia));
         int total = totalEfectivo + totalTarjeta +  totalTransferencia;
-        txtTotal.setText(Integer.toString(total));
+        txtTotal.setText(formatoMiles.format(total));
 
     } catch (Exception e) {
         JOptionPane.showConfirmDialog(rootPane, e);

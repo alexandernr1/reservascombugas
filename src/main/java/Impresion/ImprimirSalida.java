@@ -48,7 +48,7 @@ public class ImprimirSalida {
                 dts.setFechasalida(resultSet.getString("fechasalida"));
 //                dts.setTipocliente(resultSet.getString("tipocliente"));
                 dts.setValor_noches(resultSet.getInt("valor_noches"));
-                dts.setAbonos(resultSet.getShort("abonos"));
+                dts.setAbonos(resultSet.getInt("abonos"));
                 dts.setDescuentos(resultSet.getInt("descuentos"));
                 dts.setOtros_cobros(resultSet.getInt("otros_cobros"));
                 dts.setDeuda_anterior(resultSet.getInt("deuda_anterior"));
@@ -112,25 +112,25 @@ public class ImprimirSalida {
                     printer.printTextWrap(currentLine++, 3, 4, 80, "Deuda Anterior: $" + dts.getDeuda_anterior());
                 }
 
-                printer.printTextWrap(currentLine++, 3, 4, 80, "Subtotal: $" + dts.getSubtotal());
-                printer.printTextWrap(currentLine++, 3, 4, 80, "Antes de IVA: $" + dts.getAntesIVA());
-                printer.printTextWrap(currentLine++, 3, 4, 80, "IVA 19%: $" + dts.getIVA19());
+                printer.printTextWrap(20, 3, 4, 80, "Subtotal: $" + dts.getSubtotal());
+                printer.printTextWrap(21, 3, 4, 80, "Antes de IVA: $" + dts.getAntesIVA());
+                printer.printTextWrap(22, 3, 4, 80, "IVA 19%: $" + dts.getIVA19());
 
                 if (dts.getReten35() > 0) {
-                    printer.printTextWrap(currentLine++, 3, 4, 80, "Retención 3.5%: $" + dts.getReten35());
+                    printer.printTextWrap(23, 3, 4, 80, "Retención 3.5%: $" + dts.getReten35());
                 }
                 if (dts.getReten4() > 0) {
-                    printer.printTextWrap(currentLine++, 3, 4, 80, "Retención 4%: $" + dts.getReten4());
+                    printer.printTextWrap(24, 3, 4, 80, "Retención 4%: $" + dts.getReten4());
                 }
 
                 // Impresión del total y pagos
-                printer.printTextWrap(currentLine++, 3, 4, 80, "Total: $" + dts.getTotal());
-                printer.printTextWrap(currentLine++, 3, 4, 80, "Total a Pagar: $" + dts.getTotalpago());
+                printer.printTextWrap(25, 3, 4, 80, "Total: $" + dts.getTotal());
+                printer.printTextWrap(26, 3, 4, 80, "Total a Pagar: $" + dts.getTotalpago());
 
                 // Finalización del ticket
-                printer.printTextWrap(currentLine++, 3, 4, 80, "-----------------------------------");
-                printer.printTextWrap(currentLine++, 3, 4, 80, "Empleado: " + dts.getEmpleado());
-                printer.printTextWrap(currentLine++, 3, 4, 80, "-----------------------------------");
+                printer.printTextWrap(27, 3, 4, 80, "-----------------------------------");
+                printer.printTextWrap(28, 3, 4, 80, "Empleado: " + dts.getEmpleado());
+                printer.printTextWrap(29, 3, 4, 80, "-----------------------------------");
 
             }
 

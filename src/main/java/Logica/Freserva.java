@@ -19,8 +19,10 @@ public class Freserva {
     public DefaultTableModel mostrar(String buscar) {
         DefaultTableModel modelo;
 
-        String[] titulos = {"Idreserva", "Idhabitacion", "FechaReserva", "FechaIngreso", "FechaSalida", "Estado", "Numnoches", "Numpersonas", "cliente", "Documento", "Telefono", "Numero Hbit", "Costo", "Tipo", "Empleado"};
-        String[] registro = new String[15];
+        String[] titulos = {"Idreserva", "Idhabitacion", "FechaReserva",
+            "FechaIngreso", "FechaSalida", "Estado", "Numnoches", "Numpersonas",
+            "cliente", "Documento", "Telefono", "Numero Hbit", "Costo", "Tipo", "Empleado", "IDCliente"};
+        String[] registro = new String[16];
 
         totalregistros = 0;
         modelo = new DefaultTableModel(null, titulos);
@@ -47,6 +49,7 @@ public class Freserva {
                 registro[12] = rs.getString("costoalojamiento");
                 registro[13] = rs.getString("tipohabitacion");
                 registro[14] = rs.getString("empleado");
+                registro[15] = rs.getString("idcliente");
 
                 totalregistros = totalregistros + 1;
                 modelo.addRow(registro);
@@ -62,13 +65,13 @@ public class Freserva {
     }
 
     public boolean insertar(Dreserva dts) {
-        sSQL = "insert into reserva (idhabitacion,fechareserva,fechaingreso,fechasalida,estado,numnoches,numpersonas,cliente,documento,telefono,numhabitacion,costoalojamiento,tipohabitacion,empleado,idinicioturno,num_turno,turno)"
-                + "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        sSQL = "insert into reserva (idhabitacion,fechareserva,fechaingreso,fechasalida,estado,numnoches,numpersonas,cliente,documento,telefono,numhabitacion,costoalojamiento,tipohabitacion,empleado,idinicioturno,num_turno, turno, idcliente)"
+                + "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
 
             PreparedStatement pst = cn.prepareStatement(sSQL);
             pst.setInt(1, dts.getIdhabitacion());
-            pst.setDate(2, dts.getFechareserva());
+            pst.setString(2, dts.getFechareserva());
             pst.setDate(3, dts.getFechaingreso());
             pst.setDate(4, dts.getFechasalida());
             pst.setString(5, dts.getEstado());
@@ -76,7 +79,7 @@ public class Freserva {
             pst.setInt(7, dts.getNumpersonas());
             pst.setString(8, dts.getCliente());
             pst.setInt(9, dts.getDocumento());
-            pst.setInt(10, dts.getTelefono());
+            pst.setString(10, dts.getTelefono());
             pst.setInt(11, dts.getNumhabitacion());
             pst.setInt(12, dts.getCostoalojamiento());
             pst.setString(13, dts.getTipohabitacion());
@@ -84,7 +87,7 @@ public class Freserva {
             pst.setInt(15, dts.getIdinicioturno());
             pst.setInt(16, dts.getNum_turno());
             pst.setString(17, dts.getTurno());
-
+            pst.setInt(18, dts.getIdcliente());
 
             int n = pst.executeUpdate();
 
@@ -122,7 +125,7 @@ public class Freserva {
         try {
             PreparedStatement pst = cn.prepareStatement(sSQL);
             pst.setInt(1, dts.getIdhabitacion());
-            pst.setDate(2, dts.getFechareserva());
+            pst.setString(2, dts.getFechareserva());
             pst.setDate(3, dts.getFechaingreso());
             pst.setDate(4, dts.getFechasalida());
             pst.setString(5, dts.getEstado());
@@ -130,12 +133,12 @@ public class Freserva {
             pst.setInt(7, dts.getNumpersonas());
             pst.setString(8, dts.getCliente());
             pst.setInt(9, dts.getDocumento());
-            pst.setInt(10, dts.getTelefono());
+            pst.setString(10, dts.getTelefono());
             pst.setInt(11, dts.getNumhabitacion());
             pst.setInt(12, dts.getCostoalojamiento());
             pst.setString(13, dts.getTipohabitacion());
             pst.setString(14, dts.getEmpleado());
-             pst.setInt(15, dts.getIdinicioturno());
+            pst.setInt(15, dts.getIdinicioturno());
             pst.setInt(16, dts.getNum_turno());
             pst.setString(17, dts.getTurno());
 
@@ -151,4 +154,17 @@ public class Freserva {
         }
     }
 
+    public boolean CambiarEstado(Dreserva dts) {
+        sSQL = "UPDATE reserva SET estado='Anulada' WHERE numhabitacion=?";
+
+        try ( PreparedStatement pst = cn.prepareStatement(sSQL)) {
+            pst.setInt(1, dts.getNumhabitacion());
+
+            int n = pst.executeUpdate();
+            return n != 0;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al cambiar el estado a 'Anulada': " + e.getMessage());
+            return false;
+        }
+    }
 }

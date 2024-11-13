@@ -12,8 +12,10 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -47,7 +49,7 @@ public class Jsalidaturno extends javax.swing.JFrame {
 
     }
 
-   private void mostrarnumeroturno() {
+    private void mostrarnumeroturno() {
         Fsalida func = new Fsalida();
         Dinicioturno numeroturno = func.numeroturno();
 
@@ -671,15 +673,15 @@ public class Jsalidaturno extends javax.swing.JFrame {
         dts.setHabitaciones_ocupadas(Integer.parseInt(txthabitaciones_ocupadas.getText()));
         dts.setTotal_recibos(Integer.parseInt(txttotal_recibos.getText()));
         dts.setBase(Integer.parseInt(txtbase.getText()));
-        dts.setTarjetas(Integer.parseInt(txttarjeta.getText()));
-        dts.setEfectivo(Integer.parseInt(txtefectivo.getText()));
-        dts.setTransferencias(Integer.parseInt(txttransferencia.getText()));
-        dts.setTotalhabitaciones(Double.parseDouble(txttotalhabitaciones.getText()));
-        dts.setTotal_abonos(Integer.parseInt(txttotal_abonos.getText()));
-        dts.setOtros_ingresos(Integer.parseInt(txtotros_ingresos.getText()));
-        dts.setTotal_recaudo(Integer.parseInt(txttotal_recaudo.getText()));
-        dts.setEntrega_admon(Integer.parseInt(txtentrega_admon.getText()));
-        dts.setTotal_efectivo(Integer.parseInt(txttotal_efectivo.getText()));
+        dts.setTarjetas(Integer.parseInt(txttarjeta.getText().replace(",", "")));
+        dts.setEfectivo(Integer.parseInt(txtefectivo.getText().replace(",", "")));
+        dts.setTransferencias(Integer.parseInt(txttransferencia.getText().replace(",", "")));
+        dts.setTotalhabitaciones(Double.parseDouble(txttotalhabitaciones.getText().replace(",", "")));
+        dts.setTotal_abonos(Integer.parseInt(txttotal_abonos.getText().replace(",", "")));
+        dts.setOtros_ingresos(Integer.parseInt(txtotros_ingresos.getText().replace(",", "")));
+        dts.setTotal_recaudo(Integer.parseInt(txttotal_recaudo.getText().replace(",", "")));
+        dts.setEntrega_admon(Integer.parseInt(txtentrega_admon.getText().replace(",", "")));
+        dts.setTotal_efectivo(Integer.parseInt(txttotal_efectivo.getText().replace(",", "")));
         dts.setObservaciones(txtobservaciones.getText());
         dts.setNumero_turno(Integer.parseInt(txtnumero_turno.getText()));
 //        dts.setEstado((String) cboestado.getItemAt(seleccionado));
@@ -714,7 +716,7 @@ public class Jsalidaturno extends javax.swing.JFrame {
     }//GEN-LAST:event_cboestadoActionPerformed
 
     private void buscarnumeroturnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarnumeroturnoActionPerformed
-
+        NumberFormat formatoMiles = NumberFormat.getNumberInstance(Locale.US);
         try {
             Fsalidaturno func = new Fsalidaturno();
 
@@ -746,7 +748,7 @@ public class Jsalidaturno extends javax.swing.JFrame {
 
                 // Obtener precio de habitaciones ocupadas.
                 double preciohabitacionesocupadas = func.obtenerCostoTotalAlojamiento();
-                txttotalhabitaciones.setText(String.valueOf(preciohabitacionesocupadas));
+                txttotalhabitaciones.setText(formatoMiles.format(preciohabitacionesocupadas));
 
                 int numeroTurnoActualizado = func.numeroturno();
                 txtnumero_turno.setText(String.valueOf(numeroTurnoActualizado));
@@ -757,29 +759,29 @@ public class Jsalidaturno extends javax.swing.JFrame {
                 int numeroturno1 = Integer.parseInt(txtnumero_turno.getText());
                 int[] totalesMediosPago_pagos = func.totalmedio_pagos_pago(numeroturno1);
 
-               // Sumar los valores correspondientes de cada arreglo
+                // Sumar los valores correspondientes de cada arreglo
                 int totalEfectivo = totalesMediosPago[0] + totalesMediosPago_pagos[0];
                 int totalTarjeta = totalesMediosPago[1] + totalesMediosPago_pagos[1];
                 int totalTransferencia = totalesMediosPago[2] + totalesMediosPago_pagos[2];
 
                 // Asignar los valores sumados a los campos de texto
-                txtefectivo.setText(String.valueOf(totalEfectivo));
-                txttarjeta.setText(String.valueOf(totalTarjeta));
-                txttransferencia.setText(String.valueOf(totalTransferencia));
+                txtefectivo.setText(formatoMiles.format(totalEfectivo));
+                txttarjeta.setText(formatoMiles.format(totalTarjeta));
+                txttransferencia.setText(formatoMiles.format(totalTransferencia));
 
-                int entregaadmon = Integer.parseInt(txtefectivo.getText());
-                txtentrega_admon.setText(String.valueOf(entregaadmon));
+                int entregaadmon = Integer.parseInt(txtefectivo.getText().replace(",",""));
+                txtentrega_admon.setText(formatoMiles.format(entregaadmon));
 
                 int totalAbono = func.totalAbonos(numeroturno);
-                txttotal_abonos.setText(String.valueOf(totalAbono));
+                txttotal_abonos.setText(formatoMiles.format(totalAbono));
 
 //                        int otrosCobros = Integer.parseInt(txtotros_ingresos.getText());
                 int deuda_anterior = func.sumaDeudaAnterior(numeroturno);
-                txttotal_efectivo.setText(String.valueOf(deuda_anterior));
+                txttotal_efectivo.setText(formatoMiles.format(deuda_anterior));
 
 //                        int netorecaudado = func.sumatotales(numeroturno);
                 int totalrecaudo = totalEfectivo + totalTarjeta + totalTransferencia;
-                txttotal_recaudo.setText(String.valueOf(totalrecaudo));
+                txttotal_recaudo.setText(formatoMiles.format(totalrecaudo));
 
                 int idEmpleado = rs.getInt("idinicioturno");
                 String empleado1 = func.Consultaempleado(idEmpleado);

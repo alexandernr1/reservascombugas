@@ -2,8 +2,14 @@ package Presentacion;
 
 import javax.swing.JFrame;
 import Logica.Fempleado;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 public final class Jvistaempleado extends javax.swing.JFrame {
 
@@ -13,7 +19,49 @@ public final class Jvistaempleado extends javax.swing.JFrame {
         setTitle("REGISTRO DE EMPLEADOS");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         mostrar("");
+        configurarTabla();
     }
+    
+     private void configurarTabla() {
+    // Aquí configuras el comportamiento y el estilo de la tabla
+    tablalistado.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS); 
+    tablalistado.setRowHeight(25); // Ajusta la altura de las filas
+    tablalistado.setRowMargin(5); // Espacio entre filas
+    
+       // Cambiar color del encabezado usando un renderer personalizado
+        JTableHeader header = tablalistado.getTableHeader();
+        header.setDefaultRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                Component cell = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                cell.setBackground(new Color(135, 206, 235)); 
+                cell.setForeground(Color.WHITE); // Texto blanco para encabezado
+                cell.setFont(new Font("SansSerif", Font.BOLD, 14)); // Fuente personalizada
+                return cell;
+            }
+        });
+
+        // Establecer colores alternos en las filas
+        tablalistado.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                Component cell = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+                // Color de las filas alternas
+                if (!isSelected) {
+                    if (row % 2 == 0) {
+                        cell.setBackground(Color.LIGHT_GRAY); // Filas pares
+                    } else {
+                        cell.setBackground(Color.WHITE); // Filas impares
+                    }
+                } else {
+                    cell.setBackground(Color.CYAN); // Color para fila seleccionada
+                }
+
+                return cell;
+            }
+        });
+}
 
     void ocultar_columnas() {
         tablalistado.getColumnModel().getColumn(0).setMaxWidth(0);

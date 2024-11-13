@@ -6,19 +6,19 @@ import PresentacionP.Jmenuparqueadero;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.sql.Connection;
-import javax.swing.JFrame;
 
 public class Jmenuprin extends javax.swing.JFrame {
+    
 
     public static Boolean sesionIniciada = false;
     private LoguinDeAdmin Javanzado;
-    private Jmenuhotel menuhotel;
+   
 
     public Jmenuprin() {
 
         initComponents();
         setLocationRelativeTo(null);
-        setTitle("SISTEMA SIHOMULTISERV");
+//        setTitle("SISTEMA SIHOMULTISERV");
 
         setLocationRelativeTo(this);
         inhabilitar();
@@ -45,6 +45,7 @@ public class Jmenuprin extends javax.swing.JFrame {
         lblacceso = new javax.swing.JLabel();
         lblidpersona = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu3 = new javax.swing.JMenu();
         jMenu1 = new javax.swing.JMenu();
         btnhotel = new javax.swing.JMenuItem();
         btnparqueadero = new javax.swing.JMenuItem();
@@ -71,12 +72,15 @@ public class Jmenuprin extends javax.swing.JFrame {
         lblidpersona.setText("idpersona");
         escritorio.add(lblidpersona, java.awt.BorderLayout.LINE_START);
 
+        getContentPane().add(escritorio, java.awt.BorderLayout.CENTER);
+
         jMenuBar1.setBackground(new java.awt.Color(0, 204, 204));
         jMenuBar1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jMenuBar1.add(jMenu3);
 
         jMenu1.setBackground(new java.awt.Color(0, 204, 204));
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Inicio.png"))); // NOI18N
-        jMenu1.setText("MENU RPINCIPAL");
+        jMenu1.setText("MENU PRINCIPAL");
 
         btnhotel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/hotel.png"))); // NOI18N
         btnhotel.setText("HOTEL");
@@ -107,7 +111,7 @@ public class Jmenuprin extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Configuraciones.png"))); // NOI18N
-        jMenu2.setText("COMFIGURACION");
+        jMenu2.setText("CONFIGURACIÓN");
 
         jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/datosmaestros.png"))); // NOI18N
         jMenuItem5.setText("DATOS MESTROS");
@@ -125,21 +129,6 @@ public class Jmenuprin extends javax.swing.JFrame {
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(escritorio, javax.swing.GroupLayout.DEFAULT_SIZE, 1069, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(escritorio, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
-                .addContainerGap())
-        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -179,7 +168,7 @@ public class Jmenuprin extends javax.swing.JFrame {
 
     // Conectar a la base de datos del parquedero
     Cconexionp conexionParquedero = new Cconexionp();
-    Connection conParquedero = conexionParquedero.establecerConexion();
+    Connection conParquedero = conexionParquedero.establecerConexionp();
     
     if (conParquedero != null) {
         System.out.println("Conectado a la base de datos del parquedero");
@@ -204,6 +193,7 @@ public class Jmenuprin extends javax.swing.JFrame {
     private javax.swing.JPanel escritorio;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;

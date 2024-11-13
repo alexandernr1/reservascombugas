@@ -5,28 +5,29 @@
                CARTAGENA        
         DG 31D N.32A-25B.TERNERA
     -----------------------------------
-    Fecha Ingreso: 04-10-2024 02:47 PM
-    Fecha Salida: 04-10-2024 03:58 PM
-    Turno: 89                   
-    Numero Habitacion: 311      
-    Numero Noches: 1            
-    Costo Alojamiento: $90000   
+    Fecha Hora Inicio: 03-10-2024 03:42 PM
+    Fecha Hora Salida: 12-11-2024 03:37 PM
+                                
+                                
     -----------------------------------
-    Cliente: FABIAN HUMBERTO SALAMANCA JIMENEZ
-    Razon Social: SALAMANCA JIMENEZ FABIAN HUMBERTO
-    NIT/C.C: 1049626361         
-    Correo: INGSALAMANCAJIMENEZ@GMAIL.COM
+    Total Recaudo: 17691000     
     -----------------------------------
-    Concepto: Hospedaje         
-    Deuda Anterior: $1440000    
-    Subtotal: $0                
-    Antes de IVA: $0            
-    IVA 19%: $0                 
-    Total: $90000               
-    Total a Pagar: $0           
-    -----------------------------------
-    Empleado: alexander nieves romero
+          Detalle del recaudado 
     -----------------------------------
                                 
+    Tarjetas: 3942400           
+    Efectivo: 9876200           
+    Transferencias: 3872400     
+                                
+    Total Abonos: 70000         
+    Otros Ingresos: 0           
+    Total cambio habitaciones: 0
+    Efectivo Liquido: 9876200   
+    Observaciones:              
+    -----------------------------------
+    Empleado: alexander nieves romero
+    Turno: Turno 1 12/11/2024   
+    Numero Turno: 89            
+    -----------------------------------
                                 
 VAVA

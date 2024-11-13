@@ -6,8 +6,8 @@ public class Dempleadop {
     public String nombres;
     public String apellidos;
     public String tipodocumento;
-    public int documento;
-    public int telefono;
+    public String documento;
+    public String telefono;
     public String direccion;
     public String email;
     public String pais;
@@ -22,7 +22,7 @@ public class Dempleadop {
     public Dempleadop() {
     }
 
-    public Dempleadop(int idempleado, String nombres, String apellidos, String tipodocumento, int documento, int telefono, String direccion, String email, String pais, String ciudad, String acceso, String login, String password, String estado, String eps, String arl) {
+    public Dempleadop(int idempleado, String nombres, String apellidos, String tipodocumento, String documento, String telefono, String direccion, String email, String pais, String ciudad, String acceso, String login, String password, String estado, String eps, String arl) {
         this.idempleado = idempleado;
         this.nombres = nombres;
         this.apellidos = apellidos;
@@ -92,19 +92,19 @@ public class Dempleadop {
         this.tipodocumento = tipodocumento;
     }
 
-    public int getDocumento() {
+    public String getDocumento() {
         return documento;
     }
 
-    public void setDocumento(int documento) {
+    public void setDocumento(String documento) {
         this.documento = documento;
     }
 
-    public int getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 

@@ -5,6 +5,8 @@ import Logica.Fsalida;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.text.NumberFormat;
+import java.util.Locale;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -140,6 +142,7 @@ public final class Jvistasalida extends javax.swing.JFrame {
     }
 
     void mostrar1(String buscar, String turnoActivo) {
+        NumberFormat formatoMiles = NumberFormat.getNumberInstance(Locale.US);
         try {
 
             Fsalida func = new Fsalida();
@@ -153,11 +156,11 @@ public final class Jvistasalida extends javax.swing.JFrame {
             ocultar_columnas();
             lbltotalregistro.setText("Total Registros " + Integer.toString(func.totalregistros));
 
-            txtTotalEfectivo.setText(Integer.toString(totalEfectivo));
-            txtTotalTarjeta.setText(Integer.toString(totalTarjeta));
-            txtTotalTransferencia.setText(Integer.toString(totalTransferencia));
+            txtTotalEfectivo.setText(formatoMiles.format(totalEfectivo));
+            txtTotalTarjeta.setText(formatoMiles.format(totalTarjeta));
+            txtTotalTransferencia.setText(formatoMiles.format(totalTransferencia));
             int total = totalEfectivo + totalTarjeta + totalTransferencia;
-            txtTotal.setText(Integer.toString(total));
+            txtTotal.setText(formatoMiles.format(total));
 
         } catch (Exception e) {
             JOptionPane.showConfirmDialog(rootPane, e);

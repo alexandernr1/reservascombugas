@@ -17,12 +17,12 @@ public class Cconexionp {
     
     String cadena = "jdbc:mysql://"+ip+":"+puerto+"/"+bd;
     
-    public Connection establecerConexion(){
+    public Connection establecerConexionp(){
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             conectar=DriverManager.getConnection(cadena, user, pass);
            
-            JOptionPane.showMessageDialog(null, "se conecto a la base de datos correctamente");
+//            JOptionPane.showMessageDialog(null, "se conecto a la base de datos correctamente");
             
             
         } catch (ClassNotFoundException | SQLException e) {

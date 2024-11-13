@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Fhabitacion {
 
@@ -161,22 +163,26 @@ public class Fhabitacion {
         Runnable reservaUpdater = () -> {
             while (true) {
                 try {
-                    // Consulta para obtener reservas cuya fecha es hoy (fechareserva o fechaingreso)
-                    sSQL = "SELECT idhabitacion, fechareserva, fechaingreso "
+                    // Consulta para obtener reservas cuya fecha de ingreso es hoy
+                    sSQL = "SELECT idhabitacion, fechaingreso "
                             + "FROM reserva1.reserva "
-                            + "WHERE DATE(fechareserva) = CURDATE() OR DATE(fechaingreso) = CURDATE()";
+                            + "WHERE fechaingreso = CURDATE()";
 
                     try ( PreparedStatement pst = cn.prepareStatement(sSQL);  ResultSet rs = pst.executeQuery()) {
 
                         while (rs.next()) {
                             int idhabitacion = rs.getInt("idhabitacion");
-                            String fechaIngreso = rs.getString("fechaingreso");
+                            // Obtener fechaingreso directamente como Date
+                            LocalDate fechaIngresoDate = rs.getDate("fechaingreso").toLocalDate();
+                            LocalDate fechaActual = LocalDate.now();
 
-                            // Lógica adicional para verificar si ya pasó la fecha de ingreso
-                            if (fechaIngreso.equals("CURDATE()")) {
-                                actualizarEstadoHabitacion(idhabitacion, "Ocupado");
-                            } else {
+                            // Comparar la fecha de ingreso con la fecha actual
+                            if (fechaIngresoDate.isEqual(fechaActual)) {
                                 actualizarEstadoHabitacion(idhabitacion, "Reserva");
+                            } else if (fechaIngresoDate.isBefore(fechaActual)) {
+                                actualizarEstadoHabitacion(idhabitacion, "Disponible");
+                            } else if (fechaIngresoDate.isAfter(fechaActual)) {
+                                actualizarEstadoHabitacion(idhabitacion, "Disponible");
                             }
                         }
                     } catch (SQLException e) {

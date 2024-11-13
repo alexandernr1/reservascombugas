@@ -1,12 +1,17 @@
 
 package PresentacionP;
 
+import javax.swing.JFrame;
+
 
 public class Jpagop extends javax.swing.JFrame {
 
     private static Jpagop instance;
     public Jpagop() {
         initComponents();
+        setLocationRelativeTo(null);
+        setTitle("INGRESO DE HUESPED");
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
  public static Jpagop getInstance() {
         if (instance == null) {

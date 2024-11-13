@@ -4,10 +4,14 @@ import java.sql.Date;
 import Datos.Dhabitacion;
 import Datos.Dinicioturno;
 import Datos.Dreserva;
+import Datos.Tiempopro;
 import Logica.Cconexion;
 import Logica.Fhabitacion;
 import Logica.Freserva;
 import Logica.Fsalida;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
 import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
@@ -16,17 +20,23 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 public final class Jmanejoreservas extends javax.swing.JFrame {
 
     PreparedStatement pst;
     ResultSet rs;
     private static Jmanejoreservas instance;
+    Tiempopro time = new Tiempopro();
 
     public Jmanejoreservas() {
 
@@ -37,7 +47,37 @@ public final class Jmanejoreservas extends javax.swing.JFrame {
         mostrar("");
         inhabilitar();
         agregarWindowFocusListener();
+        mostrarTiempo();
+        configurarTabla();
+        AutoCompleteDecoreitor();
 
+    }
+
+    private void AutoCompleteDecoreitor() {
+        if (txtcliente != null) {
+            // Lista de autocompletado para `txtcliente`
+            List<String> clientes = obtenerListaClientes(); // Método que obtiene los nombres y apellidos
+            AutoCompleteDecorator.decorate(txtcliente, clientes, false);
+        }
+    }
+
+    private List<String> obtenerListaClientes() {
+        List<String> listaClientes = new ArrayList<>();
+        Cconexion conexion = new Cconexion();
+        try {
+            // Realiza la consulta para obtener los nombres de clientes
+            Connection conectar = conexion.establecerConexion();
+            pst = conectar.prepareStatement("SELECT nombres, apellidos FROM cliente ");
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+                String nombreCompleto = rs.getString("nombres") + " " + rs.getString("apellidos");
+                listaClientes.add(nombreCompleto);
+            }
+        } catch (SQLException e) {
+        } finally {
+        }
+        return listaClientes;
     }
     private String accion = "guardar";
     public static int idusuario;
@@ -47,6 +87,11 @@ public final class Jmanejoreservas extends javax.swing.JFrame {
             instance = new Jmanejoreservas();
         }
         return instance;
+    }
+
+    public void mostrarTiempo() {
+
+        txtfechareserva.setText(time.getFechacomp());
     }
 
     public void limpiarTabla(JTable tablalistadoreserva) {
@@ -76,9 +121,49 @@ public final class Jmanejoreservas extends javax.swing.JFrame {
         });
     }
 
+    private void configurarTabla() {
+        // Aquí configuras el comportamiento y el estilo de la tabla
+        tablalistadoreserva.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tablalistadoreserva.setRowHeight(25); // Ajusta la altura de las filas
+        tablalistadoreserva.setRowMargin(5); // Espacio entre filas
+
+        // Cambiar color del encabezado usando un renderer personalizado
+        JTableHeader header = tablalistadoreserva.getTableHeader();
+        header.setDefaultRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                Component cell = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                cell.setBackground(new Color(135, 206, 235));
+                cell.setForeground(Color.WHITE); // Texto blanco para encabezado
+                cell.setFont(new Font("SansSerif", Font.BOLD, 14)); // Fuente personalizada
+                return cell;
+            }
+        });
+
+        // Establecer colores alternos en las filas
+        tablalistadoreserva.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                Component cell = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+                // Color de las filas alternas
+                if (!isSelected) {
+                    if (row % 2 == 0) {
+                        cell.setBackground(Color.LIGHT_GRAY); // Filas pares
+                    } else {
+                        cell.setBackground(Color.WHITE); // Filas impares
+                    }
+                } else {
+                    cell.setBackground(Color.CYAN); // Color para fila seleccionada
+                }
+
+                return cell;
+            }
+        });
+    }
+
     public void limpiarcajas() {
         cajanumero.setText(null);
-
         txtnumero.setText(null);
         txtnumnoches.setText(null);
         txtcostoalojamiento.setText(null);
@@ -86,7 +171,7 @@ public final class Jmanejoreservas extends javax.swing.JFrame {
         txtdocumento.setText(null);
         txtcliente.setText(null);
         txttelefono.setText(null);
-        dcfechareserva.setDate(null);
+        txtfechareserva.setText(null);
         dcfechaingreso.setDate(null);
         dcfechasalida.setDate(null);
         comestado.setSelectedItem(0);
@@ -99,6 +184,7 @@ public final class Jmanejoreservas extends javax.swing.JFrame {
         txtidhabitacion.setVisible(false);
         txtidinicioturno.setVisible(false);
         txtidreserva.setVisible(false);
+        txtidcliente.setVisible(false);
     }
 
     void ocultar_columnas() {
@@ -109,6 +195,10 @@ public final class Jmanejoreservas extends javax.swing.JFrame {
         tablalistadoreserva.getColumnModel().getColumn(1).setMaxWidth(0);
         tablalistadoreserva.getColumnModel().getColumn(1).setMinWidth(0);
         tablalistadoreserva.getColumnModel().getColumn(1).setPreferredWidth(0);
+
+        tablalistadoreserva.getColumnModel().getColumn(15).setMaxWidth(0);
+        tablalistadoreserva.getColumnModel().getColumn(15).setMinWidth(0);
+        tablalistadoreserva.getColumnModel().getColumn(15).setPreferredWidth(0);
 
     }
 
@@ -160,11 +250,11 @@ public final class Jmanejoreservas extends javax.swing.JFrame {
         txtnumpersonas = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         comestado = new javax.swing.JComboBox<>();
-        dcfechareserva = new com.toedter.calendar.JDateChooser();
         dcfechaingreso = new com.toedter.calendar.JDateChooser();
         dcfechasalida = new com.toedter.calendar.JDateChooser();
         txtnumnoches = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
+        txtfechareserva = new javax.swing.JTextField();
         txtempleado = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
         txtidreserva = new javax.swing.JTextField();
@@ -181,6 +271,7 @@ public final class Jmanejoreservas extends javax.swing.JFrame {
         txtnum_turno = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         txtidinicioturno = new javax.swing.JTextField();
+        txtidcliente = new javax.swing.JTextField();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -241,6 +332,8 @@ public final class Jmanejoreservas extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel9.setText("Buscar Habit:");
 
+        txttipohabitacion.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -292,6 +385,11 @@ public final class Jmanejoreservas extends javax.swing.JFrame {
                 txtclienteActionPerformed(evt);
             }
         });
+        txtcliente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtclienteKeyPressed(evt);
+            }
+        });
 
         jLabel18.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel18.setText("Cliente:");
@@ -313,6 +411,11 @@ public final class Jmanejoreservas extends javax.swing.JFrame {
         txttelefono.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txttelefonoActionPerformed(evt);
+            }
+        });
+        txttelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txttelefonoKeyPressed(evt);
             }
         });
 
@@ -402,8 +505,6 @@ public final class Jmanejoreservas extends javax.swing.JFrame {
         comestado.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         comestado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Activa", "Anulada" }));
 
-        dcfechareserva.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-
         dcfechaingreso.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
         dcfechasalida.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -412,6 +513,9 @@ public final class Jmanejoreservas extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel4.setText("N° Noches:");
+
+        txtfechareserva.setEditable(false);
+        txtfechareserva.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
 
         javax.swing.GroupLayout JpnreservaLayout = new javax.swing.GroupLayout(Jpnreserva);
         Jpnreserva.setLayout(JpnreservaLayout);
@@ -426,8 +530,8 @@ public final class Jmanejoreservas extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(JpnreservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(dcfechaingreso, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
-                    .addComponent(dcfechareserva, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(dcfechasalida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(dcfechasalida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtfechareserva))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(JpnreservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -451,9 +555,11 @@ public final class Jmanejoreservas extends javax.swing.JFrame {
                             .addGroup(JpnreservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(comestado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel10))
-                            .addGroup(JpnreservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(dcfechareserva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel2)))
+                            .addGroup(JpnreservaLayout.createSequentialGroup()
+                                .addGap(2, 2, 2)
+                                .addGroup(JpnreservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel2)
+                                    .addComponent(txtfechareserva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(JpnreservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(dcfechaingreso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -590,6 +696,8 @@ public final class Jmanejoreservas extends javax.swing.JFrame {
 
         txtidinicioturno.setText("IDIT");
 
+        txtidcliente.setText("IDCL");
+
         jlnuevo.setLayer(jPanel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jlnuevo.setLayer(jPanel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jlnuevo.setLayer(btnguardar, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -604,6 +712,7 @@ public final class Jmanejoreservas extends javax.swing.JFrame {
         jlnuevo.setLayer(txtnum_turno, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jlnuevo.setLayer(jLabel12, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jlnuevo.setLayer(txtidinicioturno, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jlnuevo.setLayer(txtidcliente, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jlnuevoLayout = new javax.swing.GroupLayout(jlnuevo);
         jlnuevo.setLayout(jlnuevoLayout);
@@ -626,9 +735,13 @@ public final class Jmanejoreservas extends javax.swing.JFrame {
                                     .addComponent(jLabel12)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addGroup(jlnuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(lbturno, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtnum_turno, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(24, 24, 24))
+                                        .addGroup(jlnuevoLayout.createSequentialGroup()
+                                            .addComponent(txtnum_turno, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(24, 24, 24))
+                                        .addGroup(jlnuevoLayout.createSequentialGroup()
+                                            .addComponent(lbturno, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(txtidcliente, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jlnuevoLayout.createSequentialGroup()
                                     .addComponent(jLabel19)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -670,7 +783,8 @@ public final class Jmanejoreservas extends javax.swing.JFrame {
                             .addGroup(jlnuevoLayout.createSequentialGroup()
                                 .addGroup(jlnuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(lbturno)
-                                    .addComponent(txtidinicioturno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtidinicioturno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtidcliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jlnuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(txtnum_turno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -735,11 +849,8 @@ public final class Jmanejoreservas extends javax.swing.JFrame {
 
         Calendar cal;
         int d, m, a;
-        cal = dcfechareserva.getCalendar();
-        d = cal.get(Calendar.DAY_OF_MONTH);
-        m = cal.get(Calendar.MONTH);
-        a = cal.get(Calendar.YEAR) - 1900;
-        dts.setFechareserva(new Date(a, m, d));
+
+        dts.setFechareserva(txtfechareserva.getText());
 
         cal = dcfechaingreso.getCalendar();
         d = cal.get(Calendar.DAY_OF_MONTH);
@@ -759,7 +870,7 @@ public final class Jmanejoreservas extends javax.swing.JFrame {
         dts.setNumpersonas(Integer.parseInt(txtnumpersonas.getText()));
         dts.setCliente(txtcliente.getText());
         dts.setDocumento(Integer.parseInt(txtdocumento.getText()));
-        dts.setTelefono(Integer.parseInt(txttelefono.getText()));
+        dts.setTelefono(txttelefono.getText());
         dts.setNumhabitacion(Integer.parseInt(txtnumero.getText()));
         dts.setCostoalojamiento(Integer.parseInt(txtcostoalojamiento.getText()));
 
@@ -768,6 +879,7 @@ public final class Jmanejoreservas extends javax.swing.JFrame {
         dts.setIdinicioturno(Integer.parseInt(txtidinicioturno.getText()));
         dts.setNum_turno(Integer.parseInt(txtnum_turno.getText()));
         dts.setTurno(lbturno.getText());
+        dts.setIdcliente(Integer.parseInt(txtidcliente.getText()));
 
         if (accion.equals("guardar")) {
             if (func.insertar(dts)) {
@@ -796,14 +908,14 @@ public final class Jmanejoreservas extends javax.swing.JFrame {
                 // Si el estado de la reserva es "Anulada"
                 if (estadoReserva.equals("Anulada")) {
                     Fhabitacion habitacion = new Fhabitacion();
-                    Dhabitacion dts1 = new Dhabitacion();      
-                    dts1.setIdhabitacion(Integer.parseInt(txtidhabitacion.getText()));                 
+                    Dhabitacion dts1 = new Dhabitacion();
+                    dts1.setIdhabitacion(Integer.parseInt(txtidhabitacion.getText()));
                     habitacion.disponible(dts1);
-                 
-                }else if (estadoReserva.equals("Activa")){
+
+                } else if (estadoReserva.equals("Activa")) {
                     Fhabitacion habitacion = new Fhabitacion();
-                    Dhabitacion dts1 = new Dhabitacion();      
-                    dts1.setIdhabitacion(Integer.parseInt(txtidhabitacion.getText()));                 
+                    Dhabitacion dts1 = new Dhabitacion();
+                    dts1.setIdhabitacion(Integer.parseInt(txtidhabitacion.getText()));
                     habitacion.EditarEstadoReserva(dts1);
                 }
             }
@@ -926,7 +1038,7 @@ public final class Jmanejoreservas extends javax.swing.JFrame {
 
         txtidreserva.setText(tablalistadoreserva.getValueAt(fila, 0).toString());
         txtidhabitacion.setText(tablalistadoreserva.getValueAt(fila, 1).toString());
-        dcfechareserva.setDate(Date.valueOf(tablalistadoreserva.getValueAt(fila, 2).toString()));
+        txtfechareserva.setText(tablalistadoreserva.getValueAt(fila, 2).toString());
         dcfechaingreso.setDate(Date.valueOf(tablalistadoreserva.getValueAt(fila, 3).toString()));
         dcfechasalida.setDate(Date.valueOf(tablalistadoreserva.getValueAt(fila, 4).toString()));
         comestado.setSelectedItem(tablalistadoreserva.getValueAt(fila, 5).toString());
@@ -939,12 +1051,78 @@ public final class Jmanejoreservas extends javax.swing.JFrame {
         txtcostoalojamiento.setText(tablalistadoreserva.getValueAt(fila, 12).toString());
         txttipohabitacion.setText(tablalistadoreserva.getValueAt(fila, 13).toString());
         txtempleado.setText(tablalistadoreserva.getValueAt(fila, 14).toString());
+        txtidcliente.setText(tablalistadoreserva.getValueAt(fila, 15).toString());
 
     }//GEN-LAST:event_tablalistadoreservaMouseClicked
 
     private void txtidreservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtidreservaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtidreservaActionPerformed
+
+    private void txtclienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtclienteKeyPressed
+
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            Cconexion conexion = new Cconexion();
+
+            try {
+                Connection conectar = conexion.establecerConexion();
+
+                // Preparar la consulta SQL para buscar el cliente por nombre completo (nombres + apellidos)
+                pst = conectar.prepareStatement("SELECT * FROM cliente WHERE CONCAT(nombres, ' ', apellidos) = ?");
+                pst.setString(1, txtcliente.getText()); // Aquí puedes obtener el valor del nombre completo desde un JTextField
+
+                rs = pst.executeQuery();
+
+                if (rs.next()) {
+                    txtidcliente.setText(String.valueOf(rs.getInt("idcliente")));
+                    txtcliente.setText(rs.getString("nombres") + " " + rs.getString("apellidos"));
+                    txttelefono.setText(rs.getString("telefono"));
+                    txtdocumento.setText(rs.getString("numdocumento"));
+                } else {
+                    // Mensaje si no se encuentra el cliente
+                    JOptionPane.showMessageDialog(null, "No se encontró el CLIENTE solicitado.");
+                }
+
+                conectar.close();
+
+            } catch (HeadlessException | SQLException ex) {
+                System.err.println("Error: " + ex);
+            }
+        }
+
+    }//GEN-LAST:event_txtclienteKeyPressed
+
+    private void txttelefonoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttelefonoKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            Cconexion conexion = new Cconexion();
+
+            try {
+                Connection conectar = conexion.establecerConexion();
+
+                // Preparar la consulta SQL para buscar el cliente por número de documento
+                pst = conectar.prepareStatement("SELECT * FROM cliente WHERE telefono=?");
+                pst.setString(1, txttelefono.getText()); // Aquí puedes obtener el valor del nombre desde un JTextField
+
+                rs = pst.executeQuery();
+
+                if (rs.next()) {
+
+                    txtcliente.setText(rs.getString("nombres") + " " + rs.getString("apellidos"));
+                    txttelefono.setText(rs.getString("telefono"));
+                    txtdocumento.setText(rs.getString("numdocumento"));
+                } else {
+                    // Mensaje si no se encuentra el cliente
+                    JOptionPane.showMessageDialog(null, "No se encontró el CLIENTE solicitado.");
+                }
+
+                conectar.close();
+
+            } catch (HeadlessException | SQLException ex) {
+                System.err.println("Error: " + ex);
+            }
+        }
+    }//GEN-LAST:event_txttelefonoKeyPressed
 
     /**
      * @param args the command line arguments
@@ -987,6 +1165,14 @@ public final class Jmanejoreservas extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
@@ -1003,7 +1189,6 @@ public final class Jmanejoreservas extends javax.swing.JFrame {
     private javax.swing.JTextField cajanumero;
     private javax.swing.JComboBox<String> comestado;
     private com.toedter.calendar.JDateChooser dcfechaingreso;
-    private com.toedter.calendar.JDateChooser dcfechareserva;
     private com.toedter.calendar.JDateChooser dcfechasalida;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel10;
@@ -1036,6 +1221,8 @@ public final class Jmanejoreservas extends javax.swing.JFrame {
     public static javax.swing.JTextField txtcostoalojamiento;
     public static javax.swing.JTextField txtdocumento;
     public static javax.swing.JTextField txtempleado;
+    private javax.swing.JTextField txtfechareserva;
+    private javax.swing.JTextField txtidcliente;
     public static javax.swing.JTextField txtidhabitacion;
     private javax.swing.JTextField txtidinicioturno;
     private javax.swing.JTextField txtidreserva;

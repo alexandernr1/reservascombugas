@@ -1,6 +1,8 @@
 
 package PresentacionP;
 
+import javax.swing.JFrame;
+
 
 public class Jsalidap extends javax.swing.JFrame {
 
@@ -8,6 +10,9 @@ public class Jsalidap extends javax.swing.JFrame {
     
     public Jsalidap() {
         initComponents();
+        setLocationRelativeTo(null);
+//        setTitle("INGRESO DE HUESPED");
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
   public static Jsalidap getInstance() {
         if (instance == null) {

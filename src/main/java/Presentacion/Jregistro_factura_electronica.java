@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 public class Jregistro_factura_electronica extends javax.swing.JFrame {
 
@@ -28,6 +29,7 @@ public class Jregistro_factura_electronica extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setTitle("REGISTRO FACTURACION ELECTRINOCA");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        AutoCompleteDecoreitor();
 
     }
     private String accion = "guardar";
@@ -37,6 +39,13 @@ public class Jregistro_factura_electronica extends javax.swing.JFrame {
             instance = new Jregistro_factura_electronica();
         }
         return instance;
+    }
+
+    private void AutoCompleteDecoreitor() {
+        AutoCompleteDecorator.decorate(cbodepartamento);
+        AutoCompleteDecorator.decorate(cbomunicipio);
+        AutoCompleteDecorator.decorate(cbotipo_documento);
+        AutoCompleteDecorator.decorate(cbotipo_persona);
     }
 
     void limpiarcajas() {
@@ -179,6 +188,7 @@ public class Jregistro_factura_electronica extends javax.swing.JFrame {
             }
         });
 
+        cbotipo_documento.setEditable(true);
         cbotipo_documento.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         cbotipo_documento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Cedula De Ciudadania", "Cedula De Extrageria", "NIT", "Pasaporte" }));
         cbotipo_documento.addActionListener(new java.awt.event.ActionListener() {
@@ -187,6 +197,7 @@ public class Jregistro_factura_electronica extends javax.swing.JFrame {
             }
         });
 
+        cbotipo_persona.setEditable(true);
         cbotipo_persona.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         cbotipo_persona.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Natural", "Juridica" }));
         cbotipo_persona.addActionListener(new java.awt.event.ActionListener() {
@@ -195,6 +206,7 @@ public class Jregistro_factura_electronica extends javax.swing.JFrame {
             }
         });
 
+        cbodepartamento.setEditable(true);
         cbodepartamento.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         cbodepartamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Antioquia", "Arauca", "Atlántico", "Bolívar ", "Boyacá", "Caldas", "Caquetá", "Casanare", "Cauca", "Cesar", "Chocó", "Córdoba", "Cundinamarca", "Guainía", "Guaviare", "Huila", "La Guajira", "Magdalena", "Meta", "Nariño", "Norte de Santander", "Putumayo", "Quindío", "Risaralda", "San Andrés y Providencia", "Santander", "Sucre", "Tolima", "Valle del Cauca", "Vaupés", "Vichada" }));
         cbodepartamento.addActionListener(new java.awt.event.ActionListener() {
@@ -203,6 +215,7 @@ public class Jregistro_factura_electronica extends javax.swing.JFrame {
             }
         });
 
+        cbomunicipio.setEditable(true);
         cbomunicipio.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         cbomunicipio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Medellín", " Arauca", " Barranquilla", " Cartagena", " Tunja", " Manizales", " Florencia", " Yopal", " Popayán", " Valledupar", " Quibdó", " Montería", " Bogotá", " Puerto Inírida", " San José del Guaviare", " Neiva", " Riohacha", " Santa Marta", " Villavicencio", " Pasto", " Cúcuta", " Mocoa", " Armenia", " Pereira", " San Andrés", " Bucaramanga", " Sincelejo", " Ibagué", " Cali", "Mitú", "Puerto Carreño" }));
         cbomunicipio.addActionListener(new java.awt.event.ActionListener() {
@@ -570,13 +583,13 @@ public class Jregistro_factura_electronica extends javax.swing.JFrame {
             return;
         }
         if (txtidcliente.getText().length() == 0) {
-            JOptionPane.showConfirmDialog(rootPane, "Porfavor presione enter en el N° HUESPED PRINCIPAL 0 (BOTON DEBUSQUEDA)"+ 
-                    "para relacionar con el CLIENTE");
+            JOptionPane.showConfirmDialog(rootPane, "Porfavor presione enter en el N° HUESPED PRINCIPAL 0 (BOTON DEBUSQUEDA)"
+                    + "para relacionar con el CLIENTE");
             txtidcliente.requestFocus();
             return;
 
         }
-         if (txtdv.getText().length() == 0) {
+        if (txtdv.getText().length() == 0) {
             JOptionPane.showConfirmDialog(rootPane, "Porfavor ingrese el Digito de verificacion (D.V)");
             txtdv.requestFocus();
             return;
@@ -882,44 +895,44 @@ public class Jregistro_factura_electronica extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-         
-            Cconexion conexion = new Cconexion();
 
-            try {
-                Connection conectar = conexion.establecerConexion();
+        Cconexion conexion = new Cconexion();
 
-                // Primera consulta: obtener el idcliente basado en el numdocumento
-                PreparedStatement pst1 = conectar.prepareStatement("select idcliente from ingreso where documento = ? AND estado = 'Activo'");
-                pst1.setString(1, txtcajabuscar.getText());
+        try {
+            Connection conectar = conexion.establecerConexion();
 
-                ResultSet rs1 = pst1.executeQuery();
+            // Primera consulta: obtener el idcliente basado en el numdocumento
+            PreparedStatement pst1 = conectar.prepareStatement("select idcliente from ingreso where documento = ? AND estado = 'Activo'");
+            pst1.setString(1, txtcajabuscar.getText());
 
-                if (rs1.next()) {
-                    int idCliente = rs1.getInt("idcliente");
+            ResultSet rs1 = pst1.executeQuery();
 
-                    // Segunda consulta: obtener el num_habitacion basado en el idcliente
-                    PreparedStatement pst2 = conectar.prepareStatement("select num_habitacion from ingreso where idcliente=?  and estado = 'Activo'");
-                    pst2.setInt(1, idCliente);
+            if (rs1.next()) {
+                int idCliente = rs1.getInt("idcliente");
 
-                    ResultSet rs2 = pst2.executeQuery();
+                // Segunda consulta: obtener el num_habitacion basado en el idcliente
+                PreparedStatement pst2 = conectar.prepareStatement("select num_habitacion from ingreso where idcliente=?  and estado = 'Activo'");
+                pst2.setInt(1, idCliente);
 
-                    if (rs2.next()) {
-                        txtidcliente.setText(String.valueOf(idCliente));
+                ResultSet rs2 = pst2.executeQuery();
+
+                if (rs2.next()) {
+                    txtidcliente.setText(String.valueOf(idCliente));
 //                        txtnumero_habitacion.setText(rs2.getString("num_habitacion"));
 //                txtcliente.setText(rs1.getString("nombres") + " " + rs1.getString("apellidos"));
 
-                    } else {
-                        JOptionPane.showMessageDialog(null, "No se encontró la habitación para el CLIENTE solicitado");
-                    }
-
                 } else {
-                    JOptionPane.showMessageDialog(null, "No se encontró el CLIENTE solicitado");
+                    JOptionPane.showMessageDialog(null, "No se encontró la habitación para el CLIENTE solicitado");
                 }
 
-            } catch (Exception ex) {
-                System.err.println("Error: " + ex);
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró el CLIENTE solicitado");
             }
-        
+
+        } catch (Exception ex) {
+            System.err.println("Error: " + ex);
+        }
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

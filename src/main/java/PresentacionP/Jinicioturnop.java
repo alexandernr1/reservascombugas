@@ -31,18 +31,17 @@ public class Jinicioturnop extends javax.swing.JFrame {
     Tiempopro time = new Tiempopro();
     public Jinicioturnop() {
         initComponents();
-         initComponents();
         setLocationRelativeTo(null);
         this.setTitle("ACCESO AL SISTEMA");
         this.setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         mostrarTiempo();
-        fechacbo();
+        fechacbop();
 
         generarnumero();
-        llenarcboempleado1(cboempleados);
+        llenarcboempleado1p(cboempleados);
     }
-private void llenarcboempleado1(JComboBox combo) {
+private void llenarcboempleado1p(JComboBox combo) {
         Finicioturnop func = new Finicioturnop();
         DefaultComboBoxModel com = new DefaultComboBoxModel();
         combo.setModel(com);
@@ -50,19 +49,17 @@ private void llenarcboempleado1(JComboBox combo) {
         com.addElement("Seleccione un usuario");
 
         try {
-            Connection conectar = conexion.establecerConexion();
+            Connection conectar = conexion.establecerConexionp();
             st = conectar.createStatement();
-            rs = st.executeQuery("SELECT p.nombres, p.apellidos,p.numdocumento "
-                    + "FROM empleado e "
-                    + "JOIN persona p ON e.idpersona = p.idpersona "
-                    + "WHERE e.acceso = 'Empleado' ;");
+            rs = st.executeQuery("SELECT nombres, apellidos, documento FROM parqueadero_cbg.empleado "+
+                                 "WHERE acceso = 'Empleado'");
 
             while (rs.next()) {
 
                 Dempleadop empleado = new Dempleadop();
                 String nombres = rs.getString("nombres");
                 String apellidos = rs.getString("apellidos");
-                int documento = rs.getInt("numdocumento");
+                String documento = rs.getString("documento");
 
                 empleado.setNombres(nombres + " " + apellidos);
                 empleado.setDocumento(documento);
@@ -90,7 +87,7 @@ private void llenarcboempleado1(JComboBox combo) {
         txtnumero_turno.setText(numero);
     }
 
-    private void fechacbo() {
+    private void fechacbop() {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String fechaActual = LocalDate.now().format(formatter);
@@ -338,7 +335,7 @@ private void llenarcboempleado1(JComboBox combo) {
             Finicioturnop func1 = new Finicioturnop();
             Dinicioturnop dts1 = new Dinicioturnop();
 
-            dts1.setFecha_hora_inicio(txtfecha_hora_inicio.getText());
+            dts1.setFecha_inicio(txtfecha_hora_inicio.getText());
 
             int selecturno = cboturnos.getSelectedIndex();
             dts1.setTurno((String) cboturnos.getItemAt(selecturno));
@@ -420,7 +417,7 @@ private void llenarcboempleado1(JComboBox combo) {
         Finicioturnop func1 = new Finicioturnop();
         Dinicioturnop dts1 = new Dinicioturnop();
 
-        dts1.setFecha_hora_inicio(txtfecha_hora_inicio.getText());
+        dts1.setFecha_inicio(txtfecha_hora_inicio.getText());
 
         int selecturno = cboturnos.getSelectedIndex();
         dts1.setTurno((String) cboturnos.getItemAt(selecturno));

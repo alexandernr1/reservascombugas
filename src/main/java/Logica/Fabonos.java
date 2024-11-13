@@ -299,10 +299,10 @@ public class Fabonos {
             pst.setInt(29, dts.getTotalapagar());
             pst.setInt(30, dts.getValor_bruto());
             pst.setInt(31, dts.getAntesIVA());
-            pst.setInt(33, dts.getIdinicioturno());
-            pst.setString(34, dts.getTurno());
+            pst.setInt(32, dts.getIdinicioturno());
+            pst.setString(33, dts.getTurno());
 
-            pst.setInt(35, dts.getIdabono()); // Este es el parámetro para el WHERE
+            pst.setInt(34, dts.getIdabono()); // Este es el parámetro para el WHERE
 
             int n = pst.executeUpdate();
             return n != 0;
@@ -328,7 +328,7 @@ public class Fabonos {
 
     public int generarComprobante() {
         String serie = "";
-        sSQL = "SELECT MAX(numerocomprobante) FROM abono";
+        sSQL = "SELECT MAX(CAST(numerocomprobante AS UNSIGNED)) FROM abono WHERE numerocomprobante REGEXP '^[0-9]+$'";
 
         try {
             PreparedStatement pst = cn.prepareStatement(sSQL);

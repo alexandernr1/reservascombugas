@@ -22,6 +22,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.NumberFormat;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -46,7 +48,7 @@ public class Jabono extends javax.swing.JFrame {
         inhabilitar();
         mostrarTiempo();
         agregarWindowFocusListener();
-        generarnumeros();
+//        generarnumero();
         iniciosenceros();
         JcambioHabit cambio = new JcambioHabit();
         txtsaldo_anterior.setText(cambio.saldo);
@@ -74,30 +76,16 @@ public class Jabono extends javax.swing.JFrame {
         txtIVA_19.setText("0");
         txtreten_35.setText("0");
         txtreten4.setText("0");
-
         txtefectivo.setText("0");
         txttarjeta.setText("0");
         txttransferencia.setText("0");
+
     }
 
     public void generarnumero() {
         Fabonos func = new Fabonos();
         int numero = func.generarComprobante();
         txtnumcomprobante.setText(String.valueOf(numero));
-    }
-
-    private void generarnumeros() {
-        this.addWindowFocusListener(new WindowFocusListener() {
-            @Override
-            public void windowGainedFocus(WindowEvent e) {
-                generarnumero();  // Actualiza el número 
-            }
-
-            @Override
-            public void windowLostFocus(WindowEvent e) {
-                // No hacer nada cuando la ventana pierde el foco
-            }
-        });
     }
 
     private void mostrarTiempo() {
@@ -117,7 +105,8 @@ public class Jabono extends javax.swing.JFrame {
         this.addWindowFocusListener(new WindowFocusListener() {
             @Override
             public void windowGainedFocus(WindowEvent e) {
-                mostrarnumeroturno();  // Actualiza el número de turno cuando la ventana recibe el foco
+                mostrarnumeroturno();
+                generarnumero();// Actualiza el número de turno cuando la ventana recibe el foco
             }
 
             @Override
@@ -262,6 +251,8 @@ public class Jabono extends javax.swing.JFrame {
         cboprivilegiosadmon.setSelectedItem("Seleccionar");
         cboprivilegiosrecep.setSelectedItem("Seleccionar");
         txtotroscobros.setText("");
+        txtvalorbruto.setText("");
+        txtsubtotal.setText("");
     }
 
     private void inhabilitar() {
@@ -269,6 +260,7 @@ public class Jabono extends javax.swing.JFrame {
         txtidingreso.setVisible(false);
         txtidhabitacion.setVisible(false);
         txtidcliente.setVisible(false);
+        txtidinicioturno.setVisible(false);
 
     }
 
@@ -352,6 +344,10 @@ public class Jabono extends javax.swing.JFrame {
         jLabel30 = new javax.swing.JLabel();
         txtsaldo_anterior = new javax.swing.JTextField();
         jLabel31 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
+        cbotipocomprobante = new javax.swing.JComboBox<>();
+        jLabel29 = new javax.swing.JLabel();
+        txtnumcomprobante = new javax.swing.JTextField();
         cboprivilegiosadmon = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -368,16 +364,13 @@ public class Jabono extends javax.swing.JFrame {
         btnbuscar = new javax.swing.JButton();
         btneliminar = new javax.swing.JButton();
         lbltotalregistros = new javax.swing.JLabel();
-        jLabel28 = new javax.swing.JLabel();
-        cbotipocomprobante = new javax.swing.JComboBox<>();
-        jLabel29 = new javax.swing.JLabel();
-        txtnumcomprobante = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         txtnumero_turno = new javax.swing.JTextField();
         lbturno = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "DATOS HUESPED PRINCIPAL", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12))); // NOI18N
         jPanel1.setForeground(new java.awt.Color(204, 204, 204));
 
         txtcliente.setEditable(false);
@@ -522,6 +515,8 @@ public class Jabono extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "DATOS FACTURA ELECTRONICA", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12))); // NOI18N
+
         jLabel14.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel14.setText("NIT/C.C:");
 
@@ -592,6 +587,8 @@ public class Jabono extends javax.swing.JFrame {
                     .addComponent(txtemail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("ABONOS"));
 
         jLabel9.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel9.setText("Abono Habitación:");
@@ -795,6 +792,24 @@ public class Jabono extends javax.swing.JFrame {
         jLabel31.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel31.setText("saldo anterior:");
 
+        jLabel28.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel28.setText("Tipo Comp:");
+
+        cbotipocomprobante.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        cbotipocomprobante.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Recibo", "Factura", "Otros" }));
+
+        jLabel29.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel29.setText("N° Comp: ");
+
+        txtnumcomprobante.setEditable(false);
+        txtnumcomprobante.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        txtnumcomprobante.setText(" ");
+        txtnumcomprobante.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtnumcomprobanteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -810,30 +825,37 @@ public class Jabono extends javax.swing.JFrame {
                             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel22, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel31, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(jLabel31, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel28, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel29, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtvalordescuento, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
-                            .addComponent(txtsaldo_anterior)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(txtdescuentos, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
-                                        .addComponent(txtotroscobros)
-                                        .addComponent(txtvalorbruto)
-                                        .addComponent(txtabonohabitacion))
-                                    .addComponent(txtcostoalojamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel23, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel24, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel25, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel26, javax.swing.GroupLayout.Alignment.TRAILING)))
+                                    .addComponent(txtvalordescuento, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
+                                    .addComponent(txtsaldo_anterior)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(txtdescuentos, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
+                                            .addComponent(txtotroscobros)
+                                            .addComponent(txtvalorbruto)
+                                            .addComponent(txtabonohabitacion)
+                                            .addComponent(cbotipocomprobante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtcostoalojamiento))
+                                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel23, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel24, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel25, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel26, javax.swing.GroupLayout.Alignment.TRAILING)))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(txtnumcomprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel27)
@@ -879,7 +901,7 @@ public class Jabono extends javax.swing.JFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtIVA_19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton1))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel23)
@@ -926,8 +948,14 @@ public class Jabono extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
-                            .addComponent(txttotalapagar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(8, 8, 8))))
+                            .addComponent(txttotalapagar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel28)
+                            .addComponent(cbotipocomprobante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel29)
+                            .addComponent(txtnumcomprobante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
         );
 
         cboprivilegiosadmon.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -1035,24 +1063,6 @@ public class Jabono extends javax.swing.JFrame {
 
         lbltotalregistros.setText("Registros");
 
-        jLabel28.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel28.setText("Tipo Comp:");
-
-        cbotipocomprobante.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        cbotipocomprobante.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Recibo", "Factura", "Otros" }));
-
-        jLabel29.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel29.setText("N° Comp: ");
-
-        txtnumcomprobante.setEditable(false);
-        txtnumcomprobante.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        txtnumcomprobante.setText(" ");
-        txtnumcomprobante.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtnumcomprobanteActionPerformed(evt);
-            }
-        });
-
         jLabel13.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel13.setText("N° Turno:");
 
@@ -1083,38 +1093,28 @@ public class Jabono extends javax.swing.JFrame {
                                         .addComponent(jLabel5)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(cboprivilegiosadmon, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(btnnuevo)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(btnnuevo)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(btnguardar)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(btnimprimir)
+                                            .addGap(52, 52, 52)
+                                            .addComponent(jLabel13)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(txtnumero_turno, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(lbturno)))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                                .addComponent(jLabel4)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(btnguardar)
+                                                .addComponent(txtconcepto))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                                .addComponent(jLabel6)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(btnimprimir)
-                                                .addGap(52, 52, 52)
-                                                .addComponent(jLabel13)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(txtnumero_turno, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(lbturno)))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                                        .addComponent(jLabel4)
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addComponent(txtconcepto))
-                                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                                        .addComponent(jLabel6)
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addComponent(cboprivilegiosrecep, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                                .addGap(166, 166, 166)
-                                                .addComponent(jLabel28)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(cbotipocomprobante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(jLabel29)))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtnumcomprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                                .addComponent(cboprivilegiosrecep, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1141,13 +1141,7 @@ public class Jabono extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel28)
-                            .addComponent(cbotipocomprobante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel29)
-                            .addComponent(txtnumcomprobante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(4, 4, 4)
+                        .addGap(26, 26, 26)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(13, 13, 13)
@@ -1222,7 +1216,7 @@ public class Jabono extends javax.swing.JFrame {
         txtnumeronoches.setText(tablalistadosabonos.getValueAt(fila, 19).toString());
         txtvalordescuento.setText(tablalistadosabonos.getValueAt(fila, 20).toString());
         cbotipocomprobante.setSelectedItem(tablalistadosabonos.getValueAt(fila, 21).toString());
-        txtnumcomprobante.setText(tablalistadosabonos.getValueAt(fila, 22).toString());
+//        txtnumcomprobante.setText(tablalistadosabonos.getValueAt(fila, 22).toString());
         txtIVA_19.setText(tablalistadosabonos.getValueAt(fila, 23).toString());
         txtreten_35.setText(tablalistadosabonos.getValueAt(fila, 24).toString());
         txtreten4.setText(tablalistadosabonos.getValueAt(fila, 25).toString());
@@ -1290,7 +1284,7 @@ public class Jabono extends javax.swing.JFrame {
         // Establecer datos adicionales
         dts.setConceptodescuento(txtconcepto.getText());
 
-        int abonohabitacion = Integer.parseInt(txtabonohabitacion.getText());
+        int abonohabitacion = Integer.parseInt(txtabonohabitacion.getText().replace(",", ""));
         dts.setAbonohabitacion(abonohabitacion);
         txtabonohabitacion.setText(String.valueOf(abonohabitacion));
 
@@ -1299,15 +1293,15 @@ public class Jabono extends javax.swing.JFrame {
         dts.setPrivilegiosAdmon(String.valueOf(seleccionadoAdmon));
         dts.setPrivilegiosrecepcion(String.valueOf(seleccionadoRecep));
 
-        int descuentos = Integer.parseInt(txtdescuentos.getText());
+        int descuentos = Integer.parseInt(txtdescuentos.getText().replace(",", ""));
         dts.setDescuentos(String.valueOf(descuentos));
         txtdescuentos.setText(String.valueOf(descuentos));
 
-        int totalAbonos = Integer.parseInt(txttotalapagar.getText());
+        int totalAbonos = Integer.parseInt(txttotalapagar.getText().replace(",", ""));
         dts.setTotalAbonos(totalAbonos);
         txttotalapagar.setText(String.valueOf(totalAbonos));
 
-        int otrosCobros = Integer.parseInt(txtotroscobros.getText());
+        int otrosCobros = Integer.parseInt(txtotroscobros.getText().replace(",", ""));
         dts.setOtroscobros(otrosCobros);
         txtotroscobros.setText(String.valueOf(otrosCobros));
 
@@ -1320,23 +1314,23 @@ public class Jabono extends javax.swing.JFrame {
         dts.setRazon_social(txtrazon_social.getText());
         dts.setEmail(txtemail.getText()); // Asegúrate de que txtemail existe
         dts.setNumeronoches(Integer.parseInt(txtnumeronoches.getText()));
-        dts.setValordescuento(Integer.parseInt(txtvalordescuento.getText()));
+        dts.setValordescuento(Integer.parseInt(txtvalordescuento.getText().replace(",", "")));
 
         int tipocomprobante = cbotipocomprobante.getSelectedIndex();
         dts.setTipocomprobante((String) cbotipocomprobante.getItemAt(tipocomprobante));
 
         dts.setNumerocomprobante(txtnumcomprobante.getText());
-        dts.setValor_bruto(Integer.parseInt(txtvalorbruto.getText()));
-        dts.setIva19(Integer.parseInt(txtIVA_19.getText()));
-        dts.setRetencion35(Integer.parseInt(txtreten_35.getText()));
-        dts.setRetencion4(Integer.parseInt(txtreten4.getText()));
-        dts.setSubtotal(Integer.parseInt(txtsubtotal.getText()));
-        dts.setEfectivo(Integer.parseInt(txtefectivo.getText()));
-        dts.setTarjeta(Integer.parseInt(txttarjeta.getText()));
-        dts.setTransferencia(Integer.parseInt(txttransferencia.getText()));
-        dts.setTotalapagar(Integer.parseInt(txttotalapagar.getText()));
-        dts.setAntesIVA(Integer.parseInt(txtbruto.getText()));
-        dts.setCostoalojamiento(Integer.parseInt(txtcostoalojamiento.getText()));
+        dts.setValor_bruto(Integer.parseInt(txtvalorbruto.getText().replace(",", "")));
+        dts.setIva19(Integer.parseInt(txtIVA_19.getText().replace(",", "")));
+        dts.setRetencion35(Integer.parseInt(txtreten_35.getText().replace(",", "")));
+        dts.setRetencion4(Integer.parseInt(txtreten4.getText().replace(",", "")));
+        dts.setSubtotal(Integer.parseInt(txtsubtotal.getText().replace(",", "")));
+        dts.setEfectivo(Integer.parseInt(txtefectivo.getText().replace(",", "")));
+        dts.setTarjeta(Integer.parseInt(txttarjeta.getText().replace(",", "")));
+        dts.setTransferencia(Integer.parseInt(txttransferencia.getText().replace(",", "")));
+        dts.setTotalapagar(Integer.parseInt(txttotalapagar.getText().replace(",", "")));
+        dts.setAntesIVA(Integer.parseInt(txtbruto.getText().replace(",", "")));
+        dts.setCostoalojamiento(Integer.parseInt(txtcostoalojamiento.getText().replace(",", "")));
         dts.setIdinicioturno(Integer.parseInt(txtidinicioturno.getText()));
         dts.setTurno(lbturno.getText());
 
@@ -1344,9 +1338,10 @@ public class Jabono extends javax.swing.JFrame {
             if (func.insertar(dts)) {
                 JOptionPane.showMessageDialog(rootPane, "El abono fue registrado satisfactoriamente");
                 mostrar("");
-                inhabilitar();
+                limpiarcajas();
+                agregarWindowFocusListener();
                 imprimir();
-                this.dispose();
+//                this.dispose();
             }
         } else if (accion.equals("editar")) {
             dts.setIdabono(Integer.parseInt(txtidabono.getText()));
@@ -1354,8 +1349,8 @@ public class Jabono extends javax.swing.JFrame {
             if (func.editar(dts)) {
                 JOptionPane.showMessageDialog(rootPane, "El abono del Sr. " + txtcliente.getText() + " ha sido modificado correctamente");
                 mostrar("");
-                inhabilitar();
-                this.dispose();
+                limpiarcajas();
+//                this.dispose();
             }
         }
     }//GEN-LAST:event_btnguardarActionPerformed
@@ -1385,6 +1380,7 @@ public class Jabono extends javax.swing.JFrame {
 
     private void cajanumeroKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajanumeroKeyPressed
 
+        NumberFormat formatoMiles = NumberFormat.getNumberInstance(Locale.US);
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             Cconexion conexion = new Cconexion();
 
@@ -1407,7 +1403,7 @@ public class Jabono extends javax.swing.JFrame {
                             txtidhabitacion.setText(String.valueOf(rs.getInt("idhabitacion")));
                             txtidcliente.setText(String.valueOf(rs.getInt("idcliente")));
                             txtcliente.setText(rs.getString("clienten") + " " + rs.getString("clienteap"));
-                            txtcostoalojamiento.setText(String.valueOf(rs.getInt("costoalojamiento")));
+                            txtcostoalojamiento.setText(formatoMiles.format(rs.getInt("costoalojamiento")));
                             txtnumero.setText(String.valueOf(rs.getInt("numero")));
                             txtclientenu.setText(String.valueOf(rs.getString("clientenu")));
 //                            txtdeudaanterior.setText(String.valueOf(rs.getInt("deuda_anterior")));
@@ -1420,35 +1416,21 @@ public class Jabono extends javax.swing.JFrame {
                                 txtdocumento.setText(String.valueOf(clienteF.getDocumento()));
                             }
 
-                            int idcliente = Integer.parseInt(txtidcliente.getText());
-                            Fabonocongelado congelado = new Fabonocongelado();
-                            DvalorCongelado datos = congelado.obtenerSaldoCongelado(idcliente);  // Obtener el objeto DvalorCongelado
-
-                            int valorcongelado = datos.getSaldoCongelado();  // Obtener el valor congelado
-                            int numnoches = datos.getNumeronoches();
-                            int nochesusados = datos.getNochesUsadas();
-                            int totalnoches = (numnoches - nochesusados);
-
-                            if (valorcongelado > 0) {
-                                // Pregunta si desea aplicar el saldo congelado a la nueva habitación
-                                int accion = JOptionPane.showConfirmDialog(rootPane,
-                                        "El Cliente tiene un saldo POR USAR. ¿Desea aplicarlo a la nueva habitación?",
-                                        "Confirmación", JOptionPane.YES_NO_OPTION);
-
-                                if (accion == JOptionPane.YES_NO_OPTION) {
-                                    // Aplica el saldo congelado
-                                    txtabonohabitacion.setText(String.valueOf(valorcongelado));
-                                    txtnumeronoches.setText(String.valueOf(totalnoches));
-
-                                    // Establece el cliente en los datos
-                                    datos.setIdcliente(idcliente);
-
-                                    // Cambia el estado del abono congelado
-                                    congelado.cambiarestado(datos);
-                                }
-                            } else {
-//                                JOptionPane.showMessageDialog(null, "No se encontró el CLIENTE solicitado.");
-                            }
+//                            int idcliente = Integer.parseInt(txtidcliente.getText());
+//                            Fabonocongelado congelado = new Fabonocongelado();
+//                            DvalorCongelado datos = new DvalorCongelado();
+//                            int valorcongelado = congelado.obtenerSaldoCongelado(idcliente);
+//                            System.out.print("el valor congelado es"+valorcongelado);
+//                            if (valorcongelado > 0) {
+//                                int accion = JOptionPane.showConfirmDialog(rootPane, "El Cliente tiene un saldo POR USAR desea aplicarlo a la nueva habitacion", "confirmación", JOptionPane.YES_NO_OPTION);
+//                                if (accion == JOptionPane.YES_NO_OPTION) {
+//                                    txtabonohabitacion.setText(String.valueOf(valorcongelado));
+//                                    datos.setIdcliente(Integer.parseInt(txtidcliente.getText()));
+//                                    congelado.cambiarestado(datos);
+//                                }
+//                            }
+                        } else {
+                            JOptionPane.showMessageDialog(null, "No se encontró el CLIENTE solicitado.");
                         }
                     }
                 }
@@ -1490,25 +1472,26 @@ public class Jabono extends javax.swing.JFrame {
     private void txtIVA_19KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIVA_19KeyPressed
         // TODO add your handling code here:
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            NumberFormat formatoMiles = NumberFormat.getNumberInstance(Locale.US);
             try {
-                int costoalojamiento = Integer.parseInt(txtvalorbruto.getText());
+                int costoalojamiento = Integer.parseInt(txtvalorbruto.getText().replace(",", ""));
 //                int numeronoches = Integer.parseInt(txtnumeronoches.getText());
 
                 int valorsinIVA = (int) (costoalojamiento / 1.19);
 
-                txtbruto.setText(String.valueOf(valorsinIVA));
+                txtbruto.setText(formatoMiles.format(valorsinIVA));
                 int valorConIVA = (int) (valorsinIVA * 0.19);
-                txtIVA_19.setText(String.valueOf(valorConIVA));
+                txtIVA_19.setText(formatoMiles.format(valorConIVA));
                 // Obtener los valores de los campos de texto y convertirlos a enteros
-                int valosiIVA = Integer.parseInt(txtbruto.getText());
-                int Iva19 = Integer.parseInt(txtIVA_19.getText());
-                int reten35 = Integer.parseInt(txtreten_35.getText());
-                int reten4 = Integer.parseInt(txtreten4.getText());
+                int valosiIVA = Integer.parseInt(txtbruto.getText().replace(",", ""));
+                int Iva19 = Integer.parseInt(txtIVA_19.getText().replace(",", ""));
+                int reten35 = Integer.parseInt(txtreten_35.getText().replace(",", ""));
+                int reten4 = Integer.parseInt(txtreten4.getText().replace(",", ""));
 
                 int subtotal = valosiIVA + Iva19 - reten35 - reten4 + 1;
 //                int subtotalRedondeado = Math.round((float) subtotal);
                 int subtotalRedondeado = (int) (Math.ceil(subtotal / 100.0) * 100);
-                txtsubtotal.setText(String.valueOf(subtotalRedondeado));
+                txtsubtotal.setText(formatoMiles.format(subtotalRedondeado));
 
             } catch (NumberFormatException e) {
 
@@ -1536,42 +1519,45 @@ public class Jabono extends javax.swing.JFrame {
 
     private void calcular35ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcular35ActionPerformed
         // TODO add your handling code here:
-        int costoalojamiento = Integer.parseInt(txtcostoalojamiento.getText());
-        int numeronoches = Integer.parseInt(txtnumeronoches.getText());
+        NumberFormat formatoMiles = NumberFormat.getNumberInstance(Locale.US);
+        int costoalojamiento = Integer.parseInt(txtcostoalojamiento.getText().replace(",", ""));
+        int numeronoches = Integer.parseInt(txtnumeronoches.getText().replace(",", ""));
 
         int valorsinIVA = (int) (costoalojamiento * numeronoches / 1.19);
 
         int Reten35 = (int) (valorsinIVA * 0.035);
-        txtreten_35.setText(String.valueOf(Reten35));
+        txtreten_35.setText(formatoMiles.format(Reten35));
     }//GEN-LAST:event_calcular35ActionPerformed
 
     private void calcular4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcular4ActionPerformed
         // TODO add your handling code here:
-        int costoalojamiento = Integer.parseInt(txtcostoalojamiento.getText());
-        int numeronoches = Integer.parseInt(txtnumeronoches.getText());
+        NumberFormat formatoMiles = NumberFormat.getNumberInstance(Locale.US);
+        int costoalojamiento = Integer.parseInt(txtcostoalojamiento.getText().replace(",", ""));
+        int numeronoches = Integer.parseInt(txtnumeronoches.getText().replace(",", ""));
 
         int valorsinIVA = (int) (costoalojamiento * numeronoches / 1.19);
         int reten4 = (int) (valorsinIVA * 0.04);
-        txtreten4.setText(String.valueOf(reten4));
+        txtreten4.setText(formatoMiles.format(reten4));
     }//GEN-LAST:event_calcular4ActionPerformed
 
     private void txtsubtotalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtsubtotalKeyPressed
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             try {
+                NumberFormat formatoMiles = NumberFormat.getNumberInstance(Locale.US);
                 // Obtener los valores de los campos de texto y convertirlos a enteros
-                int valosiIVA = Integer.parseInt(txtbruto.getText());
-                int Iva19 = Integer.parseInt(txtIVA_19.getText());
-                int reten35 = Integer.parseInt(txtreten_35.getText());
-                int reten4 = Integer.parseInt(txtreten4.getText());
+                int valosiIVA = Integer.parseInt(txtbruto.getText().replace(",", ""));
+                int Iva19 = Integer.parseInt(txtIVA_19.getText().replace(",", ""));
+                int reten35 = Integer.parseInt(txtreten_35.getText().replace(",", ""));
+                int reten4 = Integer.parseInt(txtreten4.getText().replace(",", ""));
 
-                int subtotal = valosiIVA + Iva19 - reten35 - reten4 + 1;
+                int subtotal = (int) ((valosiIVA + Iva19 - reten35 - reten4 + 1) / 100.0 * 100);
                 // Redondea al múltiplo de 1000 más cercano
 //                int subtotalRedondeado = ((subtotal + 500) / 1000) * 1000;
 //                int subtotalRedondeado = Math.round((float) subtotal);
-                int subtotalRedondeado = (int) (Math.ceil(subtotal / 100.0) * 100);
+//                int subtotalRedondeado = (int) (Math.ceil(subtotal / 100.0) * 100);
 
-                txtsubtotal.setText(String.valueOf(subtotalRedondeado));
+                txtsubtotal.setText(formatoMiles.format(subtotal));
 
             } catch (NumberFormatException e) {
 
@@ -1605,24 +1591,25 @@ public class Jabono extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         try {
-            int costoalojamiento = Integer.parseInt(txtvalorbruto.getText());
+            NumberFormat formatoMiles = NumberFormat.getNumberInstance(Locale.US);
+            int costoalojamiento = Integer.parseInt(txtvalorbruto.getText().replace(",", ""));
 //                int numeronoches = Integer.parseInt(txtnumeronoches.getText());
 
             int valorsinIVA = (int) (costoalojamiento / 1.19);
 
-            txtbruto.setText(String.valueOf(valorsinIVA));
+            txtbruto.setText(formatoMiles.format(valorsinIVA));
             int valorConIVA = (int) (valorsinIVA * 0.19);
-            txtIVA_19.setText(String.valueOf(valorConIVA));
+            txtIVA_19.setText(formatoMiles.format(valorConIVA));
             // Obtener los valores de los campos de texto y convertirlos a enteros
-            int valosiIVA = Integer.parseInt(txtbruto.getText());
-            int Iva19 = Integer.parseInt(txtIVA_19.getText());
-            int reten35 = Integer.parseInt(txtreten_35.getText());
-            int reten4 = Integer.parseInt(txtreten4.getText());
+            int valosiIVA = Integer.parseInt(txtbruto.getText().replace(",", ""));
+            int Iva19 = Integer.parseInt(txtIVA_19.getText().replace(",", ""));
+            int reten35 = Integer.parseInt(txtreten_35.getText().replace(",", ""));
+            int reten4 = Integer.parseInt(txtreten4.getText().replace(",", ""));
 
             int subtotal = valosiIVA + Iva19 - reten35 - reten4 + 1;
 //            int subtotalRedondeado = Math.round((float) subtotal);
             int subtotalRedondeado = (int) (Math.ceil(subtotal / 100.0) * 100);
-            txtsubtotal.setText(String.valueOf(subtotalRedondeado));
+            txtsubtotal.setText(formatoMiles.format(subtotalRedondeado));
 
         } catch (NumberFormatException e) {
 
@@ -1633,9 +1620,10 @@ public class Jabono extends javax.swing.JFrame {
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             try {
-                int costoalojamiento = Integer.parseInt(txtcostoalojamiento.getText());
-                int numeronoches = Integer.parseInt(txtnumeronoches.getText());
-                int valordescuento = Integer.parseInt(txtvalordescuento.getText());
+                NumberFormat formatoMiles = NumberFormat.getNumberInstance(Locale.US);
+                int costoalojamiento = Integer.parseInt(txtcostoalojamiento.getText().replace(",", ""));
+                int numeronoches = Integer.parseInt(txtnumeronoches.getText().replace(",", ""));
+                int valordescuento = Integer.parseInt(txtvalordescuento.getText().replace(",", ""));
 
                 // Validación adicional para evitar cálculos negativos
                 if (costoalojamiento < 0 || numeronoches < 0) {
@@ -1645,16 +1633,16 @@ public class Jabono extends javax.swing.JFrame {
 
                 int calculo = valordescuento * numeronoches;
                 int calculo1 = costoalojamiento * numeronoches;
-                txtabonohabitacion.setText(String.valueOf(calculo1));
-                txtdescuentos.setText(String.valueOf(calculo));
+                txtabonohabitacion.setText(formatoMiles.format(calculo1));
+                txtdescuentos.setText(formatoMiles.format(calculo));
 
-                int nuevoabono = Integer.parseInt(txtabonohabitacion.getText());
-                int nuevodescuent = Integer.parseInt(txtdescuentos.getText());
-                int otroscobros = Integer.parseInt(txtotroscobros.getText());
+                int nuevoabono = Integer.parseInt(txtabonohabitacion.getText().replace(",", ""));
+                int nuevodescuent = Integer.parseInt(txtdescuentos.getText().replace(",", ""));
+                int otroscobros = Integer.parseInt(txtotroscobros.getText().replace(",", ""));
 
                 int nuevocalculo = nuevoabono - nuevodescuent + otroscobros;
-                
-                txtvalorbruto.setText(String.valueOf(nuevocalculo));
+
+                txtvalorbruto.setText(formatoMiles.format(nuevocalculo));
 
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Por favor, ingresa números válidos.");
@@ -1696,13 +1684,14 @@ public class Jabono extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             try {
+                NumberFormat formatoMiles = NumberFormat.getNumberInstance(Locale.US);
                 // Obtener los valores de los campos de texto y convertirlos a enteros
-                int efectivo = Integer.parseInt(txtefectivo.getText());
-                int tarjeta = Integer.parseInt(txttarjeta.getText());
-                int transferencia = Integer.parseInt(txttransferencia.getText());
+                int efectivo = Integer.parseInt(txtefectivo.getText().replace(",", ""));
+                int tarjeta = Integer.parseInt(txttarjeta.getText().replace(",", ""));
+                int transferencia = Integer.parseInt(txttransferencia.getText().replace(",", ""));
 
                 int totalPago = efectivo + tarjeta + transferencia;
-                txttotalapagar.setText(String.valueOf(totalPago));
+                txttotalapagar.setText(formatoMiles.format(totalPago));
 
             } catch (NumberFormatException e) {
                 // Manejar la excepción si alguno de los campos de texto no contiene un número válido
@@ -1726,9 +1715,10 @@ public class Jabono extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             try {
-                int costoalojamiento = Integer.parseInt(txtcostoalojamiento.getText());
-                int numeronoches = Integer.parseInt(txtnumeronoches.getText());
-                int valordescuento = Integer.parseInt(txtvalordescuento.getText());
+                NumberFormat formatoMiles = NumberFormat.getNumberInstance(Locale.US);
+                int costoalojamiento = Integer.parseInt(txtcostoalojamiento.getText().replace(",", ""));
+                int numeronoches = Integer.parseInt(txtnumeronoches.getText().replace(",", ""));
+                int valordescuento = Integer.parseInt(txtvalordescuento.getText().replace(",", ""));
 
                 // Validación adicional para evitar cálculos negativos
                 if (costoalojamiento < 0 || numeronoches < 0) {
@@ -1738,21 +1728,21 @@ public class Jabono extends javax.swing.JFrame {
 
                 int calculo = valordescuento * numeronoches;
                 int calculo1 = costoalojamiento * numeronoches;
-                txtabonohabitacion.setText(String.valueOf(calculo1));
-                txtdescuentos.setText(String.valueOf(calculo));
+                txtabonohabitacion.setText(formatoMiles.format(calculo1));
+                txtdescuentos.setText(formatoMiles.format(calculo));
 
-                int nuevoabono = Integer.parseInt(txtabonohabitacion.getText());
-                int nuevodescuent = Integer.parseInt(txtdescuentos.getText());
-                int otroscobros = Integer.parseInt(txtotroscobros.getText());
+                int nuevoabono = Integer.parseInt(txtabonohabitacion.getText().replace(",", ""));
+                int nuevodescuent = Integer.parseInt(txtdescuentos.getText().replace(",", ""));
+                int otroscobros = Integer.parseInt(txtotroscobros.getText().replace(",", ""));
 
                 int nuevocalculo = nuevoabono - nuevodescuent + otroscobros;
-                txtvalorbruto.setText(String.valueOf(nuevocalculo));
+                txtvalorbruto.setText(formatoMiles.format(nuevocalculo));
 
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Por favor, ingresa números válidos.");
             }
         }
-         
+
     }//GEN-LAST:event_txtnumeronochesKeyPressed
 
     private void cajanumeroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajanumeroKeyReleased
@@ -1763,13 +1753,14 @@ public class Jabono extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             try {
+                NumberFormat formatoMiles = NumberFormat.getNumberInstance(Locale.US);
                 // Obtener los valores de los campos de texto y convertirlos a enteros
-                int efectivo = Integer.parseInt(txtefectivo.getText());
-                int tarjeta = Integer.parseInt(txttarjeta.getText());
-                int transferencia = Integer.parseInt(txttransferencia.getText());
+                int efectivo = Integer.parseInt(txtefectivo.getText().replace(",", ""));
+                int tarjeta = Integer.parseInt(txttarjeta.getText().replace(",", ""));
+                int transferencia = Integer.parseInt(txttransferencia.getText().replace(",", ""));
 
                 int totalPago = efectivo + tarjeta + transferencia;
-                txttotalapagar.setText(String.valueOf(totalPago));
+                txttotalapagar.setText(formatoMiles.format(totalPago));
 
             } catch (NumberFormatException e) {
                 // Manejar la excepción si alguno de los campos de texto no contiene un número válido
@@ -1783,13 +1774,14 @@ public class Jabono extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             try {
+                NumberFormat formatoMiles = NumberFormat.getNumberInstance(Locale.US);
                 // Obtener los valores de los campos de texto y convertirlos a enteros
-                int efectivo = Integer.parseInt(txtefectivo.getText());
-                int tarjeta = Integer.parseInt(txttarjeta.getText());
-                int transferencia = Integer.parseInt(txttransferencia.getText());
+                int efectivo = Integer.parseInt(txtefectivo.getText().replace(",", ""));
+                int tarjeta = Integer.parseInt(txttarjeta.getText().replace(",", ""));
+                int transferencia = Integer.parseInt(txttransferencia.getText().replace(",", ""));
 
                 int totalPago = efectivo + tarjeta + transferencia;
-                txttotalapagar.setText(String.valueOf(totalPago));
+                txttotalapagar.setText(formatoMiles.format(totalPago));
 
             } catch (NumberFormatException e) {
                 // Manejar la excepción si alguno de los campos de texto no contiene un número válido
@@ -1803,13 +1795,14 @@ public class Jabono extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             try {
+                NumberFormat formatoMiles = NumberFormat.getNumberInstance(Locale.US);
                 // Obtener los valores de los campos de texto y convertirlos a enteros
-                int efectivo = Integer.parseInt(txtefectivo.getText());
-                int tarjeta = Integer.parseInt(txttarjeta.getText());
-                int transferencia = Integer.parseInt(txttransferencia.getText());
+                int efectivo = Integer.parseInt(txtefectivo.getText().replace(",", ""));
+                int tarjeta = Integer.parseInt(txttarjeta.getText().replace(",", ""));
+                int transferencia = Integer.parseInt(txttransferencia.getText().replace(",", ""));
 
                 int totalPago = efectivo + tarjeta + transferencia;
-                txttotalapagar.setText(String.valueOf(totalPago));
+                txttotalapagar.setText(formatoMiles.format(totalPago));
 
             } catch (NumberFormatException e) {
                 // Manejar la excepción si alguno de los campos de texto no contiene un número válido

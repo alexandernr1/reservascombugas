@@ -72,10 +72,10 @@ public class Fingreso {
     public DefaultTableModel vistaingreso(String buscar) {
         DefaultTableModel modelo;
 
-        String[] titulos = {"Idingreso", "Idhabitacion", "Numero", "Idcliente", "Cliente", "Telefono", "Documento",
-            "Fecha ingreso", "Numero personas", "Tipo cliente", "Costo alojamiento", "Motivo viaje", "Estado", "Ciudad Recidencia", "Ciudad Procedencia"};
+        String[] titulos = {"Idingreso", "Idhabitacion", "Habitacion", "Idcliente", "Cliente", "Telefono", "Documento",
+            "Fecha ingreso", "Numero personas", "Tipo cliente", "Costo alojamiento", "Motivo viaje", "Estado", "Ciudad Recidencia", "Ciudad Procedencia", "N° Turno"};
 
-        String[] registro = new String[15];
+        String[] registro = new String[16];
 
         totalregistros = 0;
         modelo = new DefaultTableModel(null, titulos);
@@ -86,10 +86,10 @@ public class Fingreso {
                 + "(SELECT numdocumento FROM cliente WHERE idcliente=i.idcliente) AS clientenu, "
                 + "(SELECT telefono FROM cliente WHERE idcliente=i.idcliente) AS clientete, "
                 + "i.fecha_hora_ingreso, i.num_personas, i.tipo_cliente, i.costoalojamiento, "
-                + "i.motivo_viaje, i.estado, i.ciudad_de_recidencia, i.ciudad_de_procedencia "
+                + "i.motivo_viaje, i.estado, i.ciudad_de_recidencia, i.ciudad_de_procedencia, i.num_turno "
                 + "FROM ingreso i "
                 + "INNER JOIN habitacion h ON i.idhabitacion=h.idhabitacion "
-                + "INNER JOIN inicioturno t ON i.numero_turno = t.numero_turno "
+                + "INNER JOIN inicioturno t ON i.num_turno = t.numero_turno "
                 + "WHERE (SELECT numdocumento FROM cliente WHERE idcliente=i.idcliente) LIKE ? "
                 + "AND t.estado = 'Activo' "
                 + "ORDER BY idingreso DESC";
@@ -113,6 +113,7 @@ public class Fingreso {
                     registro[12] = rs.getString("estado");
                     registro[13] = rs.getString("ciudad_de_recidencia");
                     registro[14] = rs.getString("ciudad_de_procedencia");
+                    registro[15] = rs.getString("num_turno");
 
                     totalregistros++;
                     modelo.addRow(registro);
@@ -195,7 +196,7 @@ public class Fingreso {
             pst.setString(14, dts.getTipo_habitacion());
             pst.setInt(15, dts.getIdinicioturno());
             pst.setString(16, dts.getTurno());
-             pst.setInt(17, dts.getNum_turno());
+            pst.setInt(17, dts.getNum_turno());
 
             pst.setInt(18, dts.getIdingreso());
 
@@ -269,5 +270,38 @@ public class Fingreso {
         }
         return false; // No existe un ingreso similar
     }
+
+   public Object[] DatosReserva(int habitacion) {
+    Object[] reserva = new Object[9]; // Usa Object[] para poder almacenar varios tipos de datos
+
+    sSQL = "SELECT r.cliente, r.documento, r.telefono, "
+                + "r.numhabitacion, r.tipohabitacion, r.costoalojamiento, r.idcliente, h.caracteristicas, h.idhabitacion "
+                + "FROM reserva r "
+                + "INNER JOIN habitacion h ON h.numero = r.numhabitacion "
+                + "WHERE r.numhabitacion = ?";
+
+    try {
+        PreparedStatement pst = cn.prepareStatement(sSQL);
+        pst.setInt(1, habitacion);
+        ResultSet rs = pst.executeQuery();
+
+        if (rs.next()) {
+                  // Si es una fecha en formato String
+            reserva[0] = rs.getString("cliente");             
+            reserva[1] = rs.getString("documento");        
+            reserva[2] = rs.getString("telefono");          
+            reserva[3] = rs.getInt("numhabitacion");       
+            reserva[4] = rs.getString("tipohabitacion");   
+            reserva[5] = rs.getInt("costoalojamiento");  
+            reserva[6] = rs.getString("caracteristicas");
+            reserva[7] = rs.getInt("idhabitacion");
+            reserva[8] = rs.getInt("idcliente");
+        }
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Error al obtener los datos de reserva: " + e.getMessage());
+    }
+
+    return reserva;
+}
 
 }

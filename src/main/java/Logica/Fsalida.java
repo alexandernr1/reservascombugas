@@ -109,6 +109,65 @@ public class Fsalida {
         return new Object[]{modelo, totalEfectivo, totalTarjeta, totalTransferencia};
     }
 
+   public DefaultTableModel HavitacionesOcupadas(String buscar) throws SQLException {
+    DefaultTableModel modelo;
+
+    String[] titulos = {"idhabitacion", "Fecha Ingreso", "Habitacion", "Cliente", "Tipo Cliente", "Costo",
+                        "Otros Cobros", "Valor Total", "Abonos", "Numero Turno"};
+    
+    modelo = new DefaultTableModel(null, titulos);
+    totalregistros = 0;
+
+    // Consulta SQL adaptada
+    String sSQL = "SELECT h.idhabitacion, "
+                + "i.fecha_hora_ingreso, "
+                + "h.numero, "
+                + "s.cliente, "
+                + "s.tipocliente, "
+                + "s.costoalojamiento, "
+                + "s.otros_cobros, "
+                + "s.valor_total, "
+                + "s.abonos, "
+                + "t.numero_turno "
+                + "FROM reserva1.habitacion h "
+                + "INNER JOIN salida s ON s.idhabitacion = h.idhabitacion "
+                + "INNER JOIN ingreso i ON i.idhabitacion = h.idhabitacion "
+                + "INNER JOIN inicioturno t ON i.num_turno = t.numero_turno "
+                + "WHERE t.estado = 'Activo' "
+                + "ORDER BY i.idhabitacion DESC";
+
+    try {
+        Statement st = cn.createStatement();
+        ResultSet rs = st.executeQuery(sSQL);
+
+        while (rs.next()) {
+            String[] registro = new String[10];  // Se crea un nuevo arreglo en cada iteración
+            registro[0] = rs.getString("idhabitacion");
+            registro[1] = rs.getString("fecha_hora_ingreso");
+            registro[2] = rs.getString("numero");
+            registro[3] = rs.getString("cliente");
+            registro[4] = rs.getString("tipocliente");
+            registro[5] = rs.getString("costoalojamiento");
+            registro[6] = rs.getString("otros_cobros");
+            registro[7] = rs.getString("valor_total");
+            registro[8] = rs.getString("abonos");
+            registro[9] = rs.getString("numero_turno");
+
+            totalregistros++;
+            modelo.addRow(registro);
+        }
+
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "NO SE PUEDE MOSTRAR LOS DATOS: " + e.getMessage());
+        return null;
+    }
+
+    return modelo;  // Retornar el modelo en lugar de null
+}
+
+       
+    
+
     public boolean insertar(Dsalida dts) {
         sSQL = "insert into salida (idingreso,idcliente,idhabitacion,idabono,empleado,numero_turno,"
                 + "numero, cliente, numnoches,razon_social,documento,email,costoalojamiento,fechaingreso,fechasalida,tipocliente,"
