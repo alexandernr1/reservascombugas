@@ -1,10 +1,7 @@
-
 package DatosP;
 
-
 public class Dinicioturnop {
-    
-    
+
     public int idturno;
     public String fecha_inicio;
     public String turno;
@@ -22,6 +19,19 @@ public class Dinicioturnop {
         this.numero_turno = numero_turno;
         this.estado = estado;
         this.empleado = empleado;
+    }
+
+    public Dinicioturnop(int numeroturnop, int idturno) {
+        this.numero_turno = numeroturnop;
+        this.idturno = idturno;
+    }
+
+    public int getNumeroTurno() {
+        return this.numero_turno;
+    }
+
+    public int getIdInicioTurno() {
+        return this.idturno;
     }
 
     public int getIdturno() {
@@ -71,6 +81,5 @@ public class Dinicioturnop {
     public void setEmpleado(String empleado) {
         this.empleado = empleado;
     }
-    
-    
+
 }

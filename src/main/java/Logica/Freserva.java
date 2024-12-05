@@ -167,4 +167,16 @@ public class Freserva {
             return false;
         }
     }
+     public boolean eliminartodo() {
+    String sSQL = "DELETE FROM reserva"; // Consulta corregida
+    try {
+        PreparedStatement pst = cn.prepareStatement(sSQL);
+        int n = pst.executeUpdate(); // Ejecuta la consulta
+        return n > 0; // Devuelve true si se eliminaron registros
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, e.getMessage()); // Muestra el error en un mensaje de diálogo
+        return false;
+    }
+}
+
 }

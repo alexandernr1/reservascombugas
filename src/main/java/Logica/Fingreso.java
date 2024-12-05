@@ -18,15 +18,16 @@ public class Fingreso {
     public DefaultTableModel mostrar(String buscar) {
         DefaultTableModel modelo;
 
-        String[] titulos = {"Idingreso", "Idhabitacion", "Numero", "Idcliente", "Cliente", "Telefono", "Documento",
-            "Fecha ingreso", "Numero personas", "Tipo cliente", "Costo alojamiento", "Motivo viaje", "Estado", "Ciudad Recidencia", "Ciudad Procedencia"};
+        String[] titulos = {"Idingreso", "Idhabitacion", "Habitacion", "Tipo Habi", "Caracteristicas", "Idcliente", "Cliente", "Telefono", "Documento",
+            "Fecha ingreso", "Numero personas", "Tipo cliente", "Costo alojamiento", "Motivo viaje", "Estado",
+            "Ciudad Recidencia", "Ciudad Procedencia"};
 
-        String[] registro = new String[15];
+        String[] registro = new String[17];
 
         totalregistros = 0;
         modelo = new DefaultTableModel(null, titulos);
 
-        sSQL = "SELECT i.idingreso, i.idhabitacion, h.numero, i.idcliente, "
+        sSQL = "SELECT i.idingreso, i.idhabitacion, h.numero, h.tipohabitacion, h.caracteristicas, i.idcliente, "
                 + "(SELECT nombres FROM cliente WHERE idcliente=i.idcliente) AS clienten, "
                 + "(SELECT apellidos FROM cliente WHERE idcliente=i.idcliente) AS clienteap, "
                 + "(SELECT numdocumento FROM cliente WHERE idcliente=i.idcliente) AS clientenu, "
@@ -36,7 +37,7 @@ public class Fingreso {
                 + "FROM ingreso i "
                 + "INNER JOIN habitacion h ON i.idhabitacion=h.idhabitacion "
                 + "WHERE (SELECT numdocumento FROM cliente WHERE idcliente=i.idcliente) LIKE ? "
-                + "ORDER BY idingreso DESC";
+                + "ORDER BY idingreso DESC LIMIT 40";
 
         try ( PreparedStatement pst = cn.prepareStatement(sSQL)) {
             pst.setString(1, "%" + buscar + "%");
@@ -45,18 +46,21 @@ public class Fingreso {
                     registro[0] = rs.getString("idingreso");
                     registro[1] = rs.getString("idhabitacion");
                     registro[2] = rs.getString("numero");
-                    registro[3] = rs.getString("idcliente");
-                    registro[4] = rs.getString("clienten") + " " + rs.getString("clienteap");
-                    registro[5] = rs.getString("clientete");
-                    registro[6] = rs.getString("clientenu");
-                    registro[7] = rs.getString("fecha_hora_ingreso");
-                    registro[8] = rs.getString("num_personas");
-                    registro[9] = rs.getString("tipo_cliente");
-                    registro[10] = rs.getString("costoalojamiento");
-                    registro[11] = rs.getString("motivo_viaje");
-                    registro[12] = rs.getString("estado");
-                    registro[13] = rs.getString("ciudad_de_recidencia");
-                    registro[14] = rs.getString("ciudad_de_procedencia");
+                    registro[3] = rs.getString("tipohabitacion");
+                    registro[4] = rs.getString("caracteristicas");
+                    registro[5] = rs.getString("idcliente");
+                    registro[6] = rs.getString("clienten") + " " + rs.getString("clienteap");
+                    registro[7] = rs.getString("clientete");
+                    registro[8] = rs.getString("clientenu");
+                    registro[9] = rs.getString("fecha_hora_ingreso");
+                    registro[10] = rs.getString("num_personas");
+                    registro[11] = rs.getString("tipo_cliente");
+                    registro[12] = rs.getString("costoalojamiento");
+                    registro[13] = rs.getString("motivo_viaje");
+                    registro[14] = rs.getString("estado");
+                    registro[15] = rs.getString("ciudad_de_recidencia");
+                    registro[16] = rs.getString("ciudad_de_procedencia");
+                    
 
                     totalregistros++;
                     modelo.addRow(registro);
@@ -73,26 +77,37 @@ public class Fingreso {
         DefaultTableModel modelo;
 
         String[] titulos = {"Idingreso", "Idhabitacion", "Habitacion", "Idcliente", "Cliente", "Telefono", "Documento",
-            "Fecha ingreso", "Numero personas", "Tipo cliente", "Costo alojamiento", "Motivo viaje", "Estado", "Ciudad Recidencia", "Ciudad Procedencia", "N° Turno"};
+            "Fecha ingreso", "Numero personas", "Tipo cliente", "Costo alojamiento", "Motivo viaje", "Estado",
+            "Ciudad Residencia", "Ciudad Procedencia", "N° Turno"};
 
         String[] registro = new String[16];
-
         totalregistros = 0;
         modelo = new DefaultTableModel(null, titulos);
 
-        sSQL = "SELECT i.idingreso, i.idhabitacion, h.numero, i.idcliente, "
-                + "(SELECT nombres FROM cliente WHERE idcliente=i.idcliente) AS clienten, "
-                + "(SELECT apellidos FROM cliente WHERE idcliente=i.idcliente) AS clienteap, "
-                + "(SELECT numdocumento FROM cliente WHERE idcliente=i.idcliente) AS clientenu, "
-                + "(SELECT telefono FROM cliente WHERE idcliente=i.idcliente) AS clientete, "
-                + "i.fecha_hora_ingreso, i.num_personas, i.tipo_cliente, i.costoalojamiento, "
-                + "i.motivo_viaje, i.estado, i.ciudad_de_recidencia, i.ciudad_de_procedencia, i.num_turno "
+        sSQL = "SELECT "
+                + "i.idingreso, "
+                + "i.idhabitacion, "
+                + "h.numero AS habitacion, "
+                + "i.idcliente, "
+                + "CONCAT(c.nombres, ' ', c.apellidos) AS nombre_cliente, "
+                + "c.telefono AS clientete, "
+                + "c.numdocumento AS clientenu, "
+                + "i.fecha_hora_ingreso, "
+                + "i.num_personas, "
+                + "i.tipo_cliente, "
+                + "i.costoalojamiento, "
+                + "i.motivo_viaje, "
+                + "i.estado, "
+                + "i.ciudad_de_recidencia, "
+                + "i.ciudad_de_procedencia, "
+                + "i.num_turno "
                 + "FROM ingreso i "
-                + "INNER JOIN habitacion h ON i.idhabitacion=h.idhabitacion "
-                + "INNER JOIN inicioturno t ON i.num_turno = t.numero_turno "
-                + "WHERE (SELECT numdocumento FROM cliente WHERE idcliente=i.idcliente) LIKE ? "
-                + "AND t.estado = 'Activo' "
-                + "ORDER BY idingreso DESC";
+                + "JOIN habitacion h ON i.idhabitacion = h.idhabitacion "
+                + "JOIN cliente c ON i.idcliente = c.idcliente "
+                + "JOIN inicioturno t ON i.num_turno = t.numero_turno "
+                + "WHERE t.estado = 'Activo' "
+                + "AND CONCAT(c.nombres, ' ', c.apellidos) LIKE ? "
+                + "ORDER BY i.idingreso DESC;";
 
         try ( PreparedStatement pst = cn.prepareStatement(sSQL)) {
             pst.setString(1, "%" + buscar + "%");
@@ -100,9 +115,9 @@ public class Fingreso {
                 while (rs.next()) {
                     registro[0] = rs.getString("idingreso");
                     registro[1] = rs.getString("idhabitacion");
-                    registro[2] = rs.getString("numero");
+                    registro[2] = rs.getString("habitacion");
                     registro[3] = rs.getString("idcliente");
-                    registro[4] = rs.getString("clienten") + " " + rs.getString("clienteap");
+                    registro[4] = rs.getString("nombre_cliente");
                     registro[5] = rs.getString("clientete");
                     registro[6] = rs.getString("clientenu");
                     registro[7] = rs.getString("fecha_hora_ingreso");
@@ -271,37 +286,91 @@ public class Fingreso {
         return false; // No existe un ingreso similar
     }
 
-   public Object[] DatosReserva(int habitacion) {
-    Object[] reserva = new Object[9]; // Usa Object[] para poder almacenar varios tipos de datos
+    public Object[] DatosReserva(int habitacion) {
+        Object[] reserva = new Object[9]; // Usa Object[] para poder almacenar varios tipos de datos
 
-    sSQL = "SELECT r.cliente, r.documento, r.telefono, "
+        sSQL = "SELECT r.cliente, r.documento, r.telefono, "
                 + "r.numhabitacion, r.tipohabitacion, r.costoalojamiento, r.idcliente, h.caracteristicas, h.idhabitacion "
                 + "FROM reserva r "
                 + "INNER JOIN habitacion h ON h.numero = r.numhabitacion "
                 + "WHERE r.numhabitacion = ?";
 
-    try {
-        PreparedStatement pst = cn.prepareStatement(sSQL);
-        pst.setInt(1, habitacion);
-        ResultSet rs = pst.executeQuery();
+        try {
+            PreparedStatement pst = cn.prepareStatement(sSQL);
+            pst.setInt(1, habitacion);
+            ResultSet rs = pst.executeQuery();
 
-        if (rs.next()) {
-                  // Si es una fecha en formato String
-            reserva[0] = rs.getString("cliente");             
-            reserva[1] = rs.getString("documento");        
-            reserva[2] = rs.getString("telefono");          
-            reserva[3] = rs.getInt("numhabitacion");       
-            reserva[4] = rs.getString("tipohabitacion");   
-            reserva[5] = rs.getInt("costoalojamiento");  
-            reserva[6] = rs.getString("caracteristicas");
-            reserva[7] = rs.getInt("idhabitacion");
-            reserva[8] = rs.getInt("idcliente");
+            if (rs.next()) {
+                // Si es una fecha en formato String
+                reserva[0] = rs.getString("cliente");
+                reserva[1] = rs.getString("documento");
+                reserva[2] = rs.getString("telefono");
+                reserva[3] = rs.getInt("numhabitacion");
+                reserva[4] = rs.getString("tipohabitacion");
+                reserva[5] = rs.getInt("costoalojamiento");
+                reserva[6] = rs.getString("caracteristicas");
+                reserva[7] = rs.getInt("idhabitacion");
+                reserva[8] = rs.getInt("idcliente");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al obtener los datos de reserva: " + e.getMessage());
         }
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(null, "Error al obtener los datos de reserva: " + e.getMessage());
+
+        return reserva;
     }
 
-    return reserva;
-}
+    public DefaultTableModel mostraringreso(String buscar) {
+        DefaultTableModel modelo;
+
+        String[] titulos = {"Idingreso", "Idhabitacion", "Numero", "Idcliente", "Cliente", "Telefono", "Documento",
+            "Fecha ingreso", "Numero personas", "Tipo cliente", "Costo alojamiento", "Motivo viaje", "Estado", "Ciudad Recidencia", "Ciudad Procedencia"};
+
+        String[] registro = new String[15];
+
+        totalregistros = 0;
+        modelo = new DefaultTableModel(null, titulos);
+
+        sSQL = "SELECT i.idingreso, i.idhabitacion, h.numero, i.idcliente, "
+                + "(SELECT nombres FROM cliente WHERE idcliente=i.idcliente) AS clienten, "
+                + "(SELECT apellidos FROM cliente WHERE idcliente=i.idcliente) AS clienteap, "
+                + "(SELECT numdocumento FROM cliente WHERE idcliente=i.idcliente) AS clientenu, "
+                + "(SELECT telefono FROM cliente WHERE idcliente=i.idcliente) AS clientete, "
+                + "i.fecha_hora_ingreso, i.num_personas, i.tipo_cliente, i.costoalojamiento, "
+                + "i.motivo_viaje, i.estado, i.ciudad_de_recidencia, i.ciudad_de_procedencia "
+                + "FROM ingreso i "
+                + "INNER JOIN habitacion h ON i.idhabitacion=h.idhabitacion "
+                + "WHERE (SELECT numdocumento FROM cliente WHERE idcliente=i.idcliente AND i.estado = 'Activo') LIKE ? "
+                + "ORDER BY idingreso DESC";
+
+        try ( PreparedStatement pst = cn.prepareStatement(sSQL)) {
+            pst.setString(1, "%" + buscar + "%");
+            try ( ResultSet rs = pst.executeQuery()) {
+                while (rs.next()) {
+                    registro[0] = rs.getString("idingreso");
+                    registro[1] = rs.getString("idhabitacion");
+                    registro[2] = rs.getString("numero");
+                    registro[3] = rs.getString("idcliente");
+                    registro[4] = rs.getString("clienten") + " " + rs.getString("clienteap");
+                    registro[5] = rs.getString("clientete");
+                    registro[6] = rs.getString("clientenu");
+                    registro[7] = rs.getString("fecha_hora_ingreso");
+                    registro[8] = rs.getString("num_personas");
+                    registro[9] = rs.getString("tipo_cliente");
+                    registro[10] = rs.getString("costoalojamiento");
+                    registro[11] = rs.getString("motivo_viaje");
+                    registro[12] = rs.getString("estado");
+                    registro[13] = rs.getString("ciudad_de_recidencia");
+                    registro[14] = rs.getString("ciudad_de_procedencia");
+
+                    totalregistros++;
+                    modelo.addRow(registro);
+                }
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al mostrar los ingresos: " + e.getMessage());
+            return null;
+        }
+        return modelo;
+    }
 
 }

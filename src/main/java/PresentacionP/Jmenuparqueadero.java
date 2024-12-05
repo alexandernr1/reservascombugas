@@ -1,6 +1,8 @@
 package PresentacionP;
 
 import LogicaP.Finicioturnop;
+import static Presentacion.Jmenuprin.lblacceso;
+import static Presentacion.Jmenuprin.lblidpersona;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -23,6 +25,37 @@ public class Jmenuparqueadero extends javax.swing.JInternalFrame {
         lblestado.setText(estado);
 
     }
+    public static void limpiarDatosUsuario() {
+        lblfecha.setText("");
+        lblturnos.setText("");
+        lblempleado.setText("");
+        lblestado.setText("");
+    }
+
+    // Métodos para actualizar los JLabel
+    public static void actualizarFecha(String fecha) {
+        lblfecha.setText(fecha);
+    }
+
+    public static void actualizarTurno(String turno) {
+        lblturnos.setText(turno);
+    }
+
+    public static void actualizarEmpleado(String empleado) {
+        lblempleado.setText(empleado);
+    }
+
+    public static void actualizarEstado(String estado) {
+        lblestado.setText(estado);
+    }
+
+    public static int idusuario;
+
+    static void inhabilitar() {
+        lblidpersona.setVisible(false);
+        lblacceso.setVisible(false);
+
+    }
      public void metodoDondeSeNecesitaFormLogin() {
         // Inicialización de formLogin
         Jinicioturnop formLogin = new Jinicioturnop();
@@ -36,21 +69,23 @@ public class Jmenuparqueadero extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         desktopPane = new javax.swing.JDesktopPane();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        lblestado = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        lblfecha = new javax.swing.JLabel();
+        lblturnos = new javax.swing.JLabel();
+        lblempleado = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         btnregistrovehiculo = new javax.swing.JButton();
         btnsalidap = new javax.swing.JButton();
         btnentregaturnop = new javax.swing.JButton();
         btnpagosp = new javax.swing.JButton();
         btnregistro4 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        lblfecha = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        lblturnos = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        lblempleado = new javax.swing.JLabel();
-        lblestado = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
 
         setClosable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -59,19 +94,104 @@ public class Jmenuparqueadero extends javax.swing.JInternalFrame {
 
         desktopPane.setBackground(new java.awt.Color(0, 204, 204));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 690, Short.MAX_VALUE)
+        jPanel1.setBackground(new java.awt.Color(0, 204, 204));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\HotelC\\src\\main\\java\\File\\logo combugas.png")); // NOI18N
+
+        lblestado.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblestado.setText("estado");
+
+        jLabel9.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel9.setText("Estado:");
+
+        jLabel8.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel8.setText("Empleado:");
+
+        jLabel10.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel10.setText("Turno:");
+
+        jLabel6.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel6.setText("Fecha:");
+
+        lblfecha.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblfecha.setText("fecha");
+
+        lblturnos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblturnos.setText("turnos");
+
+        lblempleado.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblempleado.setText("empleado");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 420, Short.MAX_VALUE)
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        desktopPane.add(jPanel2);
-        jPanel2.setBounds(130, 100, 690, 420);
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(30, 30, 30)
+                                .addComponent(jLabel6))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(30, 30, 30)
+                                .addComponent(jLabel10))
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(jLabel9)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblfecha, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblturnos, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblempleado, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblestado, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 259, Short.MAX_VALUE)
+                        .addComponent(jLabel1)))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addGap(2, 2, 2)
+                                .addComponent(jLabel10)
+                                .addGap(2, 2, 2)
+                                .addComponent(jLabel8)
+                                .addGap(2, 2, 2)
+                                .addComponent(jLabel9))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(lblfecha)
+                                .addGap(0, 0, 0)
+                                .addComponent(lblturnos)
+                                .addGap(0, 0, 0)
+                                .addComponent(lblempleado)
+                                .addGap(0, 0, 0)
+                                .addComponent(lblestado)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jPanel2.setBackground(new java.awt.Color(0, 204, 204));
 
         btnregistrovehiculo.setBackground(new java.awt.Color(0, 204, 204));
         btnregistrovehiculo.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
@@ -79,15 +199,12 @@ public class Jmenuparqueadero extends javax.swing.JInternalFrame {
         btnregistrovehiculo.setText("INGRESO VEHICULO");
         btnregistrovehiculo.setActionCommand("     REGISTRO");
         btnregistrovehiculo.setBorder(null);
-        btnregistrovehiculo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnregistrovehiculo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnregistrovehiculo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnregistrovehiculoActionPerformed(evt);
             }
         });
-        desktopPane.add(btnregistrovehiculo);
-        btnregistrovehiculo.setBounds(0, 140, 130, 40);
 
         btnsalidap.setBackground(new java.awt.Color(0, 204, 204));
         btnsalidap.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
@@ -95,15 +212,12 @@ public class Jmenuparqueadero extends javax.swing.JInternalFrame {
         btnsalidap.setText("SALIDA VEHICULO");
         btnsalidap.setActionCommand("     REGISTRO");
         btnsalidap.setBorder(null);
-        btnsalidap.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnsalidap.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnsalidap.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnsalidapActionPerformed(evt);
             }
         });
-        desktopPane.add(btnsalidap);
-        btnsalidap.setBounds(0, 180, 130, 40);
 
         btnentregaturnop.setBackground(new java.awt.Color(0, 204, 204));
         btnentregaturnop.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
@@ -111,15 +225,12 @@ public class Jmenuparqueadero extends javax.swing.JInternalFrame {
         btnentregaturnop.setText("ENTREGA TURNO");
         btnentregaturnop.setActionCommand("     REGISTRO");
         btnentregaturnop.setBorder(null);
-        btnentregaturnop.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnentregaturnop.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnentregaturnop.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnentregaturnopActionPerformed(evt);
             }
         });
-        desktopPane.add(btnentregaturnop);
-        btnentregaturnop.setBounds(0, 220, 130, 40);
 
         btnpagosp.setBackground(new java.awt.Color(0, 204, 204));
         btnpagosp.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
@@ -127,15 +238,12 @@ public class Jmenuparqueadero extends javax.swing.JInternalFrame {
         btnpagosp.setText("PAGOS");
         btnpagosp.setActionCommand("     REGISTRO");
         btnpagosp.setBorder(null);
-        btnpagosp.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnpagosp.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnpagosp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnpagospActionPerformed(evt);
             }
         });
-        desktopPane.add(btnpagosp);
-        btnpagosp.setBounds(0, 260, 130, 40);
 
         btnregistro4.setBackground(new java.awt.Color(0, 204, 204));
         btnregistro4.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
@@ -143,72 +251,62 @@ public class Jmenuparqueadero extends javax.swing.JInternalFrame {
         btnregistro4.setText("REGISTRO");
         btnregistro4.setActionCommand("     REGISTRO");
         btnregistro4.setBorder(null);
-        btnregistro4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnregistro4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnregistro4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnregistro4ActionPerformed(evt);
             }
         });
-        desktopPane.add(btnregistro4);
-        btnregistro4.setBounds(0, 340, 130, 40);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\HotelC\\src\\main\\java\\File\\logo combugas.png")); // NOI18N
-        desktopPane.add(jLabel1);
-        jLabel1.setBounds(720, 0, 101, 100);
-
-        lblfecha.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblfecha.setText("fecha");
-        desktopPane.add(lblfecha);
-        lblfecha.setBounds(210, 10, 183, 20);
-
-        jLabel8.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        jLabel8.setText("Empleado:");
-        desktopPane.add(jLabel8);
-        jLabel8.setBounds(130, 50, 80, 18);
-
-        jLabel9.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        jLabel9.setText("Estado:");
-        desktopPane.add(jLabel9);
-        jLabel9.setBounds(150, 70, 49, 18);
-
-        lblturnos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblturnos.setText("turnos");
-        desktopPane.add(lblturnos);
-        lblturnos.setBounds(210, 30, 145, 20);
-
-        jLabel6.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        jLabel6.setText("Fecha:");
-        desktopPane.add(jLabel6);
-        jLabel6.setBounds(160, 10, 44, 18);
-
-        lblempleado.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblempleado.setText("empleado");
-        desktopPane.add(lblempleado);
-        lblempleado.setBounds(210, 50, 149, 20);
-
-        lblestado.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblestado.setText("estado");
-        desktopPane.add(lblestado);
-        lblestado.setBounds(210, 70, 89, 20);
-
-        jLabel10.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        jLabel10.setText("Turno:");
-        desktopPane.add(jLabel10);
-        jLabel10.setBounds(160, 30, 42, 18);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktopPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 817, Short.MAX_VALUE)
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(9, 9, 9)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnentregaturnop, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnsalidap, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnregistrovehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnpagosp, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnregistro4, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(desktopPane, javax.swing.GroupLayout.PREFERRED_SIZE, 521, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(114, 114, 114)
+                .addComponent(btnregistrovehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnsalidap, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnentregaturnop, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnpagosp, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnregistro4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(157, Short.MAX_VALUE))
         );
+
+        desktopPane.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        desktopPane.setLayer(jPanel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout desktopPaneLayout = new javax.swing.GroupLayout(desktopPane);
+        desktopPane.setLayout(desktopPaneLayout);
+        desktopPaneLayout.setHorizontalGroup(
+            desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(desktopPaneLayout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        desktopPaneLayout.setVerticalGroup(
+            desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(desktopPane, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -341,7 +439,9 @@ public class Jmenuparqueadero extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     public static javax.swing.JLabel lblempleado;
     public static javax.swing.JLabel lblestado;
     public static javax.swing.JLabel lblfecha;

@@ -1,6 +1,7 @@
 package Logica;
 
 import Datos.Dhabitacion;
+import Datos.Dreserva;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -158,60 +159,41 @@ public class Fhabitacion {
         }
     }
 
-    // Método para iniciar el hilo directamente
-    public void iniciarHiloReserva() {
-        Runnable reservaUpdater = () -> {
-            while (true) {
-                try {
-                    // Consulta para obtener reservas cuya fecha de ingreso es hoy
-                    sSQL = "SELECT idhabitacion, fechaingreso "
-                            + "FROM reserva1.reserva "
-                            + "WHERE fechaingreso = CURDATE()";
 
-                    try ( PreparedStatement pst = cn.prepareStatement(sSQL);  ResultSet rs = pst.executeQuery()) {
+    public void verificarReservas(Dreserva reserva) {
+        sSQL = "SELECT numhabitacion, fechaingreso FROM reserva1.reserva WHERE fechaingreso = CURDATE() AND numhabitacion = ?";
 
-                        while (rs.next()) {
-                            int idhabitacion = rs.getInt("idhabitacion");
-                            // Obtener fechaingreso directamente como Date
-                            LocalDate fechaIngresoDate = rs.getDate("fechaingreso").toLocalDate();
-                            LocalDate fechaActual = LocalDate.now();
+        try ( PreparedStatement pst = cn.prepareStatement(sSQL)) {
+            pst.setInt(1, reserva.getNumhabitacion()); // Pasar el número de habitación específico como parámetro
+            System.out.println("Número de habitación: " + reserva.getNumhabitacion());
 
-                            // Comparar la fecha de ingreso con la fecha actual
-                            if (fechaIngresoDate.isEqual(fechaActual)) {
-                                actualizarEstadoHabitacion(idhabitacion, "Reserva");
-                            } else if (fechaIngresoDate.isBefore(fechaActual)) {
-                                actualizarEstadoHabitacion(idhabitacion, "Disponible");
-                            } else if (fechaIngresoDate.isAfter(fechaActual)) {
-                                actualizarEstadoHabitacion(idhabitacion, "Disponible");
-                            }
-                        }
-                    } catch (SQLException e) {
-                        System.out.println("Error al verificar reservas: " + e.getMessage());
+            try ( ResultSet rs = pst.executeQuery()) {
+                if (rs.next()) { // Cambiado a `if` para asegurarte de que solo procesa una habitación
+                    int numhabitacion = rs.getInt("numhabitacion");
+                    LocalDate fechaIngresoDate = rs.getDate("fechaingreso").toLocalDate();
+                    LocalDate fechaActual = LocalDate.now();
+
+                    if (fechaIngresoDate.isEqual(fechaActual)) {
+                        actualizarEstadoHabitacion(numhabitacion, "Reserva");
+                    } else if (fechaIngresoDate.isBefore(fechaActual)) {
+                        actualizarEstadoHabitacion(numhabitacion, "Disponible");
+                    } else if (fechaIngresoDate.isAfter(fechaActual)) {
+                        actualizarEstadoHabitacion(numhabitacion, "Disponible");
                     }
-
-                    // Pausar por un tiempo antes de volver a comprobar (ejemplo: 1 hora)
-                    Thread.sleep(3600000); // 1 hora en milisegundos
-
-                } catch (InterruptedException e) {
-                    System.out.println("Error en el hilo de actualización de reservas: " + e.getMessage());
-                    Thread.currentThread().interrupt(); // Interrupción adecuada del hilo
-                    break;
                 }
             }
-        };
-
-        // Iniciar el hilo
-        Thread hiloReserva = new Thread(reservaUpdater);
-        hiloReserva.start();
+        } catch (SQLException e) {
+            System.out.println("Error al verificar reservas: " + e.getMessage());
+        }
     }
 
 // Método auxiliar para actualizar el estado de la habitación
-    public void actualizarEstadoHabitacion(int idhabitacion, String nuevoEstado) throws SQLException {
-        sSQL = "UPDATE habitacion SET estado=? WHERE idhabitacion=?";
+    public void actualizarEstadoHabitacion(int numero, String nuevoEstado) throws SQLException {
+        sSQL = "UPDATE habitacion SET estado=? WHERE numero=?";
 
         try ( PreparedStatement pst = cn.prepareStatement(sSQL)) {
             pst.setString(1, nuevoEstado);
-            pst.setInt(2, idhabitacion);
+            pst.setInt(2, numero);
             pst.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Error al actualizar la habitación a estado '" + nuevoEstado + "': " + e.getMessage());
@@ -246,7 +228,7 @@ public class Fhabitacion {
     }
 
     public boolean disponible(Dhabitacion dts) {
-        sSQL = "UPDATE habitacion SET estado='Disponible' WHERE idhabitacion=?";
+        sSQL = "UPDATE habitacion SET estado = 'Disponible' WHERE idhabitacion = ?";
 
         try ( PreparedStatement pst = cn.prepareStatement(sSQL)) {
             pst.setInt(1, dts.getIdhabitacion());

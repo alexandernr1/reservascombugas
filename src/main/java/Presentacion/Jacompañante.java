@@ -530,10 +530,11 @@ public final class Jacompañante extends javax.swing.JFrame {
                 mostraracompañante("");
 
                 int respuesta = JOptionPane.showConfirmDialog(rootPane, "ACOMPAÑANTE REGISTRADO.Deseas ingresar otro", "comfirmar", JOptionPane.YES_NO_OPTION);
-                if (respuesta == JOptionPane.YES_NO_OPTION) {
+                if (respuesta == JOptionPane.YES_OPTION) {
                     limpiarcampo();
-                    this.dispose();
 
+                } else if (respuesta == JOptionPane.NO_OPTION) {
+                    this.dispose();
                 }
 
             }

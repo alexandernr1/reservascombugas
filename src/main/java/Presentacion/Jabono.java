@@ -48,7 +48,7 @@ public class Jabono extends javax.swing.JFrame {
         inhabilitar();
         mostrarTiempo();
         agregarWindowFocusListener();
-//        generarnumero();
+        clientesVarios();
         iniciosenceros();
         JcambioHabit cambio = new JcambioHabit();
         txtsaldo_anterior.setText(cambio.saldo);
@@ -60,6 +60,12 @@ public class Jabono extends javax.swing.JFrame {
             instance = new Jabono();
         }
         return instance;
+    }
+
+    private void clientesVarios() {
+        txtrazon_social.setText("Clientes Varios");
+        txtdocumento.setText("22222");
+        txtemail.setText("ClietesVarios@clientes.com");
     }
 
     private void iniciosenceros() {
@@ -1372,6 +1378,7 @@ public class Jabono extends javax.swing.JFrame {
         limpiarcajas();
         iniciosenceros();
         mostrarTiempo();
+        clientesVarios();
         btnguardar.setText("Guardar");
         accion = "guardar";
 
@@ -1416,19 +1423,6 @@ public class Jabono extends javax.swing.JFrame {
                                 txtdocumento.setText(String.valueOf(clienteF.getDocumento()));
                             }
 
-//                            int idcliente = Integer.parseInt(txtidcliente.getText());
-//                            Fabonocongelado congelado = new Fabonocongelado();
-//                            DvalorCongelado datos = new DvalorCongelado();
-//                            int valorcongelado = congelado.obtenerSaldoCongelado(idcliente);
-//                            System.out.print("el valor congelado es"+valorcongelado);
-//                            if (valorcongelado > 0) {
-//                                int accion = JOptionPane.showConfirmDialog(rootPane, "El Cliente tiene un saldo POR USAR desea aplicarlo a la nueva habitacion", "confirmación", JOptionPane.YES_NO_OPTION);
-//                                if (accion == JOptionPane.YES_NO_OPTION) {
-//                                    txtabonohabitacion.setText(String.valueOf(valorcongelado));
-//                                    datos.setIdcliente(Integer.parseInt(txtidcliente.getText()));
-//                                    congelado.cambiarestado(datos);
-//                                }
-//                            }
                         } else {
                             JOptionPane.showMessageDialog(null, "No se encontró el CLIENTE solicitado.");
                         }

@@ -41,7 +41,7 @@
             <artifactId>jcalendar</artifactId>
             <version>1.4</version>
         </dependency>
-        <dependency>
+       <dependency>
             <groupId>br.ticket.adilson.util</groupId>
             <artifactId>ticket</artifactId>
             <version>1.0.0.0</version>

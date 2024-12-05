@@ -3,7 +3,6 @@ C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Present
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Datos\Dlimpieza.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Logica\Fempleado.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Datos\Dsalidaturno.java
-C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Presentacion\Jsalidaacompañante.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Logica\Fabonocongelado.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Presentacion\Javanzado.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Presentacion\Jsalidaturno.java
@@ -18,6 +17,7 @@ C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Datos\D
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Impresion\ImprimirCierreTurno.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Logica\FsalidaAcompañante.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Datos\Dfactura_electronica.java
+C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\LogicaP\Fsalidaturnop.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Presentacion\Jingreso.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Presentacion\Jmenuhotel.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Presentacion\Jreportes.java
@@ -44,9 +44,11 @@ C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Present
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\LogicaP\Lingresop.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Logica\Finicioturno.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Datos\Dpersona.java
+C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\DatosP\Dsalidaturnop.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Logica\GenerarCodigo.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\DatosP\Dsalidap.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Logica\Cconexion.java
+C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Presentacion\ListaOpciones.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Presentacion\Jvistareservas.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Presentacion\Jhabitaciones.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Presentacion\Jvistaingreso.java
@@ -68,6 +70,7 @@ C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Logica\
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Logica\Freserva.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Datos\Dsalida.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Datos\Dconsumo.java
+C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Presentacion\JconsultaFac_Elect.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Datos\Dreserva.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Presentacion\Jproducto.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\DatosP\Dingresop.java
@@ -81,6 +84,7 @@ C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Logica\
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\PresentacionP\Jinicioturnop.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Logica\ActualizadorColores.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Logica\Fsalida.java
+C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\LogicaP\Fsalidap.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\PresentacionP\Jmenuparqueadero.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\PresentacionP\Jpagop.java
 C:\Users\Usuario\Desktop\reservascombugas\reservascombugas\src\main\java\Presentacion\JVistaAbonos.java

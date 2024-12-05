@@ -109,64 +109,86 @@ public class Fsalida {
         return new Object[]{modelo, totalEfectivo, totalTarjeta, totalTransferencia};
     }
 
-   public DefaultTableModel HavitacionesOcupadas(String buscar) throws SQLException {
-    DefaultTableModel modelo;
+    public Object[] HavitacionesOcupadas(String buscar) throws SQLException {
+        DefaultTableModel modelo;
 
-    String[] titulos = {"idhabitacion", "Fecha Ingreso", "Habitacion", "Cliente", "Tipo Cliente", "Costo",
-                        "Otros Cobros", "Valor Total", "Abonos", "Numero Turno"};
-    
-    modelo = new DefaultTableModel(null, titulos);
-    totalregistros = 0;
+        // Definir los títulos de las columnas
+        String[] titulos = {
+            "Fecha Ingreso", "Habitación", "Cliente", "Tipo Cliente",
+            "Costo Alojamiento", "Dias", "Total Alojo", "Otros Cobros", "Total A Pagar", "Abonos", "Descuento", "Saldo"};
 
-    // Consulta SQL adaptada
-    String sSQL = "SELECT h.idhabitacion, "
-                + "i.fecha_hora_ingreso, "
-                + "h.numero, "
-                + "s.cliente, "
-                + "s.tipocliente, "
-                + "s.costoalojamiento, "
-                + "s.otros_cobros, "
-                + "s.valor_total, "
-                + "s.abonos, "
-                + "t.numero_turno "
-                + "FROM reserva1.habitacion h "
-                + "INNER JOIN salida s ON s.idhabitacion = h.idhabitacion "
-                + "INNER JOIN ingreso i ON i.idhabitacion = h.idhabitacion "
-                + "INNER JOIN inicioturno t ON i.num_turno = t.numero_turno "
-                + "WHERE t.estado = 'Activo' "
-                + "ORDER BY i.idhabitacion DESC";
+        totalregistros = 0;
+        modelo = new DefaultTableModel(null, titulos);
 
-    try {
-        Statement st = cn.createStatement();
-        ResultSet rs = st.executeQuery(sSQL);
+        sSQL = "SELECT STR_TO_DATE(i.fecha_hora_ingreso, '%d-%m-%Y %h:%i %p') AS fecha_ingreso, "
+                + "i.num_habitacion AS habitacion, "
+                + "CONCAT(c.nombres, ' ', c.apellidos) AS cliente, "
+                + "tipo_cliente,"
+                + "i.costoalojamiento AS costo_alojamiento, "
+                + "GREATEST(DATEDIFF(CURDATE(), STR_TO_DATE(i.fecha_hora_ingreso, '%d-%m-%Y %h:%i %p')) + 1, 1) AS dias_estancia, "
+                + "(GREATEST(DATEDIFF(CURDATE(), STR_TO_DATE(i.fecha_hora_ingreso, '%d-%m-%Y %h:%i %p')) + 1, 1) * i.costoalojamiento) AS total_alojo, "
+                + "COALESCE(SUM(a.otroscobros), 0) AS total_otros_cobros, "
+                + "((GREATEST(DATEDIFF(CURDATE(), STR_TO_DATE(i.fecha_hora_ingreso, '%d-%m-%Y %h:%i %p')) + 1, 1) * i.costoalojamiento) + COALESCE(SUM(a.otroscobros), 0)) AS total_a_pagar, "
+                + "COALESCE(SUM(a.totalabonos), 0) AS total_abonado, "
+                + " GREATEST(DATEDIFF(CURDATE(), STR_TO_DATE(i.fecha_hora_ingreso, '%d-%m-%Y %h:%i %p')) + 1, 1) * COALESCE(a.valordescuento, 0) AS descuento, "
+                + "((COALESCE(SUM(a.totalabonos), 0) "
+                + "- ((GREATEST(DATEDIFF(CURDATE(), STR_TO_DATE(i.fecha_hora_ingreso, '%d-%m-%Y %h:%i %p')) + 1, 1) * i.costoalojamiento) "
+                + "+ COALESCE(SUM(a.otroscobros), 0) "
+                + "- GREATEST(DATEDIFF(CURDATE(), STR_TO_DATE(i.fecha_hora_ingreso, '%d-%m-%Y %h:%i %p')) + 1, 1) * COALESCE(a.valordescuento, 0)))) AS saldo "
+                + "FROM ingreso i "
+                + "INNER JOIN cliente c ON i.idcliente = c.idcliente "
+                + "LEFT JOIN abono a ON i.idingreso = a.idingreso "
+                + "WHERE i.estado = 'Activo'  "
+                + "GROUP BY "
+                + "a.valordescuento, "
+                + "tipo_cliente,"
+                + "i.fecha_hora_ingreso,"
+                + "i.num_habitacion, "
+                + "c.nombres, "
+                + "c.apellidos, "
+                + "i.costoalojamiento "
+                + "ORDER BY i.fecha_hora_ingreso DESC ";
 
-        while (rs.next()) {
-            String[] registro = new String[10];  // Se crea un nuevo arreglo en cada iteración
-            registro[0] = rs.getString("idhabitacion");
-            registro[1] = rs.getString("fecha_hora_ingreso");
-            registro[2] = rs.getString("numero");
-            registro[3] = rs.getString("cliente");
-            registro[4] = rs.getString("tipocliente");
-            registro[5] = rs.getString("costoalojamiento");
-            registro[6] = rs.getString("otros_cobros");
-            registro[7] = rs.getString("valor_total");
-            registro[8] = rs.getString("abonos");
-            registro[9] = rs.getString("numero_turno");
+        int total_Alojo = 0;
+        int total_descuento = 0;
+        int total_OtrosCobros = 0;
+        int total_apagar = 0;
+        int total_abonado = 0;
+        int saldo = 0;
 
-            totalregistros++;
-            modelo.addRow(registro);
+        try ( Statement st = cn.createStatement();  ResultSet rs = st.executeQuery(sSQL)) {
+            while (rs.next()) {
+                String[] registro = new String[12];
+                registro[0] = rs.getString("fecha_ingreso");
+                registro[1] = rs.getString("habitacion");
+                registro[2] = rs.getString("cliente");
+                registro[3] = rs.getString("tipo_cliente");
+                registro[4] = rs.getString("costo_alojamiento");
+                registro[5] = rs.getString("dias_estancia");
+                registro[6] = rs.getString("total_alojo");
+                registro[7] = rs.getString("total_otros_cobros");
+                registro[8] = rs.getString("total_a_pagar");
+                registro[9] = rs.getString("total_abonado");
+                registro[10] = rs.getString("descuento");
+                registro[11] = rs.getString("saldo");
+
+                total_Alojo += rs.getInt("total_alojo");
+                total_OtrosCobros += rs.getInt("total_otros_cobros");
+                total_apagar += rs.getInt("total_a_pagar");
+                total_abonado += rs.getInt("total_abonado");
+                total_descuento += rs.getInt("descuento");
+                saldo += rs.getInt("saldo");
+
+                totalregistros++;
+                modelo.addRow(registro);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "No se pueden mostrar los datos: " + e.getMessage());
+            return null;
         }
 
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(null, "NO SE PUEDE MOSTRAR LOS DATOS: " + e.getMessage());
-        return null;
+        return new Object[]{modelo, total_Alojo, total_OtrosCobros, total_apagar, total_abonado, total_descuento, saldo};
     }
-
-    return modelo;  // Retornar el modelo en lugar de null
-}
-
-       
-    
 
     public boolean insertar(Dsalida dts) {
         sSQL = "insert into salida (idingreso,idcliente,idhabitacion,idabono,empleado,numero_turno,"

@@ -3,6 +3,7 @@ package Presentacion;
 import Datos.Dfactura_electronica;
 import Logica.Cconexion;
 import Logica.Ffactura_electronica;
+import java.awt.Color;
 import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
@@ -30,6 +31,10 @@ public class Jregistro_factura_electronica extends javax.swing.JFrame {
         setTitle("REGISTRO FACTURACION ELECTRINOCA");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         AutoCompleteDecoreitor();
+        cambiarfuente();
+        ocultar();
+        txtcajabuscar.setText("0");
+        txtidcliente.setText("0");
 
     }
     private String accion = "guardar";
@@ -41,6 +46,29 @@ public class Jregistro_factura_electronica extends javax.swing.JFrame {
         return instance;
     }
 
+    public void ocultar() {
+        txtcajabuscar.setVisible(false);
+        txtidcliente.setVisible(false);
+    }
+
+    private void cambiarfuente() {
+        txtdireccion.setForeground(new Color(34, 139, 34)); // Verde bosque
+        txtemail.setForeground(new Color(34, 139, 34));
+        txttelefono.setForeground(new Color(34, 139, 34));
+        txtrazon_social.setForeground(new Color(34, 139, 34));
+        txtdocumento.setForeground(new Color(34, 139, 34));
+        txtdv.setForeground(new Color(34, 139, 34));
+        chbNoResponsableIva.setForeground(new Color(34, 139, 34));
+
+        txtdireccion.setText("N/A");
+        txtemail.setText("222222@ClientesVarios.com");
+        txttelefono.setText("00000");
+        txtrazon_social.setText("Clientes Varios");
+        txtdocumento.setText("222222");
+        txtdv.setText("0");
+        chbNoResponsableIva.doClick();
+    }
+
     private void AutoCompleteDecoreitor() {
         AutoCompleteDecorator.decorate(cbodepartamento);
         AutoCompleteDecorator.decorate(cbomunicipio);
@@ -49,8 +77,8 @@ public class Jregistro_factura_electronica extends javax.swing.JFrame {
     }
 
     void limpiarcajas() {
-        txtcajabuscar.setText("");
-        txtidcliente.setText("");
+        txtcajabuscar.setText("0");
+        txtidcliente.setText("0");
         txtdocumento.setText("");
         txtdv.setText("");
         txtrazon_social.setText("");
@@ -110,7 +138,6 @@ public class Jregistro_factura_electronica extends javax.swing.JFrame {
         chbagente_retencion_iva = new javax.swing.JCheckBox();
         chbnoresponsable = new javax.swing.JCheckBox();
         btnregistrar = new javax.swing.JButton();
-        jLabel13 = new javax.swing.JLabel();
         txtcajabuscar = new javax.swing.JTextField();
         txtidcliente = new javax.swing.JTextField();
         chbautoretenedores = new javax.swing.JCheckBox();
@@ -118,8 +145,6 @@ public class Jregistro_factura_electronica extends javax.swing.JFrame {
         chbregimencomunpersonajuridica = new javax.swing.JCheckBox();
         chbNoResponsableIva = new javax.swing.JCheckBox();
         jButton1 = new javax.swing.JButton();
-        jLabel14 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
 
         jTextField4.setText("jTextField4");
 
@@ -128,7 +153,7 @@ public class Jregistro_factura_electronica extends javax.swing.JFrame {
         jLayeredPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "CLIENTES FACTURA ELECTRONICA", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Serif", 1, 12))); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel1.setText("Documento a quien se factura:");
+        jLabel1.setText("Documento:");
 
         txtdocumento.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         txtdocumento.addActionListener(new java.awt.event.ActionListener() {
@@ -143,7 +168,7 @@ public class Jregistro_factura_electronica extends javax.swing.JFrame {
         });
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel2.setText("Razon social/Nombre:");
+        jLabel2.setText("Razon social:");
 
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel3.setText("Tipo Persona:");
@@ -276,9 +301,6 @@ public class Jregistro_factura_electronica extends javax.swing.JFrame {
             }
         });
 
-        jLabel13.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel13.setText("N° huesped principal:");
-
         txtcajabuscar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         txtcajabuscar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -331,16 +353,6 @@ public class Jregistro_factura_electronica extends javax.swing.JFrame {
             }
         });
 
-        jLabel14.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel14.setText("Relacion:");
-
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/buscar.png"))); // NOI18N
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
         jLayeredPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(txtdocumento, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -369,7 +381,6 @@ public class Jregistro_factura_electronica extends javax.swing.JFrame {
         jLayeredPane1.setLayer(chbagente_retencion_iva, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(chbnoresponsable, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(btnregistrar, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(jLabel13, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(txtcajabuscar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(txtidcliente, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(chbautoretenedores, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -377,8 +388,6 @@ public class Jregistro_factura_electronica extends javax.swing.JFrame {
         jLayeredPane1.setLayer(chbregimencomunpersonajuridica, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(chbNoResponsableIva, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(jLabel14, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(jButton2, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
@@ -388,86 +397,68 @@ public class Jregistro_factura_electronica extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                        .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(btnregistrar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtcajabuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtidcliente, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(82, 82, 82))
+                    .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                        .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                                .addComponent(jLabel11)
-                                .addGap(153, 153, 153)
-                                .addComponent(jLabel10))
+                                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel8)
+                                            .addComponent(jLabel7))
+                                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                                        .addComponent(txtdocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jLabel12)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtdv, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txttelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtemail, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtdireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(cbotipo_persona, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(cbotipo_documento, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(cbomunicipio, javax.swing.GroupLayout.Alignment.LEADING, 0, 1, Short.MAX_VALUE)
+                                        .addComponent(cbodepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtrazon_social, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jLayeredPane1Layout.createSequentialGroup()
                                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(chbgrancontribuyente)
                                     .addComponent(chbregimen_simple_tributario)
                                     .addComponent(chbagente_retencion_iva)
                                     .addComponent(chbautoretenedor)
-                                    .addComponent(chbnoresponsable))
-                                .addGap(84, 84, 84)
+                                    .addComponent(chbnoresponsable)
+                                    .addComponent(jLabel11))
+                                .addGap(37, 37, 37)
                                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel10)
                                     .addComponent(chbNoResponsableIva)
                                     .addComponent(chbautoretenedores)
                                     .addComponent(chbregimencomunpersonajuridica)
-                                    .addComponent(chbGrancontribuyente)))
-                            .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                                .addComponent(btnregistrar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                        .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel8)
-                                    .addComponent(jLabel7))
-                                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
-                            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtrazon_social)
-                            .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cbotipo_documento, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cbodepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cbomunicipio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txttelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtemail, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                                        .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                                                .addComponent(txtdocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(42, 42, 42)
-                                                .addComponent(jLabel12))
-                                            .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                                                .addComponent(txtcajabuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(jLabel14)))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(txtdv, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
-                                            .addComponent(txtidcliente))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(cbotipo_persona, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtdireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addContainerGap())))))
+                                    .addComponent(chbGrancontribuyente))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jLayeredPane1Layout.setVerticalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel13)
-                        .addComponent(txtcajabuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtidcliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel14))
-                    .addComponent(jButton2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap()
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtdocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -477,6 +468,10 @@ public class Jregistro_factura_electronica extends javax.swing.JFrame {
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtrazon_social, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(5, 5, 5)
+                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtemail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -501,11 +496,7 @@ public class Jregistro_factura_electronica extends javax.swing.JFrame {
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(txttelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtemail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9))
-                .addGap(8, 8, 8)
+                .addGap(36, 36, 36)
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
                     .addComponent(jLabel10))
@@ -517,7 +508,7 @@ public class Jregistro_factura_electronica extends javax.swing.JFrame {
                     .addGroup(jLayeredPane1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(chbautoretenedor)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(chbagente_retencion_iva)
                         .addGap(4, 4, 4)
                         .addComponent(chbregimen_simple_tributario)
@@ -530,10 +521,14 @@ public class Jregistro_factura_electronica extends javax.swing.JFrame {
                         .addComponent(chbregimencomunpersonajuridica)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(chbNoResponsableIva)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnregistrar, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(btnregistrar, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtcajabuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtidcliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(12, 12, 12))
         );
 
@@ -541,7 +536,9 @@ public class Jregistro_factura_electronica extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLayeredPane1)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -649,42 +646,24 @@ public class Jregistro_factura_electronica extends javax.swing.JFrame {
 
         try {
             // Verificar si el cliente ya existe en la base de datos
-            if (fnc.existeCliente(dts.getDocumento())) { // Implementa este método en Ffactura_electronica
-                int opcion = JOptionPane.showConfirmDialog(rootPane, "El cliente ya existe. ¿Desea actualizar la información?", "Cliente Existente", JOptionPane.YES_NO_OPTION);
-
-                if (opcion == JOptionPane.YES_OPTION) {
-                    // Actualizar la información del cliente
-                    if (fnc.actualizar(dts)) { // Implementa este método en Ffactura_electronica
-                        int opcion1 = JOptionPane.showConfirmDialog(rootPane, "Cliente actualizado con éxito. ¿Desea realizar un abono?", "Confirmación", JOptionPane.YES_NO_OPTION);
-
-                        if (opcion1 == JOptionPane.YES_OPTION) {
-                            limpiarcajas();
-                            limpiarCheckboxes();
-//                    this.dispose();
-                            Jabono formularioAbono = new Jabono();
-                            formularioAbono.setVisible(true);
-                        }
-                    }
+            if (fnc.existeCliente(dts.getDocumento())) {
+                if (fnc.actualizar(dts)) {
+                    JOptionPane.showMessageDialog(null, "Registro con exito");
                 }
+
             } else {
                 // Insertar un nuevo cliente
                 if (fnc.insertar(dts)) {
-                    int opcion1 = JOptionPane.showConfirmDialog(rootPane, "Cliente registrado con éxito. ¿Desea realizar un abono?", "Confirmación", JOptionPane.YES_NO_OPTION);
-
-                    if (opcion1 == JOptionPane.YES_OPTION) {
-                        limpiarcajas();
-                        limpiarCheckboxes();
-//                    this.dispose();
-                        Jabono formularioAbono = new Jabono();
-                        formularioAbono.setVisible(true);
-                    }
+                    JOptionPane.showMessageDialog(null, "Registrado con Exito");
+                    limpiarcajas();
+                    limpiarCheckboxes();
                 }
+
             }
         } catch (SQLException ex) {
             Logger.getLogger(Jregistro_factura_electronica.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-
+        this.dispose();
     }//GEN-LAST:event_btnregistrarActionPerformed
 
     private void txtdocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtdocumentoActionPerformed
@@ -893,48 +872,6 @@ public class Jregistro_factura_electronica extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtdocumentoKeyPressed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-
-        Cconexion conexion = new Cconexion();
-
-        try {
-            Connection conectar = conexion.establecerConexion();
-
-            // Primera consulta: obtener el idcliente basado en el numdocumento
-            PreparedStatement pst1 = conectar.prepareStatement("select idcliente from ingreso where documento = ? AND estado = 'Activo'");
-            pst1.setString(1, txtcajabuscar.getText());
-
-            ResultSet rs1 = pst1.executeQuery();
-
-            if (rs1.next()) {
-                int idCliente = rs1.getInt("idcliente");
-
-                // Segunda consulta: obtener el num_habitacion basado en el idcliente
-                PreparedStatement pst2 = conectar.prepareStatement("select num_habitacion from ingreso where idcliente=?  and estado = 'Activo'");
-                pst2.setInt(1, idCliente);
-
-                ResultSet rs2 = pst2.executeQuery();
-
-                if (rs2.next()) {
-                    txtidcliente.setText(String.valueOf(idCliente));
-//                        txtnumero_habitacion.setText(rs2.getString("num_habitacion"));
-//                txtcliente.setText(rs1.getString("nombres") + " " + rs1.getString("apellidos"));
-
-                } else {
-                    JOptionPane.showMessageDialog(null, "No se encontró la habitación para el CLIENTE solicitado");
-                }
-
-            } else {
-                JOptionPane.showMessageDialog(null, "No se encontró el CLIENTE solicitado");
-            }
-
-        } catch (Exception ex) {
-            System.err.println("Error: " + ex);
-        }
-
-    }//GEN-LAST:event_jButton2ActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -986,13 +923,10 @@ public class Jregistro_factura_electronica extends javax.swing.JFrame {
     private javax.swing.JCheckBox chbregimen_simple_tributario;
     private javax.swing.JCheckBox chbregimencomunpersonajuridica;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

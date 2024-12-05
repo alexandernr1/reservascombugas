@@ -5,29 +5,29 @@
                CARTAGENA        
         DG 31D N.32A-25B.TERNERA
     -----------------------------------
-    Fecha Hora Inicio: 03-10-2024 03:42 PM
-    Fecha Hora Salida: 12-11-2024 03:37 PM
+    Fecha Hora Inicio: 20-11-2024 02:12 PM
+    Fecha Hora Salida: 26-11-2024 04:00 PM
                                 
                                 
     -----------------------------------
-    Total Recaudo: 17691000     
+    Total Recaudo: 140000       
     -----------------------------------
           Detalle del recaudado 
     -----------------------------------
                                 
-    Tarjetas: 3942400           
-    Efectivo: 9876200           
-    Transferencias: 3872400     
+    Tarjetas: 140000            
+    Efectivo: 0                 
+    Transferencias: 0           
                                 
-    Total Abonos: 70000         
+    Total Abonos: 140000        
     Otros Ingresos: 0           
     Total cambio habitaciones: 0
-    Efectivo Liquido: 9876200   
+    Efectivo Liquido: 0         
     Observaciones:              
     -----------------------------------
-    Empleado: alexander nieves romero
-    Turno: Turno 1 12/11/2024   
-    Numero Turno: 89            
+    Empleado: MARELVIS BELTRAN  
+    Turno: Turno 1 26/11/2024   
+    Numero Turno: 284           
     -----------------------------------
                                 
 VAVA

@@ -28,7 +28,7 @@ public class Freportefecha {
             // Establecer la conexión y ejecutar la consulta SQL
             Connection conectar = conexion.establecerConexion();
             st = conectar.createStatement();
-            rs = st.executeQuery("SELECT turno FROM reserva1.inicioturno"
+            rs = st.executeQuery("SELECT turno FROM inicioturno"
                     + " ORDER BY idinicioturno DESC LIMIT 90");
 
             // Recorrer los resultados de la consulta
@@ -62,7 +62,7 @@ public class Freportefecha {
             // Establecer la conexión y ejecutar la consulta SQL
             Connection conectar = conexion.establecerConexion();
             st = conectar.createStatement();
-            rs = st.executeQuery("SELECT turno FROM salidaturno ORDER BY idsalidaturno DESC LIMIT 90");
+            rs = st.executeQuery("SELECT turno FROM salida ORDER BY idsalida DESC LIMIT 90");
 
             // Recorrer los resultados de la consulta
             while (rs.next()) {
@@ -124,19 +124,19 @@ public class Freportefecha {
                 fila[0] = rs.getInt("idabono");
                 fila[1] = rs.getString("habitacion");
                 fila[2] = rs.getString("fechaabono"); // Convertir la fecha a cadena si es necesario
-                fila[3] = rs.getDouble("abonohabitacion");
-                fila[4] = rs.getDouble("descuentos");
-                fila[5] = rs.getDouble("otroscobros");
+                fila[3] = rs.getInt("abonohabitacion");
+                fila[4] = rs.getInt("descuentos");
+                fila[5] = rs.getInt("otroscobros");
                 fila[6] = rs.getString("numero_turno");
                 fila[7] = rs.getString("documento");
                 fila[8] = rs.getString("razon_social");
                 fila[9] = rs.getString("email");
                 fila[10] = rs.getInt("numeronoches");
-                fila[11] = rs.getDouble("valordescuento");
-                fila[12] = rs.getDouble("efectivo");
-                fila[13] = rs.getDouble("tarjeta");
-                fila[14] = rs.getDouble("transferencia");
-                fila[15] = rs.getDouble("totalapagar");
+                fila[11] = rs.getInt("valordescuento");
+                fila[12] = rs.getInt("efectivo");
+                fila[13] = rs.getInt("tarjeta");
+                fila[14] = rs.getInt("transferencia");
+                fila[15] = rs.getInt("totalapagar");
 
                 model.addRow(fila); // Agregar la fila a la tabla
             }
@@ -156,10 +156,10 @@ public class Freportefecha {
 
     public void llenarTablaIngreso(JComboBox<String> comboTurnoInicio, JComboBox<String> comboTurnoFin, JTable table) {
 
-        String[] titulos1 = {"idingreso", "idcliente", "Cliente", "documento", "Telefono", "Fecha Ingreso", "N° Personas", "Tipo Cliente",
+        String[] titulos1 = {"idingreso", "idcliente", "Cliente", "documento",
+            "Telefono", "Fecha Ingreso", "N° Personas", "Tipo Cliente",
             "Costo", "Motivo Viaje", "Estado", "C.R", "C.P", "N°Habi"};
 
-//        DefaultTableModel modelo = (DefaultTableModel) table.getModel();
         DefaultTableModel modelo = new DefaultTableModel(null, titulos1);
         table.setModel(modelo);
         modelo.setRowCount(0); // Limpiar la tabla antes de llenarla
@@ -168,7 +168,7 @@ public class Freportefecha {
         String turnoInicioSeleccionado = (String) comboTurnoInicio.getSelectedItem();
         String turnoFinSeleccionado = (String) comboTurnoFin.getSelectedItem();
 
-        Object[] registro = new Object[15]; // Cambia 16 por el número de columnas que tienes
+        Object[] registro = new Object[15];
         Cconexion conexion = new Cconexion();
 
         try {
@@ -222,12 +222,12 @@ public class Freportefecha {
             System.out.println("ERROR: " + e.getMessage());
         }
     }
-public void llenarTablaSalida(JComboBox<String> comboTurnoInicio, JComboBox<String> comboTurnoFin, JTable table) {
 
-        String[] titulos1 = {"Numero Turno", "Numero", "Cliente", "Numnoches", "Razon social", "Documento", "Email", "Costo", "Fecha Ingreso", "Fecha Salida", "Tipo Cliente",
-            "valor Noches", "Abonos", "Valor Total", "Descunetos", "Cobros Extra", "Otros Cobros",
-            "Deuda Anterior", /*"Total", "Antes IVA", "IVA 19", "Reten 35", "Reten 4", "Subtotal",*/
-            "Efectivo", "Tarjeta", "Transferencias", "Total Pago"};
+    public void llenarTablaSalida(JComboBox<String> comboTurnoInicio, JComboBox<String> comboTurnoFin, JTable table) {
+
+        String[] titulos1 = {"Numero", "Fecha Ingreso", "Fecha Salida", "Empleado",
+            "N° Turno", "Cliente", "Numnoches", "Costo", "Tipo Cliente",
+            "valor Noches", "Abonos", "Valor Total", "Total Pago"};
 
 //        DefaultTableModel modelo = (DefaultTableModel) table.getModel();
         DefaultTableModel modelos = new DefaultTableModel(null, titulos1);
@@ -238,21 +238,18 @@ public void llenarTablaSalida(JComboBox<String> comboTurnoInicio, JComboBox<Stri
         String turnoInicioSeleccionado = (String) comboTurnoInicio.getSelectedItem();
         String turnoFinSeleccionado = (String) comboTurnoFin.getSelectedItem();
 
-        Object[] registro = new Object[23]; // Cambia 16 por el número de columnas que tienes
+        Object[] registro = new Object[14]; // Cambia 16 por el número de columnas que tienes
         Cconexion conexion = new Cconexion();
 
         try {
             Connection conectar = conexion.establecerConexion();
             PreparedStatement ps = conectar.prepareStatement(
-                     "SELECT s.empleado, "
-                + "s.numero_turno, s.numero, s.cliente, s.numnoches, s.razon_social, s.documento, s.email, s.costoalojamiento, s.fechaingreso, s.fechasalida, "
-                + "s.tipocliente, s.valor_noches, s.abonos, s.valor_total, s.descuentos, s.cobros_extra, s.otros_cobros, "
-                + "s.deuda_anterior, " /*s.total, s.antesIVA, s.IVA19, s.reten35, s.reten4, s.subtotal,*/ 
-                + "s.efectivo, s.tarjeta, s.transferencias, s.totalpago "              
-                + "FROM salida s "
-                + "WHERE turno = ? AND turno = ? "
-                + "GROUP BY s.idsalida "
-                + "ORDER BY s.idsalida DESC");
+                    "SELECT s.numero, s.fechaingreso, s.fechasalida, s.empleado, s.numero_turno, "
+                    + "s.cliente, s.tipocliente, s.numnoches, s.costoalojamiento, "
+                    + "s.valor_noches, s.abonos, s.valor_total, s.totalpago "
+                    + "FROM salida s "
+                    + "WHERE turno BETWEEN ? AND ? "
+                    + "ORDER BY s.idsalida DESC");
 
             // Establecer los parámetros de la consulta
             ps.setString(1, turnoInicioSeleccionado); // Establecer el primer turno
@@ -263,35 +260,19 @@ public void llenarTablaSalida(JComboBox<String> comboTurnoInicio, JComboBox<Stri
             // Recorrer los resultados de la consulta y llenar la tabla
             while (rs.next()) {
 
-                registro[0] = rs.getString("empleado");
-                registro[1] = rs.getString("numero_turno");
-                registro[2] = rs.getString("numero");
-                registro[3] = rs.getString("cliente");
-                registro[4] = rs.getString("numnoches");
-                registro[5] = rs.getString("razon_social");
-                registro[6] = rs.getString("documento");
-                registro[7] = rs.getString("email");
+                registro[0] = rs.getString("numero");
+                registro[1] = rs.getString("fechaingreso");
+                registro[2] = rs.getString("fechasalida");
+                registro[3] = rs.getString("empleado");
+                registro[4] = rs.getString("numero_turno");
+                registro[5] = rs.getString("cliente");
+                registro[6] = rs.getString("tipocliente");
+                registro[7] = rs.getString("numnoches");
                 registro[8] = rs.getString("costoalojamiento");
-                registro[9] = rs.getString("fechaingreso");
-                registro[10] = rs.getString("fechasalida");
-                registro[11] = rs.getString("tipocliente");
-                registro[12] = rs.getString("valor_noches");
-                registro[13] = rs.getString("abonos");
-                registro[14] = rs.getString("valor_total");
-                registro[15] = rs.getString("descuentos");
-                registro[16] = rs.getString("cobros_extra");
-                registro[17] = rs.getString("otros_cobros");
-                registro[18] = rs.getString("deuda_anterior");
-//                registro[19] = rs.getString("total");
-//                registro[20] = rs.getString("antesIVA");
-//                registro[21] = rs.getString("IVA19");
-//                registro[22] = rs.getString("reten35");
-//                registro[23] = rs.getString("reten4");
-//                registro[24] = rs.getString("subtotal");
-                registro[19] = rs.getString("efectivo");
-                registro[20] = rs.getString("tarjeta");
-                registro[21] = rs.getString("transferencias");
-                registro[22] = rs.getString("totalpago");
+                registro[9] = rs.getString("valor_noches");
+                registro[10] = rs.getString("abonos");
+                registro[11] = rs.getString("valor_total");
+                registro[12] = rs.getString("totalpago");
 
                 modelos.addRow(registro); // Agregar fila a la tabla
 

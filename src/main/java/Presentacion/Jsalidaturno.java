@@ -5,6 +5,7 @@ import Datos.Dsalidaturno;
 import Datos.Tiempopro;
 import Impresion.ImprimirCierreTurno;
 import Logica.Finicioturno;
+import Logica.Freserva;
 import Logica.Fsalida;
 import Logica.Fsalidaturno;
 import java.awt.HeadlessException;
@@ -129,7 +130,7 @@ public class Jsalidaturno extends javax.swing.JFrame {
         dts1.setNumero_turno(Integer.parseInt(txtnumero_turno.getText()));
         func1.finalizarturno(dts1);
         limpiarcajas();
-        JOptionPane.showMessageDialog(this, "Turno cerrado");
+//        JOptionPane.showMessageDialog(this, "Turno cerrado");
         this.setVisible(false);
         this.dispose();
 
@@ -688,11 +689,20 @@ public class Jsalidaturno extends javax.swing.JFrame {
 
         if (accion.equals("guardar")) {
             if (func.insertar(dts)) {
-//                JOptionPane.showMessageDialog(rootPane, "Salida de turno satisfactoriamente");
 
-                finalizarTurno();
-                ImprimirCierreTurno imprimir = new ImprimirCierreTurno();
-                imprimir.ImprimirCierreTurno();
+                int confirmar = JOptionPane.showConfirmDialog(null, "Deseas eliminar todas las reservas?", "confirmar", JOptionPane.YES_NO_OPTION);
+                if (confirmar == JOptionPane.YES_OPTION) {
+                    Freserva reserva = new Freserva();
+                    reserva.eliminartodo();
+                    finalizarTurno();
+                    ImprimirCierreTurno imprimir = new ImprimirCierreTurno();
+                    imprimir.ImprimirCierreTurno();
+                } else if (confirmar == JOptionPane.NO_OPTION) {
+                    finalizarTurno();
+                    ImprimirCierreTurno imprimir = new ImprimirCierreTurno();
+                    imprimir.ImprimirCierreTurno();
+                }
+
             }
 
         }
@@ -769,7 +779,7 @@ public class Jsalidaturno extends javax.swing.JFrame {
                 txttarjeta.setText(formatoMiles.format(totalTarjeta));
                 txttransferencia.setText(formatoMiles.format(totalTransferencia));
 
-                int entregaadmon = Integer.parseInt(txtefectivo.getText().replace(",",""));
+                int entregaadmon = Integer.parseInt(txtefectivo.getText().replace(",", ""));
                 txtentrega_admon.setText(formatoMiles.format(entregaadmon));
 
                 int totalAbono = func.totalAbonos(numeroturno);

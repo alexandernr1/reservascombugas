@@ -18,6 +18,7 @@ import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -45,6 +46,7 @@ public final class Jsalidahuesped extends javax.swing.JFrame {
         mostrarTiempo();
         inhabilitar();
         colocarceros();
+        clientesVarios();
         agregarWindowFocusListener();
         txtcobrosfraccion.setText("0");
         txtotros_cobros.setText("0");
@@ -80,6 +82,11 @@ public final class Jsalidahuesped extends javax.swing.JFrame {
         }
         return instance;
     }
+     private void clientesVarios() {
+        txtrazon_social.setText("Clientes Varios");
+        txtDocumento.setText("22222");
+        txtcorreo.setText("ClietesVarios@clientes.com");
+    }
 
     private void mostrarnumeroturno() {
         Fsalida func = new Fsalida();
@@ -106,6 +113,19 @@ public final class Jsalidahuesped extends javax.swing.JFrame {
     private void mostrarTiempo() {
 
         txtfecha_hora_salida.setText(time.getFechacomp() + " " + time.getHoracomp());
+    }
+     private void imprimir() {
+        int confirmacion = JOptionPane.showConfirmDialog(rootPane, "Deseas imprimir?", "Confirmar", 2);
+
+        if (confirmacion == 0) {
+
+            ImprimirSalida imprimir = new ImprimirSalida();
+            try {
+                imprimir.ImprimirFacturaPago();
+            } catch (IOException ex) {
+                Logger.getLogger(Jsalidahuesped.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     void colocarceros() {
@@ -164,15 +184,7 @@ public final class Jsalidahuesped extends javax.swing.JFrame {
 
     }
 
-    void imprimir() {
-        ImprimirSalida imprimir = new ImprimirSalida();
-        try {
-            imprimir.ImprimirFacturaPago();
-
-        } catch (IOException ex) {
-            Logger.getLogger(Jsalidahuesped.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+   
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -1236,7 +1248,8 @@ public final class Jsalidahuesped extends javax.swing.JFrame {
     }//GEN-LAST:event_txtcobrosfraccionActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        limpiarcajas();           // TODO add your handling code here:
+        limpiarcajas();       
+        clientesVarios();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void txtcajabuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcajabuscarKeyPressed

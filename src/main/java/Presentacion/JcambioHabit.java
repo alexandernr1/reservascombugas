@@ -26,7 +26,6 @@ public final class JcambioHabit extends javax.swing.JFrame {
     public JcambioHabit() {
         initComponents();
         mostrar("");
-        mostrarcambio("");
         setLocationRelativeTo(null);
         setTitle("CAMBIO HABITACION");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -52,10 +51,7 @@ public final class JcambioHabit extends javax.swing.JFrame {
         return instance;
     }
 
-//    private void mostrarTiempo() {
-//
-//        jdfechaingreso.setText(time.getFechacomp() + " " + time.getHoracomp());
-//    }
+
 
     public void limpiarcajas() {
 
@@ -102,40 +98,13 @@ public final class JcambioHabit extends javax.swing.JFrame {
 
     }
 
-    void cultarcolumnas() {
-
-        tablalistadocambio.getColumnModel().getColumn(0).setMaxWidth(0);
-        tablalistadocambio.getColumnModel().getColumn(0).setMinWidth(0);
-        tablalistadocambio.getColumnModel().getColumn(0).setPreferredWidth(0);
-
-        tablalistadocambio.getColumnModel().getColumn(1).setMaxWidth(0);
-        tablalistadocambio.getColumnModel().getColumn(1).setMinWidth(0);
-        tablalistadocambio.getColumnModel().getColumn(1).setPreferredWidth(0);
-
-        tablalistadocambio.getColumnModel().getColumn(2).setMaxWidth(0);
-        tablalistadocambio.getColumnModel().getColumn(2).setMinWidth(0);
-        tablalistadocambio.getColumnModel().getColumn(2).setPreferredWidth(0);
-    }
-
-    public void mostrarcambio(String buscar) {
-        try {
-            DefaultTableModel modelo;
-            Fcambio func1 = new Fcambio();
-            modelo = func1.mostrarcambio(buscar);
-
-            tablalistadocambio.setModel(modelo);
-            cultarcolumnas();
-            lbltotalregistro1.setText("Total Registros " + Integer.toString(func1.totalregistros));
-        } catch (Exception e) {
-            JOptionPane.showConfirmDialog(rootPane, e);
-        }
-    }
+   
 
     public void mostrar(String buscar) {
         try {
             DefaultTableModel modelo;
             Fingreso func = new Fingreso();
-            modelo = func.mostrar(buscar);
+            modelo = func.mostraringreso(buscar);
 
             tablalistadoingreso.setModel(modelo);
             ocultar_columnas();
@@ -198,10 +167,6 @@ public final class JcambioHabit extends javax.swing.JFrame {
         jScrollPane6 = new javax.swing.JScrollPane();
         tablalistadoingreso = new javax.swing.JTable();
         lbltotalregistro = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jScrollPane7 = new javax.swing.JScrollPane();
-        tablalistadocambio = new javax.swing.JTable();
-        lbltotalregistro1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -230,7 +195,7 @@ public final class JcambioHabit extends javax.swing.JFrame {
 
         comestado.setEditable(true);
         comestado.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
-        comestado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Activo", "Finalizado", " " }));
+        comestado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Activo", "Finalizado", "congelar" }));
 
         txtnumdocumento.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         txtnumdocumento.addActionListener(new java.awt.event.ActionListener() {
@@ -347,6 +312,7 @@ public final class JcambioHabit extends javax.swing.JFrame {
         btnguardarcambio.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         btnguardarcambio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/guardar.png"))); // NOI18N
         btnguardarcambio.setText("Guardar");
+        btnguardarcambio.setEnabled(false);
         btnguardarcambio.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnguardarcambio.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         btnguardarcambio.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -530,7 +496,7 @@ public final class JcambioHabit extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
                     .addComponent(txtMotivoViaje, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txtempleado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -641,69 +607,12 @@ public final class JcambioHabit extends javax.swing.JFrame {
                         .addComponent(lbltotalregistros)
                         .addComponent(lbltotalregistro)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
-        );
-
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("LISTADO CAMBIO HABITACION"));
-
-        tablalistadocambio.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "Numero", "Cliente", "Identificación", "Telefono", "Fecha Ingreso", "N° Personas", "Tipo Cliente", "Costo", "Motivo de Viaje"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        tablalistadocambio.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tablalistadocambioMouseClicked(evt);
-            }
-        });
-        jScrollPane7.setViewportView(tablalistadocambio);
-
-        lbltotalregistro1.setText("Total registro");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lbltotalregistro1)
-                .addGap(77, 77, 77))
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                    .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 674, Short.MAX_VALUE)
-                    .addContainerGap()))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(lbltotalregistro1)
-                .addGap(0, 209, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
-                    .addContainerGap()))
         );
 
         jLayeredPane1.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jPanel8, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(jPanel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
@@ -712,9 +621,7 @@ public final class JcambioHabit extends javax.swing.JFrame {
             .addGroup(jLayeredPane1Layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jLayeredPane1Layout.setVerticalGroup(
@@ -722,12 +629,9 @@ public final class JcambioHabit extends javax.swing.JFrame {
             .addGroup(jLayeredPane1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(39, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -792,9 +696,6 @@ public final class JcambioHabit extends javax.swing.JFrame {
             if (accionGuardar.equals("guardarCambio")) {
 
                 if (func.insertarc(dts)) {
-                    mostrarcambio("");
-//                int confirmacion = JOptionPane.showConfirmDialog(rootPane, "Ingreso satisfactoriamente. ¿Desea realizar un abono?", "Confirmación", JOptionPane.YES_NO_OPTION);
-//                System.out.println("Confirmación Abono: " + (confirmacion == JOptionPane.YES_OPTION ? "Sí" : "No"));
                 } else {
                     JOptionPane.showMessageDialog(rootPane, "Error al guardar el ingreso");
                 }
@@ -1019,10 +920,6 @@ public final class JcambioHabit extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtpago_totalActionPerformed
 
-    private void tablalistadocambioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablalistadocambioMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tablalistadocambioMouseClicked
-
     private void txtidclienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtidclienteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtidclienteActionPerformed
@@ -1094,15 +991,11 @@ public final class JcambioHabit extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JTextField jdfechaingreso;
     private javax.swing.JLabel lbltotalregistro;
-    private javax.swing.JLabel lbltotalregistro1;
     private javax.swing.JLabel lbltotalregistros;
-    private javax.swing.JTable tablalistadocambio;
     private javax.swing.JTable tablalistadoingreso;
     private javax.swing.JTextField txtCiudadProcedencia;
     private javax.swing.JTextField txtCiudadRecidencia;
